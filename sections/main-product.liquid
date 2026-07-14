@@ -1,7 +1,13 @@
-{%- assign current_variant = product.selected_or_first_available_variant -%}
-{%- assign product_form_id = 'product-form-' | append: section.id -%}
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_form_id = 'product-form-' | append: section.id
+  assign short_desc = section.settings.short_description
+  if short_desc == blank
+    assign short_desc = product.description | strip_html | truncatewords: 28
+  endif
+-%}
 
-<div class="max-w-site mx-auto lg-grid" style="max-width:1200px;margin:0 auto;">
+<div class="pdp max-w-site mx-auto">
   <div class="pdp-layout">
     <section class="pdp-gallery" aria-label="Product images">
       <div class="pdp-gallery__main">
@@ -21,35 +27,48 @@
         {%- else -%}
           {{ 'product-1' | placeholder_svg_tag: 'pdp-placeholder' }}
         {%- endif -%}
+        <button type="button" class="pdp-wish" aria-label="Add to wishlist" data-wishlist>
+          <span class="material-symbols-outlined" aria-hidden="true">favorite</span>
+        </button>
       </div>
+
       {%- if product.media.size > 1 -%}
-        <div class="pdp-thumbs" role="list">
-          {%- for media in product.media -%}
-            <button
-              type="button"
-              {% if forloop.first %}class="is-active"{% endif %}
-              data-thumb="{{ media | image_url: width: 1200 }}"
-              aria-label="View image {{ forloop.index }}"
-            >
-              <img src="{{ media | image_url: width: 200 }}" alt="" loading="lazy">
-            </button>
-          {%- endfor -%}
+        <div class="pdp-thumbs-wrap">
+          <button type="button" class="pdp-thumbs__nav" data-thumbs-prev aria-label="Previous images">‹</button>
+          <div class="pdp-thumbs" role="list" data-thumbs-rail>
+            {%- for media in product.media -%}
+              <button
+                type="button"
+                class="pdp-thumbs__item{% if forloop.first %} is-active{% endif %}"
+                data-thumb="{{ media | image_url: width: 1200 }}"
+                aria-label="View image {{ forloop.index }}"
+              >
+                <img src="{{ media | image_url: width: 200 }}" alt="" loading="lazy" width="80" height="80">
+              </button>
+            {%- endfor -%}
+          </div>
+          <button type="button" class="pdp-thumbs__nav" data-thumbs-next aria-label="Next images">›</button>
         </div>
       {%- endif -%}
     </section>
 
     <section class="pdp-body">
       <h1 class="pdp-title">{{ product.title }}</h1>
+
       <div class="pdp-meta">
+        <div class="pdp-meta__rating">
+          <span class="pdp-meta__stars" aria-hidden="true">★★★★★</span>
+          <span class="pdp-meta__count">({{ section.settings.review_count }} Reviews)</span>
+        </div>
         {%- if product.available -%}
           <span class="pdp-stock">In Stock</span>
         {%- else -%}
-          <span class="pdp-stock" style="color:#b91c1c">Sold out</span>
+          <span class="pdp-stock pdp-stock--out">Sold out</span>
         {%- endif -%}
       </div>
 
-      {%- if product.description != blank -%}
-        <div class="pdp-desc">{{ product.description }}</div>
+      {%- if short_desc != blank -%}
+        <p class="pdp-desc">{{ short_desc }}</p>
       {%- endif -%}
 
       {% form 'product', product, id: product_form_id, class: 'product-form', data-product-form: '' %}
@@ -57,7 +76,7 @@
 
         {%- unless product.has_only_default_variant -%}
           {%- for option in product.options_with_values -%}
-            <span class="pdp-label">{{ option.name }}:</span>
+            <span class="pdp-label">{{ option.name }}</span>
             <div class="pdp-weights" role="group" aria-label="{{ option.name }}">
               {%- for value in option.values -%}
                 <button
@@ -83,12 +102,15 @@
         {%- endunless -%}
 
         <div class="pdp-price" id="price-{{ section.id }}">
-          <strong>{{ current_variant.price | money }}</strong>
-          {%- if current_variant.compare_at_price > current_variant.price -%}
-            <s>{{ current_variant.compare_at_price | money }}</s>
-            {%- assign save = current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round -%}
-            <span>{{ save }}% OFF</span>
-          {%- endif -%}
+          <div class="pdp-price__row">
+            <strong>{{ current_variant.price | money }}</strong>
+            {%- if current_variant.compare_at_price > current_variant.price -%}
+              <s>{{ current_variant.compare_at_price | money }}</s>
+              {%- assign save = current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round -%}
+              <span>{{ save }}% OFF</span>
+            {%- endif -%}
+          </div>
+          <p class="pdp-price__tax">(Inclusive of all taxes)</p>
         </div>
 
         <div class="pdp-actions">
@@ -101,7 +123,6 @@
               value="1"
               min="1"
               class="sr-only"
-              style="position:absolute;opacity:0;width:1px;height:1px"
             >
             <span id="qty-value">1</span>
             <button type="button" id="qty-plus" aria-label="Increase quantity">+</button>
@@ -112,14 +133,24 @@
             name="add"
             {% unless current_variant.available %}disabled{% endunless %}
           >
+            <span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span>
             {%- if current_variant.available -%}
-              {{ 'products.product.add_to_cart' | t }}
+              ADD TO CART
             {%- else -%}
               {{ 'products.product.sold_out' | t }}
             {%- endif -%}
           </button>
         </div>
-        {{ form | payment_button }}
+
+        <button
+          type="submit"
+          class="pdp-buy"
+          name="add"
+          data-buy-now
+          {% unless current_variant.available %}disabled{% endunless %}
+        >
+          BUY NOW
+        </button>
       {% endform %}
 
       <div class="pdp-trust">
@@ -150,7 +181,7 @@
           <div class="pdp-related__rail hide-scrollbar">
             {%- assign related = product.collections.first -%}
             {%- if related -%}
-              {%- for rel in related.products limit: 4 -%}
+              {%- for rel in related.products limit: 6 -%}
                 {%- unless rel.id == product.id -%}
                   {% render 'product-card', product: rel %}
                 {%- endunless -%}
@@ -162,16 +193,6 @@
     </section>
   </div>
 </div>
-
-<style>
-  .pdp-layout { display: grid; gap: 1.5rem; padding: 0 0 2rem; }
-  @media (min-width: 1024px) {
-    .pdp-layout { grid-template-columns: 1fr 1fr; gap: 2.5rem; padding: 2rem 1rem; }
-  }
-  #qty-value { display: inline-block; min-width: 1.5rem; text-align: center; font-weight: 600; }
-  .shopify-payment-button { width: 100%; }
-  .shopify-payment-button__button { border-radius: 999px !important; }
-</style>
 
 <script type="application/json" id="ProductJSON-{{ section.id }}">
   {{ product | json }}
@@ -185,6 +206,7 @@
     const selects = form.querySelectorAll('select[data-option-position]');
     const qtySpan = document.getElementById('qty-value');
     const qtyInput = document.getElementById('Quantity-product');
+    const buyNow = form.querySelector('[data-buy-now]');
 
     function syncQty() {
       if (qtySpan && qtyInput) qtySpan.textContent = qtyInput.value;
@@ -198,6 +220,23 @@
       syncQty();
     });
 
+    buyNow?.addEventListener('click', (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      fetch('/cart/add.js', {
+        method: 'POST',
+        body: fd,
+        headers: { Accept: 'application/json' },
+      })
+        .then((r) => {
+          if (!r.ok) throw new Error('add failed');
+          window.location.href = '/checkout';
+        })
+        .catch(() => {
+          form.submit();
+        });
+    });
+
     function selectedOptions() {
       return Array.from(selects).map((s) => s.value);
     }
@@ -205,27 +244,47 @@
       const opts = selectedOptions();
       return product.variants.find((v) => v.options.every((o, i) => o === opts[i]));
     }
+    function money(cents) {
+      if (window.Shopify && Shopify.formatMoney) return Shopify.formatMoney(cents);
+      return '₹' + (cents / 100).toFixed(0);
+    }
     function update() {
       const v = findVariant();
       if (!v || !idInput) return;
       idInput.value = v.id;
       const priceEl = document.getElementById('price-{{ section.id }}');
       if (priceEl) {
-        const money = (cents) => (Shopify?.formatMoney ? Shopify.formatMoney(cents) : '₹' + (cents / 100).toFixed(0));
-        let html = '<strong>' + money(v.price) + '</strong>';
+        let row = '<div class="pdp-price__row"><strong>' + money(v.price) + '</strong>';
         if (v.compare_at_price > v.price) {
           const save = Math.round(((v.compare_at_price - v.price) * 100) / v.compare_at_price);
-          html += ' <s>' + money(v.compare_at_price) + '</s> <span>' + save + '% OFF</span>';
+          row += ' <s>' + money(v.compare_at_price) + '</s> <span>' + save + '% OFF</span>';
         }
-        priceEl.innerHTML = html;
+        row += '</div><p class="pdp-price__tax">(Inclusive of all taxes)</p>';
+        priceEl.innerHTML = row;
       }
-      const submit = form.querySelector('[type="submit"]');
+      const submit = form.querySelector('.pdp-add');
       if (submit) {
         submit.disabled = !v.available;
-        submit.textContent = v.available ? {{ 'products.product.add_to_cart' | t | json }} : {{ 'products.product.sold_out' | t | json }};
+        submit.innerHTML = v.available
+          ? '<span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span> ADD TO CART'
+          : {{ 'products.product.sold_out' | t | json }};
+      }
+      if (buyNow) buyNow.disabled = !v.available;
+      const stock = document.querySelector('.pdp-stock');
+      if (stock) {
+        stock.textContent = v.available ? 'In Stock' : 'Sold out';
+        stock.classList.toggle('pdp-stock--out', !v.available);
       }
     }
     selects.forEach((s) => s.addEventListener('change', update));
+
+    const rail = document.querySelector('[data-thumbs-rail]');
+    document.querySelector('[data-thumbs-prev]')?.addEventListener('click', () => {
+      rail?.scrollBy({ left: -120, behavior: 'smooth' });
+    });
+    document.querySelector('[data-thumbs-next]')?.addEventListener('click', () => {
+      rail?.scrollBy({ left: 120, behavior: 'smooth' });
+    });
   })();
 </script>
 
@@ -233,6 +292,8 @@
 {
   "name": "Product information",
   "settings": [
+    { "type": "textarea", "id": "short_description", "label": "Short description (optional)", "info": "Shown under rating. Falls back to truncated product description." },
+    { "type": "text", "id": "review_count", "label": "Review count label", "default": "125" },
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
     { "type": "text", "id": "related_heading", "label": "Related heading", "default": "You May Also Like" }
   ],

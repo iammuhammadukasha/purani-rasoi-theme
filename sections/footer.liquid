@@ -14,9 +14,7 @@
     <div class="site-footer__grid">
       <div class="site-footer__col site-footer__brand">
         <a href="{{ routes.root_url }}" class="site-footer__logo" aria-label="{{ shop.name }} home">
-          <img src="{{ logo_src }}" alt="" class="site-footer__seal" width="56" height="56" loading="lazy">
-          <span class="site-footer__name">{{ settings.brand_name_line1 }}</span>
-          <span class="site-footer__sub">{{ settings.brand_name_line2 }}</span>
+          <img src="{{ logo_src }}" alt="{{ shop.name | escape }}" class="site-footer__seal" width="64" height="64" loading="lazy">
         </a>
         <p class="site-footer__tagline">{{ settings.footer_tagline }}</p>
         <div class="site-footer__social">

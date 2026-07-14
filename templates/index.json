@@ -3,8 +3,8 @@
     "hero": {
       "type": "hero-banner",
       "blocks": {
-        "t1": { "type": "trust", "settings": { "icon": "soup_kitchen", "label": "100%\nHomemade" } },
-        "t2": { "type": "trust", "settings": { "icon": "science", "label": "No\nPreservatives" } },
+        "t1": { "type": "trust", "settings": { "icon": "cooking", "label": "100%\nHomemade" } },
+        "t2": { "type": "trust", "settings": { "icon": "experiment", "label": "No\nPreservatives" } },
         "t3": { "type": "trust", "settings": { "icon": "skillet", "label": "Handcrafted\nIn Small Batches" } },
         "t4": { "type": "trust", "settings": { "icon": "favorite", "label": "Made With\nLove" } }
       },
@@ -48,8 +48,8 @@
       "blocks": {
         "w1": { "type": "item", "settings": { "icon": "home", "title": "Ghar Jaisa Swad", "text": "Bilkul waise hi jaise maa banaya karti thi." } },
         "w2": { "type": "item", "settings": { "icon": "eco", "title": "No Preservatives", "text": "Koi artificial color ya preservatives nahi." } },
-        "w3": { "type": "item", "settings": { "icon": "menu_book", "title": "Traditional Recipes", "text": "Purani aur authentic vidhi se tayyar." } },
-        "w4": { "type": "item", "settings": { "icon": "inventory_2", "title": "Small Batch Made", "text": "Har batch fresh aur specially aapke liye." } }
+        "w3": { "type": "item", "settings": { "icon": "auto_stories", "title": "Traditional Recipes", "text": "Purani aur authentic vidhi se tayyar." } },
+        "w4": { "type": "item", "settings": { "icon": "package_2", "title": "Small Batch Made", "text": "Har batch fresh aur specially aapke liye." } }
       },
       "block_order": ["w1", "w2", "w3", "w4"],
       "settings": { "heading": "Why Purani Rasoi" }

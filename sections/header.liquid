@@ -48,11 +48,7 @@
     </button>
 
     <a href="{{ routes.root_url }}" class="dh-logo" aria-label="{{ shop.name }} home">
-      <img src="{{ logo_src }}" alt="" width="48" height="48">
-      <span>
-        <strong>{{ brand1 }}</strong>
-        <em>{{ brand2 }}</em>
-      </span>
+      <img src="{{ logo_src }}" alt="{{ shop.name | escape }}" width="56" height="56">
     </a>
 
     <nav class="site-header__nav" aria-label="Primary">

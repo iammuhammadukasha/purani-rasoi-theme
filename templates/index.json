@@ -3,18 +3,19 @@
     "hero": {
       "type": "hero-banner",
       "blocks": {
-        "t1": { "type": "trust", "settings": { "icon": "home", "label": "100%\nHomemade" } },
-        "t2": { "type": "trust", "settings": { "icon": "block", "label": "No\nPreservatives" } },
-        "t3": { "type": "trust", "settings": { "icon": "handshake", "label": "Handcrafted\nIn Small Batches" } },
+        "t1": { "type": "trust", "settings": { "icon": "soup_kitchen", "label": "100%\nHomemade" } },
+        "t2": { "type": "trust", "settings": { "icon": "science", "label": "No\nPreservatives" } },
+        "t3": { "type": "trust", "settings": { "icon": "skillet", "label": "Handcrafted\nIn Small Batches" } },
         "t4": { "type": "trust", "settings": { "icon": "favorite", "label": "Made With\nLove" } }
       },
       "block_order": ["t1", "t2", "t3", "t4"],
       "settings": {
-        "eyebrow": "Traditional Recipe | Authentic Taste",
-        "heading": "Har Bite Mein\nGhar Ka Asli Swad",
-        "copy": "Dadi ke haathon ka swad jo har bite ko banaye special.",
+        "eyebrow": "TRADITIONAL RECIPE | AUTHENTIC TASTE",
+        "heading_line1": "Har Bite Mein",
+        "heading_line2": "Ghar Ka Asli Swad",
+        "copy": "Dadi ke haathon ka parampara aur maa ke pyaar ka swaad.",
         "desktop_copy": "Purani Rasoi ke achar, ghar ki parampara aur maa ke haathon ke swad ke saath, ab aapke ghar tak.",
-        "cta_label": "Shop Now"
+        "cta_label": "SHOP NOW"
       }
     },
     "categories": {

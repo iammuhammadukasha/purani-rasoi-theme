@@ -8,45 +8,59 @@
   if section.settings.cta_link != blank
     assign shop_url = section.settings.cta_link
   endif
+  assign heading_line1 = section.settings.heading_line1 | default: 'Har Bite Mein'
+  assign heading_line2 = section.settings.heading_line2 | default: 'Ghar Ka Asli Swad'
 -%}
 
 <div class="pr-hero">
-  <!-- Mobile -->
+  <!-- Mobile hero -->
   <section class="mh-hero home-mobile" aria-label="Hero">
     <div class="mh-hero__media">
-      <img src="{{ hero_src }}" alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}" width="1200" height="800">
+      <img
+        src="{{ hero_src }}"
+        alt="{{ section.settings.image.alt | default: heading_line1 | escape }}"
+        width="1200"
+        height="800"
+      >
     </div>
     <div class="mh-hero__shade"></div>
     <div class="mh-hero__content">
-      <h1 class="mh-hero__title">{{ section.settings.heading | newline_to_br }}</h1>
+      <h1 class="mh-hero__title">
+        <span class="mh-hero__title-line">{{ heading_line1 }}</span>
+        <span class="mh-hero__title-accent">{{ heading_line2 }}</span>
+      </h1>
       {%- if section.settings.copy != blank -%}
         <p class="mh-hero__copy">{{ section.settings.copy }}</p>
       {%- endif -%}
       <a href="{{ shop_url }}" class="mh-hero__cta">{{ section.settings.cta_label }} <span aria-hidden="true">→</span></a>
-      {%- if section.blocks.size > 0 -%}
-        <div class="mh-hero__trust" aria-label="Brand promises">
-          {%- for block in section.blocks -%}
-            <div class="mh-hero__trust-item" {{ block.shopify_attributes }}>
-              <span class="mh-hero__trust-icon material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
-              <span>{{ block.settings.label | newline_to_br }}</span>
-            </div>
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
     </div>
   </section>
 
-  <!-- Desktop -->
+  {%- if section.blocks.size > 0 -%}
+    <section class="mh-usp home-mobile" aria-label="Brand promises">
+      {%- for block in section.blocks -%}
+        <div class="mh-usp__item" {{ block.shopify_attributes }}>
+          <span class="mh-usp__icon material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
+          <span>{{ block.settings.label | replace: '<br />', ' ' | replace: '<br>', ' ' | strip_html }}</span>
+        </div>
+      {%- endfor -%}
+    </section>
+  {%- endif -%}
+
+  <!-- Desktop hero -->
   <section class="dh-hero home-desktop" aria-label="Hero">
     <div class="dh-hero__media">
-      <img src="{{ hero_src }}" alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}">
+      <img src="{{ hero_src }}" alt="{{ section.settings.image.alt | default: heading_line1 | escape }}">
     </div>
     <div class="dh-hero__shade"></div>
     <div class="dh-hero__content">
       {%- if section.settings.eyebrow != blank -%}
         <p class="dh-hero__eyebrow">{{ section.settings.eyebrow }}</p>
       {%- endif -%}
-      <h1>{{ section.settings.heading | newline_to_br }}</h1>
+      <h1 class="dh-hero__title">
+        <span class="dh-hero__title-line">{{ heading_line1 }}</span>
+        <span class="dh-hero__title-accent">{{ heading_line2 }}</span>
+      </h1>
       {%- if section.settings.desktop_copy != blank -%}
         <p class="dh-hero__copy">{{ section.settings.desktop_copy }}</p>
       {%- elsif section.settings.copy != blank -%}
@@ -71,12 +85,38 @@
 {
   "name": "Hero banner",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Background image" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow (desktop)", "default": "Traditional Recipe | Authentic Taste" },
-    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Har Bite Mein\nGhar Ka Asli Swad" },
-    { "type": "textarea", "id": "copy", "label": "Copy (mobile)", "default": "Dadi ke haathon ka swad jo har bite ko banaye special." },
-    { "type": "textarea", "id": "desktop_copy", "label": "Copy (desktop)", "default": "Purani Rasoi ke achar, ghar ki parampara aur maa ke haathon ke swad ke saath, ab aapke ghar tak." },
-    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Shop Now" },
+    { "type": "image_picker", "id": "image", "label": "Hero image (product on right)" },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow (desktop)",
+      "default": "TRADITIONAL RECIPE | AUTHENTIC TASTE"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading line 1 (white)",
+      "default": "Har Bite Mein"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading line 2 (gold)",
+      "default": "Ghar Ka Asli Swad"
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Copy (mobile)",
+      "default": "Dadi ke haathon ka parampara aur maa ke pyaar ka swaad."
+    },
+    {
+      "type": "textarea",
+      "id": "desktop_copy",
+      "label": "Copy (desktop)",
+      "default": "Purani Rasoi ke achar, ghar ki parampara aur maa ke haathon ke swad ke saath, ab aapke ghar tak."
+    },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "SHOP NOW" },
     { "type": "url", "id": "cta_link", "label": "Button link" }
   ],
   "blocks": [
@@ -84,7 +124,7 @@
       "type": "trust",
       "name": "Trust item",
       "settings": [
-        { "type": "text", "id": "icon", "label": "Material icon name", "default": "home" },
+        { "type": "text", "id": "icon", "label": "Material icon name", "default": "soup_kitchen" },
         { "type": "textarea", "id": "label", "label": "Label", "default": "100%\nHomemade" }
       ]
     }
@@ -93,9 +133,9 @@
     {
       "name": "Hero banner",
       "blocks": [
-        { "type": "trust", "settings": { "icon": "home", "label": "100%\nHomemade" } },
-        { "type": "trust", "settings": { "icon": "block", "label": "No\nPreservatives" } },
-        { "type": "trust", "settings": { "icon": "handshake", "label": "Handcrafted\nIn Small Batches" } },
+        { "type": "trust", "settings": { "icon": "soup_kitchen", "label": "100%\nHomemade" } },
+        { "type": "trust", "settings": { "icon": "science", "label": "No\nPreservatives" } },
+        { "type": "trust", "settings": { "icon": "skillet", "label": "Handcrafted\nIn Small Batches" } },
         { "type": "trust", "settings": { "icon": "favorite", "label": "Made With\nLove" } }
       ]
     }

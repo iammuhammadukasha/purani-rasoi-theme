@@ -1045,8 +1045,8 @@ a {
 }
 
 .site-topbar__logo-img {
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 5rem;
+  height: 5rem;
   object-fit: contain;
 }
 
@@ -2666,8 +2666,8 @@ a.bs-card__media {
 }
 
 .site-footer__seal {
-  width: 4.15rem;
-  height: 4.15rem;
+  width: 6rem;
+  height: 6rem;
   object-fit: contain;
   margin-bottom: 0;
   filter: drop-shadow(0 0 0 #d4a017);
@@ -2696,8 +2696,8 @@ a.bs-card__media {
 
 @media (min-width: 1024px) {
   .site-footer__seal {
-    width: 4.5rem;
-    height: 4.5rem;
+    width: 6.5rem;
+    height: 6.5rem;
   }
 
   .site-footer__tagline {
@@ -4187,8 +4187,8 @@ footer.site-footer.mh-footer {
     justify-self: center;
   }
   .dh-logo img {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 5rem;
+    height: 5rem;
   }
   .dh-tools {
     justify-self: end;

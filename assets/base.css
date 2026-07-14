@@ -2112,11 +2112,11 @@ a {
 
 .pdp-title {
   margin: 0 0 0.4rem;
-  font-family: "Playfair Display", "Playfair Display", Georgia, serif;
-  font-size: 1.65rem;
-  font-weight: 700;
-  line-height: 1.15;
-  color: #7e1e22;
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-h2);
+  color: var(--pr-red);
 }
 
 .pdp-meta {
@@ -2126,9 +2126,10 @@ a {
   justify-content: space-between;
   gap: 0.65rem;
   margin-bottom: 0.65rem;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.78rem;
-  color: #6b5b52;
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+  color: var(--pr-gray);
 }
 
 .pdp-meta__rating {
@@ -2139,43 +2140,46 @@ a {
 }
 
 .pdp-meta__stars {
-  color: #e8b64a;
+  color: var(--pr-gold);
   letter-spacing: 0.04em;
-  font-size: 0.9rem;
+  font-size: var(--fs-body);
   line-height: 1;
 }
 
 .pdp-meta__count {
-  color: #6b5b52;
+  color: var(--pr-gray);
   white-space: nowrap;
 }
 
 .pdp-stock {
-  color: #1f7a3f;
-  font-weight: 700;
-  font-size: 0.78rem;
+  color: var(--badge-instock);
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-caption);
   white-space: nowrap;
 }
 
 .pdp-stock--out {
-  color: #b91c1c;
+  color: var(--badge-oos);
 }
 
 .pdp-desc {
   margin: 0 0 1rem;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.8125rem;
-  line-height: 1.5;
-  color: #6b5b52;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body);
+  color: var(--pr-gray);
 }
 
 .pdp-label {
   display: block;
   margin-bottom: 0.4rem;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #5c4033;
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-caption);
+  color: var(--pr-dark);
 }
 
 .pdp-weights {
@@ -2189,12 +2193,12 @@ a {
   min-width: 4.1rem;
   padding: 0.5rem 0.85rem;
   border: 1px solid rgba(126, 30, 34, 0.18);
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   background: #f3eee7;
-  color: #7e1e22;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.8125rem;
-  font-weight: 600;
+  color: var(--pr-red);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semibold);
   cursor: pointer;
 }
 
@@ -2206,7 +2210,7 @@ a {
 
 .pdp-price {
   margin-bottom: 1rem;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-body);
 }
 
 .pdp-price__row {
@@ -2218,29 +2222,34 @@ a {
 
 .pdp-price strong,
 .pdp-price__row strong {
-  font-size: 1.55rem;
-  font-weight: 800;
-  color: #7e1e22;
+  font-family: var(--font-body);
+  font-size: var(--fs-price);
+  font-weight: var(--fw-semibold);
+  color: var(--pr-red);
   line-height: 1;
 }
 
 .pdp-price s,
 .pdp-price__row s {
-  color: #9a8b82;
-  font-size: 0.95rem;
+  color: var(--pr-gray);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
 }
 
 .pdp-price span,
 .pdp-price__row span {
-  color: #c47a2c;
-  font-size: 0.8rem;
-  font-weight: 700;
+  color: var(--badge-off);
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
 }
 
 .pdp-price__tax {
   margin: 0.3rem 0 0;
-  font-size: 0.7rem;
-  color: #9a8b82;
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+  color: var(--pr-gray);
 }
 
 .pdp-actions {
@@ -2273,21 +2282,22 @@ a {
 #qty-value {
   min-width: 1.6rem;
   text-align: center;
-  font-family: "Poppins", sans-serif;
-  font-weight: 700;
-  color: #7e1e22;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semibold);
+  color: var(--pr-red);
   display: inline-block;
 }
 
 .pdp-add {
   height: 2.85rem;
   border: 0;
-  border-radius: 8px;
-  background: #7e1e22;
+  border-radius: var(--radius-8);
+  background: var(--pr-red);
   color: #fff;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-family: var(--font-body);
+  font-size: var(--fs-btn);
+  font-weight: var(--fw-semibold);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   display: inline-flex;
@@ -2311,13 +2321,13 @@ a {
   display: block;
   width: 100%;
   height: 2.85rem;
-  border-radius: 8px;
-  border: 1.5px solid #7e1e22;
-  background: #fff8f0;
-  color: #7e1e22;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
+  border-radius: var(--radius-8);
+  border: 1.5px solid var(--pr-red);
+  background: var(--pr-cream);
+  color: var(--pr-red);
+  font-family: var(--font-body);
+  font-size: var(--fs-btn);
+  font-weight: var(--fw-semibold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 1.25rem;
@@ -2337,10 +2347,10 @@ a {
   gap: 0.5rem;
   padding: 0.7rem 0.65rem;
   border: 1px solid rgba(126, 30, 34, 0.12);
-  border-radius: 10px;
+  border-radius: var(--radius-12);
   background: #fffdf9;
-  font-family: "Poppins", sans-serif;
-  color: #7e1e22;
+  font-family: var(--font-body);
+  color: var(--pr-red);
 }
 
 .pdp-trust__item .material-symbols-outlined {
@@ -2359,17 +2369,19 @@ a {
 }
 
 .pdp-trust__title {
-  font-size: 0.72rem;
-  font-weight: 700;
-  line-height: 1.2;
-  color: #7e1e22;
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-caption);
+  color: var(--pr-red);
 }
 
 .pdp-trust__sub {
-  font-size: 0.62rem;
-  font-weight: 500;
-  line-height: 1.25;
-  color: #8a7468;
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-caption);
+  color: var(--pr-gray);
 }
 
 .pdp-acc {
@@ -2388,10 +2400,11 @@ a {
   align-items: center;
   gap: 0.75rem;
   padding: 0.95rem 0;
-  font-family: "Playfair Display", "Playfair Display", Georgia, serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #7e1e22;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-h3);
+  color: var(--pr-red);
   cursor: pointer;
 }
 
@@ -2413,10 +2426,11 @@ a {
 
 .pdp-acc__body {
   padding: 0 0 1rem;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.8125rem;
-  line-height: 1.55;
-  color: #5c4033;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body);
+  color: var(--pr-dark);
 }
 
 .pdp-acc__body ul {
@@ -2431,8 +2445,10 @@ a {
 .pdp-acc__body ul li {
   position: relative;
   padding-left: 1.55rem;
-  font-size: 0.85rem;
-  color: #7e1e22;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--pr-red);
 }
 
 .pdp-acc__body ul li::before {
@@ -2463,10 +2479,11 @@ a {
   justify-content: center;
   gap: 0.65rem;
   margin: 0 0 1.1rem;
-  font-family: "Playfair Display", "Playfair Display", Georgia, serif;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #7e1e22;
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-h2);
+  color: var(--pr-red);
   text-align: center;
   letter-spacing: 0.02em;
   text-transform: none;
@@ -2522,7 +2539,9 @@ a {
 }
 
 .pdp-related__rail .bs-card__title {
-  font-size: 0.8rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-product);
+  font-weight: var(--fw-medium);
   margin-bottom: 0.25rem;
 }
 

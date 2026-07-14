@@ -1045,8 +1045,8 @@ a {
 }
 
 .site-topbar__logo-img {
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 3.5rem;
+  height: 3.5rem;
   object-fit: contain;
 }
 
@@ -2666,8 +2666,8 @@ a.bs-card__media {
 }
 
 .site-footer__seal {
-  width: 3.25rem;
-  height: 3.25rem;
+  width: 4.15rem;
+  height: 4.15rem;
   object-fit: contain;
   margin-bottom: 0;
   filter: drop-shadow(0 0 0 #d4a017);
@@ -4187,8 +4187,8 @@ footer.site-footer.mh-footer {
     justify-self: center;
   }
   .dh-logo img {
-    width: 2.85rem;
-    height: 2.85rem;
+    width: 3.5rem;
+    height: 3.5rem;
   }
   .dh-tools {
     justify-self: end;

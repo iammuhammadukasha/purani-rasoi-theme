@@ -6,13 +6,15 @@
     <span class="material-symbols-outlined" aria-hidden="true">home</span>
     <span class="pr-bottom-nav__label">Home</span>
   </a>
-  <a
-    href="{{ routes.search_url }}"
-    class="pr-bottom-nav__item{% if request.page_type == 'search' %} is-active{% endif %}"
+  <button
+    type="button"
+    class="pr-bottom-nav__item"
+    data-ajax-search-open
+    aria-label="{{ 'general.search' | t }}"
   >
     <span class="material-symbols-outlined" aria-hidden="true">search</span>
     <span class="pr-bottom-nav__label">Search</span>
-  </a>
+  </button>
   <a
     href="{{ routes.all_products_collection_url }}"
     class="pr-bottom-nav__item{% if request.page_type == 'collection' or request.page_type == 'list-collections' %} is-active{% endif %}"

@@ -368,4 +368,149 @@
     root.addEventListener("mouseleave", restart);
     restart();
   });
+
+  /* Ajax / predictive search overlay */
+  const ajaxSearch = document.getElementById("ajax-search");
+  const ajaxInput = ajaxSearch?.querySelector("[data-ajax-search-input]");
+  const ajaxResults = ajaxSearch?.querySelector("[data-ajax-search-results]");
+  const ajaxMeta = ajaxSearch?.querySelector("[data-ajax-search-meta]");
+  const openBtns = document.querySelectorAll("[data-ajax-search-open]");
+  let ajaxTimer = null;
+  let ajaxSeq = 0;
+
+  function money(cents) {
+    const value = Number(cents || 0) / 100;
+    const currency = (window.Shopify && Shopify.currency && Shopify.currency.active) || "INR";
+    try {
+      return new Intl.NumberFormat(undefined, {
+        style: "currency",
+        currency,
+        maximumFractionDigits: 0,
+      }).format(value);
+    } catch (e) {
+      return "₹" + Math.round(value);
+    }
+  }
+
+  function setAjaxOpen(open) {
+    if (!ajaxSearch) return;
+    ajaxSearch.hidden = !open;
+    document.body.style.overflow = open ? "hidden" : "";
+    openBtns.forEach((btn) => btn.setAttribute("aria-expanded", String(open)));
+    if (open) {
+      setTimeout(() => ajaxInput?.focus(), 40);
+    } else if (ajaxInput) {
+      ajaxInput.value = "";
+      if (ajaxResults) ajaxResults.innerHTML = "";
+      if (ajaxMeta) ajaxMeta.textContent = "Type to search products";
+    }
+  }
+
+  function renderAjaxProducts(products, q) {
+    if (!ajaxResults) return;
+    if (!products.length) {
+      ajaxResults.innerHTML =
+        '<div class="ajax-search__empty">No products found for “' +
+        q.replace(/[<>&]/g, "") +
+        '”</div>';
+      if (ajaxMeta) ajaxMeta.textContent = "0 results";
+      return;
+    }
+    if (ajaxMeta) {
+      ajaxMeta.textContent =
+        products.length + (products.length === 1 ? " result" : " results") + ' for “' + q + '”';
+    }
+    ajaxResults.innerHTML = products
+      .map((p) => {
+        const price = p.price != null ? money(p.price) : "";
+        const img =
+          (p.featured_image && (p.featured_image.url || p.featured_image.src || p.featured_image)) ||
+          (p.image && (p.image.url || p.image)) ||
+          "";
+        const url = p.url || "#";
+        const title = p.title || "Product";
+        return (
+          '<article class="bs-card">' +
+          '<a href="' +
+          url +
+          '" class="bs-card__media">' +
+          (img
+            ? '<img src="' +
+              img +
+              '" alt="' +
+              title.replace(/"/g, "&quot;") +
+              '" width="400" height="480" loading="lazy">'
+            : "") +
+          "</a>" +
+          '<div class="bs-card__body">' +
+          '<h3 class="bs-card__title"><a href="' +
+          url +
+          '">' +
+          title +
+          "</a></h3>" +
+          (price ? '<div class="bs-card__price"><strong>' + price + "</strong></div>" : "") +
+          '<a class="bs-card__btn" href="' +
+          url +
+          '">View</a>' +
+          "</div></article>"
+        );
+      })
+      .join("");
+  }
+
+  async function runAjaxSearch(q) {
+    if (!ajaxResults) return;
+    const query = (q || "").trim();
+    if (query.length < 2) {
+      ajaxResults.innerHTML = "";
+      if (ajaxMeta) ajaxMeta.textContent = "Type at least 2 characters";
+      return;
+    }
+    const seq = ++ajaxSeq;
+    if (ajaxMeta) ajaxMeta.textContent = "Searching…";
+    try {
+      const url =
+        "/search/suggest.json?q=" +
+        encodeURIComponent(query) +
+        "&resources[type]=product&resources[limit]=12&resources[options][unavailable_products]=last";
+      const res = await fetch(url, { headers: { Accept: "application/json" } });
+      if (!res.ok) throw new Error("search failed");
+      const data = await res.json();
+      if (seq !== ajaxSeq) return;
+      const products = (data.resources && data.resources.results && data.resources.results.products) || [];
+      renderAjaxProducts(products, query);
+    } catch (err) {
+      if (seq !== ajaxSeq) return;
+      if (ajaxMeta) ajaxMeta.textContent = "Could not search right now";
+      ajaxResults.innerHTML =
+        '<div class="ajax-search__empty">Please try again in a moment.</div>';
+    }
+  }
+
+  openBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      setAjaxOpen(true);
+    });
+  });
+
+  ajaxSearch?.querySelectorAll("[data-ajax-search-close]").forEach((el) => {
+    el.addEventListener("click", () => setAjaxOpen(false));
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && ajaxSearch && !ajaxSearch.hidden) setAjaxOpen(false);
+  });
+
+  ajaxInput?.addEventListener("input", () => {
+    clearTimeout(ajaxTimer);
+    ajaxTimer = setTimeout(() => runAjaxSearch(ajaxInput.value), 280);
+  });
+
+  ajaxSearch
+    ?.querySelector("[data-ajax-search-form]")
+    ?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      runAjaxSearch(ajaxInput?.value || "");
+    });
 })();

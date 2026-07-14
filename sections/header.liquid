@@ -81,10 +81,14 @@
     </nav>
 
     <div class="dh-tools">
-      <a href="{{ routes.search_url }}" aria-label="{{ 'general.search' | t }}">
+      <button type="button" class="dh-tools__search" data-ajax-search-open aria-label="{{ 'general.search' | t }}" aria-expanded="false" aria-controls="ajax-search">
         <span class="material-symbols-outlined">search</span>
-      </a>
-      <a href="{% if shop.customer_accounts_enabled %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" aria-label="{{ 'general.account' | t }}">
+      </button>
+      <a
+        href="{% if shop.customer_accounts_enabled %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+        class="dh-tools__account"
+        aria-label="{{ 'general.account' | t }}"
+      >
         <span class="material-symbols-outlined">person</span>
       </a>
       <a href="{{ routes.cart_url }}" class="dh-tools__cart" aria-label="{{ 'general.cart' | t }}">
@@ -94,6 +98,32 @@
     </div>
   </div>
 </header>
+
+<div id="ajax-search" class="ajax-search" hidden>
+  <div class="ajax-search__backdrop" data-ajax-search-close tabindex="-1"></div>
+  <div class="ajax-search__panel" role="dialog" aria-modal="true" aria-labelledby="ajax-search-title">
+    <div class="ajax-search__head">
+      <h2 id="ajax-search-title" class="sr-only">{{ 'general.search' | t }}</h2>
+      <form class="ajax-search__form" role="search" action="{{ routes.search_url }}" method="get" data-ajax-search-form>
+        <span class="material-symbols-outlined ajax-search__icon" aria-hidden="true">search</span>
+        <label class="sr-only" for="AjaxSearchInput">{{ 'general.search' | t }}</label>
+        <input
+          id="AjaxSearchInput"
+          class="ajax-search__input"
+          type="search"
+          name="q"
+          placeholder="Search for pickles, achar…"
+          autocomplete="off"
+          data-ajax-search-input
+        >
+        <input type="hidden" name="type" value="product">
+        <button type="button" class="ajax-search__close" data-ajax-search-close aria-label="{{ 'general.accessibility.close' | t }}">✕</button>
+      </form>
+    </div>
+    <p class="ajax-search__meta" data-ajax-search-meta>Type to search products</p>
+    <div class="ajax-search__results shop-grid" data-ajax-search-results></div>
+  </div>
+</div>
 
 <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile">
   <button type="button" id="menu-close" class="mobile-nav__close" aria-label="{{ 'general.accessibility.close' | t }}">✕</button>

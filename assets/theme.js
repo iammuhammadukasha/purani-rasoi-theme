@@ -154,12 +154,17 @@
     let timer = null;
 
     function show(i) {
+      const prev = index;
       index = ((i % slides.length) + slides.length) % slides.length;
+      if (prev !== index && slides[prev]) {
+        slides[prev].classList.add("is-exit");
+        window.setTimeout(() => slides[prev].classList.remove("is-exit"), 450);
+      }
       slides.forEach((slide, n) => {
         const active = n === index;
         slide.classList.toggle("is-active", active);
-        if (active) slide.removeAttribute("hidden");
-        else slide.setAttribute("hidden", "");
+        slide.setAttribute("aria-hidden", active ? "false" : "true");
+        slide.removeAttribute("hidden");
       });
       dots.forEach((dot, n) => {
         const active = n === index;

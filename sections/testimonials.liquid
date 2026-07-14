@@ -11,8 +11,8 @@
         <blockquote
           class="mh-love love-carousel__slide{% if forloop.first %} is-active{% endif %}"
           data-love-slide
+          aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
           {{ block.shopify_attributes }}
-          {% unless forloop.first %}hidden{% endunless %}
         >
           <div class="mh-love__stars" aria-hidden="true">★★★★★</div>
           <p>{{ block.settings.quote }}</p>

@@ -4,6 +4,9 @@
   else
     assign logo_src = 'logo-purani-rasoi.png' | asset_url
   endif
+  assign ig = settings.social_instagram | default: '#'
+  assign fb = settings.social_facebook | default: '#'
+  assign wa = settings.whatsapp_number | default: '919876543210'
 -%}
 
 <footer id="contact" class="site-footer mh-footer">
@@ -16,17 +19,6 @@
           <span class="site-footer__sub">{{ settings.brand_name_line2 }}</span>
         </a>
         <p class="site-footer__tagline">{{ settings.footer_tagline }}</p>
-        <div class="site-footer__social">
-          {%- if settings.social_instagram != blank -%}
-            <a href="{{ settings.social_instagram }}" class="site-footer__social-btn" aria-label="Instagram">IG</a>
-          {%- endif -%}
-          {%- if settings.social_facebook != blank -%}
-            <a href="{{ settings.social_facebook }}" class="site-footer__social-btn" aria-label="Facebook">FB</a>
-          {%- endif -%}
-          {%- if settings.whatsapp_number != blank -%}
-            <a href="https://wa.me/{{ settings.whatsapp_number }}" class="site-footer__social-btn" aria-label="WhatsApp">WA</a>
-          {%- endif -%}
-        </div>
       </div>
 
       <div class="site-footer__col">
@@ -88,8 +80,30 @@
       </div>
     </div>
   </div>
+
   <div class="site-footer__bar">
-    <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All Rights Reserved.</p>
+    <div class="site-footer__bar-inner">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All Rights Reserved.</p>
+      <div class="site-footer__bar-right">
+        <div class="site-footer__bar-social">
+          <a href="https://wa.me/{{ wa }}" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" fill="currentColor"><path d="M16.75 13.96c-.25-.12-1.47-.72-1.7-.81-.22-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.76-1.84-.2-.48-.4-.42-.56-.42h-.48c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07 0 1.22.89 2.39 1.01 2.56.12.17 1.75 2.67 4.23 3.74 1.49.64 2.08.7 2.83.59.46-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28M12.03 21.5h-.01c-1.84 0-3.63-.5-5.2-1.43l-.37-.22-3.86 1.01 1.03-3.76-.24-.39a9.96 9.96 0 0 1-1.53-5.33c0-5.51 4.49-10 10-10.01 2.67 0 5.18 1.04 7.07 2.93A9.95 9.95 0 0 1 22 10.98c0 5.51-4.48 10-9.97 10.52m-.03-18.5C6.47 3 2.01 7.46 2.01 12.97c0 1.66.43 3.28 1.24 4.7L2.01 22l4.45-1.17a9.93 9.93 0 0 0 5.54 1.57H12c5.52 0 10-4.48 10-9.99A9.94 9.94 0 0 0 12 3"/></svg>
+          </a>
+          <a href="{{ fb }}" {% if fb != '#' %}target="_blank" rel="noopener"{% endif %} aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+          </a>
+          <a href="{{ ig }}" {% if ig != '#' %}target="_blank" rel="noopener"{% endif %} aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+          </a>
+        </div>
+        <div class="site-footer__pay" aria-label="Payment methods">
+          <span class="pay-visa">VISA</span>
+          <span class="pay-mc">mastercard</span>
+          <span class="pay-upi">UPI</span>
+          <span class="pay-cod">COD</span>
+        </div>
+      </div>
+    </div>
   </div>
 </footer>
 

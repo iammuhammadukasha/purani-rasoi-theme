@@ -8,7 +8,13 @@
   assign line2 = section.settings.heading_line2 | default: 'Ghar Ka Asli Swad'
   assign copy = section.settings.copy | default: 'Dadi ke haathon ka parampara aur maa ke pyaar ka swaad.'
   assign cta_label = section.settings.cta_label | default: 'Jaaniye Hamari Kahani'
-  assign cta_link = section.settings.cta_link | default: '#story'
+  if section.settings.cta_link != blank
+    assign cta_link = section.settings.cta_link
+  elsif pages['our-story'] != blank
+    assign cta_link = pages['our-story'].url
+  else
+    assign cta_link = '/pages/our-story'
+  endif
 -%}
 
 <section id="story" class="story-hero" aria-label="{{ cta_label | escape }}">

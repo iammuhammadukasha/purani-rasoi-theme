@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-story",
+      "blocks": {
+        "v1": {
+          "type": "value",
+          "settings": {
+            "icon": "home",
+            "title": "Ghar Jaisa Swad",
+            "text": "Bilkul waise hi jaise maa banaya karti thi."
+          }
+        },
+        "v2": {
+          "type": "value",
+          "settings": {
+            "icon": "eco",
+            "title": "No Preservatives",
+            "text": "Koi artificial color ya preservatives nahi."
+          }
+        },
+        "v3": {
+          "type": "value",
+          "settings": {
+            "icon": "auto_stories",
+            "title": "Traditional Recipes",
+            "text": "Purani aur authentic vidhi se tayyar."
+          }
+        },
+        "v4": {
+          "type": "value",
+          "settings": {
+            "icon": "package_2",
+            "title": "Small Batch Made",
+            "text": "Har batch fresh aur specially aapke liye."
+          }
+        }
+      },
+      "block_order": ["v1", "v2", "v3", "v4"],
+      "settings": {
+        "crumb_label": "Our Story",
+        "hero_title": "Hamari Kahani",
+        "eyebrow": "Jaaniye Hamari Kahani",
+        "intro_heading": "Purani Rasoi — ghar ki yaad, har jar mein",
+        "intro_copy": "Purani Rasoi sirf achar nahi bechti — hum woh ghar jaisa swaad laate hain jo dadi ke rasoi se aata hai. Har batch small, har masala carefully chosen, aur har jar mein thoda pyaar.",
+        "feature_heading": "Dadi ke haathon se aaj tak",
+        "feature_body": "<p>Kabhi ghar mein achar ripe sun ke banaya jaata tha — dheere-dheere, patiently, bina haste ke. Wahi parampara hum aaj bhi nibhate hain: traditional recipes, natural ingredients, aur koi artificial preservatives nahi.</p><p>Purani Rasoi ki shuruaat ek simple sapne se hui — ki har ghar mein woh asli swaad pahunche jo pehle sirf ghar ke kitchen mein milta tha. Aaj har jar usi kahani ka hissa hai.</p>",
+        "values_heading": "Humara Vaada",
+        "cta_heading": "Ab ghar ka swaad, aapke ghar mein",
+        "cta_copy": "Apna favourite achar chuniye aur Purani Rasoi ka swaad mehsoos kijiye.",
+        "cta_label": "Shop Our Achar"
+      }
+    }
+  },
+  "order": ["main"]
+}

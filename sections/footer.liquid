@@ -40,7 +40,7 @@
           {%- else -%}
             <li><a href="{{ routes.root_url }}">Home</a></li>
             <li><a href="{{ routes.all_products_collection_url }}">Shop</a></li>
-            <li><a href="{{ routes.root_url }}#story">Our Story</a></li>
+            <li><a href="{% if pages['our-story'] != blank %}{{ pages['our-story'].url }}{% else %}/pages/our-story{% endif %}">Our Story</a></li>
             <li><a href="{{ routes.root_url }}#blog">Recipes &amp; Blog</a></li>
             <li><a href="#contact">Contact Us</a></li>
           {%- endif -%}

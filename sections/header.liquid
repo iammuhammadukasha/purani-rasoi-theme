@@ -19,8 +19,10 @@
   endif
   if section.settings.link_story != blank
     assign story_url = section.settings.link_story
+  elsif pages['our-story'] != blank
+    assign story_url = pages['our-story'].url
   else
-    assign story_url = routes.root_url | append: '#story'
+    assign story_url = '/pages/our-story'
   endif
   if section.settings.link_blog != blank
     assign blog_url = section.settings.link_blog

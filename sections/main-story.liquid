@@ -1,0 +1,172 @@
+{%- liquid
+  if section.settings.hero_image != blank
+    assign hero_img = section.settings.hero_image | image_url: width: 2000
+  else
+    assign hero_img = 'banner-kitchen.png' | asset_url
+  endif
+  if section.settings.feature_image != blank
+    assign feature_img = section.settings.feature_image | image_url: width: 1200
+  else
+    assign feature_img = 'story-kitchen.png' | asset_url
+  endif
+  assign shop_url = routes.all_products_collection_url
+  if section.settings.cta_link != blank
+    assign shop_url = section.settings.cta_link
+  endif
+-%}
+
+<article class="story-page">
+  <section class="shop-banner story-page__banner" aria-label="{{ section.settings.hero_title | default: page.title | escape }}">
+    <img
+      src="{{ hero_img }}"
+      alt=""
+      width="1600"
+      height="600"
+      loading="eager"
+    >
+    <div class="shop-banner__shade" aria-hidden="true"></div>
+    <div class="shop-banner__content">
+      <nav class="shop-banner__crumbs" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a>
+        <span aria-hidden="true">/</span>
+        <span>{{ section.settings.crumb_label | default: 'Our Story' }}</span>
+      </nav>
+      <h1>{{ section.settings.hero_title | default: page.title | default: 'Hamari Kahani' }}</h1>
+    </div>
+  </section>
+
+  <div class="story-page__inner">
+    <header class="story-page__intro">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="story-page__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 class="story-page__heading">{{ section.settings.intro_heading | default: 'Purani Rasoi — ghar ki yaad, har jar mein' }}</h2>
+      {%- if section.settings.intro_copy != blank -%}
+        <p class="story-page__lead">{{ section.settings.intro_copy }}</p>
+      {%- endif -%}
+    </header>
+
+    <section class="story-page__feature" aria-labelledby="story-feature-title">
+      <div class="story-page__feature-media">
+        <img
+          src="{{ feature_img }}"
+          alt="{{ section.settings.feature_image.alt | default: section.settings.feature_heading | escape }}"
+          width="800"
+          height="640"
+          loading="lazy"
+        >
+      </div>
+      <div class="story-page__feature-copy">
+        <h3 id="story-feature-title">{{ section.settings.feature_heading | default: 'Dadi ke haathon se aaj tak' }}</h3>
+        {%- if section.settings.feature_body != blank -%}
+          <div class="story-page__prose">{{ section.settings.feature_body }}</div>
+        {%- elsif page.content != blank -%}
+          <div class="story-page__prose">{{ page.content }}</div>
+        {%- endif -%}
+      </div>
+    </section>
+
+    {%- if section.blocks.size > 0 -%}
+      <section class="story-page__values" aria-labelledby="story-values-title">
+        <h2 id="story-values-title" class="story-page__heading story-page__heading--center">
+          {{ section.settings.values_heading | default: 'Humara Vaada' }}
+        </h2>
+        <div class="story-page__values-grid">
+          {%- for block in section.blocks -%}
+            <div class="story-page__value" {{ block.shopify_attributes }}>
+              <span class="material-symbols-outlined story-page__value-icon" aria-hidden="true">{{ block.settings.icon | default: 'favorite' }}</span>
+              <h3>{{ block.settings.title }}</h3>
+              {%- if block.settings.text != blank -%}
+                <p>{{ block.settings.text }}</p>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </section>
+    {%- endif -%}
+
+    <section class="story-page__cta-band" aria-label="Shop">
+      <h2 class="story-page__heading story-page__heading--center">{{ section.settings.cta_heading | default: 'Ab ghar ka swaad, aapke ghar mein' }}</h2>
+      {%- if section.settings.cta_copy != blank -%}
+        <p class="story-page__lead story-page__lead--center">{{ section.settings.cta_copy }}</p>
+      {%- endif -%}
+      <a href="{{ shop_url }}" class="story-page__cta">
+        {{ section.settings.cta_label | default: 'Shop Our Achar' }}&nbsp;<span aria-hidden="true">→</span>
+      </a>
+    </section>
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Our Story page",
+  "settings": [
+    { "type": "image_picker", "id": "hero_image", "label": "Banner image" },
+    { "type": "text", "id": "crumb_label", "label": "Breadcrumb label", "default": "Our Story" },
+    { "type": "text", "id": "hero_title", "label": "Banner title", "default": "Hamari Kahani" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Jaaniye Hamari Kahani" },
+    {
+      "type": "text",
+      "id": "intro_heading",
+      "label": "Intro heading",
+      "default": "Purani Rasoi — ghar ki yaad, har jar mein"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_copy",
+      "label": "Intro copy",
+      "default": "Purani Rasoi sirf achar nahi bechti — hum woh ghar jaisa swaad laate hain jo dadi ke rasoi se aata hai. Har batch small, har masala carefully chosen, aur har jar mein thoda pyaar."
+    },
+    { "type": "image_picker", "id": "feature_image", "label": "Story image" },
+    {
+      "type": "text",
+      "id": "feature_heading",
+      "label": "Story heading",
+      "default": "Dadi ke haathon se aaj tak"
+    },
+    {
+      "type": "richtext",
+      "id": "feature_body",
+      "label": "Story body",
+      "default": "<p>Kabhi ghar mein achar ripe sun ke banaya jaata tha — dheere-dheere, patiently, bina haste ke. Wahi parampara hum aaj bhi nibhate hain: traditional recipes, natural ingredients, aur koi artificial preservatives nahi.</p><p>Purani Rasoi ki shuruaat ek simple sapne se hui — ki har ghar mein woh asli swaad pahunche jo pehle sirf ghar ke kitchen mein milta tha. Aaj har jar usi kahani ka hissa hai.</p>"
+    },
+    { "type": "text", "id": "values_heading", "label": "Values heading", "default": "Humara Vaada" },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "Bottom CTA heading",
+      "default": "Ab ghar ka swaad, aapke ghar mein"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_copy",
+      "label": "Bottom CTA copy",
+      "default": "Apna favourite achar chuniye aur Purani Rasoi ka swaad mehsoos kijiye."
+    },
+    { "type": "text", "id": "cta_label", "label": "Bottom CTA label", "default": "Shop Our Achar" },
+    { "type": "url", "id": "cta_link", "label": "Bottom CTA link" }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Material icon", "default": "home" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Ghar Jaisa Swad" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Bilkul waise hi jaise maa banaya karti thi." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our Story page",
+      "blocks": [
+        { "type": "value", "settings": { "icon": "home", "title": "Ghar Jaisa Swad", "text": "Bilkul waise hi jaise maa banaya karti thi." } },
+        { "type": "value", "settings": { "icon": "eco", "title": "No Preservatives", "text": "Koi artificial color ya preservatives nahi." } },
+        { "type": "value", "settings": { "icon": "auto_stories", "title": "Traditional Recipes", "text": "Purani aur authentic vidhi se tayyar." } },
+        { "type": "value", "settings": { "icon": "package_2", "title": "Small Batch Made", "text": "Har batch fresh aur specially aapke liye." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

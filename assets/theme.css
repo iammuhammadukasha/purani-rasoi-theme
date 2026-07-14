@@ -70,7 +70,13 @@
   .home-desktop { display: none !important; }
 }
 @media (min-width: 1024px) {
-  .home-mobile { display: none !important; }
+  .home-mobile,
+  .home-mobile.mh-usp,
+  .home-mobile.mh-hero,
+  .home-mobile.mh-section,
+  .pr-hero > .home-mobile {
+    display: none !important;
+  }
 }
 
 .product-form__error {

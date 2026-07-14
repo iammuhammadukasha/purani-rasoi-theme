@@ -13,13 +13,16 @@
           endif
         -%}
         <a href="{{ href }}" class="mh-cat" {{ block.shopify_attributes }}>
-          <img src="{{ img }}" alt="" loading="lazy">
+          <img src="{{ img }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="200" height="200">
           <span>{{ block.settings.title }}</span>
         </a>
       {%- endfor -%}
     </div>
     {%- if section.settings.view_all_label != blank -%}
-      <a href="{{ section.settings.view_all_link | default: routes.all_products_collection_url }}" class="mh-link-gold">{{ section.settings.view_all_label }}</a>
+      <a href="{{ section.settings.view_all_link | default: routes.all_products_collection_url }}" class="mh-link-gold">
+        {{ section.settings.view_all_label | remove: '>' | strip }}
+        <span aria-hidden="true">→</span>
+      </a>
     {%- endif -%}
   </div>
 
@@ -50,7 +53,7 @@
   "name": "Category circles",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "Shop By Category" },
-    { "type": "text", "id": "view_all_label", "label": "View all label", "default": "View All Categories >" },
+    { "type": "text", "id": "view_all_label", "label": "View all label", "default": "View All Categories" },
     { "type": "url", "id": "view_all_link", "label": "View all link" }
   ],
   "blocks": [
@@ -70,11 +73,11 @@
       "name": "Category circles",
       "blocks": [
         { "type": "category", "settings": { "title": "Aam Ka Achar", "fallback_asset": "aam.png" } },
-        { "type": "category", "settings": { "title": "Mirch Achar", "fallback_asset": "mirch.png" } },
-        { "type": "category", "settings": { "title": "Lasun Ka Achar", "fallback_asset": "lehsun.png" } },
-        { "type": "category", "settings": { "title": "Nimbu Ka Achar", "fallback_asset": "nimbu.png" } },
         { "type": "category", "settings": { "title": "Mixed Achar", "fallback_asset": "mixed.png" } },
-        { "type": "category", "settings": { "title": "Hari Mirch", "fallback_asset": "hari-mirch.png" } }
+        { "type": "category", "settings": { "title": "Lehsun Ka Achar", "fallback_asset": "lehsun.png" } },
+        { "type": "category", "settings": { "title": "Nimbu Ka Achar", "fallback_asset": "nimbu.png" } },
+        { "type": "category", "settings": { "title": "Mirch Ka Achar", "fallback_asset": "mirch.png" } },
+        { "type": "category", "settings": { "title": "Kaccha Aam", "fallback_asset": "mixed-hero.png" } }
       ]
     }
   ]

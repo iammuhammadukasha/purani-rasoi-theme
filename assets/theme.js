@@ -210,7 +210,7 @@
     start();
   });
 
-  /* Shop toolbar: filter drawer + grid/list view */
+  /* Shop toolbar: filter drawer, themed sort, grid/list view */
   const shopFilters = document.getElementById("shop-filters");
   const shopFilterBtns = document.querySelectorAll("[data-shop-filter]");
   const productGrid = document.getElementById("product-grid");
@@ -226,6 +226,7 @@
 
   shopFilterBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
+      closeAllSortMenus();
       const open = shopFilters?.classList.contains("is-open");
       setShopFiltersOpen(!open);
     });
@@ -233,8 +234,49 @@
   document.querySelectorAll("[data-shop-filter-close]").forEach((el) => {
     el.addEventListener("click", () => setShopFiltersOpen(false));
   });
+
+  function closeAllSortMenus() {
+    document.querySelectorAll("[data-shop-sort]").forEach((root) => {
+      const menu = root.querySelector(".shop-sort__menu");
+      const toggle = root.querySelector("[data-shop-sort-toggle]");
+      if (menu) menu.hidden = true;
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
+    });
+  }
+
+  document.querySelectorAll("[data-shop-sort]").forEach((root) => {
+    const toggle = root.querySelector("[data-shop-sort-toggle]");
+    const menu = root.querySelector(".shop-sort__menu");
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const open = !menu.hidden;
+      closeAllSortMenus();
+      if (!open) {
+        menu.hidden = false;
+        toggle.setAttribute("aria-expanded", "true");
+      }
+    });
+
+    menu.addEventListener("click", (e) => e.stopPropagation());
+
+    root.querySelectorAll("[data-sort-value]").forEach((opt) => {
+      if (opt.tagName === "A") return;
+      opt.addEventListener("click", () => {
+        root.querySelectorAll("[data-sort-value]").forEach((o) => o.classList.remove("is-active"));
+        opt.classList.add("is-active");
+        closeAllSortMenus();
+      });
+    });
+  });
+
+  document.addEventListener("click", () => closeAllSortMenus());
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") setShopFiltersOpen(false);
+    if (e.key === "Escape") {
+      setShopFiltersOpen(false);
+      closeAllSortMenus();
+    }
   });
 
   const viewKey = "pr-shop-view";

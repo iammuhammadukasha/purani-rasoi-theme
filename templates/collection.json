@@ -30,13 +30,51 @@
             "icon": "shopping_bag",
             "label": "Secure<br>Packaging"
           }
+        },
+        "promise_1": {
+          "type": "promise",
+          "settings": {
+            "icon": "emoji_people",
+            "label": "Made with Tradition"
+          }
+        },
+        "promise_2": {
+          "type": "promise",
+          "settings": {
+            "icon": "wb_sunny",
+            "label": "Sun Dried & Natural"
+          }
+        },
+        "promise_3": {
+          "type": "promise",
+          "settings": {
+            "icon": "spa",
+            "label": "Premium Ingredients"
+          }
+        },
+        "promise_4": {
+          "type": "promise",
+          "settings": {
+            "icon": "verified_user",
+            "label": "Hygienically Packed"
+          }
         }
       },
-      "block_order": ["trust_1", "trust_2", "trust_3", "trust_4"],
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_3",
+        "trust_4",
+        "promise_1",
+        "promise_2",
+        "promise_3",
+        "promise_4"
+      ],
       "settings": {
         "heading": "Our Shop",
         "crumb_label": "Shop",
         "show_trust": true,
+        "show_promise": true,
         "products_per_page": 16
       }
     }

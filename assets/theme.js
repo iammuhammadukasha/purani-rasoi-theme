@@ -378,18 +378,52 @@
   let ajaxTimer = null;
   let ajaxSeq = 0;
 
-  function money(cents) {
-    const value = Number(cents || 0) / 100;
+  function escapeHtml(str) {
+    return String(str || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function stripHtml(html) {
+    const el = document.createElement("div");
+    el.innerHTML = html || "";
+    return (el.textContent || el.innerText || "").replace(/\s+/g, " ").trim();
+  }
+
+  /* Predictive search returns decimal currency strings (e.g. "349.00"), not cents */
+  function money(amount) {
+    const value = Number(amount);
+    if (!Number.isFinite(value)) return "";
     const currency = (window.Shopify && Shopify.currency && Shopify.currency.active) || "INR";
     try {
       return new Intl.NumberFormat(undefined, {
         style: "currency",
         currency,
-        maximumFractionDigits: 0,
+        maximumFractionDigits: value % 1 === 0 ? 0 : 2,
       }).format(value);
     } catch (e) {
-      return "₹" + Math.round(value);
+      return "₹" + (value % 1 === 0 ? Math.round(value) : value.toFixed(2));
     }
+  }
+
+  function productImage(p) {
+    if (p.featured_image) {
+      if (typeof p.featured_image === "string") return p.featured_image;
+      if (p.featured_image.url) return p.featured_image.url;
+      if (p.featured_image.src) return p.featured_image.src;
+    }
+    if (p.image) {
+      if (typeof p.image === "string") return p.image;
+      if (p.image.url) return p.image.url;
+    }
+    const variant = Array.isArray(p.variants) ? p.variants[0] : null;
+    if (variant && variant.featured_image && variant.featured_image.url) {
+      return variant.featured_image.url;
+    }
+    if (variant && variant.image) return variant.image;
+    return "";
   }
 
   function setAjaxOpen(open) {
@@ -410,9 +444,7 @@
     if (!ajaxResults) return;
     if (!products.length) {
       ajaxResults.innerHTML =
-        '<div class="ajax-search__empty">No products found for “' +
-        q.replace(/[<>&]/g, "") +
-        '”</div>';
+        '<div class="ajax-search__empty">No products found for “' + escapeHtml(q) + '”</div>';
       if (ajaxMeta) ajaxMeta.textContent = "0 results";
       return;
     }
@@ -422,36 +454,80 @@
     }
     ajaxResults.innerHTML = products
       .map((p) => {
-        const price = p.price != null ? money(p.price) : "";
-        const img =
-          (p.featured_image && (p.featured_image.url || p.featured_image.src || p.featured_image)) ||
-          (p.image && (p.image.url || p.image)) ||
-          "";
         const url = p.url || "#";
         const title = p.title || "Product";
+        const img = productImage(p);
+        const alt =
+          (p.featured_image && p.featured_image.alt) || title;
+        const priceNum = Number(p.price_min != null ? p.price_min : p.price);
+        const compareNum = Number(
+          p.compare_at_price_min != null ? p.compare_at_price_min : p.compare_at_price_max
+        );
+        const priceLabel = Number.isFinite(priceNum) ? money(priceNum) : "";
+        const hasCompare = Number.isFinite(compareNum) && compareNum > priceNum && priceNum >= 0;
+        const savePct = hasCompare
+          ? Math.round(((compareNum - priceNum) / compareNum) * 100)
+          : 0;
+        const variant =
+          Array.isArray(p.variants) && p.variants.length === 1 ? p.variants[0] : null;
+        const sizeLabel =
+          variant && variant.title && variant.title !== "Default Title" ? variant.title : "";
+        const typeLabel = p.type || "";
+        const vendorLabel = p.vendor || "";
+        const available = p.available !== false;
+        const tags = Array.isArray(p.tags) ? p.tags : [];
+        const isBest =
+          tags.some((t) => String(t).toLowerCase().includes("bestseller")) ||
+          tags.some((t) => String(t).toLowerCase().includes("best seller"));
+        const excerpt = stripHtml(p.body || "").slice(0, 90);
+
         return (
-          '<article class="bs-card">' +
+          '<article class="bs-card ajax-search__card">' +
           '<a href="' +
-          url +
+          escapeHtml(url) +
           '" class="bs-card__media">' +
+          (isBest ? '<span class="bs-card__badge">Best Seller</span>' : "") +
+          (!available ? '<span class="bs-card__badge ajax-search__oos">Out of Stock</span>' : "") +
           (img
             ? '<img src="' +
-              img +
+              escapeHtml(img) +
               '" alt="' +
-              title.replace(/"/g, "&quot;") +
+              escapeHtml(alt) +
               '" width="400" height="480" loading="lazy">'
-            : "") +
+            : '<div class="ajax-search__img-fallback" aria-hidden="true"></div>') +
           "</a>" +
           '<div class="bs-card__body">' +
           '<h3 class="bs-card__title"><a href="' +
-          url +
+          escapeHtml(url) +
           '">' +
-          title +
+          escapeHtml(title) +
           "</a></h3>" +
-          (price ? '<div class="bs-card__price"><strong>' + price + "</strong></div>" : "") +
+          (sizeLabel || typeLabel
+            ? '<p class="bs-card__size">' +
+              escapeHtml(sizeLabel || typeLabel) +
+              "</p>"
+            : "") +
+          (vendorLabel
+            ? '<p class="ajax-search__vendor">' + escapeHtml(vendorLabel) + "</p>"
+            : "") +
+          (excerpt
+            ? '<p class="ajax-search__excerpt">' + escapeHtml(excerpt) + (excerpt.length >= 90 ? "…" : "") + "</p>"
+            : "") +
+          '<div class="bs-card__price">' +
+          (priceLabel ? "<strong>" + escapeHtml(priceLabel) + "</strong>" : "") +
+          (hasCompare ? "<s>" + escapeHtml(money(compareNum)) + "</s>" : "") +
+          (savePct > 0 ? '<span class="bs-card__off">' + savePct + "% OFF</span>" : "") +
+          "</div>" +
+          '<p class="ajax-search__stock ' +
+          (available ? "is-in" : "is-out") +
+          '">' +
+          (available ? "In stock" : "Out of stock") +
+          "</p>" +
           '<a class="bs-card__btn" href="' +
-          url +
-          '">View</a>' +
+          escapeHtml(url) +
+          '">' +
+          (available ? "View Product" : "View Details") +
+          "</a>" +
           "</div></article>"
         );
       })
@@ -472,12 +548,16 @@
       const url =
         "/search/suggest.json?q=" +
         encodeURIComponent(query) +
-        "&resources[type]=product&resources[limit]=12&resources[options][unavailable_products]=last";
+        "&resources[type]=product" +
+        "&resources[limit]=12" +
+        "&resources[options][unavailable_products]=last" +
+        "&resources[options][fields]=title,product_type,variants.title,vendor,tag,body";
       const res = await fetch(url, { headers: { Accept: "application/json" } });
       if (!res.ok) throw new Error("search failed");
       const data = await res.json();
       if (seq !== ajaxSeq) return;
-      const products = (data.resources && data.resources.results && data.resources.results.products) || [];
+      const products =
+        (data.resources && data.resources.results && data.resources.results.products) || [];
       renderAjaxProducts(products, query);
     } catch (err) {
       if (seq !== ajaxSeq) return;

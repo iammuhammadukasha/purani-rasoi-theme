@@ -4566,3 +4566,183 @@ footer.site-footer.mh-footer {
   object-fit: contain;
   mix-blend-mode: multiply;
 }
+
+/* Search page — matches shop layout + DS inputs */
+.search-panel {
+  max-width: var(--pr-max);
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-2) var(--space-2);
+}
+
+.search-panel__form {
+  width: 100%;
+}
+
+.search-panel__field {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.35rem 0.35rem 0.85rem;
+  background: #fff;
+  border: 1.5px solid var(--pr-beige);
+  border-radius: var(--radius-12);
+  box-shadow: var(--shadow-1);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-panel__field:focus-within {
+  border-color: var(--pr-red);
+  box-shadow: var(--shadow-2);
+}
+
+.search-panel__icon {
+  color: var(--pr-red);
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.search-panel__field input[type="search"] {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--pr-dark);
+  font-family: var(--font-body);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body-lg);
+  padding: 0.65rem 0.25rem;
+}
+
+.search-panel__field input[type="search"]::placeholder {
+  color: var(--pr-gray);
+}
+
+.search-panel__field input[type="search"]::-webkit-search-decoration,
+.search-panel__field input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.search-panel__submit {
+  border: 0;
+  border-radius: var(--radius-8);
+  background: var(--pr-red);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: var(--fs-btn);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.1rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.search-panel__submit:hover {
+  filter: brightness(1.05);
+}
+
+.search-panel__meta {
+  margin: var(--space-2) 0 0;
+  color: var(--pr-gray);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  text-align: center;
+}
+
+.search-grid {
+  padding-bottom: var(--space-4);
+}
+
+.search-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  text-align: center;
+  padding: var(--space-6) var(--space-2);
+  color: var(--pr-dark);
+}
+
+.search-empty .material-symbols-outlined {
+  font-size: 2.5rem;
+  color: var(--pr-red);
+  margin-bottom: 0.25rem;
+}
+
+.search-empty h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-h3);
+  color: var(--pr-red);
+}
+
+.search-empty p {
+  margin: 0 0 0.75rem;
+  max-width: 22rem;
+  color: var(--pr-gray);
+  font-size: var(--fs-body);
+}
+
+.search-empty .pr-btn,
+.search-empty .pr-btn--primary,
+.search-empty .pr-btn--secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.25rem;
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: var(--fs-btn);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.search-empty .pr-btn--secondary {
+  border: 1.5px solid var(--pr-red) !important;
+  background: transparent !important;
+  color: var(--pr-red) !important;
+}
+
+.search-pagination {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-3) 0 var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  color: var(--pr-dark);
+}
+
+.search-pagination a {
+  color: var(--pr-red);
+  text-decoration: none;
+  font-weight: var(--fw-semibold);
+}
+
+.search-pagination a:hover {
+  color: var(--pr-gold);
+}
+
+@media (max-width: 640px) {
+  .search-panel__field {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    padding: 0.65rem 0.75rem;
+  }
+
+  .search-panel__submit {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}

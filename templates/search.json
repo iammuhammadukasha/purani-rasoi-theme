@@ -1,0 +1,85 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-search",
+      "blocks": {
+        "trust_1": {
+          "type": "trust",
+          "settings": {
+            "icon": "soup_kitchen",
+            "label": "100%<br>Homemade"
+          }
+        },
+        "trust_2": {
+          "type": "trust",
+          "settings": {
+            "icon": "science",
+            "label": "No<br>Preservatives"
+          }
+        },
+        "trust_3": {
+          "type": "trust",
+          "settings": {
+            "icon": "skillet",
+            "label": "Small Batch<br>Mode"
+          }
+        },
+        "trust_4": {
+          "type": "trust",
+          "settings": {
+            "icon": "shopping_bag",
+            "label": "Secure<br>Packaging"
+          }
+        },
+        "promise_1": {
+          "type": "promise",
+          "settings": {
+            "icon": "emoji_people",
+            "label": "Made with Tradition"
+          }
+        },
+        "promise_2": {
+          "type": "promise",
+          "settings": {
+            "icon": "wb_sunny",
+            "label": "Sun Dried & Natural"
+          }
+        },
+        "promise_3": {
+          "type": "promise",
+          "settings": {
+            "icon": "spa",
+            "label": "Premium Ingredients"
+          }
+        },
+        "promise_4": {
+          "type": "promise",
+          "settings": {
+            "icon": "verified_user",
+            "label": "Hygienically Packed"
+          }
+        }
+      },
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_3",
+        "trust_4",
+        "promise_1",
+        "promise_2",
+        "promise_3",
+        "promise_4"
+      ],
+      "settings": {
+        "heading": "Search",
+        "crumb_label": "Search",
+        "placeholder": "Search for pickles, achar…",
+        "intro": "Find your favourite homemade pickles and pantry staples.",
+        "show_trust": true,
+        "show_promise": true,
+        "products_per_page": 16
+      }
+    }
+  },
+  "order": ["main"]
+}

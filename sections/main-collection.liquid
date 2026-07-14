@@ -193,16 +193,41 @@
 </section>
 
 {%- if section.settings.show_promise -%}
+  {%- assign promise_count = 0 -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'promise' -%}
+      {%- assign promise_count = promise_count | plus: 1 -%}
+    {%- endif -%}
+  {%- endfor -%}
   <section class="shop-promise" aria-label="Our promises">
     <div class="shop-promise__inner">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'promise' -%}
-          <div class="shop-promise__item" {{ block.shopify_attributes }}>
-            <span class="shop-promise__icon material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
-            <span>{{ block.settings.label }}</span>
-          </div>
-        {%- endif -%}
-      {%- endfor -%}
+      {%- if promise_count > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'promise' -%}
+            <div class="shop-promise__item" {{ block.shopify_attributes }}>
+              <span class="shop-promise__icon material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
+              <span>{{ block.settings.label }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        <div class="shop-promise__item">
+          <span class="shop-promise__icon material-symbols-outlined" aria-hidden="true">emoji_people</span>
+          <span>Made with Tradition</span>
+        </div>
+        <div class="shop-promise__item">
+          <span class="shop-promise__icon material-symbols-outlined" aria-hidden="true">wb_sunny</span>
+          <span>Sun Dried &amp; Natural</span>
+        </div>
+        <div class="shop-promise__item">
+          <span class="shop-promise__icon material-symbols-outlined" aria-hidden="true">spa</span>
+          <span>Premium Ingredients</span>
+        </div>
+        <div class="shop-promise__item">
+          <span class="shop-promise__icon material-symbols-outlined" aria-hidden="true">verified_user</span>
+          <span>Hygienically Packed</span>
+        </div>
+      {%- endif -%}
     </div>
   </section>
 {%- endif -%}

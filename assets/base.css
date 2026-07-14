@@ -1949,7 +1949,15 @@ a.bs-card__media {
   color: #77060c;
 }
 
-.mh-love {
+.love-carousel__viewport {
+  position: relative;
+  max-width: 22rem;
+  margin: 0 auto;
+  min-height: 11.5rem;
+}
+
+.mh-love,
+.love-carousel__slide {
   margin: 0 auto;
   max-width: 22rem;
   background: #fff;
@@ -1957,6 +1965,18 @@ a.bs-card__media {
   padding: 1.25rem 1.1rem 1rem;
   text-align: center;
   box-shadow: 0 6px 20px rgba(119, 6, 12, 0.07);
+}
+
+.love-carousel__slide {
+  transition: opacity 0.35s ease;
+}
+
+.love-carousel__slide[hidden] {
+  display: none;
+}
+
+.love-carousel__slide.is-active {
+  display: block;
 }
 
 .mh-love__stars {
@@ -1977,6 +1997,7 @@ a.bs-card__media {
 
 .mh-love footer {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
@@ -1988,6 +2009,7 @@ a.bs-card__media {
   border-radius: 999px;
   object-fit: cover;
   border: 1px solid rgba(119, 6, 12, 0.15);
+  flex-shrink: 0;
 }
 
 .mh-love cite {
@@ -2001,18 +2023,23 @@ a.bs-card__media {
 .mh-dots {
   display: flex;
   justify-content: center;
-  gap: 0.35rem;
+  gap: 0.4rem;
   margin-top: 0.85rem;
 }
 
-.mh-dots span {
+.mh-dots span,
+.mh-dots__dot {
   width: 0.4rem;
   height: 0.4rem;
+  padding: 0;
+  border: none;
   border-radius: 999px;
   background: rgba(119, 6, 12, 0.2);
+  cursor: pointer;
 }
 
-.mh-dots span.is-active {
+.mh-dots span.is-active,
+.mh-dots__dot.is-active {
   background: #77060c;
 }
 

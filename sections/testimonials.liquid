@@ -1,26 +1,44 @@
 <section class="pr-reviews" aria-labelledby="Reviews-{{ section.id }}">
-  <div class="mh-section mh-section--soft home-mobile">
+  <div
+    class="mh-section mh-section--soft home-mobile love-carousel"
+    data-love-carousel
+    data-interval="{{ section.settings.interval | default: 4000 }}"
+  >
     <h2 id="Reviews-{{ section.id }}" class="mh-heading">— {{ section.settings.heading_mobile }} —</h2>
-    {%- assign first = section.blocks.first -%}
-    {%- if first -%}
-      <blockquote class="mh-love">
-        <div class="mh-love__stars" aria-hidden="true">★★★★★</div>
-        <p>{{ first.settings.quote }}</p>
-        <footer>
-          {%- if first.settings.avatar != blank -%}
-            <img src="{{ first.settings.avatar | image_url: width: 72 }}" alt="" width="36" height="36" loading="lazy">
-          {%- else -%}
-            <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" width="36" height="36" loading="lazy">
-          {%- endif -%}
-          <cite>{{ first.settings.author }}</cite>
-        </footer>
-      </blockquote>
-      <div class="mh-dots" aria-hidden="true">
-        {%- for block in section.blocks -%}
-          <span {% if forloop.first %}class="is-active"{% endif %}></span>
-        {%- endfor -%}
-      </div>
-    {%- endif -%}
+
+    <div class="love-carousel__viewport">
+      {%- for block in section.blocks -%}
+        <blockquote
+          class="mh-love love-carousel__slide{% if forloop.first %} is-active{% endif %}"
+          data-love-slide
+          {{ block.shopify_attributes }}
+          {% unless forloop.first %}hidden{% endunless %}
+        >
+          <div class="mh-love__stars" aria-hidden="true">★★★★★</div>
+          <p>{{ block.settings.quote }}</p>
+          <footer>
+            {%- if block.settings.avatar != blank -%}
+              <img src="{{ block.settings.avatar | image_url: width: 72 }}" alt="" width="36" height="36" loading="lazy">
+            {%- else -%}
+              <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" width="36" height="36" loading="lazy">
+            {%- endif -%}
+            <cite>{{ block.settings.author }}</cite>
+          </footer>
+        </blockquote>
+      {%- endfor -%}
+    </div>
+
+    <div class="mh-dots" data-love-dots role="tablist" aria-label="Testimonials">
+      {%- for block in section.blocks -%}
+        <button
+          type="button"
+          class="mh-dots__dot{% if forloop.first %} is-active{% endif %}"
+          data-love-dot="{{ forloop.index0 }}"
+          aria-label="Show review {{ forloop.index }}"
+          {% if forloop.first %}aria-current="true"{% endif %}
+        ></button>
+      {%- endfor -%}
+    </div>
   </div>
 
   <div class="dh-reviews home-desktop">
@@ -49,14 +67,24 @@
   "name": "Testimonials",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading (desktop)", "default": "What Our Customers Say" },
-    { "type": "text", "id": "heading_mobile", "label": "Heading (mobile)", "default": "Customer Love" }
+    { "type": "text", "id": "heading_mobile", "label": "Heading (mobile)", "default": "Customer Love" },
+    {
+      "type": "range",
+      "id": "interval",
+      "min": 2500,
+      "max": 8000,
+      "step": 500,
+      "unit": "ms",
+      "label": "Auto-rotate speed",
+      "default": 4000
+    }
   ],
   "blocks": [
     {
       "type": "review",
       "name": "Review",
       "settings": [
-        { "type": "textarea", "id": "quote", "label": "Quote", "default": "“Wahi purana swad… packaging bhi bahut acchi hai.”" },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”" },
         { "type": "text", "id": "author", "label": "Author", "default": "Priya Sharma" },
         { "type": "image_picker", "id": "avatar", "label": "Avatar" }
       ]

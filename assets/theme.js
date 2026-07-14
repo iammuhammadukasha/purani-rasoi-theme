@@ -33,7 +33,6 @@
   });
   shopMenu?.addEventListener("click", (e) => e.stopPropagation());
 
-  /* PDP quantity + gallery */
   const qtyInput = document.getElementById("Quantity-product");
   const qtySpan = document.getElementById("qty-value");
   function syncQtyDisplay() {
@@ -61,7 +60,6 @@
     });
   });
 
-  /* Variant weight buttons → select option */
   document.querySelectorAll("[data-option-value]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const value = btn.getAttribute("data-option-value");
@@ -80,7 +78,6 @@
     });
   });
 
-  /* AJAX add to cart */
   document.querySelectorAll("form[data-product-form]").forEach((form) => {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -92,17 +89,13 @@
           btn.dataset.label = btn.innerHTML;
           btn.textContent = "Adding…";
         }
-        const res = await fetch(window.Shopify?.routes?.root
-          ? `${window.Shopify.routes.root}cart/add.js`
-          : "/cart/add.js", {
+        const res = await fetch("/cart/add.js", {
           method: "POST",
           body: fd,
           headers: { Accept: "application/json" },
         });
         if (!res.ok) throw new Error("Add failed");
-        const cart = await fetch(window.Shopify?.routes?.root
-          ? `${window.Shopify.routes.root}cart.js`
-          : "/cart.js").then((r) => r.json());
+        const cart = await fetch("/cart.js").then((r) => r.json());
         document.querySelectorAll(".cart-count").forEach((el) => {
           el.textContent = String(cart.item_count || 0);
         });
@@ -119,7 +112,6 @@
     });
   });
 
-  /* Quick-add buttons with data-variant-id */
   document.querySelectorAll("[data-add-variant]").forEach((btn) => {
     btn.addEventListener("click", async () => {
       const id = btn.getAttribute("data-add-variant");
@@ -146,5 +138,70 @@
         window.location.href = `/cart/add?id=${id}&quantity=1`;
       }
     });
+  });
+
+  /* Customer Love carousel — autoplay, pause on hover */
+  document.querySelectorAll("[data-love-carousel]").forEach((root) => {
+    const slides = Array.from(root.querySelectorAll("[data-love-slide]"));
+    const dots = Array.from(root.querySelectorAll("[data-love-dot]"));
+    if (slides.length < 2) return;
+
+    let index = Math.max(
+      0,
+      slides.findIndex((s) => s.classList.contains("is-active"))
+    );
+    const interval = Math.max(2500, parseInt(root.getAttribute("data-interval"), 10) || 4000);
+    let timer = null;
+
+    function show(i) {
+      index = ((i % slides.length) + slides.length) % slides.length;
+      slides.forEach((slide, n) => {
+        const active = n === index;
+        slide.classList.toggle("is-active", active);
+        if (active) slide.removeAttribute("hidden");
+        else slide.setAttribute("hidden", "");
+      });
+      dots.forEach((dot, n) => {
+        const active = n === index;
+        dot.classList.toggle("is-active", active);
+        if (active) dot.setAttribute("aria-current", "true");
+        else dot.removeAttribute("aria-current");
+      });
+    }
+
+    function next() {
+      show(index + 1);
+    }
+
+    function start() {
+      stop();
+      timer = window.setInterval(next, interval);
+    }
+
+    function stop() {
+      if (timer) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const i = parseInt(dot.getAttribute("data-love-dot"), 10);
+        if (Number.isNaN(i)) return;
+        show(i);
+        start();
+      });
+    });
+
+    root.addEventListener("mouseenter", stop);
+    root.addEventListener("mouseleave", start);
+    root.addEventListener("focusin", stop);
+    root.addEventListener("focusout", (e) => {
+      if (!root.contains(e.relatedTarget)) start();
+    });
+
+    show(index);
+    start();
   });
 })();

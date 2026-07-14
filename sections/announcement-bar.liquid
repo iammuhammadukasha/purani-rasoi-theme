@@ -1,35 +1,65 @@
-{%- if settings.announcement_text != blank -%}
-  <div class="pr-announce">
-    <div class="pr-announce__mobile mh-announce">
-      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m6 0a2 2 0 104 0" />
-      </svg>
-      <span>{{ settings.announcement_text }}</span>
-    </div>
-    <div class="pr-announce__desktop dh-announce">
-      <div class="dh-announce__inner">
-        <div class="dh-announce__left">
-          <span><span class="material-symbols-outlined">local_shipping</span> {{ settings.announcement_text }}</span>
-          <span><span class="material-symbols-outlined">inventory_2</span> Made in Small Batches</span>
-          <span><span class="material-symbols-outlined">eco</span> No Preservatives</span>
-          <span><span class="material-symbols-outlined">home</span> 100% Homemade</span>
-        </div>
-        <div class="dh-announce__right">
-          {%- if settings.phone_tel != blank -%}
-            <a href="tel:{{ settings.phone_tel }}">{{ settings.phone_number }}</a>
-          {%- endif -%}
-          {%- if settings.social_instagram != blank -%}
-            <a href="{{ settings.social_instagram }}" aria-label="Instagram" class="dh-announce__social">IG</a>
-          {%- endif -%}
-          {%- if settings.social_facebook != blank -%}
-            <a href="{{ settings.social_facebook }}" aria-label="Facebook" class="dh-announce__social">FB</a>
-          {%- endif -%}
-        </div>
+{%- liquid
+  assign phone_display = settings.phone_number | default: '+91 98765 43210'
+  assign phone_tel = settings.phone_tel | default: '+919876543210'
+  assign announce = settings.announcement_text | default: 'Free Shipping on orders above ₹499'
+-%}
+
+<div class="pr-announce">
+  <div class="pr-announce__mobile mh-announce">
+    <span class="material-symbols-outlined" aria-hidden="true">local_shipping</span>
+    <span>{{ announce }}</span>
+  </div>
+
+  <div class="pr-announce__desktop dh-announce">
+    <div class="dh-announce__inner">
+      <div class="dh-announce__left">
+        <span class="dh-announce__item">
+          <span class="material-symbols-outlined" aria-hidden="true">local_shipping</span>
+          {{ announce }}
+        </span>
+        <span class="dh-announce__dot" aria-hidden="true">•</span>
+        <span class="dh-announce__item">
+          <span class="material-symbols-outlined" aria-hidden="true">shopping_bag</span>
+          Made in Small Batches
+        </span>
+        <span class="dh-announce__dot" aria-hidden="true">•</span>
+        <span class="dh-announce__item">
+          <span class="material-symbols-outlined" aria-hidden="true">eco</span>
+          No Preservatives
+        </span>
+        <span class="dh-announce__dot" aria-hidden="true">•</span>
+        <span class="dh-announce__item">
+          <span class="material-symbols-outlined" aria-hidden="true">skillet</span>
+          100% Homemade
+        </span>
+      </div>
+      <div class="dh-announce__right">
+        <a class="dh-announce__phone" href="tel:{{ phone_tel }}">
+          <span class="material-symbols-outlined" aria-hidden="true">call</span>
+          {{ phone_display }}
+        </a>
+        {%- if settings.social_instagram != blank -%}
+          <a href="{{ settings.social_instagram }}" class="dh-announce__social" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+          </a>
+        {%- else -%}
+          <a href="#" class="dh-announce__social" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if settings.social_facebook != blank -%}
+          <a href="{{ settings.social_facebook }}" class="dh-announce__social" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+          </a>
+        {%- else -%}
+          <a href="#" class="dh-announce__social" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+          </a>
+        {%- endif -%}
       </div>
     </div>
   </div>
-{%- endif -%}
+</div>
 
 {% schema %}
 {

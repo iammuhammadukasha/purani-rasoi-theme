@@ -1465,7 +1465,7 @@ a.bs-card__media {
 }
 
 .site-footer__tagline {
-  margin: 0 0 1.15rem;
+  margin: 0;
   font-family: "Work Sans", sans-serif;
   font-size: 0.8125rem;
   line-height: 1.55;
@@ -1476,6 +1476,7 @@ a.bs-card__media {
 .site-footer__social {
   display: flex;
   gap: 0.55rem;
+  margin: 0 0 1.15rem;
 }
 
 .site-footer__social-btn {

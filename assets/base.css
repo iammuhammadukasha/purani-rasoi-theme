@@ -1467,16 +1467,28 @@ a {
   gap: 0.85rem;
   padding: 1rem;
   background: #fef8f1;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Override horizontal-rail .bs-card (max-width: 280px) on shop page */
+.shop-grid .bs-card {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  flex: none;
 }
 
 .shop-grid.is-list {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.75rem;
 }
 
 .shop-grid.is-list .bs-card {
   display: grid;
   grid-template-columns: 8.75rem minmax(0, 1fr);
+  width: 100%;
+  max-width: none;
   align-items: stretch;
   gap: 0;
   padding: 0;
@@ -1559,12 +1571,15 @@ a {
   }
 
   .shop-grid.is-list {
-    grid-template-columns: 1fr;
-    max-width: 900px;
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 1200px;
+    width: 100%;
   }
 
   .shop-grid.is-list .bs-card {
     grid-template-columns: 11rem minmax(0, 1fr);
+    width: 100%;
+    max-width: none;
   }
 
   .shop-grid.is-list .bs-card__media {

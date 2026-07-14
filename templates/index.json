@@ -57,13 +57,10 @@
     "story": {
       "type": "story-banner",
       "settings": {
-        "eyebrow": "Our Story",
-        "heading": "Parampara, Swad Aur Pyaar",
-        "copy": "Purani Rasoi ki shuruaat ek chhote se ghar ki rasoi se hui thi. Dadi aur maa ke haathon ke banaye achar ki khushboo har kisi ko pasand aati thi. Aaj wahi parampara hum aapke liye lekar aaye hain – bina kisi milowat ke, bilkul ghar jaisa swad.",
-        "mobile_heading": "Traditional Recipe\nAuthentic Taste",
-        "mobile_copy": "Dadi Maa ka nuskha, wahi purana swad.",
-        "cta_label": "Jaaniye Hamari Kahani",
-        "badge": "Trusted by\nThousands of\nHappy Customers"
+        "heading_line1": "Har Bite Mein",
+        "heading_line2": "Ghar Ka Asli Swad",
+        "copy": "Dadi ke haathon ka parampara aur maa ke pyaar ka swaad.",
+        "cta_label": "Jaaniye Hamari Kahani"
       }
     },
     "reviews": {

@@ -1,0 +1,82 @@
+<section id="categories" class="pr-categories">
+  <div class="mh-section home-mobile">
+    <h2 class="mh-heading">— {{ section.settings.heading }} —</h2>
+    <div class="mh-cats">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign href = block.settings.link | default: routes.all_products_collection_url
+          if block.settings.image != blank
+            assign img = block.settings.image | image_url: width: 400
+          else
+            assign fallback = block.settings.fallback_asset | default: 'aam.png'
+            assign img = fallback | asset_url
+          endif
+        -%}
+        <a href="{{ href }}" class="mh-cat" {{ block.shopify_attributes }}>
+          <img src="{{ img }}" alt="" loading="lazy">
+          <span>{{ block.settings.title }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.view_all_label != blank -%}
+      <a href="{{ section.settings.view_all_link | default: routes.all_products_collection_url }}" class="mh-link-gold">{{ section.settings.view_all_label }}</a>
+    {%- endif -%}
+  </div>
+
+  <div class="dh-section home-desktop">
+    <h2 class="dh-heading"><span class="dh-flourish"></span> {{ section.settings.heading }} <span class="dh-flourish"></span></h2>
+    <div class="dh-cats">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign href = block.settings.link | default: routes.all_products_collection_url
+          if block.settings.image != blank
+            assign img = block.settings.image | image_url: width: 400
+          else
+            assign fallback = block.settings.fallback_asset | default: 'aam.png'
+            assign img = fallback | asset_url
+          endif
+        -%}
+        <a href="{{ href }}" class="dh-cat" {{ block.shopify_attributes }}>
+          <img src="{{ img }}" alt="" loading="lazy">
+          <span>{{ block.settings.title }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Category circles",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop By Category" },
+    { "type": "text", "id": "view_all_label", "label": "View all label", "default": "View All Categories >" },
+    { "type": "url", "id": "view_all_link", "label": "View all link" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Aam Ka Achar" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "fallback_asset", "label": "Fallback asset filename", "default": "aam.png", "info": "Used if no image selected (file in theme assets)" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category circles",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Aam Ka Achar", "fallback_asset": "aam.png" } },
+        { "type": "category", "settings": { "title": "Mirch Achar", "fallback_asset": "mirch.png" } },
+        { "type": "category", "settings": { "title": "Lasun Ka Achar", "fallback_asset": "lehsun.png" } },
+        { "type": "category", "settings": { "title": "Nimbu Ka Achar", "fallback_asset": "nimbu.png" } },
+        { "type": "category", "settings": { "title": "Mixed Achar", "fallback_asset": "mixed.png" } },
+        { "type": "category", "settings": { "title": "Hari Mirch", "fallback_asset": "hari-mirch.png" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

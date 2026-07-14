@@ -1,0 +1,51 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "trust1": { "type": "trust", "settings": { "icon": "local_shipping", "label": "Free Shipping" } },
+        "trust2": { "type": "trust", "settings": { "icon": "package_2", "label": "Secure Packaging" } },
+        "trust3": { "type": "trust", "settings": { "icon": "schedule", "label": "3–5 Day Delivery" } },
+        "trust4": { "type": "trust", "settings": { "icon": "assignment_return", "label": "7 Day Easy Returns" } },
+        "acc1": {
+          "type": "accordion",
+          "settings": {
+            "title": "Product Highlights",
+            "body": "<ul><li>100% Homemade</li><li>No Artificial Colors</li><li>Made in Small Batches</li><li>Sun-Dried Ingredients</li><li>Hygienically Packed</li></ul>",
+            "open": true
+          }
+        },
+        "acc2": {
+          "type": "accordion",
+          "settings": {
+            "title": "Ingredients",
+            "body": "<p>Raw mango, mustard oil, fennel, fenugreek, red chilli, salt, turmeric, asafoetida.</p>",
+            "open": false
+          }
+        },
+        "acc3": {
+          "type": "accordion",
+          "settings": {
+            "title": "How to Use",
+            "body": "<p>Serve with dal-chawal, paratha, or as a side with everyday meals.</p>",
+            "open": false
+          }
+        },
+        "acc4": {
+          "type": "accordion",
+          "settings": {
+            "title": "Storage Instructions",
+            "body": "<p>Store in a cool, dry place. Always use a clean dry spoon. Refrigerate after opening.</p>",
+            "open": false
+          }
+        }
+      },
+      "block_order": ["trust1", "trust2", "trust3", "trust4", "acc1", "acc2", "acc3", "acc4"],
+      "settings": {
+        "show_related": true,
+        "related_heading": "You May Also Like"
+      }
+    }
+  },
+  "order": ["main"]
+}

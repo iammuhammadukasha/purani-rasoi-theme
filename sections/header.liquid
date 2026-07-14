@@ -1,0 +1,135 @@
+{%- liquid
+  assign menu = section.settings.menu
+  if settings.logo != blank
+    assign logo_src = settings.logo | image_url: width: 96
+  else
+    assign logo_src = 'logo-purani-rasoi.png' | asset_url
+  endif
+-%}
+
+<header class="site-topbar w-full bg-[#fef8f1] border-b border-maroon/10 sticky top-0 z-40">
+  <div class="site-topbar__inner max-w-7xl mx-auto">
+    <button type="button" id="menu-open" class="site-topbar__icon" aria-label="{{ 'general.accessibility.open_menu' | t }}">
+      <svg class="w-6 h-6" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    <a href="{{ routes.root_url }}" class="site-topbar__logo text-maroon" aria-label="{{ shop.name }} home">
+      <img src="{{ logo_src }}" alt="" class="site-topbar__logo-img" width="40" height="40">
+      <span class="site-topbar__wordmark">
+        <span class="font-cinzel">{{ settings.brand_name_line1 }}</span>
+        <span class="font-montserrat">{{ settings.brand_name_line2 }}</span>
+      </span>
+    </a>
+
+    <nav class="site-topbar__nav dh-nav-wrap" aria-label="Primary">
+      {%- if menu != blank -%}
+        <ul class="dh-nav">
+          {%- for link in linklists[menu].links -%}
+            <li class="{% if link.links != blank %}relative{% endif %}">
+              {%- if link.links != blank -%}
+                <button type="button" id="shop-toggle" class="dh-nav__btn{% if link.active %} is-active{% endif %}" aria-expanded="false" aria-controls="shop-menu">
+                  {{ link.title }}
+                  <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                <div id="shop-menu" class="shop-menu" hidden>
+                  {%- for child in link.links -%}
+                    <a href="{{ child.url }}">{{ child.title }}</a>
+                  {%- endfor -%}
+                </div>
+              {%- else -%}
+                <a href="{{ link.url }}" {% if link.active %}class="is-active nav-link-active"{% endif %}>{{ link.title }}</a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- else -%}
+        <ul class="dh-nav">
+          <li><a href="{{ routes.root_url }}" {% if request.page_type == 'index' %}class="is-active"{% endif %}>Home</a></li>
+          <li><a href="{{ routes.all_products_collection_url }}">Shop</a></li>
+          <li><a href="{{ routes.root_url }}#story">Our Story</a></li>
+          <li><a href="{{ routes.root_url }}#blog">Recipes &amp; Blog</a></li>
+          <li><a href="{{ routes.root_url }}#contact">Contact</a></li>
+        </ul>
+      {%- endif -%}
+    </nav>
+
+    <div class="site-topbar__tools text-maroon dh-tools">
+      <a href="{{ routes.search_url }}" class="site-topbar__icon" aria-label="{{ 'general.search' | t }}">
+        <span class="material-symbols-outlined">search</span>
+      </a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" class="site-topbar__icon" aria-label="{{ 'general.account' | t }}">
+          <span class="material-symbols-outlined">person</span>
+        </a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="site-topbar__icon relative" aria-label="{{ 'general.cart' | t }}">
+        <span class="material-symbols-outlined">shopping_bag</span>
+        <span class="cart-count cart-badge absolute -top-1 -right-1 bg-maroon text-white rounded-full font-bold">{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<nav id="mobile-nav" class="mobile-nav" aria-label="Mobile">
+  <button type="button" id="menu-close" class="mobile-nav__close" aria-label="{{ 'general.accessibility.close' | t }}">✕</button>
+  {%- if menu != blank -%}
+    {%- for link in linklists[menu].links -%}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- for child in link.links -%}
+        <a href="{{ child.url }}" style="padding-left:1rem;opacity:.85">{{ child.title }}</a>
+      {%- endfor -%}
+    {%- endfor -%}
+  {%- else -%}
+    <a href="{{ routes.root_url }}">Home</a>
+    <a href="{{ routes.all_products_collection_url }}">Shop</a>
+    <a href="{{ routes.root_url }}#story">Our Story</a>
+    <a href="{{ routes.root_url }}#blog">Recipes &amp; Blog</a>
+    <a href="{{ routes.root_url }}#contact">Contact</a>
+  {%- endif -%}
+</nav>
+
+<style>
+  .pr-announce__desktop { display: none; }
+  .pr-announce__mobile { display: flex; }
+  .site-topbar__nav { display: none; }
+  @media (min-width: 1024px) {
+    .pr-announce__mobile { display: none; }
+    .pr-announce__desktop { display: block; }
+    .site-topbar__nav { display: block; }
+    #menu-open { display: none; }
+  }
+  .site-topbar__logo { display: flex; align-items: center; gap: 0.5rem; color: #77060c; }
+  .site-topbar__wordmark { display: flex; flex-direction: column; }
+  .cart-badge {
+    font-size: 10px; min-width: 18px; height: 18px;
+    display: flex; align-items: center; justify-content: center;
+    background: #77060c; color: #fff; border-radius: 999px;
+    position: absolute; top: -4px; right: -4px;
+  }
+  .site-topbar__icon { position: relative; color: #77060c; display: inline-flex; padding: 0.35rem; }
+  .site-topbar__tools { display: flex; align-items: center; gap: 0.25rem; }
+  .dh-nav { display: flex; align-items: center; gap: 1.75rem; list-style: none; margin: 0; padding: 0; }
+  .dh-nav a, .dh-nav__btn {
+    font-family: Montserrat, sans-serif; font-weight: 600; font-size: 0.875rem;
+    text-transform: uppercase; letter-spacing: 0.05em; color: #77060c; background: none; border: none; cursor: pointer;
+  }
+  .dh-nav a.is-active { position: relative; }
+  .relative { position: relative; }
+</style>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

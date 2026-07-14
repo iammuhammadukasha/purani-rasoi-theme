@@ -1,0 +1,106 @@
+{%- liquid
+  if settings.logo != blank
+    assign logo_src = settings.logo | image_url: width: 112
+  else
+    assign logo_src = 'logo-purani-rasoi.png' | asset_url
+  endif
+-%}
+
+<footer id="contact" class="site-footer mh-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__grid">
+      <div class="site-footer__col site-footer__brand">
+        <a href="{{ routes.root_url }}" class="site-footer__logo" aria-label="{{ shop.name }} home">
+          <img src="{{ logo_src }}" alt="" class="site-footer__seal" width="56" height="56" loading="lazy">
+          <span class="site-footer__name">{{ settings.brand_name_line1 }}</span>
+          <span class="site-footer__sub">{{ settings.brand_name_line2 }}</span>
+        </a>
+        <p class="site-footer__tagline">{{ settings.footer_tagline }}</p>
+        <div class="site-footer__social">
+          {%- if settings.social_instagram != blank -%}
+            <a href="{{ settings.social_instagram }}" class="site-footer__social-btn" aria-label="Instagram">IG</a>
+          {%- endif -%}
+          {%- if settings.social_facebook != blank -%}
+            <a href="{{ settings.social_facebook }}" class="site-footer__social-btn" aria-label="Facebook">FB</a>
+          {%- endif -%}
+          {%- if settings.whatsapp_number != blank -%}
+            <a href="https://wa.me/{{ settings.whatsapp_number }}" class="site-footer__social-btn" aria-label="WhatsApp">WA</a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="site-footer__col">
+        <h4 class="site-footer__heading">{{ section.settings.links_heading }}</h4>
+        <ul class="site-footer__links">
+          {%- if section.settings.menu != blank -%}
+            {%- for link in linklists[section.settings.menu].links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="{{ routes.root_url }}">Home</a></li>
+            <li><a href="{{ routes.all_products_collection_url }}">Shop</a></li>
+            <li><a href="{{ routes.root_url }}#story">Our Story</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      <div class="site-footer__col">
+        <h4 class="site-footer__heading">{{ section.settings.help_heading }}</h4>
+        <ul class="site-footer__links">
+          {%- if shop.shipping_policy != blank -%}
+            <li><a href="{{ shop.shipping_policy.url }}">Shipping Policy</a></li>
+          {%- endif -%}
+          {%- if shop.refund_policy != blank -%}
+            <li><a href="{{ shop.refund_policy.url }}">Return &amp; Refund</a></li>
+          {%- endif -%}
+          {%- if shop.terms_of_service != blank -%}
+            <li><a href="{{ shop.terms_of_service.url }}">Terms &amp; Conditions</a></li>
+          {%- endif -%}
+          {%- if shop.privacy_policy != blank -%}
+            <li><a href="{{ shop.privacy_policy.url }}">Privacy Policy</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      <div class="site-footer__col">
+        <h4 class="site-footer__heading site-footer__heading--underlined">Contact Us</h4>
+        <ul class="site-footer__contact">
+          {%- if settings.phone_tel != blank -%}
+            <li>
+              <span class="material-symbols-outlined" aria-hidden="true">call</span>
+              <a href="tel:{{ settings.phone_tel }}">{{ settings.phone_number }}</a>
+            </li>
+          {%- endif -%}
+          {%- if settings.email != blank -%}
+            <li>
+              <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+              <a href="mailto:{{ settings.email }}">{{ settings.email }}</a>
+            </li>
+          {%- endif -%}
+          {%- if settings.address != blank -%}
+            <li>
+              <span class="material-symbols-outlined" aria-hidden="true">location_on</span>
+              <span>{{ settings.address }}</span>
+            </li>
+          {%- endif -%}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="site-footer__bar">
+    <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All Rights Reserved.</p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Quick links menu", "default": "footer" },
+    { "type": "text", "id": "links_heading", "label": "Links heading", "default": "Quick Links" },
+    { "type": "text", "id": "help_heading", "label": "Help heading", "default": "Help & Support" }
+  ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}

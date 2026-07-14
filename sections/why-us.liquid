@@ -1,0 +1,60 @@
+<section class="pr-why">
+  <div class="mh-section home-mobile">
+    <h2 class="mh-heading">— {{ section.settings.heading }} —</h2>
+    <div class="mh-why">
+      {%- for block in section.blocks -%}
+        <div class="mh-why__item" {{ block.shopify_attributes }}>
+          <span class="mh-why__icon material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
+          <span>{{ block.settings.title }}</span>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="dh-benefits home-desktop" aria-label="{{ section.settings.heading }}">
+    <div class="dh-benefits__inner">
+      {%- for block in section.blocks -%}
+        <div class="dh-benefit" {{ block.shopify_attributes }}>
+          <span class="material-symbols-outlined">{{ block.settings.icon }}</span>
+          <div>
+            <h3>{{ block.settings.title }}</h3>
+            {%- if block.settings.text != blank -%}
+              <p>{{ block.settings.text }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Why us / Benefits",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Why Purani Rasoi" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Benefit",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon name", "default": "nutrition" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Unbeatable Freshness" },
+        { "type": "textarea", "id": "text", "label": "Text (desktop)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why us / Benefits",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "home", "title": "Ghar Jaisa Swad", "text": "Bilkul waise hi jaise maa banaya karti thi." } },
+        { "type": "item", "settings": { "icon": "eco", "title": "No Preservatives", "text": "Koi artificial color ya preservatives nahi." } },
+        { "type": "item", "settings": { "icon": "menu_book", "title": "Traditional Recipes", "text": "Purani aur authentic vidhi se tayyar." } },
+        { "type": "item", "settings": { "icon": "inventory_2", "title": "Small Batch Made", "text": "Har batch fresh aur specially aapke liye." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

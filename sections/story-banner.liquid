@@ -1,0 +1,61 @@
+{%- liquid
+  if section.settings.image != blank
+    assign img = section.settings.image | image_url: width: 1200
+  else
+    assign img = 'story-lifestyle.png' | asset_url
+  endif
+-%}
+
+<section id="story" class="pr-story">
+  <div class="mh-story-wrap home-mobile">
+    <div class="mh-story">
+      <div class="mh-story__text">
+        <h2>{{ section.settings.mobile_heading | newline_to_br }}</h2>
+        <p>{{ section.settings.mobile_copy }}</p>
+        {%- if section.settings.cta_label != blank -%}
+          <a href="{{ section.settings.cta_link | default: '#story' }}" class="mh-story__btn">{{ section.settings.cta_label }} <span aria-hidden="true">→</span></a>
+        {%- endif -%}
+      </div>
+      <div class="mh-story__media"><img src="{{ img }}" alt="" loading="lazy"></div>
+    </div>
+  </div>
+
+  <div class="dh-story home-desktop">
+    <div class="dh-story__inner">
+      <div class="dh-story__media">
+        <img src="{{ img }}" alt="" loading="lazy">
+      </div>
+      <div class="dh-story__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="dh-story__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        <h2>{{ section.settings.heading }}</h2>
+        <p>{{ section.settings.copy }}</p>
+        {%- if section.settings.cta_label != blank -%}
+          <a href="{{ section.settings.cta_link | default: '#story' }}" class="dh-story__cta">{{ section.settings.cta_label }} <span aria-hidden="true">→</span></a>
+        {%- endif -%}
+        {%- if section.settings.badge != blank -%}
+          <div class="dh-story__badge" aria-hidden="true">{{ section.settings.badge | newline_to_br }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story banner",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our Story" },
+    { "type": "text", "id": "heading", "label": "Heading (desktop)", "default": "Parampara, Swad Aur Pyaar" },
+    { "type": "textarea", "id": "copy", "label": "Copy (desktop)", "default": "Purani Rasoi ki shuruaat ek chhote se ghar ki rasoi se hui thi. Dadi aur maa ke haathon ke banaye achar ki khushboo har kisi ko pasand aati thi. Aaj wahi parampara hum aapke liye lekar aaye hain – bina kisi milowat ke, bilkul ghar jaisa swad." },
+    { "type": "textarea", "id": "mobile_heading", "label": "Heading (mobile)", "default": "Traditional Recipe\nAuthentic Taste" },
+    { "type": "text", "id": "mobile_copy", "label": "Copy (mobile)", "default": "Dadi Maa ka nuskha, wahi purana swad." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Jaaniye Hamari Kahani" },
+    { "type": "url", "id": "cta_link", "label": "Button link" },
+    { "type": "textarea", "id": "badge", "label": "Badge text", "default": "Trusted by\nThousands of\nHappy Customers" }
+  ],
+  "presets": [{ "name": "Story banner" }]
+}
+{% endschema %}

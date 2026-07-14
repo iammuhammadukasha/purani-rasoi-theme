@@ -1,0 +1,144 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Purani Rasoi",
+    "theme_version": "1.0.0",
+    "theme_author": "Purani Rasoi",
+    "theme_documentation_url": "https://help.shopify.com",
+    "theme_support_url": "https://help.shopify.com"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 32,
+        "max": 120,
+        "step": 4,
+        "unit": "px",
+        "label": "Logo width",
+        "default": 48
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
+        "type": "text",
+        "id": "brand_name_line1",
+        "label": "Brand name line 1",
+        "default": "Purani"
+      },
+      {
+        "type": "text",
+        "id": "brand_name_line2",
+        "label": "Brand name line 2",
+        "default": "Rasoi"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_maroon",
+        "label": "Maroon",
+        "default": "#77060c"
+      },
+      {
+        "type": "color",
+        "id": "color_cream",
+        "label": "Cream",
+        "default": "#fef8f1"
+      },
+      {
+        "type": "color",
+        "id": "color_gold",
+        "label": "Gold",
+        "default": "#f6cb7a"
+      }
+    ]
+  },
+  {
+    "name": "Announcement",
+    "settings": [
+      {
+        "type": "text",
+        "id": "announcement_text",
+        "label": "Announcement text",
+        "default": "Free Shipping on orders above ₹499"
+      },
+      {
+        "type": "text",
+        "id": "phone_number",
+        "label": "Phone number",
+        "default": "+91 98765 43210"
+      },
+      {
+        "type": "text",
+        "id": "phone_tel",
+        "label": "Phone tel link",
+        "default": "+919876543210"
+      }
+    ]
+  },
+  {
+    "name": "Contact & social",
+    "settings": [
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "WhatsApp number (digits)",
+        "default": "919876543210",
+        "info": "Country code + number, no spaces"
+      },
+      {
+        "type": "text",
+        "id": "email",
+        "label": "Email",
+        "default": "hello@puranirasoi.com"
+      },
+      {
+        "type": "text",
+        "id": "address",
+        "label": "Address",
+        "default": "Bihar, India"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "textarea",
+        "id": "footer_tagline",
+        "label": "Footer tagline",
+        "default": "Ghar ke swad ko aapke ghar tak pahunchana hi hamara vaada hai."
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_show_vendor",
+        "label": "Show vendor",
+        "default": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,23 @@
+{%- liquid
+  if settings.logo != blank
+    assign logo_url = settings.logo | image_url: width: 96
+  else
+    assign logo_url = 'logo-purani-rasoi.png' | asset_url
+  endif
+-%}
+<a href="{{ routes.root_url }}" class="{{ class }}" aria-label="{{ shop.name }} home">
+  <img
+    src="{{ logo_url }}"
+    alt=""
+    class="{{ img_class }}"
+    width="{{ width | default: 48 }}"
+    height="{{ height | default: 48 }}"
+    loading="{{ loading | default: 'eager' }}"
+  >
+  {%- if show_wordmark -%}
+    <span class="{{ wordmark_class }}">
+      <span class="font-cinzel">{{ settings.brand_name_line1 | default: 'Purani' }}</span>
+      <span class="font-montserrat">{{ settings.brand_name_line2 | default: 'Rasoi' }}</span>
+    </span>
+  {%- endif -%}
+</a>

@@ -1,0 +1,42 @@
+<section class="newsletter" aria-labelledby="Newsletter-{{ section.id }}">
+  <div class="newsletter__inner">
+    <span class="material-symbols-outlined mh-newsletter__mail" aria-hidden="true">mail</span>
+    <h2 id="Newsletter-{{ section.id }}" class="newsletter__title">{{ section.settings.heading }}</h2>
+    {%- if section.settings.copy != blank -%}
+      <p class="newsletter__copy">{{ section.settings.copy }}</p>
+    {%- endif -%}
+    {% form 'customer', class: 'newsletter__form' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <label class="sr-only" for="NewsletterForm--{{ section.id }}">{{ 'newsletter.label' | t }}</label>
+      <input
+        id="NewsletterForm--{{ section.id }}"
+        type="email"
+        name="contact[email]"
+        value="{{ form.email }}"
+        placeholder="Enter your email"
+        required
+        autocomplete="email"
+      >
+      <button type="submit">{{ 'newsletter.button_label' | t }}</button>
+      {%- if form.posted_successfully? -%}
+        <p class="newsletter__success" role="status">{{ 'newsletter.success' | t }}</p>
+      {%- endif -%}
+    {% endform %}
+  </div>
+</section>
+
+<style>
+  .mh-newsletter__mail { font-size: 2rem; margin-bottom: 0.5rem; display: block; text-align: center; color: #f6cb7a; }
+  .newsletter__success { margin-top: 0.75rem; color: #fef8f1; font-size: 0.875rem; }
+</style>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Get 10% OFF on your first order!" },
+    { "type": "textarea", "id": "copy", "label": "Text", "default": "Join our kitchen family for recipes, offers & ghar jaisa swad updates." }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

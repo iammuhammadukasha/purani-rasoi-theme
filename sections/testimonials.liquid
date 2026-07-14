@@ -1,0 +1,76 @@
+<section class="pr-reviews" aria-labelledby="Reviews-{{ section.id }}">
+  <div class="mh-section mh-section--soft home-mobile">
+    <h2 id="Reviews-{{ section.id }}" class="mh-heading">— {{ section.settings.heading_mobile }} —</h2>
+    {%- assign first = section.blocks.first -%}
+    {%- if first -%}
+      <blockquote class="mh-love">
+        <div class="mh-love__stars" aria-hidden="true">★★★★★</div>
+        <p>{{ first.settings.quote }}</p>
+        <footer>
+          {%- if first.settings.avatar != blank -%}
+            <img src="{{ first.settings.avatar | image_url: width: 72 }}" alt="" width="36" height="36" loading="lazy">
+          {%- else -%}
+            <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" width="36" height="36" loading="lazy">
+          {%- endif -%}
+          <cite>{{ first.settings.author }}</cite>
+        </footer>
+      </blockquote>
+      <div class="mh-dots" aria-hidden="true">
+        {%- for block in section.blocks -%}
+          <span {% if forloop.first %}class="is-active"{% endif %}></span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="dh-reviews home-desktop">
+    <h2 class="dh-heading dh-heading--light"><span class="dh-flourish"></span> {{ section.settings.heading }} <span class="dh-flourish"></span></h2>
+    <div class="dh-reviews__grid">
+      {%- for block in section.blocks -%}
+        <blockquote {{ block.shopify_attributes }}>
+          <div class="dh-reviews__stars">★★★★★</div>
+          <p>{{ block.settings.quote }}</p>
+          <footer>
+            {%- if block.settings.avatar != blank -%}
+              <img src="{{ block.settings.avatar | image_url: width: 72 }}" alt="" loading="lazy">
+            {%- else -%}
+              <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" loading="lazy">
+            {%- endif -%}
+            <cite>{{ block.settings.author }}</cite>
+          </footer>
+        </blockquote>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading (desktop)", "default": "What Our Customers Say" },
+    { "type": "text", "id": "heading_mobile", "label": "Heading (mobile)", "default": "Customer Love" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "“Wahi purana swad… packaging bhi bahut acchi hai.”" },
+        { "type": "text", "id": "author", "label": "Author", "default": "Priya Sharma" },
+        { "type": "image_picker", "id": "avatar", "label": "Avatar" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        { "type": "review", "settings": { "quote": "“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”", "author": "Priya Sharma" } },
+        { "type": "review", "settings": { "quote": "“Nimbu ka achar try kiya, bahut hi tasty aur fresh. Will order again!”", "author": "Rohit Verma" } },
+        { "type": "review", "settings": { "quote": "“Best achar I have ever had. 100% recommended!”", "author": "Neha Agarwal" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

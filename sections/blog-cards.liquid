@@ -1,0 +1,81 @@
+<section id="blog" class="pr-blog">
+  <div class="mh-section home-mobile">
+    <div class="mh-section__head">
+      <h2 class="mh-heading">— {{ section.settings.heading }} —</h2>
+      <a href="{{ section.settings.view_all_link | default: routes.root_url }}" class="mh-link-maroon">{{ section.settings.view_all }}</a>
+    </div>
+    <div class="mh-blog hide-scrollbar">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          if block.settings.image != blank
+            assign img = block.settings.image | image_url: width: 600
+          else
+            assign img = block.settings.fallback_asset | default: 'product-aam.png' | asset_url
+          endif
+        -%}
+        <a href="{{ block.settings.link | default: '#' }}" class="mh-blog__card" {{ block.shopify_attributes }}>
+          <img src="{{ img }}" alt="" loading="lazy">
+          <span>{{ block.settings.title }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="dh-section home-desktop">
+    <div class="dh-section__head">
+      <h2 class="dh-heading"><span class="dh-flourish"></span> {{ section.settings.heading }} <span class="dh-flourish"></span></h2>
+      <a href="{{ section.settings.view_all_link | default: routes.root_url }}" class="dh-view-all">{{ section.settings.view_all_desktop }} <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="dh-blog">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          if block.settings.image != blank
+            assign img = block.settings.image | image_url: width: 800
+          else
+            assign img = block.settings.fallback_asset | default: 'product-aam.png' | asset_url
+          endif
+        -%}
+        <article {{ block.shopify_attributes }}>
+          <img src="{{ img }}" alt="" loading="lazy">
+          <h3>{{ block.settings.title }}</h3>
+          <a href="{{ block.settings.link | default: '#' }}">Read More <span aria-hidden="true">→</span></a>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Recipes & Blog",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Recipes & Blog" },
+    { "type": "text", "id": "view_all", "label": "View all (mobile)", "default": "View All >" },
+    { "type": "text", "id": "view_all_desktop", "label": "View all (desktop)", "default": "View All Articles" },
+    { "type": "url", "id": "view_all_link", "label": "View all link" }
+  ],
+  "blocks": [
+    {
+      "type": "post",
+      "name": "Post",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Achar for Health" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "fallback_asset", "label": "Fallback asset", "default": "product-aam.png" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recipes & Blog",
+      "blocks": [
+        { "type": "post", "settings": { "title": "Aam Ke Achar Ke Fayde", "fallback_asset": "product-aam.png" } },
+        { "type": "post", "settings": { "title": "Achar Ke Saath Perfect Meals", "fallback_asset": "story-kitchen.png" } },
+        { "type": "post", "settings": { "title": "Hamari Traditional Recipe", "fallback_asset": "banner-kitchen.png" } },
+        { "type": "post", "settings": { "title": "Achar Ko Kaise Store Karein", "fallback_asset": "product-aam-kathal.png" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,102 @@
+/* Shopify theme utilities — companions to storefront base.css */
+
+:root {
+  --pr-maroon: #77060c;
+  --pr-cream: #fef8f1;
+  --pr-gold: #f6cb7a;
+  --pr-surface-low: #f9f3ec;
+  --pr-surface-high: #e7e2db;
+  --pr-max: 1200px;
+}
+
+.pr-body {
+  margin: 0;
+  background: var(--pr-cream);
+  color: var(--pr-maroon);
+  font-family: "Work Sans", "Inter", system-ui, sans-serif;
+}
+
+.bg-cream { background-color: var(--pr-cream); }
+.text-maroon { color: var(--pr-maroon); }
+.antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+.font-cinzel {
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  display: block;
+}
+.font-montserrat {
+  font-family: "Montserrat", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: block;
+  margin-top: -2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--pr-maroon);
+  color: #fff;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.max-w-site { max-width: var(--pr-max); }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+@media (max-width: 1023px) {
+  .home-desktop { display: none !important; }
+}
+@media (min-width: 1024px) {
+  .home-mobile { display: none !important; }
+}
+
+.product-form__error {
+  color: #b91c1c;
+  font-size: 0.875rem;
+  margin: 0.5rem 0;
+}
+
+.shopify-payment-button {
+  margin-top: 0.75rem;
+}
+
+.shopify-challenge__container,
+.shopify-policy__container {
+  max-width: var(--pr-max);
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Desktop header nav icons using material symbols sizing */
+.dh-tools .material-symbols-outlined,
+.site-topbar__icon .material-symbols-outlined {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.template-index .site-topbar--inner-pages {
+  display: none;
+}

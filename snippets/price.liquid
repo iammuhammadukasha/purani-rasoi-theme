@@ -1,0 +1,17 @@
+{%- comment -%} Price display matching storefront cards {%- endcomment -%}
+{%- liquid
+  assign target = product.selected_or_first_available_variant
+  if use_variant
+    assign target = product.selected_or_first_available_variant
+  endif
+  assign compare_at = target.compare_at_price
+  assign price = target.price
+-%}
+<div class="{{ class | default: 'bs-card__price' }}">
+  <strong>{{ price | money }}</strong>
+  {%- if compare_at > price -%}
+    <s>{{ compare_at | money }}</s>
+    {%- assign save = compare_at | minus: price | times: 100.0 | divided_by: compare_at | round -%}
+    <span class="bs-card__off">{{ save }}% OFF</span>
+  {%- endif -%}
+</div>

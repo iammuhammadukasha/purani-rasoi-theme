@@ -1,0 +1,59 @@
+<section class="cart-page" style="max-width:900px;margin:0 auto;padding:2rem 1rem 4rem">
+  <h1 class="dh-heading" style="margin-bottom:1.5rem">{{ 'cart.general.title' | t }}</h1>
+
+  {%- if cart.item_count == 0 -%}
+    <p>{{ 'cart.general.empty' | t }}</p>
+    <a href="{{ routes.all_products_collection_url }}" class="dh-hero__cta" style="display:inline-flex;margin-top:1rem">
+      {{ 'general.continue_shopping' | t }}
+    </a>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" id="cart">
+      <div class="cart-items" style="display:flex;flex-direction:column;gap:1.25rem">
+        {%- for item in cart.items -%}
+          <div class="cart-item" style="display:grid;grid-template-columns:80px 1fr auto;gap:1rem;align-items:center;border-bottom:1px solid rgba(119,6,12,.12);padding-bottom:1rem">
+            <a href="{{ item.url }}">
+              {%- if item.image -%}
+                <img src="{{ item.image | image_url: width: 160 }}" alt="{{ item.title | escape }}" width="80" height="80" loading="lazy" style="border-radius:8px;object-fit:cover">
+              {%- endif -%}
+            </a>
+            <div>
+              <a href="{{ item.url }}" style="font-weight:600;color:#77060c">{{ item.product.title }}</a>
+              {%- unless item.product.has_only_default_variant -%}
+                <p style="font-size:0.85rem;opacity:.8;margin:0.25rem 0">{{ item.variant.title }}</p>
+              {%- endunless -%}
+              <label style="font-size:0.85rem">
+                Qty
+                <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" style="width:4rem;margin-left:0.35rem;padding:0.25rem;border:1px solid rgba(119,6,12,.2);border-radius:6px">
+              </label>
+              <p style="margin-top:0.35rem">
+                <a href="{{ item.url_to_remove }}" style="font-size:0.8rem;text-decoration:underline">{{ 'cart.general.remove' | t }}</a>
+              </p>
+            </div>
+            <div style="font-weight:700">{{ item.final_line_price | money }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div style="margin-top:2rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between">
+        <button type="submit" name="update" class="bs-card__btn" style="width:auto;padding:0.75rem 1.25rem">
+          {{ 'cart.general.update' | t }}
+        </button>
+        <div style="text-align:right">
+          <p style="font-size:1.125rem;margin-bottom:0.75rem">
+            <strong>{{ 'cart.general.subtotal' | t }}:</strong> {{ cart.total_price | money }}
+          </p>
+          <button type="submit" name="checkout" class="pdp-add" style="min-width:12rem">
+            {{ 'cart.general.checkout' | t }}
+          </button>
+        </div>
+      </div>
+    </form>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

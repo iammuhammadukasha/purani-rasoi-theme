@@ -1,0 +1,36 @@
+{%- if section.settings.show_certs -%}
+  <div class="dh-certs">
+    {%- if section.settings.heading != blank -%}
+      <span>{{ section.settings.heading }}</span>
+    {%- endif -%}
+    {%- if section.settings.cert_1 != blank -%}
+      <img src="{{ section.settings.cert_1 | image_url: height: 80 }}" alt="{{ section.settings.cert_1.alt | escape }}" height="40" loading="lazy">
+    {%- else -%}
+      <img src="{{ 'cert-fssai.png' | asset_url }}" alt="FSSAI" height="40" loading="lazy">
+    {%- endif -%}
+    {%- if section.settings.cert_2 != blank -%}
+      <img src="{{ section.settings.cert_2 | image_url: height: 56 }}" alt="" height="28" loading="lazy">
+    {%- else -%}
+      <img src="{{ 'cert-msme.png' | asset_url }}" alt="MSME" height="28" loading="lazy">
+    {%- endif -%}
+    {%- if section.settings.cert_3 != blank -%}
+      <img src="{{ section.settings.cert_3 | image_url: height: 72 }}" alt="" height="36" loading="lazy">
+    {%- else -%}
+      <img src="{{ 'cert-makeinindia.png' | asset_url }}" alt="Make in India" height="36" loading="lazy">
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Certificates bar",
+  "settings": [
+    { "type": "checkbox", "id": "show_certs", "label": "Show certificates", "default": true },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "We Are Certified" },
+    { "type": "image_picker", "id": "cert_1", "label": "Certificate 1" },
+    { "type": "image_picker", "id": "cert_2", "label": "Certificate 2" },
+    { "type": "image_picker", "id": "cert_3", "label": "Certificate 3" }
+  ],
+  "presets": [{ "name": "Certificates bar" }]
+}
+{% endschema %}

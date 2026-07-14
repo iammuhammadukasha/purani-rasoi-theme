@@ -1,0 +1,260 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign product_form_id = 'product-form-' | append: section.id -%}
+
+<div class="max-w-site mx-auto lg-grid" style="max-width:1200px;margin:0 auto;">
+  <div class="pdp-layout">
+    <section class="pdp-gallery" aria-label="Product images">
+      <div class="pdp-gallery__main">
+        {%- if product.selected_or_first_available_variant.featured_media != blank -%}
+          {%- assign featured = product.selected_or_first_available_variant.featured_media -%}
+        {%- else -%}
+          {%- assign featured = product.featured_media -%}
+        {%- endif -%}
+        {%- if featured -%}
+          <img
+            id="pdp-main-img"
+            src="{{ featured | image_url: width: 1200 }}"
+            alt="{{ featured.alt | escape | default: product.title | escape }}"
+            width="800"
+            height="800"
+          >
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'pdp-placeholder' }}
+        {%- endif -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <div class="pdp-thumbs" role="list">
+          {%- for media in product.media -%}
+            <button
+              type="button"
+              {% if forloop.first %}class="is-active"{% endif %}
+              data-thumb="{{ media | image_url: width: 1200 }}"
+              aria-label="View image {{ forloop.index }}"
+            >
+              <img src="{{ media | image_url: width: 200 }}" alt="" loading="lazy">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </section>
+
+    <section class="pdp-body">
+      <h1 class="pdp-title">{{ product.title }}</h1>
+      <div class="pdp-meta">
+        {%- if product.available -%}
+          <span class="pdp-stock">In Stock</span>
+        {%- else -%}
+          <span class="pdp-stock" style="color:#b91c1c">Sold out</span>
+        {%- endif -%}
+      </div>
+
+      {%- if product.description != blank -%}
+        <div class="pdp-desc">{{ product.description }}</div>
+      {%- endif -%}
+
+      {% form 'product', product, id: product_form_id, class: 'product-form', data-product-form: '' %}
+        <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <span class="pdp-label">{{ option.name }}:</span>
+            <div class="pdp-weights" role="group" aria-label="{{ option.name }}">
+              {%- for value in option.values -%}
+                <button
+                  type="button"
+                  data-option-value="{{ value | escape }}"
+                  data-option-name="{{ option.name | escape }}"
+                  data-option-position="{{ option.position }}"
+                  {% if option.selected_value == value %}class="is-active"{% endif %}
+                >{{ value }}</button>
+              {%- endfor -%}
+            </div>
+            <select
+              id="Option-{{ section.id }}-{{ forloop.index0 }}"
+              name="options[{{ option.name | escape }}]"
+              data-option-position="{{ option.position }}"
+              class="sr-only"
+            >
+              {%- for value in option.values -%}
+                <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+              {%- endfor -%}
+            </select>
+          {%- endfor -%}
+        {%- endunless -%}
+
+        <div class="pdp-price" id="price-{{ section.id }}">
+          <strong>{{ current_variant.price | money }}</strong>
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <s>{{ current_variant.compare_at_price | money }}</s>
+            {%- assign save = current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round -%}
+            <span>{{ save }}% OFF</span>
+          {%- endif -%}
+        </div>
+
+        <div class="pdp-actions">
+          <div class="pdp-qty" aria-label="{{ 'products.product.quantity' | t }}">
+            <button type="button" id="qty-minus" aria-label="Decrease quantity">−</button>
+            <input
+              id="Quantity-product"
+              type="number"
+              name="quantity"
+              value="1"
+              min="1"
+              class="sr-only"
+              style="position:absolute;opacity:0;width:1px;height:1px"
+            >
+            <span id="qty-value">1</span>
+            <button type="button" id="qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+          <button
+            type="submit"
+            class="pdp-add"
+            name="add"
+            {% unless current_variant.available %}disabled{% endunless %}
+          >
+            {%- if current_variant.available -%}
+              {{ 'products.product.add_to_cart' | t }}
+            {%- else -%}
+              {{ 'products.product.sold_out' | t }}
+            {%- endif -%}
+          </button>
+        </div>
+        {{ form | payment_button }}
+      {% endform %}
+
+      <div class="pdp-trust">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'trust' -%}
+            <div class="pdp-trust__item" {{ block.shopify_attributes }}>
+              <span class="material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
+              <span>{{ block.settings.label }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <div class="pdp-acc">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'accordion' -%}
+            <details {% if block.settings.open %}open{% endif %} {{ block.shopify_attributes }}>
+              <summary>{{ block.settings.title }} <span aria-hidden="true">▾</span></summary>
+              <div class="pdp-acc__body">{{ block.settings.body }}</div>
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- if section.settings.show_related -%}
+        <div class="pdp-related">
+          <h2>{{ section.settings.related_heading }}</h2>
+          <div class="pdp-related__rail hide-scrollbar">
+            {%- assign related = product.collections.first -%}
+            {%- if related -%}
+              {%- for rel in related.products limit: 4 -%}
+                {%- unless rel.id == product.id -%}
+                  {% render 'product-card', product: rel %}
+                {%- endunless -%}
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </section>
+  </div>
+</div>
+
+<style>
+  .pdp-layout { display: grid; gap: 1.5rem; padding: 0 0 2rem; }
+  @media (min-width: 1024px) {
+    .pdp-layout { grid-template-columns: 1fr 1fr; gap: 2.5rem; padding: 2rem 1rem; }
+  }
+  #qty-value { display: inline-block; min-width: 1.5rem; text-align: center; font-weight: 600; }
+  .shopify-payment-button { width: 100%; }
+  .shopify-payment-button__button { border-radius: 999px !important; }
+</style>
+
+<script type="application/json" id="ProductJSON-{{ section.id }}">
+  {{ product | json }}
+</script>
+<script>
+  (function () {
+    const product = JSON.parse(document.getElementById('ProductJSON-{{ section.id }}').textContent);
+    const form = document.getElementById('{{ product_form_id }}');
+    if (!form) return;
+    const idInput = form.querySelector('[data-variant-id]');
+    const selects = form.querySelectorAll('select[data-option-position]');
+    const qtySpan = document.getElementById('qty-value');
+    const qtyInput = document.getElementById('Quantity-product');
+
+    function syncQty() {
+      if (qtySpan && qtyInput) qtySpan.textContent = qtyInput.value;
+    }
+    document.getElementById('qty-minus')?.addEventListener('click', () => {
+      qtyInput.value = Math.max(1, (parseInt(qtyInput.value, 10) || 1) - 1);
+      syncQty();
+    });
+    document.getElementById('qty-plus')?.addEventListener('click', () => {
+      qtyInput.value = (parseInt(qtyInput.value, 10) || 1) + 1;
+      syncQty();
+    });
+
+    function selectedOptions() {
+      return Array.from(selects).map((s) => s.value);
+    }
+    function findVariant() {
+      const opts = selectedOptions();
+      return product.variants.find((v) => v.options.every((o, i) => o === opts[i]));
+    }
+    function update() {
+      const v = findVariant();
+      if (!v || !idInput) return;
+      idInput.value = v.id;
+      const priceEl = document.getElementById('price-{{ section.id }}');
+      if (priceEl) {
+        const money = (cents) => (Shopify?.formatMoney ? Shopify.formatMoney(cents) : '₹' + (cents / 100).toFixed(0));
+        let html = '<strong>' + money(v.price) + '</strong>';
+        if (v.compare_at_price > v.price) {
+          const save = Math.round(((v.compare_at_price - v.price) * 100) / v.compare_at_price);
+          html += ' <s>' + money(v.compare_at_price) + '</s> <span>' + save + '% OFF</span>';
+        }
+        priceEl.innerHTML = html;
+      }
+      const submit = form.querySelector('[type="submit"]');
+      if (submit) {
+        submit.disabled = !v.available;
+        submit.textContent = v.available ? {{ 'products.product.add_to_cart' | t | json }} : {{ 'products.product.sold_out' | t | json }};
+      }
+    }
+    selects.forEach((s) => s.addEventListener('change', update));
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product information",
+  "settings": [
+    { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
+    { "type": "text", "id": "related_heading", "label": "Related heading", "default": "You May Also Like" }
+  ],
+  "blocks": [
+    {
+      "type": "trust",
+      "name": "Trust badge",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "local_shipping" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Free Shipping" }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion row",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Product Highlights" },
+        { "type": "richtext", "id": "body", "label": "Body", "default": "<ul><li>100% Homemade</li><li>No Artificial Colors</li><li>Made in Small Batches</li></ul>" },
+        { "type": "checkbox", "id": "open", "label": "Open by default", "default": false }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Product information" }]
+}
+{% endschema %}

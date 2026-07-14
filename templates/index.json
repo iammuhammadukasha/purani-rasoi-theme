@@ -1,0 +1,98 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "blocks": {
+        "t1": { "type": "trust", "settings": { "icon": "home", "label": "100%\nHomemade" } },
+        "t2": { "type": "trust", "settings": { "icon": "block", "label": "No\nPreservatives" } },
+        "t3": { "type": "trust", "settings": { "icon": "handshake", "label": "Handcrafted\nIn Small Batches" } },
+        "t4": { "type": "trust", "settings": { "icon": "favorite", "label": "Made With\nLove" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"],
+      "settings": {
+        "eyebrow": "Traditional Recipe | Authentic Taste",
+        "heading": "Har Bite Mein\nGhar Ka Asli Swad",
+        "copy": "Dadi ke haathon ka swad jo har bite ko banaye special.",
+        "desktop_copy": "Purani Rasoi ke achar, ghar ki parampara aur maa ke haathon ke swad ke saath, ab aapke ghar tak.",
+        "cta_label": "Shop Now"
+      }
+    },
+    "categories": {
+      "type": "category-circles",
+      "blocks": {
+        "c1": { "type": "category", "settings": { "title": "Aam Ka Achar", "fallback_asset": "aam.png" } },
+        "c2": { "type": "category", "settings": { "title": "Nimbu Ka Achar", "fallback_asset": "nimbu.png" } },
+        "c3": { "type": "category", "settings": { "title": "Mixed Achar", "fallback_asset": "mixed.png" } },
+        "c4": { "type": "category", "settings": { "title": "Mirch Ka Achar", "fallback_asset": "mirch.png" } },
+        "c5": { "type": "category", "settings": { "title": "Lehsun Ka Achar", "fallback_asset": "lehsun.png" } },
+        "c6": { "type": "category", "settings": { "title": "Hari Mirch", "fallback_asset": "hari-mirch.png" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4", "c5", "c6"],
+      "settings": {
+        "heading": "Shop By Category",
+        "view_all_label": "View All Categories >"
+      }
+    },
+    "bestsellers": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Best Sellers",
+        "products_to_show": 5,
+        "view_all": "View All >",
+        "view_all_desktop": "View All Products"
+      }
+    },
+    "why": {
+      "type": "why-us",
+      "blocks": {
+        "w1": { "type": "item", "settings": { "icon": "home", "title": "Ghar Jaisa Swad", "text": "Bilkul waise hi jaise maa banaya karti thi." } },
+        "w2": { "type": "item", "settings": { "icon": "eco", "title": "No Preservatives", "text": "Koi artificial color ya preservatives nahi." } },
+        "w3": { "type": "item", "settings": { "icon": "menu_book", "title": "Traditional Recipes", "text": "Purani aur authentic vidhi se tayyar." } },
+        "w4": { "type": "item", "settings": { "icon": "inventory_2", "title": "Small Batch Made", "text": "Har batch fresh aur specially aapke liye." } }
+      },
+      "block_order": ["w1", "w2", "w3", "w4"],
+      "settings": { "heading": "Why Purani Rasoi" }
+    },
+    "story": {
+      "type": "story-banner",
+      "settings": {
+        "eyebrow": "Our Story",
+        "heading": "Parampara, Swad Aur Pyaar",
+        "copy": "Purani Rasoi ki shuruaat ek chhote se ghar ki rasoi se hui thi. Dadi aur maa ke haathon ke banaye achar ki khushboo har kisi ko pasand aati thi. Aaj wahi parampara hum aapke liye lekar aaye hain – bina kisi milowat ke, bilkul ghar jaisa swad.",
+        "mobile_heading": "Traditional Recipe\nAuthentic Taste",
+        "mobile_copy": "Dadi Maa ka nuskha, wahi purana swad.",
+        "cta_label": "Jaaniye Hamari Kahani",
+        "badge": "Trusted by\nThousands of\nHappy Customers"
+      }
+    },
+    "reviews": {
+      "type": "testimonials",
+      "blocks": {
+        "r1": { "type": "review", "settings": { "quote": "“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”", "author": "Priya Sharma" } },
+        "r2": { "type": "review", "settings": { "quote": "“Nimbu ka achar try kiya, bahut hi tasty aur fresh. Will order again!”", "author": "Rohit Verma" } },
+        "r3": { "type": "review", "settings": { "quote": "“Best achar I have ever had. 100% recommended!”", "author": "Neha Agarwal" } }
+      },
+      "block_order": ["r1", "r2", "r3"],
+      "settings": {
+        "heading": "What Our Customers Say",
+        "heading_mobile": "Customer Love"
+      }
+    },
+    "blog": {
+      "type": "blog-cards",
+      "blocks": {
+        "b1": { "type": "post", "settings": { "title": "Aam Ke Achar Ke Fayde", "fallback_asset": "product-aam.png" } },
+        "b2": { "type": "post", "settings": { "title": "Achar Ke Saath Perfect Meals", "fallback_asset": "story-kitchen.png" } },
+        "b3": { "type": "post", "settings": { "title": "Hamari Traditional Recipe", "fallback_asset": "banner-kitchen.png" } },
+        "b4": { "type": "post", "settings": { "title": "Achar Ko Kaise Store Karein", "fallback_asset": "product-aam-kathal.png" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"],
+      "settings": {
+        "heading": "Recipes & Blog",
+        "view_all": "View All >",
+        "view_all_desktop": "View All Articles"
+      }
+    }
+  },
+  "order": ["hero", "categories", "bestsellers", "why", "story", "reviews", "blog"]
+}

@@ -1,0 +1,27 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Get 10% OFF on your first order!",
+        "copy": "Join our kitchen family for recipes, offers & ghar jaisa swad updates."
+      }
+    },
+    "certs-bar": {
+      "type": "certs-bar",
+      "settings": {
+        "show_certs": true,
+        "heading": "We Are Certified"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "menu": "footer"
+      }
+    }
+  },
+  "order": ["newsletter", "certs-bar", "footer"]
+}

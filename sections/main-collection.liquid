@@ -1,0 +1,67 @@
+<section class="shop-banner" aria-label="{{ collection.title }}">
+  {%- if section.settings.banner != blank -%}
+    <img src="{{ section.settings.banner | image_url: width: 2000 }}" alt="" loading="eager">
+  {%- elsif collection.image -%}
+    <img src="{{ collection.image | image_url: width: 2000 }}" alt="" loading="eager">
+  {%- else -%}
+    <img src="{{ 'hero-banner.png' | asset_url }}" alt="" loading="eager">
+  {%- endif -%}
+  <div class="shop-banner__content">
+    <h1>{{ collection.title }}</h1>
+    <p class="shop-banner__crumbs">
+      <a href="{{ routes.root_url }}">Home</a> &gt; {{ collection.title }}
+    </p>
+  </div>
+</section>
+
+<div class="shop-toolbar">
+  <div class="shop-toolbar__left">
+    <form class="shop-sort">
+      <label>
+        <span class="sr-only">Sort</span>
+        <select name="sort_by" aria-label="Sort products" onchange="this.form.submit()">
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>
+              {{ option.name }}
+            </option>
+          {%- endfor -%}
+        </select>
+      </label>
+    </form>
+  </div>
+  <div class="shop-toolbar__right">
+    <span class="shop-count">{{ collection.products_count }} products</span>
+  </div>
+</div>
+
+<section class="shop-grid" aria-label="Products" id="product-grid">
+  {%- paginate collection.products by section.settings.products_per_page -%}
+    {%- for product in collection.products -%}
+      {% render 'product-card', product: product, show_rating: true %}
+    {%- else -%}
+      <p style="grid-column:1/-1;text-align:center;padding:3rem">No products found in this collection.</p>
+    {%- endfor -%}
+
+    {%- if paginate.pages > 1 -%}
+      <nav class="pagination" style="grid-column:1/-1;display:flex;gap:0.5rem;justify-content:center;padding:2rem">
+        {%- if paginate.previous -%}
+          <a href="{{ paginate.previous.url }}">← Prev</a>
+        {%- endif -%}
+        <span>Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
+        {%- if paginate.next -%}
+          <a href="{{ paginate.next.url }}">Next →</a>
+        {%- endif -%}
+      </nav>
+    {%- endif -%}
+  {%- endpaginate -%}
+</section>
+
+{% schema %}
+{
+  "name": "Collection products",
+  "settings": [
+    { "type": "image_picker", "id": "banner", "label": "Banner image" },
+    { "type": "range", "id": "products_per_page", "min": 8, "max": 36, "step": 4, "label": "Products per page", "default": 16 }
+  ]
+}
+{% endschema %}

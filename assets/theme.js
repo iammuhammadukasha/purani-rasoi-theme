@@ -209,4 +209,57 @@
     show(index);
     start();
   });
+
+  /* Shop toolbar: filter drawer + grid/list view */
+  const shopFilters = document.getElementById("shop-filters");
+  const shopFilterBtns = document.querySelectorAll("[data-shop-filter]");
+  const productGrid = document.getElementById("product-grid");
+
+  function setShopFiltersOpen(open) {
+    if (!shopFilters) return;
+    shopFilters.classList.toggle("is-open", open);
+    if (open) shopFilters.removeAttribute("hidden");
+    else shopFilters.setAttribute("hidden", "");
+    document.body.style.overflow = open ? "hidden" : "";
+    shopFilterBtns.forEach((btn) => btn.setAttribute("aria-expanded", String(open)));
+  }
+
+  shopFilterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const open = shopFilters?.classList.contains("is-open");
+      setShopFiltersOpen(!open);
+    });
+  });
+  document.querySelectorAll("[data-shop-filter-close]").forEach((el) => {
+    el.addEventListener("click", () => setShopFiltersOpen(false));
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setShopFiltersOpen(false);
+  });
+
+  const viewKey = "pr-shop-view";
+  function setShopView(mode) {
+    if (!productGrid) return;
+    const list = mode === "list";
+    productGrid.classList.toggle("is-list", list);
+    document.querySelectorAll("[data-shop-view]").forEach((btn) => {
+      const active = btn.getAttribute("data-shop-view") === mode;
+      btn.classList.toggle("is-active", active);
+      btn.setAttribute("aria-pressed", String(active));
+    });
+    try {
+      localStorage.setItem(viewKey, mode);
+    } catch (e) {}
+  }
+
+  document.querySelectorAll("[data-shop-view]").forEach((btn) => {
+    btn.addEventListener("click", () => setShopView(btn.getAttribute("data-shop-view") || "grid"));
+  });
+  if (productGrid) {
+    let saved = "grid";
+    try {
+      saved = localStorage.getItem(viewKey) || "grid";
+    } catch (e) {}
+    setShopView(saved);
+  }
 })();

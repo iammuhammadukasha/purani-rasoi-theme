@@ -34,23 +34,118 @@
 {%- endif -%}
 
 <div class="shop-toolbar">
-  <div class="shop-toolbar__left">
-    <form class="shop-sort">
-      <label>
-        <span class="sr-only">Sort</span>
-        <select name="sort_by" aria-label="Sort products" onchange="this.form.submit()">
-          {%- for option in collection.sort_options -%}
-            <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>
-              {{ option.name }}
-            </option>
-          {%- endfor -%}
-        </select>
-      </label>
+  <div class="shop-toolbar__inner">
+    <div class="shop-toolbar__left">
+      <button type="button" class="shop-toolbar__btn" data-shop-filter aria-expanded="false" aria-controls="shop-filters">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 5h16l-6.5 7.2V19l-3 1.5v-8.3L4 5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+        <span>Filter</span>
+      </button>
+
+      <div class="shop-toolbar__sort">
+        <form>
+          <label class="shop-toolbar__btn shop-toolbar__sort-trigger">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 3l3.2 5.5H8.8L12 3zM12 21l-3.2-5.5h6.4L12 21zM3 12l5.5-3.2v6.4L3 12zM21 12l-5.5 3.2V8.8L21 12z" fill="currentColor"/>
+            </svg>
+            <span>Sort</span>
+            <svg width="12" height="14" viewBox="0 0 12 16" fill="none" aria-hidden="true">
+              <path d="M6 1v14M6 1L3 4M6 1l3 3M6 15l-3-3M6 15l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <select
+              class="shop-toolbar__select"
+              name="sort_by"
+              aria-label="Sort products"
+              onchange="this.form.submit()"
+            >
+              {%- for option in collection.sort_options -%}
+                <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>
+                  {{ option.name }}
+                </option>
+              {%- endfor -%}
+            </select>
+          </label>
+        </form>
+      </div>
+    </div>
+
+    <div class="shop-toolbar__views" role="group" aria-label="Product layout">
+      <button type="button" class="shop-toolbar__view is-active" data-shop-view="grid" aria-pressed="true" aria-label="Grid view">
+        <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
+      </button>
+      <button type="button" class="shop-toolbar__view" data-shop-view="list" aria-pressed="false" aria-label="List view">
+        <span class="material-symbols-outlined" aria-hidden="true">view_list</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="shop-filters" id="shop-filters" hidden>
+  <div class="shop-filters__backdrop" data-shop-filter-close tabindex="-1"></div>
+  <aside class="shop-filters__panel" role="dialog" aria-modal="true" aria-labelledby="shop-filters-title">
+    <div class="shop-filters__head">
+      <h2 id="shop-filters-title">Filter</h2>
+      <button type="button" class="shop-filters__close" data-shop-filter-close aria-label="Close filters">✕</button>
+    </div>
+    <form class="shop-filters__form">
+      {%- if collection.filters.size > 0 -%}
+        {%- for filter in collection.filters -%}
+          <div class="shop-filters__group">
+            <h3>{{ filter.label }}</h3>
+            {%- case filter.type -%}
+              {%- when 'list', 'boolean' -%}
+                {%- for value in filter.values -%}
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="{{ value.param_name }}"
+                      value="{{ value.value }}"
+                      {% if value.active %}checked{% endif %}
+                      {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                    >
+                    {{ value.label }}{% if value.count %} ({{ value.count }}){% endif %}
+                  </label>
+                {%- endfor -%}
+              {%- when 'price_range' -%}
+                <label>
+                  Min
+                  <input
+                    type="number"
+                    name="{{ filter.min_value.param_name }}"
+                    value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                    placeholder="0"
+                    min="0"
+                  >
+                </label>
+                <label>
+                  Max
+                  <input
+                    type="number"
+                    name="{{ filter.max_value.param_name }}"
+                    value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                    placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                    min="0"
+                  >
+                </label>
+            {%- endcase -%}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <div class="shop-filters__group">
+          <h3>Availability</h3>
+          <label><input type="checkbox" name="filter.v.availability" value="1"> In stock</label>
+        </div>
+        <p style="font-family:Work Sans,sans-serif;font-size:0.8125rem;opacity:0.75;margin:0 0 1rem">
+          Enable storefront filters in Shopify Admin → Settings → Apps and sales channels → Online Store → Preferences for more options.
+        </p>
+      {%- endif -%}
+      <div class="shop-filters__actions">
+        <a class="shop-filters__clear" href="{{ collection.url }}" style="text-align:center;text-decoration:none;line-height:1.2;display:flex;align-items:center;justify-content:center">Clear</a>
+        <button type="submit" class="shop-filters__apply">Apply</button>
+      </div>
     </form>
-  </div>
-  <div class="shop-toolbar__right">
-    <span class="shop-count">{{ collection.products_count }} products</span>
-  </div>
+  </aside>
 </div>
 
 <section class="shop-grid" aria-label="Products" id="product-grid">

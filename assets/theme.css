@@ -7,13 +7,30 @@
   --pr-surface-low: #f9f3ec;
   --pr-surface-high: #e7e2db;
   --pr-max: 1200px;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Poppins", system-ui, sans-serif;
+  --fs-h1: 38px;
+  --fs-h2: 28px;
+  --fs-h3: 22px;
+  --fs-body: 15px;
+  --fs-product: 16px;
+  --fs-price: 22px;
+  --fs-btn: 15px;
+  --fs-caption: 13px;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
 }
 
 .pr-body {
   margin: 0;
   background: var(--pr-cream);
   color: var(--pr-maroon);
-  font-family: "Work Sans", "Inter", system-ui, sans-serif;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: 1.55;
 }
 
 .bg-cream { background-color: var(--pr-cream); }

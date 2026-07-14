@@ -1,4 +1,21 @@
-/* Purani Rasoi homepage ? companions to Tailwind */
+/* Purani Rasoi — typography & base */
+
+:root {
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Poppins", system-ui, sans-serif;
+  --fs-h1: 38px;
+  --fs-h2: 28px;
+  --fs-h3: 22px;
+  --fs-body: 15px;
+  --fs-product: 16px;
+  --fs-price: 22px;
+  --fs-btn: 15px;
+  --fs-caption: 13px;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+}
 
 *,
 *::before,
@@ -8,6 +25,106 @@
 
 body {
   margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: 1.55;
+}
+
+h1,
+.pr-h1,
+.mh-hero__title,
+.dh-hero__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  line-height: 1.15;
+}
+
+h2,
+.pr-h2,
+.mh-heading,
+.dh-heading,
+.pdp-related h2,
+.dh-story__content h2,
+.newsletter__title,
+.mh-newsletter h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-semibold);
+  line-height: 1.2;
+}
+
+h3,
+.pr-h3,
+.pdp-acc summary {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-medium);
+  line-height: 1.25;
+}
+
+.pdp-title {
+  font-family: var(--font-display) !important;
+  font-size: var(--fs-h2) !important;
+  font-weight: var(--fw-semibold) !important;
+  line-height: 1.2;
+}
+
+p,
+.pr-body-text,
+.pdp-desc,
+.site-footer__tagline,
+.dh-story__content > p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+}
+
+.bs-card__title,
+.bs-card__title a {
+  font-family: var(--font-body) !important;
+  font-size: var(--fs-product) !important;
+  font-weight: var(--fw-medium) !important;
+}
+
+.bs-card__price strong,
+.pdp-price strong,
+.pdp-price__row strong {
+  font-family: var(--font-body) !important;
+  font-size: var(--fs-price) !important;
+  font-weight: var(--fw-semibold) !important;
+}
+
+button,
+.pr-btn,
+.bs-card__btn,
+.pdp-add,
+.pdp-buy,
+.dh-hero__cta,
+.mh-hero__cta,
+.dh-story__cta,
+.mh-story__btn,
+.shop-filters__apply,
+.newsletter__form button,
+.mh-newsletter__form button {
+  font-family: var(--font-body) !important;
+  font-size: var(--fs-btn) !important;
+  font-weight: var(--fw-semibold) !important;
+}
+
+.pr-caption,
+.bs-card__size,
+.bs-card__rating,
+.pdp-meta,
+.pdp-label,
+.pdp-price__tax,
+.shop-banner__crumbs,
+.shop-usp__item,
+.dh-story__eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-regular);
 }
 
 img {
@@ -82,7 +199,7 @@ a {
   padding: 0.55rem 0.7rem;
   border-radius: 6px;
   font-size: 0.875rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   letter-spacing: 0;
   text-transform: none;
@@ -180,7 +297,7 @@ a {
 }
 
 .cat-card__label {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -219,7 +336,7 @@ a {
   z-index: 2;
   background: #77060c;
   color: #fff;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -253,7 +370,7 @@ a {
 
 .product-tile__title {
   margin: 0 0 0.35rem;
-  font-family: "Noto Serif", serif;
+  font-family: "Playfair Display", serif;
   font-size: 1.05rem;
   font-weight: 600;
   color: #77060c;
@@ -270,13 +387,13 @@ a {
 
 .product-tile__rating span {
   color: #59413f;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
 }
 
 .product-tile__size {
   margin: 0 0 0.75rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   color: #59413f;
 }
@@ -290,20 +407,20 @@ a {
 }
 
 .product-tile__price strong {
-  font-family: "Noto Serif", serif;
+  font-family: "Playfair Display", serif;
   font-size: 1.25rem;
   color: #77060c;
 }
 
 .product-tile__price s {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   color: #a9a29e;
   padding-bottom: 0.15rem;
 }
 
 .product-tile__price span {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.6875rem;
   font-weight: 700;
   color: #ffffff;
@@ -317,7 +434,7 @@ a {
   width: 100%;
   background: #77060c;
   color: #fff;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -370,7 +487,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -398,7 +515,7 @@ a {
 
 .bestsellers__title {
   margin: 0;
-  font-family: "Noto Serif", serif;
+  font-family: "Playfair Display", serif;
   font-size: clamp(1.5rem, 2.4vw, 2rem);
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -446,7 +563,7 @@ a {
   z-index: 2;
   background: #77060c;
   color: #ffffff;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -492,7 +609,7 @@ a {
 
 .bs-card__title {
   margin: 0 0 0.35rem;
-  font-family: "Noto Serif", serif;
+  font-family: "Playfair Display", serif;
   font-size: 1.05rem;
   font-weight: 700;
   color: #77060c;
@@ -504,7 +621,7 @@ a {
   align-items: center;
   gap: 0.35rem;
   margin-bottom: 0.25rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   color: #6b5b52;
 }
@@ -518,7 +635,7 @@ a {
 
 .bs-card__size {
   margin: 0 0 0.75rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
   color: #6b5b52;
 }
@@ -532,20 +649,20 @@ a {
 }
 
 .bs-card__price strong {
-  font-family: "Noto Serif", serif;
+  font-family: "Playfair Display", serif;
   font-size: 1.2rem;
   font-weight: 700;
   color: #77060c;
 }
 
 .bs-card__price s {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
   color: #a59a92;
 }
 
 .bs-card__off {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.6875rem;
   font-weight: 700;
   color: #77060c;
@@ -565,7 +682,7 @@ a {
   background: #77060c;
   color: #ffffff;
   border-radius: 8px;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -763,7 +880,7 @@ a {
 .hero-block__eyebrow {
   margin: 0 0 0.7rem;
   color: #f6cb7a;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: "Poppins", system-ui, sans-serif;
   font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -791,7 +908,7 @@ a {
 .hero-block__copy {
   margin: 0 0 1.15rem;
   color: rgba(255, 255, 255, 0.92);
-  font-family: Inter, system-ui, sans-serif;
+  font-family: "Poppins", system-ui, sans-serif;
   font-size: 0.8125rem;
   line-height: 1.55;
   max-width: 22rem;
@@ -808,7 +925,7 @@ a {
   border: 1px solid rgba(246, 203, 122, 0.45);
   border-radius: 6px;
   color: #ffffff;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: "Poppins", system-ui, sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -832,7 +949,7 @@ a {
 
 .hero-block__trust-item span {
   color: #ffffff;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: "Poppins", system-ui, sans-serif;
   font-size: 0.5625rem;
   line-height: 1.25;
 }
@@ -866,7 +983,7 @@ a {
   border: 1.5px solid #77060c;
   border-radius: 6px;
   color: #77060c;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -891,14 +1008,14 @@ a {
 
 .newsletter__title {
   margin: 0 0 0.35rem;
-  font-family: "Noto Serif", serif;
+  font-family: "Playfair Display", serif;
   font-size: 1.25rem;
   color: #f6cb7a;
 }
 
 .newsletter__copy {
   margin: 0 0 1rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
   color: rgba(255, 255, 255, 0.9);
 }
@@ -916,7 +1033,7 @@ a {
   padding: 0.65rem 0.9rem;
   border: 0;
   border-radius: 6px;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.875rem;
 }
 
@@ -926,7 +1043,7 @@ a {
   border-radius: 6px;
   background: #f6cb7a;
   color: #77060c;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -986,7 +1103,7 @@ a {
 
 .shop-banner__crumbs {
   margin: 0;
-  font-family: "Work Sans", "Montserrat", sans-serif;
+  font-family: "Poppins", "Montserrat", sans-serif;
   font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.01em;
@@ -1023,7 +1140,7 @@ a {
   align-items: center;
   gap: 0.35rem;
   text-align: center;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.58rem;
   line-height: 1.2;
   font-weight: 700;
@@ -1128,7 +1245,7 @@ a {
   border: 0;
   background: transparent;
   color: #5c0a0f;
-  font-family: "Work Sans", "Montserrat", sans-serif;
+  font-family: "Poppins", "Montserrat", sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0.01em;
@@ -1177,7 +1294,7 @@ a {
   border-radius: 8px;
   background: transparent;
   color: #5c0a0f;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
   font-weight: 500;
   text-align: left;
@@ -1292,7 +1409,7 @@ a {
 
 .shop-filters__group h3 {
   margin: 0 0 0.65rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -1304,7 +1421,7 @@ a {
   align-items: center;
   gap: 0.55rem;
   margin-bottom: 0.55rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.875rem;
   color: #5c0a0f;
   cursor: pointer;
@@ -1343,7 +1460,7 @@ a {
   justify-content: space-between;
   gap: 0.75rem;
   margin-bottom: 0.65rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.875rem;
   color: #5c0a0f;
 }
@@ -1355,7 +1472,7 @@ a {
   border-radius: 4px;
   background: #fff;
   color: #5c0a0f;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.875rem;
 }
 
@@ -1373,7 +1490,7 @@ a {
   border-radius: 999px;
   background: #77060c;
   color: #fef8f1;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.875rem;
   font-weight: 700;
   cursor: pointer;
@@ -1387,7 +1504,7 @@ a {
   border-radius: 6px;
   background: transparent;
   color: #77060c;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
@@ -1440,7 +1557,7 @@ a {
 }
 
 .shop-promise__item span:last-child {
-  font-family: "Work Sans", "Montserrat", sans-serif;
+  font-family: "Poppins", "Montserrat", sans-serif;
   font-size: 0.58rem;
   font-weight: 600;
   line-height: 1.25;
@@ -1723,7 +1840,7 @@ a {
 
 .pdp-title {
   margin: 0 0 0.4rem;
-  font-family: "Playfair Display", "Noto Serif", Georgia, serif;
+  font-family: "Playfair Display", "Playfair Display", Georgia, serif;
   font-size: 1.65rem;
   font-weight: 700;
   line-height: 1.15;
@@ -1737,7 +1854,7 @@ a {
   justify-content: space-between;
   gap: 0.65rem;
   margin-bottom: 0.65rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.78rem;
   color: #6b5b52;
 }
@@ -1774,7 +1891,7 @@ a {
 
 .pdp-desc {
   margin: 0 0 1rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
   line-height: 1.5;
   color: #6b5b52;
@@ -1783,7 +1900,7 @@ a {
 .pdp-label {
   display: block;
   margin-bottom: 0.4rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.78rem;
   font-weight: 600;
   color: #5c4033;
@@ -1803,7 +1920,7 @@ a {
   border-radius: 8px;
   background: #f3eee7;
   color: #5c0a0f;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
   cursor: pointer;
@@ -1817,7 +1934,7 @@ a {
 
 .pdp-price {
   margin-bottom: 1rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .pdp-price__row {
@@ -1884,7 +2001,7 @@ a {
 #qty-value {
   min-width: 1.6rem;
   text-align: center;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   color: #77060c;
   display: inline-block;
@@ -1896,7 +2013,7 @@ a {
   border-radius: 8px;
   background: #77060c;
   color: #fff;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -1926,7 +2043,7 @@ a {
   border: 1.5px solid #77060c;
   background: #fef8f1;
   color: #77060c;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -1950,7 +2067,7 @@ a {
   border: 1px solid rgba(119, 6, 12, 0.12);
   border-radius: 10px;
   background: #fffdf9;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #5c0a0f;
 }
 
@@ -1999,7 +2116,7 @@ a {
   align-items: center;
   gap: 0.75rem;
   padding: 0.95rem 0;
-  font-family: "Playfair Display", "Noto Serif", Georgia, serif;
+  font-family: "Playfair Display", "Playfair Display", Georgia, serif;
   font-size: 1.05rem;
   font-weight: 600;
   color: #5c0a0f;
@@ -2024,7 +2141,7 @@ a {
 
 .pdp-acc__body {
   padding: 0 0 1rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
   line-height: 1.55;
   color: #5c4033;
@@ -2074,7 +2191,7 @@ a {
   justify-content: center;
   gap: 0.65rem;
   margin: 0 0 1.1rem;
-  font-family: "Playfair Display", "Noto Serif", Georgia, serif;
+  font-family: "Playfair Display", "Playfair Display", Georgia, serif;
   font-size: 1.2rem;
   font-weight: 600;
   color: #5c0a0f;
@@ -2285,14 +2402,14 @@ a.bs-card__media {
 }
 
 .site-footer__name {
-  font-family: "Playfair Display", "Noto Serif", serif;
+  font-family: "Playfair Display", "Playfair Display", serif;
   font-size: 1.4rem;
   font-weight: 700;
   color: #ffffff;
 }
 
 .site-footer__sub {
-  font-family: "Montserrat", "Work Sans", sans-serif;
+  font-family: "Montserrat", "Poppins", sans-serif;
   font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 0.28em;
@@ -2303,7 +2420,7 @@ a.bs-card__media {
 
 .site-footer__tagline {
   margin: 0 0 0.7rem;
-  font-family: "Noto Serif", "Playfair Display", Georgia, serif;
+  font-family: "Playfair Display", "Playfair Display", Georgia, serif;
   font-style: italic;
   font-size: 0.78rem;
   line-height: 1.4;
@@ -2367,7 +2484,7 @@ a.bs-card__media {
 
 .site-footer__heading {
   margin: 0 0 0.55rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -2396,7 +2513,7 @@ a.bs-card__media {
   display: flex;
   flex-direction: column;
   gap: 0.38rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.78rem;
 }
 
@@ -2423,7 +2540,7 @@ a.bs-card__media {
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.92);
 }
@@ -2503,7 +2620,7 @@ a.bs-card__media {
 
 .site-footer__bar p {
   margin: 0;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.62rem;
   color: #fff;
   white-space: normal;
@@ -2574,7 +2691,7 @@ a.bs-card__media {
   padding: 0 0.4rem;
   background: #fff;
   border-radius: 4px;
-  font-family: "Montserrat", "Work Sans", sans-serif;
+  font-family: "Montserrat", "Poppins", sans-serif;
   font-size: 0.55rem;
   font-weight: 800;
   letter-spacing: 0.02em;
@@ -2674,7 +2791,7 @@ a.bs-card__media {
 
 .mh-hero__copy {
   margin: 0 0 1.1rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.7rem;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.92);
@@ -2689,7 +2806,7 @@ a.bs-card__media {
   border: 1.5px solid rgba(255, 255, 255, 0.85);
   border-radius: 6px;
   color: #fff;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -2711,7 +2828,7 @@ a.bs-card__media {
   align-items: center;
   gap: 0.3rem;
   text-align: center;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.52rem;
   line-height: 1.2;
   color: #77060c;
@@ -2756,7 +2873,7 @@ a.bs-card__media {
 .mh-heading {
   margin: 0 0 1.35rem;
   text-align: center;
-  font-family: "Playfair Display", "Noto Serif", Georgia, serif;
+  font-family: "Playfair Display", "Playfair Display", Georgia, serif;
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -2793,7 +2910,7 @@ a.bs-card__media {
 }
 
 .mh-cat span {
-  font-family: "Montserrat", "Work Sans", sans-serif;
+  font-family: "Montserrat", "Poppins", sans-serif;
   font-size: 0.58rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -2811,7 +2928,7 @@ a.bs-card__media {
   margin: 0 auto;
   padding: 0.65rem 1.15rem;
   text-align: center;
-  font-family: "Montserrat", "Work Sans", sans-serif;
+  font-family: "Montserrat", "Poppins", sans-serif;
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -2823,7 +2940,7 @@ a.bs-card__media {
 }
 
 .mh-link-maroon {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -2882,7 +2999,7 @@ a.bs-card__media {
 
 .mh-story__text p {
   margin: 0 0 0.85rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.6875rem;
   line-height: 1.4;
   color: rgba(255, 255, 255, 0.9);
@@ -2896,7 +3013,7 @@ a.bs-card__media {
   padding: 0.5rem 0.85rem;
   border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 6px;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -2923,7 +3040,7 @@ a.bs-card__media {
   align-items: center;
   gap: 0.4rem;
   text-align: center;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.5625rem;
   line-height: 1.25;
   font-weight: 600;
@@ -2996,7 +3113,7 @@ a.bs-card__media {
 
 .mh-love p {
   margin: 0 0 0.9rem;
-  font-family: "Noto Serif", Georgia, serif;
+  font-family: "Playfair Display", Georgia, serif;
   font-size: 0.875rem;
   font-style: italic;
   line-height: 1.45;
@@ -3021,7 +3138,7 @@ a.bs-card__media {
 }
 
 .mh-love cite {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 600;
@@ -3079,7 +3196,7 @@ a.bs-card__media {
 }
 
 .mh-blog__card span {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.6875rem;
   font-weight: 600;
   line-height: 1.3;
@@ -3101,7 +3218,7 @@ a.bs-card__media {
 
 .mh-newsletter h2 {
   margin: 0 0 0.9rem;
-  font-family: "Noto Serif", Georgia, serif;
+  font-family: "Playfair Display", Georgia, serif;
   font-size: 1.05rem;
   color: #f6cb7a;
 }
@@ -3119,7 +3236,7 @@ a.bs-card__media {
   border: 0;
   border-radius: 6px;
   padding: 0.55rem 0.75rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
 }
 
@@ -3130,7 +3247,7 @@ a.bs-card__media {
   border: 1px solid rgba(255, 255, 255, 0.75);
   background: transparent;
   color: #fff;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -3156,7 +3273,7 @@ footer.site-footer.mh-footer {
 
 .mh-footer__brand p {
   margin: 0.65rem 0 0;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.82);
@@ -3172,7 +3289,7 @@ footer.site-footer.mh-footer {
 
 .mh-footer__cols h4 {
   margin: 0 0 0.55rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -3189,7 +3306,7 @@ footer.site-footer.mh-footer {
 }
 
 .mh-footer__cols a {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.88);
 }
@@ -3208,7 +3325,7 @@ footer.site-footer.mh-footer {
   color: #77060c;
   display: grid;
   place-items: center;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.625rem;
   font-weight: 700;
 }
@@ -3224,7 +3341,7 @@ footer.site-footer.mh-footer {
   padding: 0.25rem 0.45rem;
   border: 1px solid rgba(246, 203, 122, 0.35);
   border-radius: 4px;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.5625rem;
   color: #f6cb7a;
 }
@@ -3232,7 +3349,7 @@ footer.site-footer.mh-footer {
 .mh-footer__copy {
   margin: 0;
   text-align: center;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.6875rem;
   color: #f6cb7a;
 }
@@ -3697,7 +3814,7 @@ footer.site-footer.mh-footer {
 .dh-hero__copy {
   margin: 0 0 1.4rem;
   max-width: 26rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.95rem;
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.92);
@@ -3713,7 +3830,7 @@ footer.site-footer.mh-footer {
   border: 1.5px solid rgba(255, 255, 255, 0.85);
   border-radius: 6px;
   color: #fff;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -3787,7 +3904,7 @@ footer.site-footer.mh-footer {
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -3798,7 +3915,7 @@ footer.site-footer.mh-footer {
 .dh-heading {
   margin: 0 0 2.25rem;
   text-align: center;
-  font-family: "Noto Serif", Georgia, serif;
+  font-family: "Playfair Display", Georgia, serif;
   font-size: 1.65rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -3866,7 +3983,7 @@ footer.site-footer.mh-footer {
 }
 
 .dh-cat span {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -3900,7 +4017,7 @@ footer.site-footer.mh-footer {
   grid-column: 1 / -1;
   text-align: center;
   padding: 2rem 1rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.9rem;
   color: #6b5b52;
 }
@@ -3951,7 +4068,7 @@ footer.site-footer.mh-footer {
 
 .dh-benefit p {
   margin: 0;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
   line-height: 1.4;
   color: rgba(255, 255, 255, 0.9);
@@ -3994,7 +4111,7 @@ footer.site-footer.mh-footer {
 .dh-story__eyebrow {
   margin: 0 0 0.75rem;
   color: #8b6914;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -4003,7 +4120,7 @@ footer.site-footer.mh-footer {
 
 .dh-story__content h2 {
   margin: 0 0 1rem;
-  font-family: "Noto Serif", Georgia, serif;
+  font-family: "Playfair Display", Georgia, serif;
   font-size: 2.2rem;
   line-height: 1.2;
   color: #77060c;
@@ -4012,7 +4129,7 @@ footer.site-footer.mh-footer {
 
 .dh-story__content > p {
   margin: 0 0 1.5rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.95rem;
   line-height: 1.65;
   color: rgba(119, 6, 12, 0.85);
@@ -4027,7 +4144,7 @@ footer.site-footer.mh-footer {
   background: #77060c;
   color: #fff;
   border-radius: 6px;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -4080,7 +4197,7 @@ footer.site-footer.mh-footer {
   display: grid;
   place-items: center;
   text-align: center;
-  font-family: "Work Sans", "Montserrat", sans-serif;
+  font-family: "Poppins", "Montserrat", sans-serif;
   font-size: 0.52rem;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -4130,7 +4247,7 @@ footer.site-footer.mh-footer {
 .dh-reviews__grid p {
   margin: 0 0 1.25rem;
   min-height: 4.5rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.9rem;
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.92);
@@ -4152,7 +4269,7 @@ footer.site-footer.mh-footer {
 
 .dh-reviews__grid cite {
   font-style: normal;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
   color: #f6cb7a;
@@ -4181,7 +4298,7 @@ footer.site-footer.mh-footer {
 
 .dh-blog h3 {
   margin: 0 0 0.5rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -4190,7 +4307,7 @@ footer.site-footer.mh-footer {
 }
 
 .dh-blog a {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   color: #77060c;
@@ -4204,7 +4321,7 @@ footer.site-footer.mh-footer {
   justify-content: center;
   gap: 1.5rem;
   padding: 1.25rem 1.5rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;

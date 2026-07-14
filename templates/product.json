@@ -3,15 +3,43 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "trust1": { "type": "trust", "settings": { "icon": "local_shipping", "label": "Free Shipping" } },
-        "trust2": { "type": "trust", "settings": { "icon": "package_2", "label": "Secure Packaging" } },
-        "trust3": { "type": "trust", "settings": { "icon": "schedule", "label": "3–5 Day Delivery" } },
-        "trust4": { "type": "trust", "settings": { "icon": "assignment_return", "label": "7 Day Easy Returns" } },
+        "trust1": {
+          "type": "trust",
+          "settings": {
+            "icon": "local_shipping",
+            "label": "Free Shipping",
+            "sublabel": "on orders above ₹499"
+          }
+        },
+        "trust2": {
+          "type": "trust",
+          "settings": {
+            "icon": "package_2",
+            "label": "Secure Packaging",
+            "sublabel": "Safe & Hygienic"
+          }
+        },
+        "trust3": {
+          "type": "trust",
+          "settings": {
+            "icon": "local_shipping",
+            "label": "Delivery",
+            "sublabel": "3-5 Business Days"
+          }
+        },
+        "trust4": {
+          "type": "trust",
+          "settings": {
+            "icon": "assignment_return",
+            "label": "Easy Returns",
+            "sublabel": "7 Days Return Policy"
+          }
+        },
         "acc1": {
           "type": "accordion",
           "settings": {
             "title": "Product Highlights",
-            "body": "<ul><li>100% Homemade</li><li>No Artificial Colors</li><li>Made in Small Batches</li><li>Sun-Dried Ingredients</li><li>Hygienically Packed</li></ul>",
+            "body": "<ul><li>100% Homemade</li><li>No Artificial Colors &amp; Preservatives</li><li>Made in Small Batches</li><li>Sun Dried Ingredients</li><li>Hygienically Packed</li></ul>",
             "open": true
           }
         },
@@ -26,22 +54,51 @@
         "acc3": {
           "type": "accordion",
           "settings": {
-            "title": "How to Use",
-            "body": "<p>Serve with dal-chawal, paratha, or as a side with everyday meals.</p>",
+            "title": "Nutritional Information",
+            "body": "<p>Approx. values per 100g — Energy 180 kcal, Fat 12g, Carbs 14g, Protein 2g.</p>",
             "open": false
           }
         },
         "acc4": {
           "type": "accordion",
           "settings": {
+            "title": "How to Use",
+            "body": "<p>Serve with dal-chawal, paratha, or as a side with everyday meals.</p>",
+            "open": false
+          }
+        },
+        "acc5": {
+          "type": "accordion",
+          "settings": {
             "title": "Storage Instructions",
             "body": "<p>Store in a cool, dry place. Always use a clean dry spoon. Refrigerate after opening.</p>",
             "open": false
           }
+        },
+        "acc6": {
+          "type": "accordion",
+          "settings": {
+            "title": "Reviews (125)",
+            "body": "<p>“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!” — Priya Sharma</p>",
+            "open": false
+          }
         }
       },
-      "block_order": ["trust1", "trust2", "trust3", "trust4", "acc1", "acc2", "acc3", "acc4"],
+      "block_order": [
+        "trust1",
+        "trust2",
+        "trust3",
+        "trust4",
+        "acc1",
+        "acc2",
+        "acc3",
+        "acc4",
+        "acc5",
+        "acc6"
+      ],
       "settings": {
+        "short_description": "Dadi Maa ke khaas nuskhe se bana Aam ka achaar. Sun dried mangoes with traditional spices.",
+        "review_count": "125",
         "show_related": true,
         "related_heading": "You May Also Like"
       }

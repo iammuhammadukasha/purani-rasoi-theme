@@ -158,7 +158,12 @@
           {%- if block.type == 'trust' -%}
             <div class="pdp-trust__item" {{ block.shopify_attributes }}>
               <span class="material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
-              <span>{{ block.settings.label }}</span>
+              <span class="pdp-trust__text">
+                <span class="pdp-trust__title">{{ block.settings.label }}</span>
+                {%- if block.settings.sublabel != blank -%}
+                  <span class="pdp-trust__sub">{{ block.settings.sublabel }}</span>
+                {%- endif -%}
+              </span>
             </div>
           {%- endif -%}
         {%- endfor -%}
@@ -168,7 +173,10 @@
         {%- for block in section.blocks -%}
           {%- if block.type == 'accordion' -%}
             <details {% if block.settings.open %}open{% endif %} {{ block.shopify_attributes }}>
-              <summary>{{ block.settings.title }} <span aria-hidden="true">▾</span></summary>
+              <summary>
+                <span>{{ block.settings.title }}</span>
+                <span class="pdp-acc__chev" aria-hidden="true">▾</span>
+              </summary>
               <div class="pdp-acc__body">{{ block.settings.body }}</div>
             </details>
           {%- endif -%}
@@ -180,8 +188,11 @@
           <h2>{{ section.settings.related_heading }}</h2>
           <div class="pdp-related__rail hide-scrollbar">
             {%- assign related = product.collections.first -%}
+            {%- if related == blank -%}
+              {%- assign related = collections.all -%}
+            {%- endif -%}
             {%- if related -%}
-              {%- for rel in related.products limit: 6 -%}
+              {%- for rel in related.products limit: 8 -%}
                 {%- unless rel.id == product.id -%}
                   {% render 'product-card', product: rel %}
                 {%- endunless -%}
@@ -303,7 +314,8 @@
       "name": "Trust badge",
       "settings": [
         { "type": "text", "id": "icon", "label": "Icon", "default": "local_shipping" },
-        { "type": "text", "id": "label", "label": "Label", "default": "Free Shipping" }
+        { "type": "text", "id": "label", "label": "Title", "default": "Free Shipping" },
+        { "type": "text", "id": "sublabel", "label": "Subtitle", "default": "on orders above ₹499" }
       ]
     },
     {

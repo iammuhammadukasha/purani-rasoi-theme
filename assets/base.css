@@ -2249,13 +2249,11 @@ a.bs-card__media {
   }
 }
 
-/* ===== Dual homepage: mobile vs desktop ===== */
+/* ===== Dual homepage: mobile vs desktop =====
+   Do NOT set display:block on .home-mobile — it shares the
+   element with .mh-usp/.mh-hero and would kill their grid/flex. */
 .home-desktop {
   display: none;
-}
-
-.home-mobile {
-  display: block;
 }
 
 @media (min-width: 1024px) {
@@ -2266,6 +2264,25 @@ a.bs-card__media {
   .home-desktop {
     display: block;
   }
+}
+
+/* Force USP trust row — icon + label vertical inside each cell */
+.mh-usp {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.35rem;
+}
+
+.mh-usp.home-mobile {
+  display: flex !important;
+}
+
+.mh-usp__item {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 /* Desktop announce — match reference */

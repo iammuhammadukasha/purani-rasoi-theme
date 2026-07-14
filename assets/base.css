@@ -3988,11 +3988,12 @@ footer.site-footer.mh-footer {
 
 .dh-story__content {
   position: relative;
+  padding-right: 5.75rem;
 }
 
 .dh-story__eyebrow {
   margin: 0 0 0.75rem;
-  color: #f6cb7a;
+  color: #8b6914;
   font-family: "Work Sans", sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
@@ -4006,6 +4007,7 @@ footer.site-footer.mh-footer {
   font-size: 2.2rem;
   line-height: 1.2;
   color: #77060c;
+  padding-right: 0.25rem;
 }
 
 .dh-story__content > p {
@@ -4014,7 +4016,7 @@ footer.site-footer.mh-footer {
   font-size: 0.95rem;
   line-height: 1.65;
   color: rgba(119, 6, 12, 0.85);
-  max-width: 30rem;
+  max-width: 28rem;
 }
 
 .dh-story__cta {
@@ -4032,25 +4034,70 @@ footer.site-footer.mh-footer {
   text-transform: uppercase;
 }
 
+/* Decorative seal badge — not a plain circle */
 .dh-story__badge {
   position: absolute;
-  right: 0;
-  top: 0.5rem;
-  width: 7.5rem;
-  height: 7.5rem;
-  border-radius: 999px;
-  background: #f6cb7a;
-  color: #77060c;
+  right: -1.1rem;
+  top: -1.35rem;
+  z-index: 2;
+  width: 6.4rem;
+  height: 6.4rem;
+  padding: 0.85rem 0.55rem;
+  box-sizing: border-box;
+  /* Scalloped wax-seal silhouette */
+  clip-path: polygon(
+    50% 0%,
+    61% 6%,
+    74% 3%,
+    80% 14%,
+    92% 17%,
+    89% 30%,
+    100% 38%,
+    95% 50%,
+    100% 62%,
+    89% 70%,
+    92% 83%,
+    80% 86%,
+    74% 97%,
+    61% 94%,
+    50% 100%,
+    39% 94%,
+    26% 97%,
+    20% 86%,
+    8% 83%,
+    11% 70%,
+    0% 62%,
+    5% 50%,
+    0% 38%,
+    11% 30%,
+    8% 17%,
+    20% 14%,
+    26% 3%,
+    39% 6%
+  );
+  background: #77060c;
+  color: #f6cb7a;
   display: grid;
   place-items: center;
   text-align: center;
-  font-family: "Work Sans", sans-serif;
-  font-size: 0.55rem;
+  font-family: "Work Sans", "Montserrat", sans-serif;
+  font-size: 0.52rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  line-height: 1.25;
-  box-shadow: 0 8px 20px rgba(119, 6, 12, 0.15);
+  line-height: 1.3;
+  rotate: -8deg;
+  box-shadow: 0 10px 22px rgba(80, 8, 12, 0.28);
+  pointer-events: none;
+}
+
+.dh-story__badge::before {
+  content: "";
+  position: absolute;
+  inset: 11%;
+  border: 1.5px dashed rgba(246, 203, 122, 0.75);
+  border-radius: 999px;
+  pointer-events: none;
 }
 
 .dh-reviews {

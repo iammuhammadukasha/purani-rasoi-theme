@@ -1,11 +1,36 @@
-/* Purani Rasoi Shopify theme interactions */
+/* Purani Rasoi storefront interactions */
 
 (function () {
+  const cartCounts = document.querySelectorAll(".cart-count");
+  const mobileNav = document.getElementById("mobile-nav");
   const openBtn = document.getElementById("menu-open");
   const closeBtn = document.getElementById("menu-close");
-  const mobileNav = document.getElementById("mobile-nav");
   const shopToggle = document.getElementById("shop-toggle");
   const shopMenu = document.getElementById("shop-menu");
+  let count = 0;
+
+  function setCart(n) {
+    cartCounts.forEach((el) => {
+      el.textContent = String(n);
+      el.classList.toggle("is-empty", n <= 0);
+    });
+  }
+
+  document.querySelectorAll("[data-add]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const qtyEl = document.getElementById("qty-value");
+      const qty = qtyEl ? Math.max(1, parseInt(qtyEl.textContent, 10) || 1) : 1;
+      count += qty;
+      setCart(count);
+      const label = btn.innerHTML;
+      btn.textContent = "Added";
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerHTML = label;
+        btn.disabled = false;
+      }, 1200);
+    });
+  });
 
   function setMenu(open) {
     if (!mobileNav) return;
@@ -15,9 +40,7 @@
 
   openBtn?.addEventListener("click", () => setMenu(true));
   closeBtn?.addEventListener("click", () => setMenu(false));
-  mobileNav?.querySelectorAll("a").forEach((a) =>
-    a.addEventListener("click", () => setMenu(false))
-  );
+  mobileNav?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
 
   shopToggle?.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -31,22 +54,17 @@
     shopToggle.setAttribute("aria-expanded", "false");
     shopMenu.hidden = true;
   });
+
   shopMenu?.addEventListener("click", (e) => e.stopPropagation());
 
-  const qtyInput = document.getElementById("Quantity-product");
-  const qtySpan = document.getElementById("qty-value");
-  function syncQtyDisplay() {
-    if (qtyInput && qtySpan) qtySpan.textContent = qtyInput.value;
-  }
+  const qtyValue = document.getElementById("qty-value");
   document.getElementById("qty-minus")?.addEventListener("click", () => {
-    if (!qtyInput) return;
-    qtyInput.value = String(Math.max(1, (parseInt(qtyInput.value, 10) || 1) - 1));
-    syncQtyDisplay();
+    if (!qtyValue) return;
+    qtyValue.textContent = String(Math.max(1, (parseInt(qtyValue.textContent, 10) || 1) - 1));
   });
   document.getElementById("qty-plus")?.addEventListener("click", () => {
-    if (!qtyInput) return;
-    qtyInput.value = String((parseInt(qtyInput.value, 10) || 1) + 1);
-    syncQtyDisplay();
+    if (!qtyValue) return;
+    qtyValue.textContent = String((parseInt(qtyValue.textContent, 10) || 1) + 1);
   });
 
   const mainImg = document.getElementById("pdp-main-img");
@@ -60,87 +78,18 @@
     });
   });
 
-  document.querySelectorAll("[data-option-value]").forEach((btn) => {
+  const thumbsRail = document.querySelector("[data-thumbs-rail]");
+  document.querySelector("[data-thumbs-prev]")?.addEventListener("click", () => {
+    thumbsRail?.scrollBy({ left: -120, behavior: "smooth" });
+  });
+  document.querySelector("[data-thumbs-next]")?.addEventListener("click", () => {
+    thumbsRail?.scrollBy({ left: 120, behavior: "smooth" });
+  });
+
+  document.querySelectorAll(".pdp-weights button").forEach((btn) => {
     btn.addEventListener("click", () => {
-      const value = btn.getAttribute("data-option-value");
-      const position = btn.getAttribute("data-option-position") || "1";
-      const select = document.querySelector(
-        `select[data-option-position="${position}"], #Option-${position}, [name="options[${btn.getAttribute("data-option-name")}]"]`
-      );
-      if (select && value) {
-        select.value = value;
-        select.dispatchEvent(new Event("change", { bubbles: true }));
-      }
-      btn.parentElement?.querySelectorAll("[data-option-value]").forEach((b) =>
-        b.classList.remove("is-active")
-      );
+      document.querySelectorAll(".pdp-weights button").forEach((b) => b.classList.remove("is-active"));
       btn.classList.add("is-active");
-    });
-  });
-
-  document.querySelectorAll("form[data-product-form]").forEach((form) => {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const btn = form.querySelector('[type="submit"], .pdp-add, .bs-card__btn');
-      const fd = new FormData(form);
-      try {
-        if (btn) {
-          btn.disabled = true;
-          btn.dataset.label = btn.innerHTML;
-          btn.textContent = "Adding…";
-        }
-        const res = await fetch("/cart/add.js", {
-          method: "POST",
-          body: fd,
-          headers: { Accept: "application/json" },
-        });
-        if (!res.ok) throw new Error("Add failed");
-        const cart = await fetch("/cart.js").then((r) => r.json());
-        document.querySelectorAll(".cart-count").forEach((el) => {
-          const n = cart.item_count || 0;
-          el.textContent = String(n);
-          el.classList.toggle("is-empty", n <= 0);
-        });
-        if (btn) {
-          btn.textContent = "Added";
-          setTimeout(() => {
-            btn.innerHTML = btn.dataset.label || "Add to Cart";
-            btn.disabled = false;
-          }, 1200);
-        }
-      } catch (err) {
-        form.submit();
-      }
-    });
-  });
-
-  document.querySelectorAll("[data-add-variant]").forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      const id = btn.getAttribute("data-add-variant");
-      if (!id) return;
-      const label = btn.innerHTML;
-      btn.disabled = true;
-      btn.textContent = "Adding…";
-      try {
-        await fetch("/cart/add.js", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({ id: Number(id), quantity: 1 }),
-        });
-        const cart = await fetch("/cart.js").then((r) => r.json());
-        document.querySelectorAll(".cart-count").forEach((el) => {
-          const n = cart.item_count || 0;
-          el.textContent = String(n);
-          el.classList.toggle("is-empty", n <= 0);
-        });
-        btn.textContent = "Added";
-        setTimeout(() => {
-          btn.innerHTML = label;
-          btn.disabled = false;
-        }, 1200);
-      } catch (e) {
-        window.location.href = `/cart/add?id=${id}&quantity=1`;
-      }
     });
   });
 

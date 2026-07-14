@@ -1,0 +1,40 @@
+<nav class="pr-bottom-nav" aria-label="Mobile bottom">
+  <a
+    href="{{ routes.root_url }}"
+    class="pr-bottom-nav__item{% if request.page_type == 'index' %} is-active{% endif %}"
+  >
+    <span class="material-symbols-outlined" aria-hidden="true">home</span>
+    <span class="pr-bottom-nav__label">Home</span>
+  </a>
+  <a
+    href="{{ routes.search_url }}"
+    class="pr-bottom-nav__item{% if request.page_type == 'search' %} is-active{% endif %}"
+  >
+    <span class="material-symbols-outlined" aria-hidden="true">search</span>
+    <span class="pr-bottom-nav__label">Search</span>
+  </a>
+  <a
+    href="{{ routes.all_products_collection_url }}"
+    class="pr-bottom-nav__item{% if request.page_type == 'collection' or request.page_type == 'list-collections' %} is-active{% endif %}"
+  >
+    <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
+    <span class="pr-bottom-nav__label">Categories</span>
+  </a>
+  <a
+    href="{{ routes.cart_url }}"
+    class="pr-bottom-nav__item pr-bottom-nav__item--cart{% if request.page_type == 'cart' %} is-active{% endif %}"
+  >
+    <span class="pr-bottom-nav__icon-wrap">
+      <span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span>
+      <span class="cart-count pr-bottom-nav__badge{% if cart.item_count == 0 %} is-empty{% endif %}">{{ cart.item_count }}</span>
+    </span>
+    <span class="pr-bottom-nav__label">Cart</span>
+  </a>
+  <a
+    href="{% if shop.customer_accounts_enabled %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+    class="pr-bottom-nav__item{% if request.page_type == 'customers/account' or request.page_type == 'customers/login' or request.page_type == 'customers/register' %} is-active{% endif %}"
+  >
+    <span class="material-symbols-outlined" aria-hidden="true">person</span>
+    <span class="pr-bottom-nav__label">Account</span>
+  </a>
+</nav>

@@ -879,6 +879,106 @@ a {
   transform: scale(1.06);
 }
 
+@media (max-width: 1023px) {
+  .wa-float {
+    bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* 12. Bottom navigation (mobile) */
+.pr-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  body {
+    padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .pr-bottom-nav {
+    position: fixed;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
+    z-index: 60;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    gap: 0.15rem;
+    min-height: 4rem;
+    padding: 0.45rem 0.35rem 0.55rem;
+    background: var(--pr-red);
+    border-radius: var(--radius-20);
+    box-shadow: var(--shadow-3);
+  }
+
+  .pr-bottom-nav__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    min-width: 0;
+    padding: 0.25rem 0.15rem;
+    color: rgba(255, 248, 240, 0.72);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 0.625rem;
+    font-weight: var(--fw-medium);
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .pr-bottom-nav__item .material-symbols-outlined {
+    font-size: 1.4rem;
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+    line-height: 1;
+  }
+
+  .pr-bottom-nav__item.is-active {
+    color: var(--pr-gold);
+  }
+
+  .pr-bottom-nav__item.is-active .material-symbols-outlined {
+    font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24;
+  }
+
+  .pr-bottom-nav__label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .pr-bottom-nav__icon-wrap {
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+
+  .pr-bottom-nav__badge {
+    position: absolute;
+    top: -0.35rem;
+    right: -0.55rem;
+    min-width: 1rem;
+    height: 1rem;
+    padding: 0 0.25rem;
+    border-radius: var(--radius-full);
+    background: var(--pr-gold);
+    color: var(--pr-red);
+    font-family: var(--font-body);
+    font-size: 0.5625rem;
+    font-weight: var(--fw-bold);
+    line-height: 1rem;
+    text-align: center;
+  }
+
+  .pr-bottom-nav__badge.is-empty {
+    display: none;
+  }
+}
+
 /* Mobile topbar ? menu | centered logo | tools */
 .site-topbar__inner {
   display: grid;

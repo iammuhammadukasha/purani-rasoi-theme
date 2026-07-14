@@ -1,5 +1,4 @@
 {%- liquid
-  assign menu = section.settings.menu
   if settings.logo != blank
     assign logo_src = settings.logo | image_url: width: 96
   else
@@ -7,6 +6,37 @@
   endif
   assign brand1 = settings.brand_name_line1 | default: 'Purani'
   assign brand2 = settings.brand_name_line2 | default: 'Rasoi'
+
+  if section.settings.link_home != blank
+    assign home_url = section.settings.link_home
+  else
+    assign home_url = routes.root_url
+  endif
+  if section.settings.link_shop != blank
+    assign shop_url = section.settings.link_shop
+  else
+    assign shop_url = routes.all_products_collection_url
+  endif
+  if section.settings.link_story != blank
+    assign story_url = section.settings.link_story
+  else
+    assign story_url = routes.root_url | append: '#story'
+  endif
+  if section.settings.link_blog != blank
+    assign blog_url = section.settings.link_blog
+  else
+    assign blog_url = routes.root_url | append: '#blog'
+  endif
+  if section.settings.link_wholesale != blank
+    assign wholesale_url = section.settings.link_wholesale
+  else
+    assign wholesale_url = routes.all_products_collection_url
+  endif
+  if section.settings.link_contact != blank
+    assign contact_url = section.settings.link_contact
+  else
+    assign contact_url = routes.root_url | append: '#contact'
+  endif
 -%}
 
 <header class="dh-header site-header">
@@ -26,55 +56,32 @@
     </a>
 
     <nav class="site-header__nav" aria-label="Primary">
-      {%- if menu != blank -%}
-        <ul class="dh-nav">
-          {%- for link in linklists[menu].links -%}
-            <li class="{% if link.links != blank %}relative{% endif %}">
-              {%- if link.links != blank -%}
-                <button
-                  type="button"
-                  id="shop-toggle"
-                  class="dh-nav__btn{% if link.active %} is-active{% endif %}"
-                  aria-expanded="false"
-                  aria-controls="shop-menu"
-                >
-                  {{ link.title }}
-                  <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                <div id="shop-menu" class="shop-menu" hidden>
-                  {%- for child in link.links -%}
-                    <a href="{{ child.url }}">{{ child.title }}</a>
-                  {%- endfor -%}
-                </div>
-              {%- else -%}
-                <a href="{{ link.url }}" {% if link.active or link.current %}class="is-active"{% endif %}>{{ link.title }}</a>
-              {%- endif -%}
-            </li>
-          {%- endfor -%}
-        </ul>
-      {%- else -%}
-        <ul class="dh-nav">
-          <li><a href="{{ routes.root_url }}" {% if request.page_type == 'index' %}class="is-active"{% endif %}>Home</a></li>
-          <li class="relative">
-            <button type="button" id="shop-toggle" class="dh-nav__btn" aria-expanded="false" aria-controls="shop-menu">
-              Shop
-              <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div id="shop-menu" class="shop-menu" hidden>
-              <a href="{{ routes.all_products_collection_url }}">All Products</a>
-              <a href="{{ routes.all_products_collection_url }}">Best Sellers</a>
-            </div>
-          </li>
-          <li><a href="{{ routes.root_url }}#story">Our Story</a></li>
-          <li><a href="{{ routes.root_url }}#blog">Recipes &amp; Blog</a></li>
-          <li><a href="{{ routes.all_products_collection_url }}">Wholesale</a></li>
-          <li><a href="{{ routes.root_url }}#contact">Contact</a></li>
-        </ul>
-      {%- endif -%}
+      <ul class="dh-nav">
+        <li>
+          <a href="{{ home_url }}" {% if request.page_type == 'index' %}class="is-active"{% endif %}>Home</a>
+        </li>
+        <li class="relative">
+          <button type="button" id="shop-toggle" class="dh-nav__btn" aria-expanded="false" aria-controls="shop-menu">
+            Shop
+            <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div id="shop-menu" class="shop-menu" hidden>
+            <a href="{{ shop_url }}">All Products</a>
+            <a href="{{ shop_url }}">Best Sellers</a>
+            {%- if section.settings.shop_menu != blank -%}
+              {%- for child in linklists[section.settings.shop_menu].links -%}
+                <a href="{{ child.url }}">{{ child.title }}</a>
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+        </li>
+        <li><a href="{{ story_url }}">Our Story</a></li>
+        <li><a href="{{ blog_url }}">Recipes &amp; Blog</a></li>
+        <li><a href="{{ wholesale_url }}">Wholesale</a></li>
+        <li><a href="{{ contact_url }}">Contact</a></li>
+      </ul>
     </nav>
 
     <div class="dh-tools">
@@ -94,33 +101,25 @@
 
 <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile">
   <button type="button" id="menu-close" class="mobile-nav__close" aria-label="{{ 'general.accessibility.close' | t }}">✕</button>
-  {%- if menu != blank -%}
-    {%- for link in linklists[menu].links -%}
-      <a href="{{ link.url }}">{{ link.title }}</a>
-      {%- for child in link.links -%}
-        <a href="{{ child.url }}" style="padding-left:1rem;opacity:.85">{{ child.title }}</a>
-      {%- endfor -%}
-    {%- endfor -%}
-  {%- else -%}
-    <a href="{{ routes.root_url }}">Home</a>
-    <a href="{{ routes.all_products_collection_url }}">Shop</a>
-    <a href="{{ routes.root_url }}#story">Our Story</a>
-    <a href="{{ routes.root_url }}#blog">Recipes &amp; Blog</a>
-    <a href="{{ routes.all_products_collection_url }}">Wholesale</a>
-    <a href="{{ routes.root_url }}#contact">Contact</a>
-  {%- endif -%}
+  <a href="{{ home_url }}">Home</a>
+  <a href="{{ shop_url }}">Shop</a>
+  <a href="{{ story_url }}">Our Story</a>
+  <a href="{{ blog_url }}">Recipes &amp; Blog</a>
+  <a href="{{ wholesale_url }}">Wholesale</a>
+  <a href="{{ contact_url }}">Contact</a>
 </nav>
 
 {% schema %}
 {
   "name": "Header",
   "settings": [
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Menu",
-      "default": "main-menu"
-    }
+    { "type": "url", "id": "link_home", "label": "Home link" },
+    { "type": "url", "id": "link_shop", "label": "Shop link" },
+    { "type": "link_list", "id": "shop_menu", "label": "Shop dropdown menu (optional)" },
+    { "type": "url", "id": "link_story", "label": "Our Story link" },
+    { "type": "url", "id": "link_blog", "label": "Recipes & Blog link" },
+    { "type": "url", "id": "link_wholesale", "label": "Wholesale link" },
+    { "type": "url", "id": "link_contact", "label": "Contact link" }
   ],
   "enabled_on": { "groups": ["header"] }
 }

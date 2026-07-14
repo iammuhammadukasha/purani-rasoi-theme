@@ -308,4 +308,64 @@
     } catch (e) {}
     setShopView(saved);
   }
+
+  /* Hero slider */
+  document.querySelectorAll("[data-hero-slider]").forEach((root) => {
+    const slides = Array.from(root.querySelectorAll("[data-hero-slide]"));
+    const dotsWrap = root.querySelector("[data-hero-dots]");
+    const prev = root.querySelector("[data-hero-prev]");
+    const next = root.querySelector("[data-hero-next]");
+    if (slides.length < 2) {
+      if (prev) prev.hidden = true;
+      if (next) next.hidden = true;
+      return;
+    }
+
+    let index = Math.max(
+      0,
+      slides.findIndex((s) => s.classList.contains("is-active"))
+    );
+    let timer = null;
+    const interval = Number(root.getAttribute("data-interval") || 5000);
+
+    if (dotsWrap) {
+      dotsWrap.innerHTML = "";
+      slides.forEach((_, i) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "hero-slider__dot" + (i === index ? " is-active" : "");
+        dot.setAttribute("aria-label", "Go to slide " + (i + 1));
+        dot.addEventListener("click", () => go(i, true));
+        dotsWrap.appendChild(dot);
+      });
+    }
+
+    function go(i, pause) {
+      index = (i + slides.length) % slides.length;
+      slides.forEach((slide, n) => {
+        const active = n === index;
+        slide.classList.toggle("is-active", active);
+        slide.setAttribute("aria-hidden", active ? "false" : "true");
+        if (active) slide.removeAttribute("tabindex");
+        else slide.setAttribute("tabindex", "-1");
+      });
+      dotsWrap?.querySelectorAll(".hero-slider__dot").forEach((dot, n) => {
+        dot.classList.toggle("is-active", n === index);
+      });
+      if (pause) restart();
+    }
+
+    function restart() {
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => go(index + 1), interval);
+    }
+
+    prev?.addEventListener("click", () => go(index - 1, true));
+    next?.addEventListener("click", () => go(index + 1, true));
+    root.addEventListener("mouseenter", () => {
+      if (timer) clearInterval(timer);
+    });
+    root.addEventListener("mouseleave", restart);
+    restart();
+  });
 })();

@@ -1,125 +1,125 @@
 {%- liquid
-  if section.settings.image != blank
-    assign hero_src = section.settings.image | image_url: width: 2000
-  else
-    assign hero_src = 'hero-banner.png' | asset_url
-  endif
   assign shop_url = routes.all_products_collection_url
   if section.settings.cta_link != blank
     assign shop_url = section.settings.cta_link
   endif
-  assign heading_line1 = section.settings.heading_line1 | default: 'Har Bite Mein'
-  assign heading_line2 = section.settings.heading_line2 | default: 'Ghar Ka Asli Swad'
+  assign slide_count = 0
+  for block in section.blocks
+    if block.type == 'slide'
+      assign slide_count = slide_count | plus: 1
+    endif
+  endfor
 -%}
 
 <div class="pr-hero">
-  <!-- Mobile hero -->
-  <section class="mh-hero home-mobile" aria-label="Hero">
-    <div class="mh-hero__media">
-      <img
-        src="{{ hero_src }}"
-        alt="{{ section.settings.image.alt | default: heading_line1 | escape }}"
-        width="1200"
-        height="800"
-      >
-    </div>
-    <div class="mh-hero__shade"></div>
-    <div class="mh-hero__content">
-      <h1 class="mh-hero__title">
-        <span class="mh-hero__title-line">{{ heading_line1 }}</span>
-        <span class="mh-hero__title-accent">{{ heading_line2 }}</span>
-      </h1>
-      {%- if section.settings.copy != blank -%}
-        <p class="mh-hero__copy">{{ section.settings.copy }}</p>
+  <section class="hero-slider" aria-label="Hero" data-hero-slider data-interval="5000">
+    <div class="hero-slider__track">
+      {%- if slide_count > 0 -%}
+        {%- assign i = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'slide' -%}
+            {%- liquid
+              assign i = i | plus: 1
+              if block.settings.image != blank
+                assign slide_src = block.settings.image | image_url: width: 2000
+                assign slide_alt = block.settings.image.alt | default: block.settings.label | default: shop.name
+              else
+                assign fallback = 'hero-slide-' | append: i | append: '.jpg'
+                assign slide_src = fallback | asset_url
+                assign slide_alt = block.settings.label | default: shop.name
+              endif
+              if block.settings.link != blank
+                assign slide_link = block.settings.link
+              else
+                assign slide_link = shop_url
+              endif
+            -%}
+            <a
+              href="{{ slide_link }}"
+              class="hero-slider__slide{% if i == 1 %} is-active{% endif %}"
+              data-hero-slide
+              {{ block.shopify_attributes }}
+              {% if i != 1 %}aria-hidden="true" tabindex="-1"{% endif %}
+            >
+              <img
+                src="{{ slide_src }}"
+                alt="{{ slide_alt | escape }}"
+                width="1920"
+                height="900"
+                {% if i == 1 %}loading="eager"{% else %}loading="lazy"{% endif %}
+              >
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for n in (1..3) -%}
+          {%- assign fallback = 'hero-slide-' | append: n | append: '.jpg' -%}
+          <a
+            href="{{ shop_url }}"
+            class="hero-slider__slide{% if n == 1 %} is-active{% endif %}"
+            data-hero-slide
+            {% if n != 1 %}aria-hidden="true" tabindex="-1"{% endif %}
+          >
+            <img
+              src="{{ fallback | asset_url }}"
+              alt="{{ shop.name | escape }}"
+              width="1920"
+              height="900"
+              {% if n == 1 %}loading="eager"{% else %}loading="lazy"{% endif %}
+            >
+          </a>
+        {%- endfor -%}
       {%- endif -%}
-      <a href="{{ shop_url }}" class="mh-hero__cta">{{ section.settings.cta_label }} <span aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="hero-slider__controls">
+      <button type="button" class="hero-slider__arrow" data-hero-prev aria-label="Previous slide">
+        <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+      </button>
+      <div class="hero-slider__dots" data-hero-dots role="tablist" aria-label="Hero slides"></div>
+      <button type="button" class="hero-slider__arrow" data-hero-next aria-label="Next slide">
+        <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+      </button>
     </div>
   </section>
 
-  {%- if section.blocks.size > 0 -%}
-    <section class="mh-usp home-mobile" aria-label="Brand promises">
+  {%- assign trust_count = 0 -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'trust' -%}
+      {%- assign trust_count = trust_count | plus: 1 -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if trust_count > 0 -%}
+    <section class="mh-usp" aria-label="Brand promises">
       {%- for block in section.blocks -%}
-        <div class="mh-usp__item" {{ block.shopify_attributes }}>
-          <span class="mh-usp__icon material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
-          <span>{{ block.settings.label | replace: '<br />', ' ' | replace: '<br>', ' ' | strip_html }}</span>
-        </div>
+        {%- if block.type == 'trust' -%}
+          <div class="mh-usp__item" {{ block.shopify_attributes }}>
+            <span class="mh-usp__icon material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
+            <span>{{ block.settings.label | replace: '<br />', ' ' | replace: '<br>', ' ' | strip_html }}</span>
+          </div>
+        {%- endif -%}
       {%- endfor -%}
     </section>
   {%- endif -%}
-
-  <!-- Desktop hero -->
-  <section class="dh-hero home-desktop" aria-label="Hero">
-    <div class="dh-hero__media">
-      <img src="{{ hero_src }}" alt="{{ section.settings.image.alt | default: heading_line1 | escape }}">
-    </div>
-    <div class="dh-hero__shade"></div>
-    <div class="dh-hero__content">
-      {%- if section.settings.eyebrow != blank -%}
-        <p class="dh-hero__eyebrow">{{ section.settings.eyebrow }}</p>
-      {%- endif -%}
-      <h1 class="dh-hero__title">
-        <span class="dh-hero__title-line">{{ heading_line1 }}</span>
-        <span class="dh-hero__title-accent">{{ heading_line2 }}</span>
-      </h1>
-      {%- if section.settings.desktop_copy != blank -%}
-        <p class="dh-hero__copy">{{ section.settings.desktop_copy }}</p>
-      {%- elsif section.settings.copy != blank -%}
-        <p class="dh-hero__copy">{{ section.settings.copy }}</p>
-      {%- endif -%}
-      <a href="{{ shop_url }}" class="dh-hero__cta">{{ section.settings.cta_label }} <span aria-hidden="true">→</span></a>
-      {%- if section.blocks.size > 0 -%}
-        <div class="dh-hero__trust" aria-label="Brand promises">
-          {%- for block in section.blocks -%}
-            <div class="dh-hero__trust-item" {{ block.shopify_attributes }}>
-              <span class="dh-hero__trust-icon material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
-              <span>{{ block.settings.label | newline_to_br }}</span>
-            </div>
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
-    </div>
-  </section>
 </div>
 
 {% schema %}
 {
   "name": "Hero banner",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Hero image (product on right)" },
-    {
-      "type": "text",
-      "id": "eyebrow",
-      "label": "Eyebrow (desktop)",
-      "default": "TRADITIONAL RECIPE | AUTHENTIC TASTE"
-    },
-    {
-      "type": "text",
-      "id": "heading_line1",
-      "label": "Heading line 1 (white)",
-      "default": "Har Bite Mein"
-    },
-    {
-      "type": "text",
-      "id": "heading_line2",
-      "label": "Heading line 2 (gold)",
-      "default": "Ghar Ka Asli Swad"
-    },
-    {
-      "type": "textarea",
-      "id": "copy",
-      "label": "Copy (mobile)",
-      "default": "Dadi ke haathon ka parampara aur maa ke pyaar ka swaad."
-    },
-    {
-      "type": "textarea",
-      "id": "desktop_copy",
-      "label": "Copy (desktop)",
-      "default": "Purani Rasoi ke achar, ghar ki parampara aur maa ke haathon ke swad ke saath, ab aapke ghar tak."
-    },
-    { "type": "text", "id": "cta_label", "label": "Button label", "default": "SHOP NOW" },
-    { "type": "url", "id": "cta_link", "label": "Button link" }
+    { "type": "url", "id": "cta_link", "label": "Default slide link (fallback)" }
   ],
   "blocks": [
+    {
+      "type": "slide",
+      "name": "Hero slide",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Slide image" },
+        { "type": "text", "id": "label", "label": "Alt / label", "default": "Purani Rasoi" },
+        { "type": "url", "id": "link", "label": "Slide link" }
+      ]
+    },
     {
       "type": "trust",
       "name": "Trust item",
@@ -133,6 +133,9 @@
     {
       "name": "Hero banner",
       "blocks": [
+        { "type": "slide", "settings": { "label": "Every Jar Opens A Memory" } },
+        { "type": "slide", "settings": { "label": "Shop Now" } },
+        { "type": "slide", "settings": { "label": "Explore Collection" } },
         { "type": "trust", "settings": { "icon": "cooking", "label": "100%\nHomemade" } },
         { "type": "trust", "settings": { "icon": "experiment", "label": "No\nPreservatives" } },
         { "type": "trust", "settings": { "icon": "skillet", "label": "Handcrafted\nIn Small Batches" } },

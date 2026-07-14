@@ -97,12 +97,15 @@
 
 <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile">
   <button type="button" id="menu-close" class="mobile-nav__close" aria-label="{{ 'general.accessibility.close' | t }}">✕</button>
-  <a href="{{ home_url }}">Home</a>
-  <a href="{{ shop_url }}">Shop</a>
-  <a href="{{ story_url }}">Our Story</a>
-  <a href="{{ blog_url }}">Recipes &amp; Blog</a>
-  <a href="{{ wholesale_url }}">Wholesale</a>
-  <a href="{{ contact_url }}">Contact</a>
+  <div class="mobile-nav__brand">
+    <img src="{{ logo_src }}" alt="" width="48" height="48">
+  </div>
+  <a href="{{ home_url }}"><span class="material-symbols-outlined" aria-hidden="true">home</span><span>Home</span></a>
+  <a href="{{ shop_url }}"><span class="material-symbols-outlined" aria-hidden="true">storefront</span><span>Shop</span></a>
+  <a href="{{ story_url }}"><span class="material-symbols-outlined" aria-hidden="true">menu_book</span><span>Our Story</span></a>
+  <a href="{{ blog_url }}"><span class="material-symbols-outlined" aria-hidden="true">article</span><span>Recipes &amp; Blog</span></a>
+  <a href="{{ wholesale_url }}"><span class="material-symbols-outlined" aria-hidden="true">inventory_2</span><span>Wholesale</span></a>
+  <a href="{{ contact_url }}"><span class="material-symbols-outlined" aria-hidden="true">call</span><span>Contact</span></a>
 </nav>
 
 {% schema %}

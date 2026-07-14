@@ -3,20 +3,16 @@
     "hero": {
       "type": "hero-banner",
       "blocks": {
+        "s1": { "type": "slide", "settings": { "label": "Every Jar Opens A Memory" } },
+        "s2": { "type": "slide", "settings": { "label": "Shop Now" } },
+        "s3": { "type": "slide", "settings": { "label": "Explore Collection" } },
         "t1": { "type": "trust", "settings": { "icon": "cooking", "label": "100%\nHomemade" } },
         "t2": { "type": "trust", "settings": { "icon": "experiment", "label": "No\nPreservatives" } },
         "t3": { "type": "trust", "settings": { "icon": "skillet", "label": "Handcrafted\nIn Small Batches" } },
         "t4": { "type": "trust", "settings": { "icon": "favorite", "label": "Made With\nLove" } }
       },
-      "block_order": ["t1", "t2", "t3", "t4"],
-      "settings": {
-        "eyebrow": "TRADITIONAL RECIPE | AUTHENTIC TASTE",
-        "heading_line1": "Har Bite Mein",
-        "heading_line2": "Ghar Ka Asli Swad",
-        "copy": "Dadi ke haathon ka parampara aur maa ke pyaar ka swaad.",
-        "desktop_copy": "Purani Rasoi ke achar, ghar ki parampara aur maa ke haathon ke swad ke saath, ab aapke ghar tak.",
-        "cta_label": "SHOP NOW"
-      }
+      "block_order": ["s1", "s2", "s3", "t1", "t2", "t3", "t4"],
+      "settings": {}
     },
     "categories": {
       "type": "category-circles",

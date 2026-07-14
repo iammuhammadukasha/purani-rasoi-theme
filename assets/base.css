@@ -2696,8 +2696,8 @@ a.bs-card__media {
 
 @media (min-width: 1024px) {
   .site-footer__seal {
-    width: 3.85rem;
-    height: 3.85rem;
+    width: 4.5rem;
+    height: 4.5rem;
   }
 
   .site-footer__tagline {

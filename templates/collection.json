@@ -2,7 +2,41 @@
   "sections": {
     "main": {
       "type": "main-collection",
+      "blocks": {
+        "trust_1": {
+          "type": "trust",
+          "settings": {
+            "icon": "soup_kitchen",
+            "label": "100%<br>Homemade"
+          }
+        },
+        "trust_2": {
+          "type": "trust",
+          "settings": {
+            "icon": "science",
+            "label": "No<br>Preservatives"
+          }
+        },
+        "trust_3": {
+          "type": "trust",
+          "settings": {
+            "icon": "skillet",
+            "label": "Small Batch<br>Mode"
+          }
+        },
+        "trust_4": {
+          "type": "trust",
+          "settings": {
+            "icon": "shopping_bag",
+            "label": "Secure<br>Packaging"
+          }
+        }
+      },
+      "block_order": ["trust_1", "trust_2", "trust_3", "trust_4"],
       "settings": {
+        "heading": "Our Shop",
+        "crumb_label": "Shop",
+        "show_trust": true,
         "products_per_page": 16
       }
     }

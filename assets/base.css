@@ -936,13 +936,13 @@ a {
 /* Shop page */
 .shop-banner {
   position: relative;
-  min-height: 9.5rem;
-  display: grid;
-  place-items: center;
+  min-height: 10.5rem;
+  display: flex;
+  align-items: center;
   overflow: hidden;
-  background: #77060c;
+  background: #5c0a0f;
   color: #fff;
-  text-align: center;
+  text-align: left;
 }
 
 .shop-banner img {
@@ -951,26 +951,139 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.45;
+  object-position: right center;
+  opacity: 1;
+}
+
+.shop-banner__shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(70, 8, 12, 0.55) 0%,
+    rgba(70, 8, 12, 0.18) 48%,
+    rgba(70, 8, 12, 0) 68%
+  );
+  pointer-events: none;
 }
 
 .shop-banner__content {
   position: relative;
-  z-index: 1;
-  padding: 1.5rem 1rem;
+  z-index: 2;
+  padding: 1.65rem 1.15rem 1.65rem 1.25rem;
+  max-width: 58%;
 }
 
 .shop-banner h1 {
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.4rem;
   font-family: "Playfair Display", Georgia, serif;
-  font-size: 1.75rem;
+  font-size: clamp(1.85rem, 7.2vw, 2.35rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
 }
 
 .shop-banner__crumbs {
   margin: 0;
+  font-family: "Work Sans", "Montserrat", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  opacity: 0.95;
+}
+
+.shop-banner__crumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.shop-banner__crumbs a:hover {
+  text-decoration: underline;
+}
+
+/* Shop trust strip — match mobile reference (circled icons, 4-up) */
+.shop-usp {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.35rem;
+  padding: 0.95rem 0.65rem 1.05rem;
+  background: #fef8f1;
+  border-bottom: 1px solid rgba(119, 6, 12, 0.08);
+}
+
+.shop-usp__item {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  text-align: center;
   font-family: "Work Sans", sans-serif;
-  font-size: 0.75rem;
-  opacity: 0.9;
+  font-size: 0.58rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #5c0a0f;
+}
+
+.shop-usp__icon {
+  width: 2.45rem;
+  height: 2.45rem;
+  border: 1.5px solid #5c0a0f;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem !important;
+  color: #5c0a0f;
+  line-height: 1;
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+}
+
+@media (min-width: 768px) {
+  .shop-banner {
+    min-height: 14rem;
+  }
+
+  .shop-banner__content {
+    max-width: 42%;
+    padding: 2rem 2.5rem;
+  }
+
+  .shop-banner h1 {
+    font-size: 2.75rem;
+  }
+
+  .shop-usp {
+    max-width: 720px;
+    margin: 0 auto;
+    border-bottom: none;
+    width: 100%;
+  }
+
+  .shop-usp__item {
+    font-size: 0.7rem;
+  }
+
+  .shop-usp__icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.35rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .shop-banner {
+    min-height: 16rem;
+  }
+
+  .shop-usp {
+    max-width: 960px;
+    padding: 1.15rem 1rem 1.35rem;
+  }
 }
 
 .shop-toolbar {

@@ -1,4 +1,9 @@
-<section class="shop-banner" aria-label="{{ collection.title }}">
+{%- liquid
+  assign heading = section.settings.heading | default: 'Our Shop'
+  assign crumb = section.settings.crumb_label | default: 'Shop'
+-%}
+
+<section class="shop-banner" aria-label="{{ heading | escape }}">
   {%- if section.settings.banner != blank -%}
     <img src="{{ section.settings.banner | image_url: width: 2000 }}" alt="" loading="eager">
   {%- elsif collection.image -%}
@@ -6,13 +11,27 @@
   {%- else -%}
     <img src="{{ 'hero-banner.png' | asset_url }}" alt="" loading="eager">
   {%- endif -%}
+  <div class="shop-banner__shade" aria-hidden="true"></div>
   <div class="shop-banner__content">
-    <h1>{{ collection.title }}</h1>
+    <h1>{{ heading }}</h1>
     <p class="shop-banner__crumbs">
-      <a href="{{ routes.root_url }}">Home</a> &gt; {{ collection.title }}
+      <a href="{{ routes.root_url }}">Home</a> &gt; {{ crumb }}
     </p>
   </div>
 </section>
+
+{%- if section.settings.show_trust -%}
+  <section class="shop-usp" aria-label="Brand promises">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'trust' -%}
+        <div class="shop-usp__item" {{ block.shopify_attributes }}>
+          <span class="shop-usp__icon material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
+          <span>{{ block.settings.label }}</span>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </section>
+{%- endif -%}
 
 <div class="shop-toolbar">
   <div class="shop-toolbar__left">
@@ -60,8 +79,32 @@
 {
   "name": "Collection products",
   "settings": [
+    { "type": "text", "id": "heading", "label": "Banner heading", "default": "Our Shop" },
+    { "type": "text", "id": "crumb_label", "label": "Breadcrumb label", "default": "Shop" },
     { "type": "image_picker", "id": "banner", "label": "Banner image" },
+    { "type": "checkbox", "id": "show_trust", "label": "Show trust badges", "default": true },
     { "type": "range", "id": "products_per_page", "min": 8, "max": 36, "step": 4, "label": "Products per page", "default": 16 }
+  ],
+  "blocks": [
+    {
+      "type": "trust",
+      "name": "Trust badge",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Material icon name", "default": "soup_kitchen" },
+        { "type": "html", "id": "label", "label": "Label (use <br> for line break)", "default": "100%<br>Homemade" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection products",
+      "blocks": [
+        { "type": "trust", "settings": { "icon": "soup_kitchen", "label": "100%<br>Homemade" } },
+        { "type": "trust", "settings": { "icon": "science", "label": "No<br>Preservatives" } },
+        { "type": "trust", "settings": { "icon": "skillet", "label": "Small Batch<br>Mode" } },
+        { "type": "trust", "settings": { "icon": "shopping_bag", "label": "Secure<br>Packaging" } }
+      ]
+    }
   ]
 }
 {% endschema %}

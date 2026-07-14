@@ -1381,16 +1381,16 @@ a {
 }
 
 .shop-usp__icon {
-  width: 2.45rem;
-  height: 2.45rem;
+  width: 3.1rem;
+  height: 3.1rem;
   border: 1.5px solid #7e1e22;
   border-radius: 999px;
   display: grid;
   place-items: center;
-  font-size: 1.2rem !important;
+  font-size: 1.55rem !important;
   color: #7e1e22;
   line-height: 1;
-  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 40;
 }
 
 @media (min-width: 768px) {

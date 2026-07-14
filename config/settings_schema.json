@@ -51,19 +51,19 @@
         "type": "color",
         "id": "color_maroon",
         "label": "Maroon",
-        "default": "#77060c"
+        "default": "#7e1e22"
       },
       {
         "type": "color",
         "id": "color_cream",
         "label": "Cream",
-        "default": "#fef8f1"
+        "default": "#fff8f0"
       },
       {
         "type": "color",
         "id": "color_gold",
         "label": "Gold",
-        "default": "#f6cb7a"
+        "default": "#d4a017"
       }
     ]
   },

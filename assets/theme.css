@@ -1,36 +1,63 @@
 /* Shopify theme utilities — companions to storefront base.css */
 
 :root {
-  --pr-maroon: #77060c;
-  --pr-cream: #fef8f1;
-  --pr-gold: #f6cb7a;
-  --pr-surface-low: #f9f3ec;
-  --pr-surface-high: #e7e2db;
+  --pr-red: #7e1e22;
+  --pr-maroon: #7e1e22;
+  --pr-cream: #fff8f0;
+  --pr-olive: #4f682b;
+  --pr-gold: #d4a017;
+  --pr-dark: #1f1f1f;
+  --pr-gray: #68686b;
+  --pr-beige: #ebe2d5;
+  --pr-offwhite: #f5f1ea;
+  --pr-surface-low: #f5f1ea;
+  --pr-surface-high: #ebe2d5;
   --pr-max: 1200px;
   --font-display: "Playfair Display", Georgia, serif;
   --font-body: "Poppins", system-ui, sans-serif;
   --fs-h1: 38px;
+  --lh-h1: 48px;
   --fs-h2: 28px;
-  --fs-h3: 22px;
-  --fs-body: 15px;
+  --lh-h2: 36px;
+  --fs-h3: 20px;
+  --lh-h3: 28px;
+  --fs-body-lg: 16px;
+  --lh-body-lg: 24px;
+  --fs-body: 14px;
+  --lh-body: 22px;
   --fs-product: 16px;
   --fs-price: 22px;
   --fs-btn: 15px;
-  --fs-caption: 13px;
+  --fs-caption: 12px;
+  --lh-caption: 18px;
   --fw-regular: 400;
   --fw-medium: 500;
   --fw-semibold: 600;
   --fw-bold: 700;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-20: 20px;
+  --radius-24: 24px;
+  --radius-full: 999px;
+  --shadow-1: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-2: 0 6px 20px rgba(0, 0, 0, 0.08);
+  --shadow-3: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --badge-bestseller: #7e1e22;
+  --badge-off: #c47a2c;
+  --badge-new: #4f682b;
+  --badge-instock: #2e7d32;
+  --badge-oos: #68686b;
+  --badge-limited: #d4a017;
 }
 
 .pr-body {
   margin: 0;
   background: var(--pr-cream);
-  color: var(--pr-maroon);
+  color: var(--pr-dark);
   font-family: var(--font-body);
   font-size: var(--fs-body);
   font-weight: var(--fw-regular);
-  line-height: 1.55;
+  line-height: var(--lh-body);
 }
 
 .bg-cream { background-color: var(--pr-cream); }

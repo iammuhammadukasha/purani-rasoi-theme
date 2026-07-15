@@ -2442,7 +2442,31 @@ a {
   font-size: var(--fs-body);
   font-weight: var(--fw-medium);
   line-height: var(--lh-body);
-  color: var(--pr-dark);
+  color: var(--pr-red);
+}
+
+.pdp-acc__body ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.pdp-acc__body ul li {
+  position: relative;
+  padding-left: 1.55rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--pr-red);
+}
+
+.pdp-acc__body p,
+.pdp-acc__body li,
+.pdp-acc__body span {
+  color: var(--pr-red);
 }
 
 .pdp-acc__body ul {

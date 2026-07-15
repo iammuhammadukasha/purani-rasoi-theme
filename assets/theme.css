@@ -112,6 +112,14 @@
 .max-w-site { max-width: var(--pr-max); }
 .mx-auto { margin-left: auto; margin-right: auto; }
 
+/* Wider product page canvas */
+.pdp .max-w-site,
+.pdp__inner.max-w-site,
+.pr-related-section .max-w-site {
+  max-width: min(1480px, 96vw);
+  width: 100%;
+}
+
 @media (max-width: 1023px) {
   .home-desktop { display: none !important; }
 }

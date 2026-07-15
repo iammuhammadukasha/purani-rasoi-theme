@@ -2014,19 +2014,60 @@ a {
 
 .pdp-reviews {
   width: calc(100% + 2rem);
-  margin: 0.75rem -1rem 1.75rem;
+  margin: 1rem -1rem 2rem;
 }
 
 @media (min-width: 768px) {
   .pdp-reviews {
-    width: auto;
-    margin-left: 0;
-    margin-right: 0;
+    width: 100vw;
+    max-width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+
+  .pdp-reviews .dh-reviews {
+    padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .pdp-reviews .dh-reviews .dh-heading {
+    font-size: clamp(1.75rem, 3vw, 2.35rem) !important;
+    margin-bottom: 1.75rem;
+  }
+
+  .pdp-reviews .dh-reviews__grid {
+    max-width: min(1400px, 94vw);
+    gap: 1.5rem;
+  }
+
+  .pdp-reviews .dh-reviews__grid blockquote {
+    padding: 1.75rem 1.6rem;
+    border-radius: 16px;
+  }
+
+  .pdp-reviews .dh-reviews__grid p {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    min-height: 5.5rem;
+  }
+
+  .pdp-reviews .dh-reviews__grid cite {
+    font-size: 0.95rem;
+  }
+
+  .pdp-reviews .dh-reviews__stars {
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
   }
 }
 
 .pdp__inner {
-  padding: 0.75rem 1rem 2rem;
+  padding: 0.75rem clamp(1rem, 3vw, 2.5rem) 2.5rem;
+  width: 100%;
+  max-width: min(1480px, 96vw);
+  box-sizing: border-box;
 }
 
 .pdp-crumbs {
@@ -2562,7 +2603,7 @@ a {
 
 .pdp-acc {
   border-top: 1px solid rgba(94, 111, 54, 0.12);
-  margin-bottom: 0.5rem;
+  margin: 0.75rem 0 1.25rem;
 }
 
 .pdp-acc details {
@@ -2575,12 +2616,12 @@ a {
   justify-content: space-between;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.95rem 0;
+  padding: 1.15rem 0;
   font-family: var(--font-display);
-  font-size: var(--fs-h3);
-  font-weight: var(--fw-semibold);
-  line-height: var(--lh-h3);
-  color: var(--pr-red);
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--pr-dark);
   cursor: pointer;
 }
 
@@ -2602,12 +2643,12 @@ a {
 }
 
 .pdp-acc__body {
-  padding: 0 0 1rem;
+  padding: 0 0 1.25rem;
   font-family: var(--font-body);
-  font-size: var(--fs-body);
-  font-weight: var(--fw-semibold);
-  line-height: var(--lh-body);
-  color: var(--pr-red);
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--pr-dark);
 }
 
 .pdp-acc__body ul {
@@ -2621,19 +2662,19 @@ a {
 
 .pdp-acc__body ul li {
   position: relative;
-  padding-left: 1.55rem;
+  padding-left: 1.7rem;
   font-family: var(--font-body);
-  font-size: var(--fs-body);
-  font-weight: var(--fw-semibold);
-  line-height: var(--lh-body);
-  color: var(--pr-red);
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--pr-dark);
 }
 
 .pdp-acc__body p,
 .pdp-acc__body li,
 .pdp-acc__body span {
-  color: var(--pr-red);
-  font-weight: var(--fw-semibold);
+  color: var(--pr-dark);
+  font-weight: 500;
 }
 
 .pdp-acc__body ul li::before {
@@ -6528,6 +6569,31 @@ footer.site-footer.mh-footer {
 @media (min-width: 768px) {
   .pdp-features {
     grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1.25rem 1rem;
+    padding: 2rem 0;
+  }
+
+  .pdp-features__icon {
+    width: 3.75rem;
+    height: 3.75rem;
+    font-size: 1.65rem !important;
+  }
+
+  .pdp-features__label {
+    font-size: 0.85rem;
+    max-width: 9rem;
+  }
+
+  .pdp-compare {
+    padding: 2.25rem clamp(1.5rem, 3vw, 2.75rem) 2.5rem;
+  }
+
+  .pdp-compare__vs {
+    gap: 1.5rem;
+  }
+
+  .pdp-compare__col {
+    padding: 1.75rem 1.5rem;
   }
 }
 
@@ -6553,46 +6619,46 @@ footer.site-footer.mh-footer {
 
 .pdp-features__label {
   font-family: var(--font-body);
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   font-weight: var(--fw-semibold);
   line-height: 1.3;
   color: var(--pr-dark);
-  max-width: 7.5rem;
+  max-width: 8rem;
 }
 
 .pdp-compare {
-  margin: 1.25rem 0 1.25rem;
-  padding: 1.35rem 1.15rem 1.5rem;
+  margin: 1.5rem 0 1.75rem;
+  padding: 1.5rem 1.25rem 1.75rem;
   background: #f3f4ed;
-  border-radius: 16px;
+  border-radius: 18px;
 }
 
 .pdp-compare__intro {
   text-align: center;
-  margin-bottom: 1.15rem;
+  margin-bottom: 1.35rem;
 }
 
 .pdp-compare__heading {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
-  margin: 0 0 0.35rem;
+  gap: 0.45rem;
+  margin: 0 0 0.45rem;
   font-family: var(--font-display);
-  font-size: clamp(1.25rem, 2.4vw, 1.55rem);
-  font-weight: var(--fw-semibold);
+  font-size: clamp(1.45rem, 2.8vw, 2rem);
+  font-weight: 700;
   color: var(--pr-dark) !important;
 }
 
 .pdp-compare__heading .material-symbols-outlined {
   color: var(--pr-olive);
-  font-size: 1.35rem;
+  font-size: 1.55rem;
 }
 
 .pdp-compare__sub {
   margin: 0;
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
   color: var(--pr-gray);
 }
 
@@ -6600,14 +6666,14 @@ footer.site-footer.mh-footer {
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
+  gap: 1rem;
   align-items: stretch;
 }
 
 .pdp-compare__col {
   background: #fff;
-  border-radius: 12px;
-  padding: 1rem 0.85rem;
+  border-radius: 14px;
+  padding: 1.25rem 1.1rem;
   border: 1px solid rgba(94, 111, 54, 0.1);
 }
 
@@ -6618,10 +6684,10 @@ footer.site-footer.mh-footer {
 }
 
 .pdp-compare__col h3 {
-  margin: 0 0 0.75rem;
+  margin: 0 0 1rem;
   font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: var(--fw-bold);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-weight: 700;
   text-align: center;
   color: var(--pr-olive);
 }
@@ -6636,29 +6702,29 @@ footer.site-footer.mh-footer {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.75rem;
 }
 
 .pdp-compare__col li {
   display: flex;
   align-items: flex-start;
-  gap: 0.4rem;
+  gap: 0.55rem;
   font-family: var(--font-body);
-  font-size: 0.78rem;
-  font-weight: var(--fw-medium);
-  line-height: 1.35;
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  font-weight: 500;
+  line-height: 1.45;
   color: var(--pr-dark);
 }
 
 .pdp-compare__yes {
   color: #2e7d32 !important;
-  font-size: 1.1rem !important;
+  font-size: 1.35rem !important;
   flex-shrink: 0;
 }
 
 .pdp-compare__no {
   color: #d63b2f !important;
-  font-size: 1.1rem !important;
+  font-size: 1.35rem !important;
   flex-shrink: 0;
 }
 
@@ -6668,13 +6734,13 @@ footer.site-footer.mh-footer {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 999px;
   background: var(--pr-olive);
   color: #fff;
   font-family: var(--font-body);
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   display: grid;

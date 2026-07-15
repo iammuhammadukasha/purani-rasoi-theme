@@ -4044,6 +4044,7 @@ footer.site-footer.mh-footer {
 
 .mh-footer__social {
   display: flex;
+  justify-content: center;
   gap: 0.55rem;
   margin-bottom: 1rem;
 }

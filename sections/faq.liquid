@@ -1,14 +1,14 @@
 <section class="pr-faq" aria-labelledby="Faq-{{ section.id }}">
   <div class="mh-section home-mobile">
     <h2 id="Faq-{{ section.id }}" class="mh-heading">{{ section.settings.heading }}</h2>
-    <div class="pr-faq__list pdp-acc">
+    <div class="pr-faq__list">
       {%- for block in section.blocks -%}
-        <details {{ block.shopify_attributes }}{% if forloop.first and section.settings.open_first %} open{% endif %}>
+        <details class="pr-faq__item" {{ block.shopify_attributes }}{% if forloop.first and section.settings.open_first %} open{% endif %}>
           <summary>
-            <span>{{ block.settings.question }}</span>
-            <span class="pdp-acc__chev material-symbols-outlined" aria-hidden="true">expand_more</span>
+            <span class="pr-faq__q">{{ block.settings.question }}</span>
+            <span class="pr-faq__icon material-symbols-outlined" aria-hidden="true">add</span>
           </summary>
-          <div class="pdp-acc__body pr-faq__answer">
+          <div class="pr-faq__answer">
             {{ block.settings.answer }}
           </div>
         </details>
@@ -18,14 +18,14 @@
 
   <div class="dh-section home-desktop">
     <h2 class="dh-heading">{{ section.settings.heading }}</h2>
-    <div class="pr-faq__list pr-faq__list--desktop pdp-acc">
+    <div class="pr-faq__list pr-faq__list--desktop">
       {%- for block in section.blocks -%}
-        <details {{ block.shopify_attributes }}{% if forloop.first and section.settings.open_first %} open{% endif %}>
+        <details class="pr-faq__item" {{ block.shopify_attributes }}{% if forloop.first and section.settings.open_first %} open{% endif %}>
           <summary>
-            <span>{{ block.settings.question }}</span>
-            <span class="pdp-acc__chev material-symbols-outlined" aria-hidden="true">expand_more</span>
+            <span class="pr-faq__q">{{ block.settings.question }}</span>
+            <span class="pr-faq__icon material-symbols-outlined" aria-hidden="true">add</span>
           </summary>
-          <div class="pdp-acc__body pr-faq__answer">
+          <div class="pr-faq__answer">
             {{ block.settings.answer }}
           </div>
         </details>
@@ -50,7 +50,7 @@
       "type": "checkbox",
       "id": "open_first",
       "label": "Open first question by default",
-      "default": true
+      "default": false
     }
   ],
   "blocks": [
@@ -81,7 +81,7 @@
           "type": "item",
           "settings": {
             "question": "Achar kitne din tak fresh rehta hai?",
-            "answer": "<p>Sahi tarike se store kiya gaya achar kai mahine tak fresh aur tasty rehta hai. Jar ko cool, dry jagah rakhhein aur hamesha dry spoon use karein.</p>"
+            "answer": "<p>Sahi tarike se store kiya gaya achar kai mahine tak fresh aur tasty rehta hai. Jar ko cool, dry jagah rakhein aur hamesha dry spoon use karein.</p>"
           }
         },
         {

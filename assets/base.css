@@ -5997,22 +5997,93 @@ footer.site-footer.mh-footer {
   }
 }
 
-/* Homepage FAQ */
+/* Homepage FAQ — rounded theme bars */
 .pr-faq__list {
-  max-width: 46rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  max-width: 52rem;
   margin: 0 auto;
+  border: none;
 }
 
 .pr-faq__list--desktop {
   margin-top: 0.5rem;
+  gap: 1rem;
 }
 
-.pr-faq .pdp-acc summary {
-  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+.pr-faq__item {
+  border: none;
+  margin: 0;
+  background: transparent;
+}
+
+.pr-faq__item > summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.55rem;
+  padding: 1rem 1.25rem;
+  border-radius: 1.15rem;
+  background: var(--pr-red);
+  color: #fff;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+  font-weight: var(--fw-semibold);
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  transition: background 0.2s ease, border-radius 0.2s ease;
+}
+
+.pr-faq__item > summary::-webkit-details-marker {
+  display: none;
+}
+
+.pr-faq__item[open] > summary {
+  border-radius: 1.15rem 1.15rem 0 0;
+  background: #6a1a1d;
+}
+
+.pr-faq__q {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  color: #fff;
+}
+
+.pr-faq__icon {
+  flex-shrink: 0;
+  font-size: 1.65rem !important;
+  line-height: 1;
+  color: #fff;
+  font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
+  transition: transform 0.2s ease;
+}
+
+.pr-faq__item[open] > summary .pr-faq__icon {
+  transform: rotate(45deg);
+}
+
+.pr-faq__answer {
+  padding: 1rem 1.25rem 1.15rem;
+  border-radius: 0 0 1.15rem 1.15rem;
+  background: #fff;
+  border: 1.5px solid var(--pr-red);
+  border-top: none;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-body);
+  color: var(--pr-red);
 }
 
 .pr-faq__answer p {
   margin: 0 0 0.65rem;
+  color: var(--pr-red);
+  font-weight: var(--fw-semibold);
 }
 
 .pr-faq__answer p:last-child {
@@ -6032,4 +6103,25 @@ footer.site-footer.mh-footer {
   position: relative;
   padding-left: 1.55rem;
   font-weight: var(--fw-semibold);
+  color: var(--pr-red);
+}
+
+.pr-faq__answer ul li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  color: var(--pr-gold);
+  font-weight: var(--fw-bold);
+}
+
+@media (min-width: 1024px) {
+  .pr-faq__item > summary {
+    padding: 1.15rem 1.5rem;
+    min-height: 3.85rem;
+  }
+
+  .pr-faq__answer {
+    padding: 1.15rem 1.5rem 1.35rem;
+  }
 }

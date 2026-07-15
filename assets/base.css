@@ -4465,7 +4465,7 @@ a.bs-card__media {
   font-size: 0.875rem;
   font-style: italic;
   line-height: 1.45;
-  color: #5e6f36;
+  color: #2b2b26;
 }
 
 .mh-love footer {
@@ -4491,6 +4491,19 @@ a.bs-card__media {
   font-style: normal;
   font-weight: 600;
   color: #5e6f36;
+}
+
+/* Ensure review quotes stay readable on light cards */
+.mh-love,
+.love-carousel__slide,
+.dh-reviews__grid blockquote {
+  color: #2b2b26;
+}
+
+.mh-love p,
+.love-carousel__slide p,
+.dh-reviews__grid p {
+  color: #2b2b26 !important;
 }
 
 .mh-dots {
@@ -5719,10 +5732,10 @@ footer.site-footer.mh-footer {
 
 .dh-reviews__grid blockquote {
   margin: 0;
-  border: 1px solid rgba(239, 181, 48, 0.3);
+  border: 1px solid rgba(94, 111, 54, 0.12);
   border-radius: 12px;
   padding: 1.5rem;
-  background: rgba(0, 0, 0, 0.12);
+  background: #faf8f2;
 }
 
 .dh-reviews__stars {
@@ -5737,7 +5750,7 @@ footer.site-footer.mh-footer {
   font-family: "Poppins", sans-serif;
   font-size: 0.9rem;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.92);
+  color: #2b2b26;
 }
 
 .dh-reviews__grid footer {
@@ -5759,7 +5772,7 @@ footer.site-footer.mh-footer {
   font-family: "Poppins", sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: #efb530;
+  color: #5e6f36;
 }
 
 .dh-blog {

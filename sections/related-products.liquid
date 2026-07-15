@@ -1,16 +1,26 @@
 {%- comment -%}
-  Placed after FAQs in the footer group. Only renders on product pages.
+  Placed after FAQs in the footer group. Only renders on product pages with items.
 {%- endcomment -%}
 {%- if product != blank -%}
-  <section class="pdp-related-wrap" aria-labelledby="Related-{{ section.id }}">
-    <div class="pdp-related max-w-site mx-auto">
-      <h2 id="Related-{{ section.id }}">{{ section.settings.heading | default: 'You May Also Like' }}</h2>
-      <div class="pdp-related__rail hide-scrollbar">
-        {%- assign related = product.collections.first -%}
-        {%- if related == blank -%}
-          {%- assign related = collections.all -%}
-        {%- endif -%}
-        {%- if related -%}
+  {%- assign related = product.collections.first -%}
+  {%- if related == blank -%}
+    {%- assign related = collections.all -%}
+  {%- endif -%}
+  {%- assign related_count = 0 -%}
+  {%- if related -%}
+    {%- for rel in related.products -%}
+      {%- unless rel.id == product.id -%}
+        {%- assign related_count = related_count | plus: 1 -%}
+        {%- if related_count >= section.settings.products_to_show -%}{%- break -%}{%- endif -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- if related_count > 0 -%}
+    <section class="pdp-related-wrap" aria-labelledby="Related-{{ section.id }}">
+      <div class="pdp-related max-w-site mx-auto">
+        <h2 id="Related-{{ section.id }}">{{ section.settings.heading | default: 'You May Also Like' }}</h2>
+        <div class="pdp-related__rail hide-scrollbar">
           {%- assign shown = 0 -%}
           {%- for rel in related.products -%}
             {%- if shown >= section.settings.products_to_show -%}{%- break -%}{%- endif -%}
@@ -19,10 +29,10 @@
               {%- assign shown = shown | plus: 1 -%}
             {%- endunless -%}
           {%- endfor -%}
-        {%- endif -%}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  {%- endif -%}
 {%- endif -%}
 
 {% schema %}

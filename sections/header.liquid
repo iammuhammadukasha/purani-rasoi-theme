@@ -86,17 +86,17 @@
 
     <div class="dh-tools">
       <button type="button" class="dh-tools__search" data-ajax-search-open aria-label="{{ 'general.search' | t }}" aria-expanded="false" aria-controls="ajax-search">
-        <span class="material-symbols-outlined">search</span>
+        <span class="material-symbols-outlined" aria-hidden="true">search</span>
       </button>
       <a
         href="{% if shop.customer_accounts_enabled %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
         class="dh-tools__account"
         aria-label="{{ 'general.account' | t }}"
       >
-        <span class="material-symbols-outlined">person</span>
+        <span class="material-symbols-outlined" aria-hidden="true">person</span>
       </a>
       <a href="{{ routes.cart_url }}" class="dh-tools__cart" aria-label="{{ 'general.cart' | t }}">
-        <span class="material-symbols-outlined">shopping_cart</span>
+        <span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span>
         <span class="cart-count cart-badge">{{ cart.item_count }}</span>
       </a>
     </div>

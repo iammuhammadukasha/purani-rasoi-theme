@@ -29,10 +29,58 @@
       href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     >
+    {%- comment -%} display=block hides ligature text (search/person/cart) until icon font is ready {%- endcomment -%}
     <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..600,0..1,0&display=swap"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..600,0..1,0&display=block"
+    >
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..600,0..1,0&display=block"
       rel="stylesheet"
     >
+    <style>
+      /* Prevent Material Symbols ligature flash (raw "search"/"person" text) */
+      .material-symbols-outlined {
+        font-family: "Material Symbols Outlined", sans-serif;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 1.35rem;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        font-feature-settings: "liga";
+        -webkit-font-feature-settings: "liga";
+        -webkit-font-smoothing: antialiased;
+        width: 1.2em;
+        height: 1.2em;
+        overflow: hidden;
+        visibility: hidden;
+      }
+      html.ms-icons-ready .material-symbols-outlined {
+        visibility: visible;
+      }
+    </style>
+    <script>
+      (function () {
+        function ready() {
+          document.documentElement.classList.add("ms-icons-ready");
+        }
+        if (document.fonts && document.fonts.load) {
+          document.fonts
+            .load('24px "Material Symbols Outlined"')
+            .then(ready)
+            .catch(ready);
+          setTimeout(ready, 1200);
+        } else {
+          ready();
+        }
+      })();
+    </script>
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'theme.css' | asset_url | stylesheet_tag }}

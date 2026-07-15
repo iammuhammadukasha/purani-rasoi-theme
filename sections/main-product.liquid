@@ -1,170 +1,374 @@
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
   assign product_form_id = 'product-form-' | append: section.id
-  assign short_desc = section.settings.short_description
-  if short_desc == blank
-    assign short_desc = product.description | strip_html | truncatewords: 28
-  endif
+  assign brand_name = section.settings.brand_eyebrow | default: shop.name
+  assign delivery_text = section.settings.delivery_text | default: 'Delivery in 3-5 Days'
+  assign rating_text = section.settings.rating_text | default: '4.9 (428 Reviews)'
+  assign orders_text = section.settings.orders_text | default: '2500+ Orders'
+  assign promo_heading = section.settings.promo_heading | default: 'Buy 2 Get Free Shipping'
+  assign compare_heading = section.settings.compare_heading | default: 'Why Choose Purani Rasoi?'
+  assign reviews_heading = section.settings.reviews_heading | default: 'What Our Customers Say'
 -%}
 
-<div class="pdp max-w-site mx-auto">
-  <div class="pdp-layout">
-    <section class="pdp-gallery" aria-label="Product images">
-      <div class="pdp-gallery__main">
-        {%- if product.selected_or_first_available_variant.featured_media != blank -%}
-          {%- assign featured = product.selected_or_first_available_variant.featured_media -%}
-        {%- else -%}
-          {%- assign featured = product.featured_media -%}
-        {%- endif -%}
-        {%- if featured -%}
-          <img
-            id="pdp-main-img"
-            src="{{ featured | image_url: width: 1200 }}"
-            alt="{{ featured.alt | escape | default: product.title | escape }}"
-            width="800"
-            height="800"
-          >
-        {%- else -%}
-          {{ 'product-1' | placeholder_svg_tag: 'pdp-placeholder' }}
-        {%- endif -%}
-        <button type="button" class="pdp-wish" aria-label="Add to wishlist" data-wishlist>
-          <span class="material-symbols-outlined" aria-hidden="true">favorite</span>
-        </button>
-      </div>
-
-      {%- if product.media.size > 1 -%}
-        <div class="pdp-thumbs-wrap">
-          <button type="button" class="pdp-thumbs__nav" data-thumbs-prev aria-label="Previous images">‹</button>
-          <div class="pdp-thumbs" role="list" data-thumbs-rail>
-            {%- for media in product.media -%}
-              <button
-                type="button"
-                class="pdp-thumbs__item{% if forloop.first %} is-active{% endif %}"
-                data-thumb="{{ media | image_url: width: 1200 }}"
-                aria-label="View image {{ forloop.index }}"
-              >
-                <img src="{{ media | image_url: width: 200 }}" alt="" loading="lazy" width="80" height="80">
-              </button>
-            {%- endfor -%}
-          </div>
-          <button type="button" class="pdp-thumbs__nav" data-thumbs-next aria-label="Next images">›</button>
-        </div>
+<div class="pdp" data-pdp data-section-id="{{ section.id }}">
+  <div class="pdp__inner max-w-site mx-auto">
+    <nav class="pdp-crumbs" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span aria-hidden="true">›</span>
+      <a href="{{ routes.all_products_collection_url }}">Shop</a>
+      {%- if product.collections.first -%}
+        <span aria-hidden="true">›</span>
+        <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
       {%- endif -%}
-    </section>
+      <span aria-hidden="true">›</span>
+      <span aria-current="page">{{ product.title }}</span>
+    </nav>
 
-    <section class="pdp-body">
-      <h1 class="pdp-title">{{ product.title }}</h1>
-
-      <div class="pdp-meta">
-        {%- if product.available -%}
-          <span class="pdp-stock">In Stock</span>
-        {%- else -%}
-          <span class="pdp-stock pdp-stock--out">Sold out</span>
-        {%- endif -%}
-      </div>
-
-      {%- if short_desc != blank -%}
-        <p class="pdp-desc">{{ short_desc }}</p>
-      {%- endif -%}
-
-      {% form 'product', product, id: product_form_id, class: 'product-form', data-product-form: '' %}
-        <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
-
-        {%- unless product.has_only_default_variant -%}
-          {%- for option in product.options_with_values -%}
-            <span class="pdp-label">{{ option.name }}</span>
-            <div class="pdp-weights" role="group" aria-label="{{ option.name }}">
-              {%- for value in option.values -%}
+    <div class="pdp-layout">
+      <section class="pdp-gallery" aria-label="Product images">
+        <div class="pdp-gallery__stage">
+          {%- if product.media.size > 1 -%}
+            <div class="pdp-thumbs" role="list" data-thumbs-rail>
+              {%- for media in product.media -%}
                 <button
                   type="button"
-                  data-option-value="{{ value | escape }}"
-                  data-option-name="{{ option.name | escape }}"
-                  data-option-position="{{ option.position }}"
-                  {% if option.selected_value == value %}class="is-active"{% endif %}
-                >{{ value }}</button>
+                  class="pdp-thumbs__item{% if forloop.first %} is-active{% endif %}"
+                  data-thumb="{{ media | image_url: width: 1400 }}"
+                  aria-label="View image {{ forloop.index }}"
+                >
+                  <img src="{{ media | image_url: width: 200 }}" alt="" loading="lazy" width="80" height="80">
+                </button>
               {%- endfor -%}
             </div>
-            <select
-              id="Option-{{ section.id }}-{{ forloop.index0 }}"
-              name="options[{{ option.name | escape }}]"
-              data-option-position="{{ option.position }}"
-              class="sr-only"
-            >
-              {%- for value in option.values -%}
-                <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
-              {%- endfor -%}
-            </select>
-          {%- endfor -%}
-        {%- endunless -%}
+          {%- endif -%}
 
-        <div class="pdp-price" id="price-{{ section.id }}">
-          <div class="pdp-price__row">
-            <strong>{{ current_variant.price | money }}</strong>
-            {%- if current_variant.compare_at_price > current_variant.price -%}
-              <s>{{ current_variant.compare_at_price | money }}</s>
-              {%- assign save = current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round -%}
-              <span>{{ save }}% OFF</span>
-            {%- endif -%}
-          </div>
-          <p class="pdp-price__tax">(Inclusive of all taxes)</p>
-        </div>
-
-        <div class="pdp-actions">
-          <div class="pdp-qty" aria-label="{{ 'products.product.quantity' | t }}">
-            <button type="button" id="qty-minus" aria-label="Decrease quantity">−</button>
-            <input
-              id="Quantity-product"
-              type="number"
-              name="quantity"
-              value="1"
-              min="1"
-              class="sr-only"
-            >
-            <span id="qty-value">1</span>
-            <button type="button" id="qty-plus" aria-label="Increase quantity">+</button>
-          </div>
-          <button
-            type="submit"
-            class="pdp-add"
-            name="add"
-            {% unless current_variant.available %}disabled{% endunless %}
-          >
-            <span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span>
-            {%- if current_variant.available -%}
-              ADD TO CART
+          <div class="pdp-gallery__main">
+            {%- if product.selected_or_first_available_variant.featured_media != blank -%}
+              {%- assign featured = product.selected_or_first_available_variant.featured_media -%}
             {%- else -%}
-              {{ 'products.product.sold_out' | t }}
+              {%- assign featured = product.featured_media -%}
             {%- endif -%}
-          </button>
+            {%- if featured -%}
+              <img
+                id="pdp-main-img"
+                src="{{ featured | image_url: width: 1400 }}"
+                alt="{{ featured.alt | escape | default: product.title | escape }}"
+                width="800"
+                height="800"
+              >
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'pdp-placeholder' }}
+            {%- endif -%}
+            <button type="button" class="pdp-wish" aria-label="Add to wishlist" data-wishlist>
+              <span class="material-symbols-outlined" aria-hidden="true">favorite</span>
+            </button>
+          </div>
         </div>
 
-        <button
-          type="submit"
-          class="pdp-buy"
-          name="add"
-          data-buy-now
-          {% unless current_variant.available %}disabled{% endunless %}
-        >
-          BUY NOW
-        </button>
-      {% endform %}
-
-      <div class="pdp-trust">
+        {%- assign cert_count = 0 -%}
         {%- for block in section.blocks -%}
-          {%- if block.type == 'trust' -%}
-            <div class="pdp-trust__item" {{ block.shopify_attributes }}>
-              <span class="material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
-              <span class="pdp-trust__text">
-                <span class="pdp-trust__title">{{ block.settings.label }}</span>
-                {%- if block.settings.sublabel != blank -%}
-                  <span class="pdp-trust__sub">{{ block.settings.sublabel }}</span>
-                {%- endif -%}
+          {%- if block.type == 'media_cert' -%}{%- assign cert_count = cert_count | plus: 1 -%}{%- endif -%}
+        {%- endfor -%}
+        {%- if cert_count > 0 -%}
+          <div class="pdp-media-certs">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'media_cert' -%}
+                <div class="pdp-media-certs__item" {{ block.shopify_attributes }}>
+                  <span class="material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
+                  <span>{{ block.settings.label }}</span>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </section>
+
+      <section class="pdp-body">
+        <p class="pdp-brand">{{ brand_name }}</p>
+        <h1 class="pdp-title">{{ product.title }}</h1>
+
+        {%- assign tag_count = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'attribute_tag' -%}{%- assign tag_count = tag_count | plus: 1 -%}{%- endif -%}
+        {%- endfor -%}
+        {%- if tag_count > 0 -%}
+          <div class="pdp-tags">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'attribute_tag' -%}
+                <span class="pdp-tags__item" {{ block.shopify_attributes }}>
+                  <span class="material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
+                  {{ block.settings.label }}
+                </span>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <div class="pdp-meta">
+          <div class="pdp-meta__rating">
+            <span class="pdp-meta__stars" aria-hidden="true">★★★★★</span>
+            <span class="pdp-meta__count">{{ rating_text }}</span>
+          </div>
+          {%- if orders_text != blank -%}
+            <span class="pdp-meta__orders">{{ orders_text }}</span>
+          {%- endif -%}
+        </div>
+
+        {% form 'product', product, id: product_form_id, class: 'product-form', data-product-form: '' %}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+
+          <div class="pdp-price" id="price-{{ section.id }}" data-pdp-price>
+            <div class="pdp-price__row">
+              <strong data-price-current>{{ current_variant.price | money }}</strong>
+              {%- if current_variant.compare_at_price > current_variant.price -%}
+                <s data-price-compare>{{ current_variant.compare_at_price | money }}</s>
+                {%- assign save = current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round -%}
+                <span class="pdp-price__off" data-price-off>{{ save }}% OFF</span>
+              {%- endif -%}
+            </div>
+            <p class="pdp-price__tax">(Inclusive of all taxes)</p>
+          </div>
+
+          <div class="pdp-availability">
+            {%- if product.available -%}
+              <span class="pdp-stock" data-pdp-stock>
+                <span class="material-symbols-outlined" aria-hidden="true">check_circle</span>
+                In Stock
               </span>
+            {%- else -%}
+              <span class="pdp-stock pdp-stock--out" data-pdp-stock>Sold out</span>
+            {%- endif -%}
+            {%- if delivery_text != blank -%}
+              <span class="pdp-delivery">
+                <span class="material-symbols-outlined" aria-hidden="true">local_shipping</span>
+                {{ delivery_text }}
+              </span>
+            {%- endif -%}
+          </div>
+
+          <div class="pdp-opts">
+            {%- unless product.has_only_default_variant -%}
+              {%- for option in product.options_with_values -%}
+                <div class="pdp-opts__group">
+                  <span class="pdp-label">Select {{ option.name }}</span>
+                  <div class="pdp-weights" role="group" aria-label="{{ option.name }}">
+                    {%- for value in option.values -%}
+                      <button
+                        type="button"
+                        data-option-value="{{ value | escape }}"
+                        data-option-name="{{ option.name | escape }}"
+                        data-option-position="{{ option.position }}"
+                        {% if option.selected_value == value %}class="is-active"{% endif %}
+                      >{{ value }}</button>
+                    {%- endfor -%}
+                  </div>
+                  <select
+                    id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                    name="options[{{ option.name | escape }}]"
+                    data-option-position="{{ option.position }}"
+                    class="sr-only"
+                  >
+                    {%- for value in option.values -%}
+                      <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+                    {%- endfor -%}
+                  </select>
+                </div>
+              {%- endfor -%}
+            {%- endunless -%}
+
+            <div class="pdp-opts__group">
+              <span class="pdp-label">Quantity</span>
+              <div class="pdp-qty" aria-label="{{ 'products.product.quantity' | t }}">
+                <button type="button" data-qty-minus aria-label="Decrease quantity">−</button>
+                <input
+                  id="Quantity-product"
+                  type="number"
+                  name="quantity"
+                  value="1"
+                  min="1"
+                  class="sr-only"
+                  data-qty-input
+                >
+                <span data-qty-value>1</span>
+                <button type="button" data-qty-plus aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="pdp-ctas">
+            <button
+              type="submit"
+              class="pdp-add"
+              name="add"
+              data-add-to-cart
+              {% unless current_variant.available %}disabled{% endunless %}
+            >
+              <span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span>
+              {%- if current_variant.available -%}
+                ADD TO CART
+              {%- else -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- endif -%}
+            </button>
+            <button
+              type="submit"
+              class="pdp-buy"
+              name="add"
+              data-buy-now
+              {% unless current_variant.available %}disabled{% endunless %}
+            >
+              <span class="material-symbols-outlined" aria-hidden="true">bolt</span>
+              BUY NOW
+            </button>
+          </div>
+        {% endform %}
+
+        {%- assign trust_count = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'trust' -%}{%- assign trust_count = trust_count | plus: 1 -%}{%- endif -%}
+        {%- endfor -%}
+        {%- if trust_count > 0 -%}
+          <div class="pdp-trust">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'trust' -%}
+                <div class="pdp-trust__item" {{ block.shopify_attributes }}>
+                  <span class="material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
+                  <span class="pdp-trust__text">
+                    <span class="pdp-trust__title">{{ block.settings.label }}</span>
+                    {%- if block.settings.sublabel != blank -%}
+                      <span class="pdp-trust__sub">{{ block.settings.sublabel }}</span>
+                    {%- endif -%}
+                  </span>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </section>
+    </div>
+
+    {%- assign feature_count = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'feature' -%}{%- assign feature_count = feature_count | plus: 1 -%}{%- endif -%}
+    {%- endfor -%}
+    {%- if feature_count > 0 -%}
+      <section class="pdp-features" aria-label="Key features">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'feature' -%}
+            <div class="pdp-features__item" {{ block.shopify_attributes }}>
+              <span class="pdp-features__icon material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
+              <span class="pdp-features__label">{{ block.settings.label }}</span>
             </div>
           {%- endif -%}
         {%- endfor -%}
-      </div>
+      </section>
+    {%- endif -%}
 
+    {%- assign compare_count = 0 -%}
+    {%- assign review_count = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'compare_row' -%}{%- assign compare_count = compare_count | plus: 1 -%}{%- endif -%}
+      {%- if block.type == 'review' -%}{%- assign review_count = review_count | plus: 1 -%}{%- endif -%}
+    {%- endfor -%}
+
+    {%- if compare_count > 0 or review_count > 0 -%}
+      <section class="pdp-mid">
+        {%- if compare_count > 0 -%}
+          <div class="pdp-compare">
+            <h2 class="pdp-mid__heading">{{ compare_heading }}</h2>
+            <div class="pdp-compare__table" role="table">
+              <div class="pdp-compare__head" role="row">
+                <span role="columnheader">Feature</span>
+                <span role="columnheader">Purani Rasoi</span>
+                <span role="columnheader">Other Brands</span>
+              </div>
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'compare_row' -%}
+                  <div class="pdp-compare__row" role="row" {{ block.shopify_attributes }}>
+                    <span role="cell">{{ block.settings.label }}</span>
+                    <span role="cell" class="pdp-compare__yes">
+                      <span class="material-symbols-outlined" aria-hidden="true">check_circle</span>
+                      <span class="sr-only">Yes</span>
+                    </span>
+                    <span role="cell" class="pdp-compare__no">
+                      <span class="material-symbols-outlined" aria-hidden="true">cancel</span>
+                      <span class="sr-only">No</span>
+                    </span>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if review_count > 0 -%}
+          <div class="pdp-quotes">
+            <h2 class="pdp-mid__heading">{{ reviews_heading }}</h2>
+            <div class="pdp-quotes__list">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'review' -%}
+                  <blockquote class="pdp-quotes__item" {{ block.shopify_attributes }}>
+                    <div class="pdp-quotes__stars" aria-hidden="true">★★★★★</div>
+                    <p>“{{ block.settings.quote }}”</p>
+                    <footer>
+                      {%- if block.settings.avatar != blank -%}
+                        <img src="{{ block.settings.avatar | image_url: width: 72 }}" alt="" width="36" height="36" loading="lazy">
+                      {%- else -%}
+                        <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" width="36" height="36" loading="lazy">
+                      {%- endif -%}
+                      <cite>{{ block.settings.author }}</cite>
+                    </footer>
+                  </blockquote>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </section>
+    {%- endif -%}
+
+    {%- if section.settings.show_promo -%}
+      <section class="pdp-promo" data-pdp-promo data-end="{{ section.settings.promo_end }}">
+        <div class="pdp-promo__copy">
+          <h2>{{ promo_heading }}</h2>
+          {%- if section.settings.promo_subtext != blank -%}
+            <p>{{ section.settings.promo_subtext }}</p>
+          {%- endif -%}
+        </div>
+        <div class="pdp-promo__timer" aria-label="Offer ends in">
+          <div class="pdp-promo__unit"><strong data-promo-h>00</strong><span>Hrs</span></div>
+          <span class="pdp-promo__sep">:</span>
+          <div class="pdp-promo__unit"><strong data-promo-m>00</strong><span>Mins</span></div>
+          <span class="pdp-promo__sep">:</span>
+          <div class="pdp-promo__unit"><strong data-promo-s>00</strong><span>Secs</span></div>
+        </div>
+      </section>
+    {%- endif -%}
+
+    {%- if section.settings.show_related -%}
+      <div class="pdp-related">
+        <h2>{{ section.settings.related_heading }}</h2>
+        <div class="pdp-related__rail hide-scrollbar">
+          {%- assign related = product.collections.first -%}
+          {%- if related == blank -%}
+            {%- assign related = collections.all -%}
+          {%- endif -%}
+          {%- if related -%}
+            {%- for rel in related.products limit: 8 -%}
+              {%- unless rel.id == product.id -%}
+                {% render 'product-card', product: rel %}
+              {%- endunless -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- assign acc_count = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'accordion' -%}{%- assign acc_count = acc_count | plus: 1 -%}{%- endif -%}
+    {%- endfor -%}
+    {%- if acc_count > 0 -%}
       <div class="pdp-acc">
         {%- for block in section.blocks -%}
           {%- if block.type == 'accordion' -%}
@@ -178,26 +382,29 @@
           {%- endif -%}
         {%- endfor -%}
       </div>
+    {%- endif -%}
+  </div>
 
-      {%- if section.settings.show_related -%}
-        <div class="pdp-related">
-          <h2>{{ section.settings.related_heading }}</h2>
-          <div class="pdp-related__rail hide-scrollbar">
-            {%- assign related = product.collections.first -%}
-            {%- if related == blank -%}
-              {%- assign related = collections.all -%}
-            {%- endif -%}
-            {%- if related -%}
-              {%- for rel in related.products limit: 8 -%}
-                {%- unless rel.id == product.id -%}
-                  {% render 'product-card', product: rel %}
-                {%- endunless -%}
-              {%- endfor -%}
-            {%- endif -%}
-          </div>
+  <div class="pdp-sticky" data-pdp-sticky>
+    <div class="pdp-sticky__inner max-w-site mx-auto">
+      <div class="pdp-sticky__product">
+        {%- if product.featured_media -%}
+          <img src="{{ product.featured_media | image_url: width: 120 }}" alt="" width="48" height="48" loading="lazy">
+        {%- endif -%}
+        <div>
+          <p class="pdp-sticky__title">{{ brand_name }} {{ product.title }}</p>
+          <p class="pdp-sticky__price" data-sticky-price>{{ current_variant.price | money }}</p>
         </div>
-      {%- endif -%}
-    </section>
+      </div>
+      <div class="pdp-sticky__actions">
+        <button type="button" class="pdp-add pdp-sticky__add" data-sticky-add {% unless current_variant.available %}disabled{% endunless %}>
+          ADD TO CART
+        </button>
+        <button type="button" class="pdp-buy pdp-sticky__buy" data-sticky-buy {% unless current_variant.available %}disabled{% endunless %}>
+          BUY NOW
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -206,42 +413,79 @@
 </script>
 <script>
   (function () {
-    const product = JSON.parse(document.getElementById('ProductJSON-{{ section.id }}').textContent);
+    const root = document.querySelector('[data-pdp][data-section-id="{{ section.id }}"]');
     const form = document.getElementById('{{ product_form_id }}');
-    if (!form) return;
+    if (!root || !form) return;
+
+    const product = JSON.parse(document.getElementById('ProductJSON-{{ section.id }}').textContent);
     const idInput = form.querySelector('[data-variant-id]');
     const selects = form.querySelectorAll('select[data-option-position]');
-    const qtySpan = document.getElementById('qty-value');
-    const qtyInput = document.getElementById('Quantity-product');
+    const qtySpan = form.querySelector('[data-qty-value]');
+    const qtyInput = form.querySelector('[data-qty-input]');
     const buyNow = form.querySelector('[data-buy-now]');
+    const addBtn = form.querySelector('[data-add-to-cart]');
+    const mainImg = document.getElementById('pdp-main-img');
+    const stickyPrice = root.querySelector('[data-sticky-price]');
+    const stickyAdd = root.querySelector('[data-sticky-add]');
+    const stickyBuy = root.querySelector('[data-sticky-buy]');
+    const stockEl = root.querySelector('[data-pdp-stock]');
 
     function syncQty() {
       if (qtySpan && qtyInput) qtySpan.textContent = qtyInput.value;
     }
-    document.getElementById('qty-minus')?.addEventListener('click', () => {
+    form.querySelector('[data-qty-minus]')?.addEventListener('click', () => {
       qtyInput.value = Math.max(1, (parseInt(qtyInput.value, 10) || 1) - 1);
       syncQty();
     });
-    document.getElementById('qty-plus')?.addEventListener('click', () => {
+    form.querySelector('[data-qty-plus]')?.addEventListener('click', () => {
       qtyInput.value = (parseInt(qtyInput.value, 10) || 1) + 1;
       syncQty();
     });
 
-    buyNow?.addEventListener('click', (e) => {
-      e.preventDefault();
+    function addThen(url) {
       const fd = new FormData(form);
-      fetch('/cart/add.js', {
+      return fetch('/cart/add.js', {
         method: 'POST',
         body: fd,
         headers: { Accept: 'application/json' },
-      })
-        .then((r) => {
-          if (!r.ok) throw new Error('add failed');
-          window.location.href = '/checkout';
-        })
-        .catch(() => {
-          form.submit();
+      }).then((r) => {
+        if (!r.ok) throw new Error('add failed');
+        if (url) window.location.href = url;
+        else window.location.href = '/cart';
+      });
+    }
+
+    buyNow?.addEventListener('click', (e) => {
+      e.preventDefault();
+      addThen('/checkout').catch(() => form.submit());
+    });
+    stickyBuy?.addEventListener('click', () => {
+      addThen('/checkout').catch(() => form.requestSubmit?.() || form.submit());
+    });
+    stickyAdd?.addEventListener('click', () => {
+      addThen('/cart').catch(() => form.requestSubmit?.() || form.submit());
+    });
+
+    root.querySelectorAll('[data-thumb]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const src = btn.getAttribute('data-thumb');
+        if (mainImg && src) mainImg.src = src;
+        root.querySelectorAll('[data-thumb]').forEach((b) => b.classList.toggle('is-active', b === btn));
+      });
+    });
+
+    form.querySelectorAll('[data-option-value]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const pos = btn.getAttribute('data-option-position');
+        const val = btn.getAttribute('data-option-value');
+        const select = form.querySelector('select[data-option-position="' + pos + '"]');
+        if (!select) return;
+        select.value = val;
+        form.querySelectorAll('[data-option-position="' + pos + '"][data-option-value]').forEach((b) => {
+          b.classList.toggle('is-active', b === btn);
         });
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+      });
     });
 
     function selectedOptions() {
@@ -252,46 +496,73 @@
       return product.variants.find((v) => v.options.every((o, i) => o === opts[i]));
     }
     function money(cents) {
-      if (window.Shopify && Shopify.formatMoney) return Shopify.formatMoney(cents);
+      if (window.Shopify && Shopify.formatMoney) {
+        try {
+          return Shopify.formatMoney(cents, {{ shop.money_format | json }});
+        } catch (e) {}
+      }
       return '₹' + (cents / 100).toFixed(0);
     }
     function update() {
-      const v = findVariant();
+      const v = findVariant() || product.variants[0];
       if (!v || !idInput) return;
       idInput.value = v.id;
       const priceEl = document.getElementById('price-{{ section.id }}');
       if (priceEl) {
-        let row = '<div class="pdp-price__row"><strong>' + money(v.price) + '</strong>';
+        let row = '<div class="pdp-price__row"><strong data-price-current">' + money(v.price) + '</strong>';
         if (v.compare_at_price > v.price) {
           const save = Math.round(((v.compare_at_price - v.price) * 100) / v.compare_at_price);
-          row += ' <s>' + money(v.compare_at_price) + '</s> <span>' + save + '% OFF</span>';
+          row += ' <s data-price-compare>' + money(v.compare_at_price) + '</s> <span class="pdp-price__off" data-price-off>' + save + '% OFF</span>';
         }
         row += '</div><p class="pdp-price__tax">(Inclusive of all taxes)</p>';
         priceEl.innerHTML = row;
       }
-      const submit = form.querySelector('.pdp-add');
-      if (submit) {
-        submit.disabled = !v.available;
-        submit.innerHTML = v.available
+      if (stickyPrice) stickyPrice.textContent = money(v.price);
+      if (addBtn) {
+        addBtn.disabled = !v.available;
+        addBtn.innerHTML = v.available
           ? '<span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span> ADD TO CART'
           : {{ 'products.product.sold_out' | t | json }};
       }
       if (buyNow) buyNow.disabled = !v.available;
-      const stock = document.querySelector('.pdp-stock');
-      if (stock) {
-        stock.textContent = v.available ? 'In Stock' : 'Sold out';
-        stock.classList.toggle('pdp-stock--out', !v.available);
+      if (stickyAdd) stickyAdd.disabled = !v.available;
+      if (stickyBuy) stickyBuy.disabled = !v.available;
+      if (stockEl) {
+        if (v.available) {
+          stockEl.classList.remove('pdp-stock--out');
+          stockEl.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">check_circle</span> In Stock';
+        } else {
+          stockEl.classList.add('pdp-stock--out');
+          stockEl.textContent = 'Sold out';
+        }
+      }
+      if (v.featured_image && mainImg) {
+        mainImg.src = v.featured_image.src.replace(/(\.[a-zA-Z]+)(\?.*)?$/, '_1400x$1');
       }
     }
     selects.forEach((s) => s.addEventListener('change', update));
 
-    const rail = document.querySelector('[data-thumbs-rail]');
-    document.querySelector('[data-thumbs-prev]')?.addEventListener('click', () => {
-      rail?.scrollBy({ left: -120, behavior: 'smooth' });
-    });
-    document.querySelector('[data-thumbs-next]')?.addEventListener('click', () => {
-      rail?.scrollBy({ left: 120, behavior: 'smooth' });
-    });
+    /* Promo countdown */
+    const promo = root.querySelector('[data-pdp-promo]');
+    if (promo) {
+      const endRaw = promo.getAttribute('data-end');
+      const end = endRaw ? new Date(endRaw).getTime() : 0;
+      const hEl = promo.querySelector('[data-promo-h]');
+      const mEl = promo.querySelector('[data-promo-m]');
+      const sEl = promo.querySelector('[data-promo-s]');
+      function tick() {
+        if (!end) return;
+        const diff = Math.max(0, end - Date.now());
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        if (hEl) hEl.textContent = String(h).padStart(2, '0');
+        if (mEl) mEl.textContent = String(m).padStart(2, '0');
+        if (sEl) sEl.textContent = String(s).padStart(2, '0');
+      }
+      tick();
+      setInterval(tick, 1000);
+    }
   })();
 </script>
 
@@ -299,11 +570,60 @@
 {
   "name": "Product information",
   "settings": [
-    { "type": "textarea", "id": "short_description", "label": "Short description (optional)", "info": "Shown under stock status. Falls back to truncated product description." },
+    { "type": "text", "id": "brand_eyebrow", "label": "Brand eyebrow", "default": "Purani Rasoi" },
+    { "type": "text", "id": "rating_text", "label": "Rating text", "default": "4.9 (428 Reviews)" },
+    { "type": "text", "id": "orders_text", "label": "Orders text", "default": "2500+ Orders" },
+    { "type": "text", "id": "delivery_text", "label": "Delivery text", "default": "Delivery in 3-5 Days" },
+    { "type": "text", "id": "compare_heading", "label": "Compare heading", "default": "Why Choose Purani Rasoi?" },
+    { "type": "text", "id": "reviews_heading", "label": "Reviews heading", "default": "What Our Customers Say" },
+    { "type": "checkbox", "id": "show_promo", "label": "Show promo countdown bar", "default": true },
+    { "type": "text", "id": "promo_heading", "label": "Promo heading", "default": "Buy 2 Get Free Shipping" },
+    { "type": "text", "id": "promo_subtext", "label": "Promo subtext", "default": "Limited time offer on this product" },
+    { "type": "text", "id": "promo_end", "label": "Promo end datetime", "info": "ISO format, e.g. 2026-12-31T23:59:59", "default": "2026-12-31T23:59:59" },
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
     { "type": "text", "id": "related_heading", "label": "Related heading", "default": "You May Also Like" }
   ],
   "blocks": [
+    {
+      "type": "media_cert",
+      "name": "Media cert chip",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "verified" },
+        { "type": "text", "id": "label", "label": "Label", "default": "FSSAI Certified" }
+      ]
+    },
+    {
+      "type": "attribute_tag",
+      "name": "Attribute tag",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "home" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Homemade" }
+      ]
+    },
+    {
+      "type": "feature",
+      "name": "Feature icon",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "nutrition" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Premium Ingredients" }
+      ]
+    },
+    {
+      "type": "compare_row",
+      "name": "Compare row",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Feature label", "default": "Homemade in small batches" }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Customer quote",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!" },
+        { "type": "text", "id": "author", "label": "Author", "default": "Priya Sharma" },
+        { "type": "image_picker", "id": "avatar", "label": "Avatar" }
+      ]
+    },
     {
       "type": "trust",
       "name": "Trust badge",

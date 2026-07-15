@@ -3,37 +3,52 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "cert1": { "type": "media_cert", "settings": { "icon": "verified", "label": "FSSAI Certified" } },
+        "cert2": { "type": "media_cert", "settings": { "icon": "eco", "label": "100% Natural" } },
+        "cert3": { "type": "media_cert", "settings": { "icon": "science_off", "label": "No Chemicals" } },
+        "tag1": { "type": "attribute_tag", "settings": { "icon": "home", "label": "Homemade" } },
+        "tag2": { "type": "attribute_tag", "settings": { "icon": "wb_sunny", "label": "Sun Dried" } },
+        "tag3": { "type": "attribute_tag", "settings": { "icon": "block", "label": "No Preservatives" } },
+        "f1": { "type": "feature", "settings": { "icon": "restaurant", "label": "Premium Lal Mirch" } },
+        "f2": { "type": "feature", "settings": { "icon": "nutrition", "label": "Farm Fresh Mangoes" } },
+        "f3": { "type": "feature", "settings": { "icon": "spa", "label": "Traditional Spices" } },
+        "f4": { "type": "feature", "settings": { "icon": "wb_sunny", "label": "Sun Dried Naturally" } },
+        "f5": { "type": "feature", "settings": { "icon": "science_off", "label": "No Artificial Preservatives" } },
+        "f6": { "type": "feature", "settings": { "icon": "favorite", "label": "Made with Love" } },
+        "c1": { "type": "compare_row", "settings": { "label": "Homemade in small batches" } },
+        "c2": { "type": "compare_row", "settings": { "label": "No artificial preservatives" } },
+        "c3": { "type": "compare_row", "settings": { "label": "Sun-dried ingredients" } },
+        "c4": { "type": "compare_row", "settings": { "label": "Traditional family recipes" } },
+        "c5": { "type": "compare_row", "settings": { "label": "Hygienic packaging" } },
+        "r1": {
+          "type": "review",
+          "settings": {
+            "quote": "Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!",
+            "author": "Priya Sharma"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "quote": "Nimbu ka achar try kiya, bahut hi tasty aur fresh. Will order again!",
+            "author": "Rohit Verma"
+          }
+        },
         "trust1": {
           "type": "trust",
-          "settings": {
-            "icon": "local_shipping",
-            "label": "Free Shipping",
-            "sublabel": "on orders above ₹499"
-          }
+          "settings": { "icon": "local_shipping", "label": "Free Shipping", "sublabel": "on orders above ₹499" }
         },
         "trust2": {
           "type": "trust",
-          "settings": {
-            "icon": "package_2",
-            "label": "Secure Packaging",
-            "sublabel": "Safe & Hygienic"
-          }
+          "settings": { "icon": "package_2", "label": "Secure Packaging", "sublabel": "Safe & Hygienic" }
         },
         "trust3": {
           "type": "trust",
-          "settings": {
-            "icon": "local_shipping",
-            "label": "Delivery",
-            "sublabel": "3-5 Business Days"
-          }
+          "settings": { "icon": "local_shipping", "label": "Delivery", "sublabel": "3-5 Business Days" }
         },
         "trust4": {
           "type": "trust",
-          "settings": {
-            "icon": "assignment_return",
-            "label": "Easy Returns",
-            "sublabel": "7 Days Return Policy"
-          }
+          "settings": { "icon": "assignment_return", "label": "Easy Returns", "sublabel": "7 Days Return Policy" }
         },
         "acc1": {
           "type": "accordion",
@@ -77,18 +92,25 @@
         }
       },
       "block_order": [
-        "trust1",
-        "trust2",
-        "trust3",
-        "trust4",
-        "acc1",
-        "acc2",
-        "acc3",
-        "acc4",
-        "acc5"
+        "cert1", "cert2", "cert3",
+        "tag1", "tag2", "tag3",
+        "f1", "f2", "f3", "f4", "f5", "f6",
+        "c1", "c2", "c3", "c4", "c5",
+        "r1", "r2",
+        "trust1", "trust2", "trust3", "trust4",
+        "acc1", "acc2", "acc3", "acc4", "acc5"
       ],
       "settings": {
-        "short_description": "Dadi Maa ke khaas nuskhe se bana Aam ka achaar. Sun dried mangoes with traditional spices.",
+        "brand_eyebrow": "Purani Rasoi",
+        "rating_text": "4.9 (428 Reviews)",
+        "orders_text": "2500+ Orders",
+        "delivery_text": "Delivery in 3-5 Days",
+        "compare_heading": "Why Choose Purani Rasoi?",
+        "reviews_heading": "What Our Customers Say",
+        "show_promo": true,
+        "promo_heading": "Buy 2 Get Free Shipping",
+        "promo_subtext": "Limited time offer on this product",
+        "promo_end": "2026-12-31T23:59:59",
         "show_related": true,
         "related_heading": "You May Also Like"
       }

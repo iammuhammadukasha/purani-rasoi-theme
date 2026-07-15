@@ -15,24 +15,25 @@
         "f4": { "type": "feature", "settings": { "icon": "wb_sunny", "label": "Sun Dried Naturally" } },
         "f5": { "type": "feature", "settings": { "icon": "science_off", "label": "No Artificial Preservatives" } },
         "f6": { "type": "feature", "settings": { "icon": "favorite", "label": "Made with Love" } },
-        "c1": { "type": "compare_row", "settings": { "label": "Homemade in small batches" } },
-        "c2": { "type": "compare_row", "settings": { "label": "No artificial preservatives" } },
-        "c3": { "type": "compare_row", "settings": { "label": "Sun-dried ingredients" } },
-        "c4": { "type": "compare_row", "settings": { "label": "Traditional family recipes" } },
-        "c5": { "type": "compare_row", "settings": { "label": "Hygienic packaging" } },
-        "r1": {
-          "type": "review",
-          "settings": {
-            "quote": "Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!",
-            "author": "Priya Sharma"
-          }
+        "c1": {
+          "type": "compare_row",
+          "settings": { "us_text": "Homemade in Small Batches", "them_text": "Mass Production" }
         },
-        "r2": {
-          "type": "review",
-          "settings": {
-            "quote": "Nimbu ka achar try kiya, bahut hi tasty aur fresh. Will order again!",
-            "author": "Rohit Verma"
-          }
+        "c2": {
+          "type": "compare_row",
+          "settings": { "us_text": "Sun Dried & Naturally Processed", "them_text": "Artificial Flavours" }
+        },
+        "c3": {
+          "type": "compare_row",
+          "settings": { "us_text": "No Chemicals or Preservatives", "them_text": "Added Preservatives" }
+        },
+        "c4": {
+          "type": "compare_row",
+          "settings": { "us_text": "Traditional Family Recipe", "them_text": "Machine Made" }
+        },
+        "c5": {
+          "type": "compare_row",
+          "settings": { "us_text": "Made with Love & Care", "them_text": "Commercial Recipe" }
         },
         "trust1": {
           "type": "trust",
@@ -96,7 +97,6 @@
         "tag1", "tag2", "tag3",
         "f1", "f2", "f3", "f4", "f5", "f6",
         "c1", "c2", "c3", "c4", "c5",
-        "r1", "r2",
         "trust1", "trust2", "trust3", "trust4",
         "acc1", "acc2", "acc3", "acc4", "acc5"
       ],
@@ -106,10 +106,10 @@
         "orders_text": "2500+ Orders",
         "delivery_text": "Delivery in 3-5 Days",
         "compare_heading": "Why Choose Purani Rasoi?",
-        "reviews_heading": "What Our Customers Say",
+        "compare_subtext": "Experience the true taste of tradition",
         "show_promo": true,
         "promo_heading": "Buy 2 Get Free Shipping",
-        "promo_subtext": "Limited time offer on this product",
+        "promo_subtext": "Limited Time Offer!",
         "promo_end": "2026-12-31T23:59:59",
         "show_related": true,
         "related_heading": "You May Also Like"

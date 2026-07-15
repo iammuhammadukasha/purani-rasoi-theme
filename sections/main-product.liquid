@@ -7,7 +7,7 @@
   assign orders_text = section.settings.orders_text | default: '2500+ Orders'
   assign promo_heading = section.settings.promo_heading | default: 'Buy 2 Get Free Shipping'
   assign compare_heading = section.settings.compare_heading | default: 'Why Choose Purani Rasoi?'
-  assign reviews_heading = section.settings.reviews_heading | default: 'What Our Customers Say'
+  assign compare_sub = section.settings.compare_subtext | default: 'Experience the true taste of tradition'
 -%}
 
 <div class="pdp" data-pdp data-section-id="{{ section.id }}">
@@ -265,75 +265,63 @@
     {%- endif -%}
 
     {%- assign compare_count = 0 -%}
-    {%- assign review_count = 0 -%}
     {%- for block in section.blocks -%}
       {%- if block.type == 'compare_row' -%}{%- assign compare_count = compare_count | plus: 1 -%}{%- endif -%}
-      {%- if block.type == 'review' -%}{%- assign review_count = review_count | plus: 1 -%}{%- endif -%}
     {%- endfor -%}
 
-    {%- if compare_count > 0 or review_count > 0 -%}
-      <section class="pdp-mid">
-        {%- if compare_count > 0 -%}
-          <div class="pdp-compare">
-            <h2 class="pdp-mid__heading">{{ compare_heading }}</h2>
-            <div class="pdp-compare__table" role="table">
-              <div class="pdp-compare__head" role="row">
-                <span role="columnheader">Feature</span>
-                <span role="columnheader">Purani Rasoi</span>
-                <span role="columnheader">Other Brands</span>
-              </div>
+    {%- if compare_count > 0 -%}
+      <section class="pdp-compare" aria-labelledby="Compare-{{ section.id }}">
+        <div class="pdp-compare__intro">
+          <h2 id="Compare-{{ section.id }}" class="pdp-compare__heading">
+            <span class="material-symbols-outlined" aria-hidden="true">eco</span>
+            {{ compare_heading }}
+          </h2>
+          {%- if compare_sub != blank -%}
+            <p class="pdp-compare__sub">{{ compare_sub }}</p>
+          {%- endif -%}
+        </div>
+        <div class="pdp-compare__vs">
+          <div class="pdp-compare__col pdp-compare__col--us">
+            <h3>Purani Rasoi</h3>
+            <ul>
               {%- for block in section.blocks -%}
                 {%- if block.type == 'compare_row' -%}
-                  <div class="pdp-compare__row" role="row" {{ block.shopify_attributes }}>
-                    <span role="cell">{{ block.settings.label }}</span>
-                    <span role="cell" class="pdp-compare__yes">
-                      <span class="material-symbols-outlined" aria-hidden="true">check_circle</span>
-                      <span class="sr-only">Yes</span>
-                    </span>
-                    <span role="cell" class="pdp-compare__no">
-                      <span class="material-symbols-outlined" aria-hidden="true">cancel</span>
-                      <span class="sr-only">No</span>
-                    </span>
-                  </div>
+                  <li {{ block.shopify_attributes }}>
+                    <span class="material-symbols-outlined pdp-compare__yes" aria-hidden="true">check_circle</span>
+                    <span>{{ block.settings.us_text | default: block.settings.label }}</span>
+                  </li>
                 {%- endif -%}
               {%- endfor -%}
-            </div>
+            </ul>
           </div>
-        {%- endif -%}
-
-        {%- if review_count > 0 -%}
-          <div class="pdp-quotes">
-            <h2 class="pdp-mid__heading">{{ reviews_heading }}</h2>
-            <div class="pdp-quotes__list">
+          <div class="pdp-compare__badge" aria-hidden="true">VS</div>
+          <div class="pdp-compare__col pdp-compare__col--them">
+            <h3>Other Brands</h3>
+            <ul>
               {%- for block in section.blocks -%}
-                {%- if block.type == 'review' -%}
-                  <blockquote class="pdp-quotes__item" {{ block.shopify_attributes }}>
-                    <div class="pdp-quotes__stars" aria-hidden="true">★★★★★</div>
-                    <p>“{{ block.settings.quote }}”</p>
-                    <footer>
-                      {%- if block.settings.avatar != blank -%}
-                        <img src="{{ block.settings.avatar | image_url: width: 72 }}" alt="" width="36" height="36" loading="lazy">
-                      {%- else -%}
-                        <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" width="36" height="36" loading="lazy">
-                      {%- endif -%}
-                      <cite>{{ block.settings.author }}</cite>
-                    </footer>
-                  </blockquote>
+                {%- if block.type == 'compare_row' -%}
+                  <li {{ block.shopify_attributes }}>
+                    <span class="material-symbols-outlined pdp-compare__no" aria-hidden="true">cancel</span>
+                    <span>{{ block.settings.them_text | default: '—' }}</span>
+                  </li>
                 {%- endif -%}
               {%- endfor -%}
-            </div>
+            </ul>
           </div>
-        {%- endif -%}
+        </div>
       </section>
     {%- endif -%}
 
     {%- if section.settings.show_promo -%}
       <section class="pdp-promo" data-pdp-promo data-end="{{ section.settings.promo_end }}">
         <div class="pdp-promo__copy">
-          <h2>{{ promo_heading }}</h2>
-          {%- if section.settings.promo_subtext != blank -%}
-            <p>{{ section.settings.promo_subtext }}</p>
-          {%- endif -%}
+          <span class="pdp-promo__gift material-symbols-outlined" aria-hidden="true">redeem</span>
+          <div>
+            <h2>{{ promo_heading }}</h2>
+            {%- if section.settings.promo_subtext != blank -%}
+              <p>{{ section.settings.promo_subtext }}</p>
+            {%- endif -%}
+          </div>
         </div>
         <div class="pdp-promo__timer" aria-label="Offer ends in">
           <div class="pdp-promo__unit"><strong data-promo-h>00</strong><span>Hrs</span></div>
@@ -575,10 +563,10 @@
     { "type": "text", "id": "orders_text", "label": "Orders text", "default": "2500+ Orders" },
     { "type": "text", "id": "delivery_text", "label": "Delivery text", "default": "Delivery in 3-5 Days" },
     { "type": "text", "id": "compare_heading", "label": "Compare heading", "default": "Why Choose Purani Rasoi?" },
-    { "type": "text", "id": "reviews_heading", "label": "Reviews heading", "default": "What Our Customers Say" },
+    { "type": "text", "id": "compare_subtext", "label": "Compare subtext", "default": "Experience the true taste of tradition" },
     { "type": "checkbox", "id": "show_promo", "label": "Show promo countdown bar", "default": true },
     { "type": "text", "id": "promo_heading", "label": "Promo heading", "default": "Buy 2 Get Free Shipping" },
-    { "type": "text", "id": "promo_subtext", "label": "Promo subtext", "default": "Limited time offer on this product" },
+    { "type": "text", "id": "promo_subtext", "label": "Promo subtext", "default": "Limited Time Offer!" },
     { "type": "text", "id": "promo_end", "label": "Promo end datetime", "info": "ISO format, e.g. 2026-12-31T23:59:59", "default": "2026-12-31T23:59:59" },
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
     { "type": "text", "id": "related_heading", "label": "Related heading", "default": "You May Also Like" }
@@ -612,16 +600,8 @@
       "type": "compare_row",
       "name": "Compare row",
       "settings": [
-        { "type": "text", "id": "label", "label": "Feature label", "default": "Homemade in small batches" }
-      ]
-    },
-    {
-      "type": "review",
-      "name": "Customer quote",
-      "settings": [
-        { "type": "textarea", "id": "quote", "label": "Quote", "default": "Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!" },
-        { "type": "text", "id": "author", "label": "Author", "default": "Priya Sharma" },
-        { "type": "image_picker", "id": "avatar", "label": "Avatar" }
+        { "type": "text", "id": "us_text", "label": "Purani Rasoi point", "default": "Homemade in Small Batches" },
+        { "type": "text", "id": "them_text", "label": "Other brands point", "default": "Mass Production" }
       ]
     },
     {

@@ -6729,7 +6729,8 @@ footer.site-footer.mh-footer {
   align-items: stretch;
   gap: 0.35rem;
   width: 100%;
-  max-width: 18rem;
+  max-width: none;
+  flex: 1 1 100%;
 }
 
 .pdp-promo__unit {

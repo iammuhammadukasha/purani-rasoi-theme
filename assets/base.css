@@ -6930,6 +6930,162 @@ footer.site-footer.mh-footer {
   .pdp-thumbs {
     order: 2;
   }
+
+  .pdp-brand {
+    font-size: 0.85rem;
+  }
+
+  .pdp-title {
+    font-size: 1.85rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.75rem;
+  }
+
+  .pdp-tags {
+    gap: 0.5rem;
+    margin-bottom: 0.95rem;
+  }
+
+  .pdp-tags__item {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.9rem;
+  }
+
+  .pdp-tags__item .material-symbols-outlined {
+    font-size: 1.1rem;
+  }
+
+  .pdp-meta {
+    font-size: 0.95rem;
+    gap: 0.75rem 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .pdp-meta__stars {
+    font-size: 1.05rem;
+  }
+
+  .pdp-meta__count,
+  .pdp-meta__orders {
+    font-size: 0.95rem;
+  }
+
+  .pdp-price strong,
+  .pdp-price__row strong {
+    font-size: 1.7rem;
+  }
+
+  .pdp-price s,
+  .pdp-price__row s {
+    font-size: 1.05rem;
+  }
+
+  .pdp-price span,
+  .pdp-price__row span,
+  .pdp-price__off {
+    font-size: 0.85rem;
+    padding: 0.28rem 0.65rem;
+  }
+
+  .pdp-price__tax {
+    font-size: 0.9rem;
+  }
+
+  .pdp-availability {
+    gap: 0.75rem 1.1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .pdp-stock,
+  .pdp-delivery {
+    font-size: 0.98rem;
+  }
+
+  .pdp-stock .material-symbols-outlined,
+  .pdp-delivery .material-symbols-outlined {
+    font-size: 1.2rem;
+  }
+
+  .pdp-label,
+  .pdp-opts__group .pdp-label {
+    font-size: 0.95rem;
+  }
+
+  .pdp-weights button {
+    width: 6rem;
+    min-width: 6rem;
+    height: 3rem;
+    font-size: 1rem;
+  }
+
+  .pdp-qty {
+    width: 8.25rem;
+    min-width: 8.25rem;
+    height: 3rem;
+  }
+
+  .pdp-qty button {
+    width: 2.55rem;
+    font-size: 1.25rem;
+  }
+
+  .pdp-qty span,
+  #qty-value,
+  [data-qty-value] {
+    font-size: 1rem;
+  }
+
+  .pdp-ctas .pdp-add,
+  .pdp-ctas .pdp-buy,
+  .pdp-add,
+  .pdp-buy {
+    height: 3.4rem;
+    font-size: 1rem;
+  }
+
+  .pdp-add .material-symbols-outlined,
+  .pdp-buy .material-symbols-outlined {
+    font-size: 1.2rem;
+  }
+
+  .pdp-trust__item {
+    padding: 0.9rem 0.75rem;
+    gap: 0.55rem;
+  }
+
+  .pdp-trust__item .material-symbols-outlined {
+    font-size: 1.35rem;
+  }
+
+  .pdp-trust__title {
+    font-size: 0.92rem;
+  }
+
+  .pdp-trust__sub {
+    font-size: 0.85rem;
+  }
+
+  .pdp-media-certs__item {
+    font-size: 0.88rem;
+  }
+
+  .pdp-media-certs__item .material-symbols-outlined {
+    font-size: 1.2rem;
+  }
+
+  .pdp-acc summary {
+    font-size: 1.15rem;
+    padding: 1.15rem 0;
+  }
+
+  .pdp-acc__body,
+  .pdp-acc__body ul li {
+    font-size: 1rem;
+  }
+
+  .pdp-features__label {
+    font-size: 0.9rem;
+  }
 }
 
 @media (min-width: 1024px) {

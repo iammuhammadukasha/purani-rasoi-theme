@@ -1,4 +1,4 @@
-﻿{
+{
   "sections": {
     "hero": {
       "type": "hero-banner",
@@ -62,9 +62,9 @@
     "reviews": {
       "type": "testimonials",
       "blocks": {
-        "r1": { "type": "review", "settings": { "quote": "â€œAam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!â€", "author": "Priya Sharma" } },
-        "r2": { "type": "review", "settings": { "quote": "â€œNimbu ka achar try kiya, bahut hi tasty aur fresh. Will order again!â€", "author": "Rohit Verma" } },
-        "r3": { "type": "review", "settings": { "quote": "â€œBest achar I have ever had. 100% recommended!â€", "author": "Neha Agarwal" } }
+        "r1": { "type": "review", "settings": { "quote": "“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”", "author": "Priya Sharma" } },
+        "r2": { "type": "review", "settings": { "quote": "“Nimbu ka achar try kiya, bahut hi tasty aur fresh. Will order again!”", "author": "Rohit Verma" } },
+        "r3": { "type": "review", "settings": { "quote": "“Best achar I have ever had. 100% recommended!”", "author": "Neha Agarwal" } }
       },
       "block_order": ["r1", "r2", "r3"],
       "settings": {
@@ -86,21 +86,21 @@
           "type": "item",
           "settings": {
             "question": "Kya isme preservatives hain?",
-            "answer": "<p>Nahi. Hamare achar bina artificial colors aur preservatives ke banaye jaate hain â€” ghar jaisi traditional vidhi se.</p>"
+            "answer": "<p>Nahi. Hamare achar bina artificial colors aur preservatives ke banaye jaate hain — ghar jaisi traditional vidhi se.</p>"
           }
         },
         "f3": {
           "type": "item",
           "settings": {
             "question": "Delivery kitne din mein hoti hai?",
-            "answer": "<p>Orders usually 3â€“7 business days mein deliver ho jaate hain, aapke city ke hisaab se. Dispatch ke baad tracking details share ki jaati hain.</p>"
+            "answer": "<p>Orders usually 3–7 business days mein deliver ho jaate hain, aapke city ke hisaab se. Dispatch ke baad tracking details share ki jaati hain.</p>"
           }
         },
         "f4": {
           "type": "item",
           "settings": {
             "question": "Main kaunse flavors order kar sakta/sakti hoon?",
-            "answer": "<p>Aam, Nimbu, Mixed, Lehsun, Mirch aur seasonal specials â€” sab collections page par available hain.</p>"
+            "answer": "<p>Aam, Nimbu, Mixed, Lehsun, Mirch aur seasonal specials — sab collections page par available hain.</p>"
           }
         },
         "f5": {

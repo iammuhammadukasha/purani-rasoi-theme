@@ -2430,10 +2430,11 @@ a {
 
 .pdp-acc summary .pdp-acc__chev {
   flex-shrink: 0;
-  font-size: 0.85rem;
+  font-size: 1.35rem;
   line-height: 1;
   color: #7e1e22;
   transition: transform 0.2s ease;
+  font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
 }
 
 .pdp-acc details[open] > summary .pdp-acc__chev {

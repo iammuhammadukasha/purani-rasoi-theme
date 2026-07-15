@@ -3236,50 +3236,50 @@ a.bs-card__media {
   background: #efb530;
 }
 
-/* Tablet + desktop: match slide artboard 1920×1071 — avoid short crop */
+/*
+  Tablet + desktop: show the full slide image (width 100%, natural height).
+  No max-height / aspect-ratio box — those were cropping mango/bowl/text.
+*/
 @media (min-width: 768px) {
   .hero-slider {
     background: #faf8f2;
   }
 
   .hero-slider__track {
-    aspect-ratio: 1920 / 1071;
+    aspect-ratio: unset;
     min-height: 0;
-    max-height: min(70vh, 42rem);
+    max-height: none;
     height: auto;
   }
 
   .hero-slider__slide {
     position: absolute;
-    inset: 0;
+    left: 0;
+    right: 0;
+    top: 0;
     width: 100%;
     height: 100%;
   }
 
   .hero-slider__slide.is-active {
-    position: absolute;
-    inset: 0;
+    position: relative;
+    inset: auto;
     width: 100%;
-    height: 100%;
+    height: auto;
   }
 
   .hero-slider__slide img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    max-height: none;
+    object-fit: unset;
     object-position: center center;
     display: block;
+    vertical-align: middle;
   }
 
   .hero-slider__controls {
     bottom: 1.25rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .hero-slider__track {
-    aspect-ratio: 1920 / 1071;
-    max-height: min(72vh, 44rem);
   }
 }
 

@@ -144,6 +144,13 @@
         "id": "cart_show_vendor",
         "label": "Show vendor",
         "default": false
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping threshold (paise)",
+        "info": "Example: 49900 = ₹499. Used for the cart drawer progress bar.",
+        "default": 49900
       }
     ]
   }

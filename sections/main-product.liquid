@@ -553,6 +553,7 @@
         }
         const cart = await fetch('/cart.js').then((res) => res.json());
         window.PuraniRasoi?.updateCartUI?.(cart);
+        window.PuraniRasoi?.openCartDrawer?.();
       });
     }
 

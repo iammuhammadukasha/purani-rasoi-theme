@@ -6581,10 +6581,11 @@ footer.site-footer.mh-footer {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.25rem 1rem;
-  padding: 1.75rem 0;
+  padding: 1.75rem 1rem;
   margin: 0.75rem 0 1.25rem;
-  border-top: 1px solid rgba(94, 111, 54, 0.1);
-  border-bottom: 1px solid rgba(94, 111, 54, 0.1);
+  border: none;
+  border-radius: 16px;
+  background: #5e6f36;
 }
 
 @media (min-width: 768px) {
@@ -6630,11 +6631,11 @@ footer.site-footer.mh-footer {
   width: 3.85rem;
   height: 3.85rem;
   border-radius: 999px;
-  background: #f3f4ed;
-  border: 1.5px solid rgba(94, 111, 54, 0.16);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
   display: grid;
   place-items: center;
-  color: var(--pr-olive);
+  color: #fff !important;
   font-size: 1.7rem !important;
 }
 
@@ -6643,7 +6644,7 @@ footer.site-footer.mh-footer {
   font-size: 0.88rem;
   font-weight: 600;
   line-height: 1.35;
-  color: var(--pr-dark);
+  color: #fff;
   max-width: 9.5rem;
 }
 

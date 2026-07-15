@@ -2800,11 +2800,17 @@ a.bs-card__media {
 
   .site-footer__tagline {
     font-size: 0.875rem;
-    margin-bottom: 0.9rem;
+    margin: 0 0 0.9rem;
+    text-align: left;
   }
 
   .site-footer__logo {
     margin-bottom: 0.75rem;
+    justify-content: flex-start;
+  }
+
+  .site-footer__social {
+    justify-content: flex-start;
   }
 }
 
@@ -2847,6 +2853,7 @@ a.bs-card__media {
   .site-footer__heading {
     margin-bottom: 1rem;
     font-size: 0.8125rem;
+    text-align: left;
   }
 }
 
@@ -2874,6 +2881,8 @@ a.bs-card__media {
   .site-footer__links {
     gap: 0.65rem;
     font-size: 0.875rem;
+    align-items: flex-start;
+    text-align: left;
   }
 }
 

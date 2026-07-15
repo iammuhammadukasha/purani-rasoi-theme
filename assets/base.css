@@ -4427,7 +4427,7 @@ a.bs-card__media {
   background: #7e1e22;
   color: #fff;
   text-align: center;
-  padding: 1.75rem 1.15rem;
+  padding: calc(1.75rem + 10px) 1.15rem;
 }
 
 .mh-newsletter__mail {
@@ -5559,7 +5559,7 @@ footer.site-footer.mh-footer {
 
 .dh-reviews {
   background: #7e1e22;
-  padding: 4rem 1.5rem;
+  padding: calc(4rem + 10px) 1.5rem;
 }
 
 .dh-reviews__grid {

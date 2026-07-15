@@ -3172,9 +3172,8 @@ a.bs-card__media {
 .hero-slider__track {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  min-height: 14rem;
-  max-height: min(78vh, 40rem);
+  aspect-ratio: 1920 / 1071;
+  min-height: 12rem;
 }
 
 .hero-slider__slide {
@@ -3237,19 +3236,20 @@ a.bs-card__media {
 }
 
 /*
-  Tablet + desktop: show the full slide image (width 100%, natural height).
-  No max-height / aspect-ratio box — those were cropping mango/bowl/text.
+  Desktop/tablet: full slide, no crop.
+  IMPORTANT: ignore wrong HTML width/height attrs (were 1920x900 vs real 1920x1071).
 */
 @media (min-width: 768px) {
   .hero-slider {
     background: #faf8f2;
+    overflow: visible;
   }
 
   .hero-slider__track {
-    aspect-ratio: unset;
-    min-height: 0;
-    max-height: none;
-    height: auto;
+    aspect-ratio: unset !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    height: auto !important;
   }
 
   .hero-slider__slide {
@@ -3262,20 +3262,20 @@ a.bs-card__media {
   }
 
   .hero-slider__slide.is-active {
-    position: relative;
-    inset: auto;
-    width: 100%;
-    height: auto;
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: auto !important;
   }
 
   .hero-slider__slide img {
-    width: 100%;
-    height: auto;
-    max-height: none;
-    object-fit: unset;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    object-fit: unset !important;
     object-position: center center;
-    display: block;
-    vertical-align: middle;
+    display: block !important;
   }
 
   .hero-slider__controls {

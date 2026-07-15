@@ -21,12 +21,16 @@
             {%- liquid
               assign i = i | plus: 1
               if block.settings.image != blank
-                assign slide_src = block.settings.image | image_url: width: 2000
+                assign slide_src = block.settings.image | image_url: width: 2400
                 assign slide_alt = block.settings.image.alt | default: block.settings.label | default: shop.name
+                assign slide_w = block.settings.image.width | default: 1920
+                assign slide_h = block.settings.image.height | default: 1071
               else
                 assign fallback = 'hero-slide-' | append: i | append: '.jpg'
                 assign slide_src = fallback | asset_url
                 assign slide_alt = block.settings.label | default: shop.name
+                assign slide_w = 1920
+                assign slide_h = 1071
               endif
               if block.settings.link != blank
                 assign slide_link = block.settings.link
@@ -45,7 +49,7 @@
                 src="{{ slide_src }}"
                 alt="{{ slide_alt | escape }}"
                 width="1920"
-                height="900"
+                height="1071"
                 {% if i == 1 %}loading="eager"{% else %}loading="lazy"{% endif %}
               >
             </a>
@@ -64,7 +68,7 @@
               src="{{ fallback | asset_url }}"
               alt="{{ shop.name | escape }}"
               width="1920"
-              height="900"
+              height="1071"
               {% if n == 1 %}loading="eager"{% else %}loading="lazy"{% endif %}
             >
           </a>

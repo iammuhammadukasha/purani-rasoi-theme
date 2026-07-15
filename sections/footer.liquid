@@ -1,8 +1,8 @@
 {%- liquid
-  if settings.logo != blank
-    assign logo_src = settings.logo | image_url: width: 112
+  if settings.footer_logo != blank
+    assign logo_src = settings.footer_logo | image_url: width: 480
   else
-    assign logo_src = 'logo-purani-rasoi.png' | asset_url
+    assign logo_src = 'footer-logo.png' | asset_url
   endif
   assign ig = settings.social_instagram | default: '#'
   assign fb = settings.social_facebook | default: '#'
@@ -14,7 +14,7 @@
     <div class="site-footer__grid">
       <div class="site-footer__col site-footer__brand">
         <a href="{{ routes.root_url }}" class="site-footer__logo" aria-label="{{ shop.name }} home">
-          <img src="{{ logo_src }}" alt="{{ shop.name | escape }}" class="site-footer__seal" width="64" height="64" loading="lazy">
+          <img src="{{ logo_src }}" alt="{{ shop.name | escape }}" class="site-footer__seal" width="220" height="72" loading="lazy">
         </a>
         <p class="site-footer__tagline">{{ settings.footer_tagline }}</p>
         <div class="site-footer__social">

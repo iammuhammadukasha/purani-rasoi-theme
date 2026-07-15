@@ -123,6 +123,12 @@
         "label": "Facebook URL"
       },
       {
+        "type": "image_picker",
+        "id": "footer_logo",
+        "label": "Footer logo",
+        "info": "Optional. Defaults to theme asset footer-logo.png"
+      },
+      {
         "type": "textarea",
         "id": "footer_tagline",
         "label": "Footer tagline",

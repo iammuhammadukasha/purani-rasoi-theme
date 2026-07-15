@@ -2688,13 +2688,41 @@ a.bs-card__media {
     grid-template-columns: 1.2fr 0.95fr 1.05fr;
     column-gap: 0;
     row-gap: 0;
-    justify-items: center;
-    text-align: center;
+    justify-items: start;
+    text-align: left;
   }
 
   .site-footer__brand {
     grid-column: auto;
-    align-items: center;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .site-footer__col--links {
+    text-align: left;
+  }
+
+  .site-footer__heading {
+    text-align: left;
+  }
+
+  .site-footer__links {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .site-footer__logo {
+    justify-content: flex-start;
+  }
+
+  .site-footer__tagline {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+  }
+
+  .site-footer__social {
+    justify-content: flex-start;
   }
 
   .site-footer__col--contact {
@@ -2705,6 +2733,21 @@ a.bs-card__media {
     border-right: 1px dotted rgba(255, 255, 255, 0.28);
     padding-right: 1.5rem;
     margin-right: 1.5rem;
+  }
+
+  .site-footer__bar-inner {
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .site-footer__bar p {
+    flex: 0 1 auto;
+    text-align: left;
+  }
+
+  .site-footer__pay {
+    width: auto;
+    justify-content: flex-end;
   }
 }
 
@@ -2750,8 +2793,9 @@ a.bs-card__media {
 
 @media (min-width: 1024px) {
   .site-footer__seal {
-    width: 6.5rem;
-    height: 6.5rem;
+    width: auto;
+    height: 4.25rem;
+    max-width: 14rem;
   }
 
   .site-footer__tagline {

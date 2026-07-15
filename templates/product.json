@@ -3,9 +3,6 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "cert1": { "type": "media_cert", "settings": { "icon": "verified", "label": "FSSAI Certified" } },
-        "cert2": { "type": "media_cert", "settings": { "icon": "eco", "label": "100% Natural" } },
-        "cert3": { "type": "media_cert", "settings": { "icon": "science_off", "label": "No Chemicals" } },
         "tag1": { "type": "attribute_tag", "settings": { "icon": "home", "label": "Homemade" } },
         "tag2": { "type": "attribute_tag", "settings": { "icon": "wb_sunny", "label": "Sun Dried" } },
         "tag3": { "type": "attribute_tag", "settings": { "icon": "block", "label": "No Preservatives" } },
@@ -114,7 +111,6 @@
         }
       },
       "block_order": [
-        "cert1", "cert2", "cert3",
         "tag1", "tag2", "tag3",
         "f1", "f2", "f3", "f4", "f5", "f6",
         "c1", "c2", "c3", "c4", "c5",

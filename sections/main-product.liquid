@@ -64,23 +64,6 @@
             </button>
           </div>
         </div>
-
-        {%- assign cert_count = 0 -%}
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'media_cert' -%}{%- assign cert_count = cert_count | plus: 1 -%}{%- endif -%}
-        {%- endfor -%}
-        {%- if cert_count > 0 -%}
-          <div class="pdp-media-certs">
-            {%- for block in section.blocks -%}
-              {%- if block.type == 'media_cert' -%}
-                <div class="pdp-media-certs__item" {{ block.shopify_attributes }}>
-                  <span class="material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
-                  <span>{{ block.settings.label }}</span>
-                </div>
-              {%- endif -%}
-            {%- endfor -%}
-          </div>
-        {%- endif -%}
       </section>
 
       <section class="pdp-body">

@@ -6627,6 +6627,41 @@ footer.site-footer.mh-footer {
   color: #faf8f2;
 }
 
+/* Full-bleed promo card on mobile */
+@media (max-width: 767px) {
+  .pdp-promo {
+    width: calc(100% + 2rem);
+    max-width: none;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1.15rem 1rem;
+    border-radius: 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pdp-promo__timer {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .pdp-promo__unit {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .pdp-promo {
+    width: auto;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 14px;
+  }
+}
+
 .pdp-promo__copy {
   display: flex;
   align-items: center;

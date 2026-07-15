@@ -26,8 +26,10 @@
   endif
   if section.settings.link_blog != blank
     assign blog_url = section.settings.link_blog
+  elsif blogs.news != blank
+    assign blog_url = blogs.news.url
   else
-    assign blog_url = routes.root_url | append: '#blog'
+    assign blog_url = '/blogs/news'
   endif
   if section.settings.link_wholesale != blank
     assign wholesale_url = section.settings.link_wholesale

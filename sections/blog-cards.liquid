@@ -1,46 +1,103 @@
+{%- liquid
+  assign blog_handle = section.settings.blog
+  assign use_blog = false
+  if blog_handle != blank and blogs[blog_handle].articles_count > 0
+    assign use_blog = true
+    assign blog_obj = blogs[blog_handle]
+    assign view_all = blog_obj.url
+  elsif section.settings.view_all_link != blank
+    assign view_all = section.settings.view_all_link
+  elsif blogs.news != blank
+    assign view_all = blogs.news.url
+  else
+    assign view_all = '/blogs/news'
+  endif
+-%}
+
 <section id="blog" class="pr-blog">
   <div class="mh-section home-mobile">
     <div class="mh-section__head">
       <h2 class="mh-heading">— {{ section.settings.heading }} —</h2>
-      <a href="{{ section.settings.view_all_link | default: routes.root_url }}" class="mh-link-maroon">{{ section.settings.view_all }}</a>
+      <a href="{{ view_all }}" class="mh-link-maroon">{{ section.settings.view_all }}</a>
     </div>
     <div class="mh-blog hide-scrollbar">
-      {%- for block in section.blocks -%}
-        {%- liquid
-          if block.settings.image != blank
-            assign img = block.settings.image | image_url: width: 600
-          else
-            assign img = block.settings.fallback_asset | default: 'product-aam.png' | asset_url
-          endif
-        -%}
-        <a href="{{ block.settings.link | default: '#' }}" class="mh-blog__card" {{ block.shopify_attributes }}>
-          <img src="{{ img }}" alt="" loading="lazy">
-          <span>{{ block.settings.title }}</span>
-        </a>
-      {%- endfor -%}
+      {%- if use_blog -%}
+        {%- for article in blog_obj.articles limit: section.settings.posts_to_show -%}
+          <a href="{{ article.url }}" class="mh-blog__card">
+            {%- if article.image -%}
+              <img src="{{ article.image | image_url: width: 600 }}" alt="" loading="lazy">
+            {%- else -%}
+              <img src="{{ 'story-kitchen.png' | asset_url }}" alt="" loading="lazy">
+            {%- endif -%}
+            <span>{{ article.title }}</span>
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          {%- liquid
+            if block.settings.image != blank
+              assign img = block.settings.image | image_url: width: 600
+            else
+              assign img = block.settings.fallback_asset | default: 'product-aam.png' | asset_url
+            endif
+            if block.settings.link != blank
+              assign post_url = block.settings.link
+            elsif block.settings.article != blank and articles[block.settings.article] != blank
+              assign post_url = articles[block.settings.article].url
+            else
+              assign post_url = view_all
+            endif
+          -%}
+          <a href="{{ post_url }}" class="mh-blog__card" {{ block.shopify_attributes }}>
+            <img src="{{ img }}" alt="" loading="lazy">
+            <span>{{ block.settings.title }}</span>
+          </a>
+        {%- endfor -%}
+      {%- endif -%}
     </div>
   </div>
 
   <div class="dh-section home-desktop">
     <div class="dh-section__head">
       <h2 class="dh-heading"><span class="dh-flourish"></span> {{ section.settings.heading }} <span class="dh-flourish"></span></h2>
-      <a href="{{ section.settings.view_all_link | default: routes.root_url }}" class="dh-view-all">{{ section.settings.view_all_desktop }} <span aria-hidden="true">→</span></a>
+      <a href="{{ view_all }}" class="dh-view-all">{{ section.settings.view_all_desktop }} <span aria-hidden="true">→</span></a>
     </div>
     <div class="dh-blog">
-      {%- for block in section.blocks -%}
-        {%- liquid
-          if block.settings.image != blank
-            assign img = block.settings.image | image_url: width: 800
-          else
-            assign img = block.settings.fallback_asset | default: 'product-aam.png' | asset_url
-          endif
-        -%}
-        <article {{ block.shopify_attributes }}>
-          <img src="{{ img }}" alt="" loading="lazy">
-          <h3>{{ block.settings.title }}</h3>
-          <a href="{{ block.settings.link | default: '#' }}">Read More <span aria-hidden="true">→</span></a>
-        </article>
-      {%- endfor -%}
+      {%- if use_blog -%}
+        {%- for article in blog_obj.articles limit: section.settings.posts_to_show -%}
+          <article>
+            {%- if article.image -%}
+              <img src="{{ article.image | image_url: width: 800 }}" alt="" loading="lazy">
+            {%- else -%}
+              <img src="{{ 'story-kitchen.png' | asset_url }}" alt="" loading="lazy">
+            {%- endif -%}
+            <h3>{{ article.title }}</h3>
+            <a href="{{ article.url }}">Read More <span aria-hidden="true">→</span></a>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          {%- liquid
+            if block.settings.image != blank
+              assign img = block.settings.image | image_url: width: 800
+            else
+              assign img = block.settings.fallback_asset | default: 'product-aam.png' | asset_url
+            endif
+            if block.settings.link != blank
+              assign post_url = block.settings.link
+            elsif block.settings.article != blank and articles[block.settings.article] != blank
+              assign post_url = articles[block.settings.article].url
+            else
+              assign post_url = view_all
+            endif
+          -%}
+          <article {{ block.shopify_attributes }}>
+            <img src="{{ img }}" alt="" loading="lazy">
+            <h3>{{ block.settings.title }}</h3>
+            <a href="{{ post_url }}">Read More <span aria-hidden="true">→</span></a>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
     </div>
   </div>
 </section>
@@ -50,9 +107,11 @@
   "name": "Recipes & Blog",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "Recipes & Blog" },
+    { "type": "blog", "id": "blog", "label": "Blog (uses live articles when set)" },
+    { "type": "range", "id": "posts_to_show", "min": 2, "max": 8, "step": 1, "default": 4, "label": "Posts to show" },
     { "type": "text", "id": "view_all", "label": "View all (mobile)", "default": "View All >" },
     { "type": "text", "id": "view_all_desktop", "label": "View all (desktop)", "default": "View All Articles" },
-    { "type": "url", "id": "view_all_link", "label": "View all link" }
+    { "type": "url", "id": "view_all_link", "label": "View all link (fallback)" }
   ],
   "blocks": [
     {
@@ -62,7 +121,8 @@
         { "type": "text", "id": "title", "label": "Title", "default": "Achar for Health" },
         { "type": "image_picker", "id": "image", "label": "Image" },
         { "type": "text", "id": "fallback_asset", "label": "Fallback asset", "default": "product-aam.png" },
-        { "type": "url", "id": "link", "label": "Link" }
+        { "type": "article", "id": "article", "label": "Article" },
+        { "type": "url", "id": "link", "label": "Custom link (optional)" }
       ]
     }
   ],

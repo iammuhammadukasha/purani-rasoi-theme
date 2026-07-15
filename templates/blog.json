@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "heading": "Recipes & Blog",
+        "crumb_label": "Blog",
+        "intro": "Tips, recipes, aur achar ki kahaniyan — ghar ke swaad ke saath.",
+        "articles_per_page": 8
+      }
+    }
+  },
+  "order": ["main"]
+}

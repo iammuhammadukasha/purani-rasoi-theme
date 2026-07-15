@@ -1,0 +1,90 @@
+{%- liquid
+  assign blog_url = blog.url
+  assign blog_title = blog.title | default: 'Recipes & Blog'
+-%}
+
+<article class="article-page" itemscope itemtype="https://schema.org/BlogPosting">
+  <section class="shop-banner article-banner" aria-label="{{ article.title | escape }}">
+    {%- if article.image -%}
+      <img
+        src="{{ article.image | image_url: width: 2000 }}"
+        alt="{{ article.image.alt | default: article.title | escape }}"
+        width="1600"
+        height="700"
+        loading="eager"
+        itemprop="image"
+      >
+    {%- elsif section.settings.fallback_banner != blank -%}
+      <img src="{{ section.settings.fallback_banner | image_url: width: 2000 }}" alt="" width="1600" height="700" loading="eager">
+    {%- else -%}
+      <img src="{{ 'banner-kitchen.png' | asset_url }}" alt="" width="1600" height="700" loading="eager">
+    {%- endif -%}
+    <div class="shop-banner__shade" aria-hidden="true"></div>
+    <div class="shop-banner__content">
+      <nav class="shop-banner__crumbs" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a>
+        <span aria-hidden="true">/</span>
+        <a href="{{ blog_url }}">{{ blog_title }}</a>
+        <span aria-hidden="true">/</span>
+        <span>{{ article.title | truncate: 36 }}</span>
+      </nav>
+      <h1 itemprop="headline">{{ article.title }}</h1>
+    </div>
+  </section>
+
+  <div class="article-page__inner">
+    <header class="article-page__meta">
+      {%- if article.published_at -%}
+        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}" itemprop="datePublished">
+          {{ article.published_at | date: '%d %B %Y' }}
+        </time>
+      {%- endif -%}
+      {%- if article.author != blank -%}
+        <span itemprop="author">{{ article.author }}</span>
+      {%- endif -%}
+    </header>
+
+    <div class="article-page__content rte" itemprop="articleBody">
+      {{ article.content }}
+    </div>
+
+    {%- if article.tags.size > 0 -%}
+      <ul class="article-page__tags" aria-label="Tags">
+        {%- for tag in article.tags -%}
+          <li><a href="{{ blog_url }}/tagged/{{ tag | handle }}">{{ tag }}</a></li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    <div class="article-page__nav">
+      {%- if blog.previous_article -%}
+        <a href="{{ blog.previous_article.url }}" class="article-page__nav-link">
+          <span class="article-page__nav-label">Previous</span>
+          <span>{{ blog.previous_article.title }}</span>
+        </a>
+      {%- else -%}
+        <span></span>
+      {%- endif -%}
+      {%- if blog.next_article -%}
+        <a href="{{ blog.next_article.url }}" class="article-page__nav-link article-page__nav-link--next">
+          <span class="article-page__nav-label">Next</span>
+          <span>{{ blog.next_article.title }}</span>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="article-page__cta-band">
+      <a href="{{ blog_url }}" class="article-page__back">← Back to {{ blog_title }}</a>
+      <a href="{{ routes.all_products_collection_url }}" class="story-page__cta">Shop Our Achar&nbsp;<span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Article page",
+  "settings": [
+    { "type": "image_picker", "id": "fallback_banner", "label": "Fallback banner (if article has no image)" }
+  ]
+}
+{% endschema %}

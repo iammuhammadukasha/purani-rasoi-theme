@@ -2274,13 +2274,19 @@ a {
 .pdp-weights {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.5rem;
   margin-bottom: 1rem;
 }
 
+.pdp-opts .pdp-weights {
+  margin-bottom: 0;
+}
+
 .pdp-weights button {
   min-width: 4.1rem;
-  padding: 0.5rem 0.85rem;
+  height: 2.75rem;
+  padding: 0 0.85rem;
   border: 1px solid rgba(94, 111, 54, 0.18);
   border-radius: var(--radius-8);
   background: #f3f4ed;
@@ -2289,6 +2295,10 @@ a {
   font-size: var(--fs-body);
   font-weight: var(--fw-semibold);
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .pdp-weights button.is-active {
@@ -2350,12 +2360,22 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem 1.5rem;
-  align-items: flex-end;
+  align-items: flex-start;
   margin-bottom: 1rem;
 }
 
 .pdp-opts__group {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
+}
+
+.pdp-opts__group .pdp-label {
+  margin: 0 0 0.45rem;
+  min-height: 1.25rem;
+  line-height: 1.25rem;
+  display: flex;
+  align-items: center;
 }
 
 .pdp-ctas {

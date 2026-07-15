@@ -4,7 +4,7 @@
     data-love-carousel
     data-interval="{{ section.settings.interval | default: 4000 }}"
   >
-    <h2 id="Reviews-{{ section.id }}" class="mh-heading">— {{ section.settings.heading_mobile }} —</h2>
+    <h2 id="Reviews-{{ section.id }}" class="mh-heading">{{ section.settings.heading_mobile }}</h2>
 
     <div class="love-carousel__viewport">
       {%- for block in section.blocks -%}
@@ -42,7 +42,7 @@
   </div>
 
   <div class="dh-reviews home-desktop">
-    <h2 class="dh-heading dh-heading--light"><span class="dh-flourish"></span> {{ section.settings.heading }} <span class="dh-flourish"></span></h2>
+    <h2 class="dh-heading dh-heading--light">{{ section.settings.heading }}</h2>
     <div class="dh-reviews__grid">
       {%- for block in section.blocks -%}
         <blockquote {{ block.shopify_attributes }}>

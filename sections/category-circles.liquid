@@ -1,6 +1,6 @@
 <section id="categories" class="pr-categories">
   <div class="mh-section home-mobile">
-    <h2 class="mh-heading">— {{ section.settings.heading }} —</h2>
+    <h2 class="mh-heading">{{ section.settings.heading }}</h2>
     <div class="mh-cats">
       {%- for block in section.blocks -%}
         {%- liquid
@@ -27,7 +27,7 @@
   </div>
 
   <div class="dh-section home-desktop">
-    <h2 class="dh-heading"><span class="dh-flourish"></span> {{ section.settings.heading }} <span class="dh-flourish"></span></h2>
+    <h2 class="dh-heading">{{ section.settings.heading }}</h2>
     <div class="dh-cats">
       {%- for block in section.blocks -%}
         {%- liquid

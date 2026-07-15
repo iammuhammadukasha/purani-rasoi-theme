@@ -2014,19 +2014,19 @@ a {
 
 .pdp-reviews {
   width: calc(100% + 2rem);
-  margin: 0.5rem -1rem 0.75rem;
+  margin: 0.35rem -1rem 0;
 }
 
 .pdp-reviews .mh-section {
-  padding: 1.25rem 1rem 1rem;
+  padding: 1rem 1rem 0.65rem;
 }
 
 .pdp-reviews .mh-heading {
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.75rem;
 }
 
 .pdp-reviews .mh-dots {
-  margin-top: 0.65rem;
+  margin-top: 0.5rem;
   margin-bottom: 0;
 }
 
@@ -2044,12 +2044,12 @@ a {
   }
 
   .pdp-reviews .dh-reviews {
-    padding: clamp(2rem, 3.5vw, 3rem) clamp(1.5rem, 4vw, 3rem);
+    padding: clamp(1.75rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem);
   }
 
   .pdp-reviews .dh-reviews .dh-heading {
     font-size: clamp(1.75rem, 3vw, 2.35rem) !important;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
   }
 
   .pdp-reviews .dh-reviews__grid {
@@ -3609,7 +3609,7 @@ a.bs-card__media {
 }
 
 .mh-section {
-  padding: 1.75rem 1rem 1.5rem;
+  padding: 1.35rem 1rem 1.15rem;
   background: #faf8f2;
 }
 
@@ -4650,6 +4650,7 @@ a.bs-card__media {
   max-width: 22rem;
   margin: 0 auto;
   min-height: 0;
+  height: auto;
   overflow: hidden;
 }
 
@@ -4666,19 +4667,25 @@ a.bs-card__media {
 
 .love-carousel__slide {
   position: absolute;
-  inset: 0;
+  left: 0;
+  right: 0;
+  top: 0;
   width: 100%;
+  height: auto;
   opacity: 0;
+  visibility: hidden;
   transform: translateX(28px);
   pointer-events: none;
   transition:
     opacity 0.45s ease,
-    transform 0.45s ease;
+    transform 0.45s ease,
+    visibility 0.45s ease;
 }
 
 .love-carousel__slide.is-active {
   position: relative;
   opacity: 1;
+  visibility: visible;
   transform: translateX(0);
   pointer-events: auto;
   z-index: 1;
@@ -4686,7 +4693,11 @@ a.bs-card__media {
 
 .love-carousel__slide.is-exit {
   position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
   opacity: 0;
+  visibility: hidden;
   transform: translateX(-28px);
   pointer-events: none;
 }
@@ -5698,7 +5709,7 @@ footer.site-footer.mh-footer {
 
 /* Desktop sections */
 .dh-section {
-  padding: 3rem 1.5rem;
+  padding: 2rem 1.5rem;
   background: #faf8f2;
 }
 
@@ -5865,7 +5876,7 @@ footer.site-footer.mh-footer {
 
 .dh-benefits {
   background: #5e6f36;
-  padding: calc(3.5rem + 10px) 1.5rem;
+  padding: 2.25rem 1.5rem;
 }
 
 .dh-benefits__inner {
@@ -5977,7 +5988,7 @@ footer.site-footer.mh-footer {
 
 .dh-reviews {
   background: #5e6f36;
-  padding: calc(4rem + 10px) 1.5rem;
+  padding: 2.25rem 1.5rem;
 }
 
 .dh-reviews__grid {
@@ -6155,7 +6166,7 @@ footer.site-footer.mh-footer {
 
 @media (min-width: 768px) {
   .pr-trust-marks {
-    padding: 2.5rem 1.5rem 2.75rem;
+    padding: 1.75rem 1.5rem 2rem;
   }
 
   .pr-trust-marks__row {
@@ -7032,22 +7043,48 @@ footer.site-footer.mh-footer {
   margin: 0.35rem 0 0.75rem;
 }
 
-/* Footer-group FAQ: tighter so it sits closer to content above */
+/* Footer-group FAQ: sit close under reviews / prior content */
 .pr-faq-section .mh-section,
 .pr-faq .mh-section {
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
+  padding-top: 0.65rem;
+  padding-bottom: 1rem;
 }
 
 .pr-faq-section .dh-section,
 .pr-faq .dh-section {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.5rem;
 }
 
 .pr-faq-section .mh-heading,
 .pr-faq .mh-heading {
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.65rem;
+}
+
+/* Kill reserved space from desktop-only blocks on small screens */
+@media (max-width: 1023px) {
+  .home-desktop {
+    display: none !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+  }
+
+  .pdp-reviews {
+    margin-bottom: 0;
+  }
+
+  .pdp,
+  .pdp__inner {
+    padding-bottom: 0.35rem;
+  }
+
+  .shopify-section:empty {
+    display: none !important;
+  }
 }
 
 @media (max-width: 1023px) {

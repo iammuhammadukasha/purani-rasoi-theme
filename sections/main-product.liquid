@@ -56,10 +56,6 @@
       <h1 class="pdp-title">{{ product.title }}</h1>
 
       <div class="pdp-meta">
-        <div class="pdp-meta__rating">
-          <span class="pdp-meta__stars" aria-hidden="true">★★★★★</span>
-          <span class="pdp-meta__count">({{ section.settings.review_count }} Reviews)</span>
-        </div>
         {%- if product.available -%}
           <span class="pdp-stock">In Stock</span>
         {%- else -%}
@@ -303,8 +299,7 @@
 {
   "name": "Product information",
   "settings": [
-    { "type": "textarea", "id": "short_description", "label": "Short description (optional)", "info": "Shown under rating. Falls back to truncated product description." },
-    { "type": "text", "id": "review_count", "label": "Review count label", "default": "125" },
+    { "type": "textarea", "id": "short_description", "label": "Short description (optional)", "info": "Shown under stock status. Falls back to truncated product description." },
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
     { "type": "text", "id": "related_heading", "label": "Related heading", "default": "You May Also Like" }
   ],

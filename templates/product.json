@@ -74,14 +74,6 @@
             "body": "<p>Store in a cool, dry place. Always use a clean dry spoon. Refrigerate after opening.</p>",
             "open": false
           }
-        },
-        "acc6": {
-          "type": "accordion",
-          "settings": {
-            "title": "Reviews (125)",
-            "body": "<p>“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!” — Priya Sharma</p>",
-            "open": false
-          }
         }
       },
       "block_order": [
@@ -93,12 +85,10 @@
         "acc2",
         "acc3",
         "acc4",
-        "acc5",
-        "acc6"
+        "acc5"
       ],
       "settings": {
         "short_description": "Dadi Maa ke khaas nuskhe se bana Aam ka achaar. Sun dried mangoes with traditional spices.",
-        "review_count": "125",
         "show_related": true,
         "related_heading": "You May Also Like"
       }

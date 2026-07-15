@@ -5,7 +5,7 @@
   --pr-maroon: #5e6f36;
   --pr-cream: #faf8f2;
   --pr-olive: #5e6f36;
-  --pr-gold: #f1b23e;
+  --pr-gold: #efb530;
   --pr-dark: #1f1f1f;
   --pr-gray: #68686b;
   --pr-beige: #ebe2d5;
@@ -47,7 +47,7 @@
   --badge-new: #5e6f36;
   --badge-instock: #2e7d32;
   --badge-oos: #68686b;
-  --badge-limited: #f1b23e;
+  --badge-limited: #efb530;
 }
 
 .pr-body {

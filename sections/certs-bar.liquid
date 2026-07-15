@@ -1,36 +1,103 @@
 {%- if section.settings.show_certs -%}
-  <div class="dh-certs">
-    {%- if section.settings.heading != blank -%}
-      <span>{{ section.settings.heading }}</span>
-    {%- endif -%}
-    {%- if section.settings.cert_1 != blank -%}
-      <img src="{{ section.settings.cert_1 | image_url: height: 80 }}" alt="{{ section.settings.cert_1.alt | escape }}" height="40" loading="lazy">
-    {%- else -%}
-      <img src="{{ 'cert-fssai.png' | asset_url }}" alt="FSSAI" height="40" loading="lazy">
-    {%- endif -%}
-    {%- if section.settings.cert_2 != blank -%}
-      <img src="{{ section.settings.cert_2 | image_url: height: 56 }}" alt="" height="28" loading="lazy">
-    {%- else -%}
-      <img src="{{ 'cert-msme.png' | asset_url }}" alt="MSME" height="28" loading="lazy">
-    {%- endif -%}
-    {%- if section.settings.cert_3 != blank -%}
-      <img src="{{ section.settings.cert_3 | image_url: height: 72 }}" alt="" height="36" loading="lazy">
-    {%- else -%}
-      <img src="{{ 'cert-makeinindia.png' | asset_url }}" alt="Make in India" height="36" loading="lazy">
-    {%- endif -%}
-  </div>
+  <section class="pr-trust-marks" aria-labelledby="TrustMarks-{{ section.id }}">
+    <div class="pr-trust-marks__inner">
+      {%- if section.settings.heading != blank -%}
+        <h2 id="TrustMarks-{{ section.id }}" class="pr-trust-marks__heading">
+          {{ section.settings.heading }}
+        </h2>
+      {%- endif -%}
+
+      <div class="pr-trust-marks__row">
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            <div class="pr-trust-marks__pill" {{ block.shopify_attributes }}>
+              {%- if block.settings.logo != blank -%}
+                <span class="pr-trust-marks__logo">
+                  <img
+                    src="{{ block.settings.logo | image_url: width: 120 }}"
+                    alt=""
+                    width="40"
+                    height="40"
+                    loading="lazy"
+                  >
+                </span>
+              {%- elsif block.settings.label == 'FSSAI' -%}
+                <span class="pr-trust-marks__logo">
+                  <img
+                    src="{{ 'cert-fssai.png' | asset_url }}"
+                    alt=""
+                    width="40"
+                    height="40"
+                    loading="lazy"
+                  >
+                </span>
+              {%- else -%}
+                <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">
+                  {{ block.settings.label | slice: 0, 1 }}
+                </span>
+              {%- endif -%}
+              <span class="pr-trust-marks__label">{{ block.settings.label }}</span>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <div class="pr-trust-marks__pill">
+            <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">I</span>
+            <span class="pr-trust-marks__label">ISO</span>
+          </div>
+          <div class="pr-trust-marks__pill">
+            <span class="pr-trust-marks__logo">
+              <img src="{{ 'cert-fssai.png' | asset_url }}" alt="" width="40" height="40" loading="lazy">
+            </span>
+            <span class="pr-trust-marks__label">FSSAI</span>
+          </div>
+          <div class="pr-trust-marks__pill">
+            <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">F</span>
+            <span class="pr-trust-marks__label">FDA</span>
+          </div>
+          <div class="pr-trust-marks__pill">
+            <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">A</span>
+            <span class="pr-trust-marks__label">APEDA</span>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
 {%- endif -%}
 
 {% schema %}
 {
-  "name": "Certificates bar",
+  "name": "Certifications & Trust",
+  "tag": "section",
+  "class": "pr-trust-marks-section",
   "settings": [
-    { "type": "checkbox", "id": "show_certs", "label": "Show certificates", "default": true },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "We Are Certified" },
-    { "type": "image_picker", "id": "cert_1", "label": "Certificate 1" },
-    { "type": "image_picker", "id": "cert_2", "label": "Certificate 2" },
-    { "type": "image_picker", "id": "cert_3", "label": "Certificate 3" }
+    { "type": "checkbox", "id": "show_certs", "label": "Show section", "default": true },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Certifications & Trust Marks"
+    }
   ],
-  "presets": [{ "name": "Certificates bar" }]
+  "blocks": [
+    {
+      "type": "mark",
+      "name": "Trust mark",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "ISO" },
+        { "type": "image_picker", "id": "logo", "label": "Logo" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Certifications & Trust",
+      "blocks": [
+        { "type": "mark", "settings": { "label": "ISO" } },
+        { "type": "mark", "settings": { "label": "FSSAI" } },
+        { "type": "mark", "settings": { "label": "FDA" } },
+        { "type": "mark", "settings": { "label": "APEDA" } }
+      ]
+    }
+  ]
 }
 {% endschema %}

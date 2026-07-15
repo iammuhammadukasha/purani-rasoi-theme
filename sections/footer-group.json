@@ -56,9 +56,16 @@
     },
     "certs-bar": {
       "type": "certs-bar",
+      "blocks": {
+        "m1": { "type": "mark", "settings": { "label": "ISO" } },
+        "m2": { "type": "mark", "settings": { "label": "FSSAI" } },
+        "m3": { "type": "mark", "settings": { "label": "FDA" } },
+        "m4": { "type": "mark", "settings": { "label": "APEDA" } }
+      },
+      "block_order": ["m1", "m2", "m3", "m4"],
       "settings": {
         "show_certs": true,
-        "heading": "We Are Certified"
+        "heading": "Certifications & Trust Marks"
       }
     },
     "footer": {

@@ -50,20 +50,20 @@
       {
         "type": "color",
         "id": "color_maroon",
-        "label": "Maroon",
-        "default": "#7e1e22"
+        "label": "Olive primary",
+        "default": "#5e6f36"
       },
       {
         "type": "color",
         "id": "color_cream",
-        "label": "Cream",
-        "default": "#fff8f0"
+        "label": "Soft cream",
+        "default": "#faf8f2"
       },
       {
         "type": "color",
         "id": "color_gold",
-        "label": "Gold",
-        "default": "#d4a017"
+        "label": "Mustard gold",
+        "default": "#f1b23e"
       }
     ]
   },

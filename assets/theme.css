@@ -1,11 +1,11 @@
 /* Shopify theme utilities — companions to storefront base.css */
 
 :root {
-  --pr-red: #7e1e22;
-  --pr-maroon: #7e1e22;
-  --pr-cream: #fff8f0;
-  --pr-olive: #4f682b;
-  --pr-gold: #d4a017;
+  --pr-red: #5e6f36;
+  --pr-maroon: #5e6f36;
+  --pr-cream: #faf8f2;
+  --pr-olive: #5e6f36;
+  --pr-gold: #f1b23e;
   --pr-dark: #1f1f1f;
   --pr-gray: #68686b;
   --pr-beige: #ebe2d5;
@@ -42,12 +42,12 @@
   --shadow-1: 0 2px 8px rgba(0, 0, 0, 0.06);
   --shadow-2: 0 6px 20px rgba(0, 0, 0, 0.08);
   --shadow-3: 0 10px 30px rgba(0, 0, 0, 0.1);
-  --badge-bestseller: #7e1e22;
+  --badge-bestseller: #5e6f36;
   --badge-off: #c47a2c;
-  --badge-new: #4f682b;
+  --badge-new: #5e6f36;
   --badge-instock: #2e7d32;
   --badge-oos: #68686b;
-  --badge-limited: #d4a017;
+  --badge-limited: #f1b23e;
 }
 
 .pr-body {

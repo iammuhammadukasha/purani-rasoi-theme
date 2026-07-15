@@ -4439,9 +4439,14 @@ a.bs-card__media {
 }
 
 .mh-newsletter__mail {
+  display: block !important;
   font-size: 1.75rem !important;
+  width: 1.75rem !important;
+  height: 1.75rem !important;
   color: #d4a017;
-  margin-bottom: 0.35rem;
+  margin: 0 auto 0.5rem;
+  text-align: center;
+  line-height: 1;
 }
 
 .mh-newsletter h2 {

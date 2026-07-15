@@ -123,6 +123,8 @@
         "rating_text": "4.9 (428 Reviews)",
         "orders_text": "2500+ Orders",
         "delivery_text": "Delivery in 3-5 Days",
+        "show_ship_timeline": true,
+        "ship_trust_text": "Trusted by 1.8 lakh+ Indians | Secure Checkout 100% Genuine Product.",
         "compare_heading": "Why Choose Purani Rasoi?",
         "compare_subtext": "Experience the true taste of tradition",
         "show_promo": false,

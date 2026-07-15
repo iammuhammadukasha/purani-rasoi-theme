@@ -2462,7 +2462,123 @@ a {
 .pdp-ctas {
   display: grid;
   gap: 0.65rem;
-  margin-bottom: 1.15rem;
+  margin-bottom: 1rem;
+}
+
+/* Delivery trust timeline under Buy Now */
+.pdp-ship {
+  margin: 0 0 1.15rem;
+  text-align: center;
+}
+
+.pdp-ship__trust {
+  margin: 0 auto 0.95rem;
+  max-width: 36rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.72rem, 2.8vw, 0.88rem);
+  font-weight: 700;
+  line-height: 1.35;
+  color: #2b2b26;
+}
+
+.pdp-ship__track {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0 0.15rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.35rem;
+  align-items: start;
+}
+
+.pdp-ship__track::before {
+  content: "";
+  position: absolute;
+  top: 1.15rem;
+  left: 16.5%;
+  right: 16.5%;
+  height: 3px;
+  background: #5e6f36;
+  border-radius: 999px;
+  z-index: 0;
+}
+
+.pdp-ship__step {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.pdp-ship__icon {
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 999px;
+  background: #5e6f36;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(43, 43, 38, 0.18);
+  flex-shrink: 0;
+}
+
+.pdp-ship__icon .material-symbols-outlined {
+  font-size: 1.15rem !important;
+  color: #fff !important;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.pdp-ship__date {
+  display: block;
+  margin-top: 0.15rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.68rem, 2.6vw, 0.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #2b2b26;
+  white-space: nowrap;
+}
+
+.pdp-ship__label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: clamp(0.62rem, 2.4vw, 0.75rem);
+  font-weight: 500;
+  line-height: 1.25;
+  color: #2b2b26;
+}
+
+@media (min-width: 768px) {
+  .pdp-ship__trust {
+    font-size: 0.95rem;
+  }
+
+  .pdp-ship__icon {
+    width: 2.55rem;
+    height: 2.55rem;
+  }
+
+  .pdp-ship__track::before {
+    top: 1.25rem;
+    height: 3.5px;
+  }
+
+  .pdp-ship__icon .material-symbols-outlined {
+    font-size: 1.25rem !important;
+  }
+
+  .pdp-ship__date {
+    font-size: 0.85rem;
+  }
+
+  .pdp-ship__label {
+    font-size: 0.8rem;
+  }
 }
 
 .pdp-actions {

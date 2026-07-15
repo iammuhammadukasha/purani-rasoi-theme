@@ -206,6 +206,49 @@
           </div>
         {% endform %}
 
+        {%- unless section.settings.show_ship_timeline == false -%}
+          {%- assign now_s = 'now' | date: '%s' -%}
+          {%- assign ship_end_s = now_s | plus: 86400 -%}
+          {%- assign del_start_s = now_s | plus: 259200 -%}
+          {%- assign del_end_s = now_s | plus: 345600 -%}
+          {%- assign d0 = now_s | date: '%d' | plus: 0 -%}
+          {%- assign d1 = ship_end_s | date: '%d' | plus: 0 -%}
+          {%- assign d2 = del_start_s | date: '%d' | plus: 0 -%}
+          {%- assign d3 = del_end_s | date: '%d' | plus: 0 -%}
+          {%- capture o0 -%}{%- assign m = d0 | modulo: 10 -%}{%- assign m100 = d0 | modulo: 100 -%}{%- if m100 == 11 or m100 == 12 or m100 == 13 -%}th{%- elsif m == 1 -%}st{%- elsif m == 2 -%}nd{%- elsif m == 3 -%}rd{%- else -%}th{%- endif -%}{%- endcapture -%}
+          {%- capture o1 -%}{%- assign m = d1 | modulo: 10 -%}{%- assign m100 = d1 | modulo: 100 -%}{%- if m100 == 11 or m100 == 12 or m100 == 13 -%}th{%- elsif m == 1 -%}st{%- elsif m == 2 -%}nd{%- elsif m == 3 -%}rd{%- else -%}th{%- endif -%}{%- endcapture -%}
+          {%- capture o2 -%}{%- assign m = d2 | modulo: 10 -%}{%- assign m100 = d2 | modulo: 100 -%}{%- if m100 == 11 or m100 == 12 or m100 == 13 -%}th{%- elsif m == 1 -%}st{%- elsif m == 2 -%}nd{%- elsif m == 3 -%}rd{%- else -%}th{%- endif -%}{%- endcapture -%}
+          {%- capture o3 -%}{%- assign m = d3 | modulo: 10 -%}{%- assign m100 = d3 | modulo: 100 -%}{%- if m100 == 11 or m100 == 12 or m100 == 13 -%}th{%- elsif m == 1 -%}st{%- elsif m == 2 -%}nd{%- elsif m == 3 -%}rd{%- else -%}th{%- endif -%}{%- endcapture -%}
+          <div class="pdp-ship" aria-label="Order and delivery timeline">
+            <p class="pdp-ship__trust">
+              {{ section.settings.ship_trust_text | default: 'Trusted by 1.8 lakh+ Indians | Secure Checkout 100% Genuine Product.' }}
+            </p>
+            <ol class="pdp-ship__track">
+              <li class="pdp-ship__step">
+                <span class="pdp-ship__icon" aria-hidden="true">
+                  <span class="material-symbols-outlined">shopping_cart</span>
+                </span>
+                <span class="pdp-ship__date">{{ now_s | date: '%b' }} {{ d0 }}{{ o0 }}</span>
+                <span class="pdp-ship__label">Order Placed</span>
+              </li>
+              <li class="pdp-ship__step">
+                <span class="pdp-ship__icon" aria-hidden="true">
+                  <span class="material-symbols-outlined">local_shipping</span>
+                </span>
+                <span class="pdp-ship__date">{{ now_s | date: '%b' }} {{ d0 }}{{ o0 }}-{{ d1 }}{{ o1 }}</span>
+                <span class="pdp-ship__label">Order Shipped</span>
+              </li>
+              <li class="pdp-ship__step">
+                <span class="pdp-ship__icon" aria-hidden="true">
+                  <span class="material-symbols-outlined">package_2</span>
+                </span>
+                <span class="pdp-ship__date">{{ del_start_s | date: '%b' }} {{ d2 }}{{ o2 }}-{{ d3 }}{{ o3 }}</span>
+                <span class="pdp-ship__label">Estimated Delivery</span>
+              </li>
+            </ol>
+          </div>
+        {%- endunless -%}
+
         {%- assign trust_count = 0 -%}
         {%- for block in section.blocks -%}
           {%- if block.type == 'trust' -%}{%- assign trust_count = trust_count | plus: 1 -%}{%- endif -%}
@@ -623,6 +666,18 @@
     { "type": "text", "id": "rating_text", "label": "Rating text", "default": "4.9 (428 Reviews)" },
     { "type": "text", "id": "orders_text", "label": "Orders text", "default": "2500+ Orders" },
     { "type": "text", "id": "delivery_text", "label": "Delivery text", "default": "Delivery in 3-5 Days" },
+    {
+      "type": "checkbox",
+      "id": "show_ship_timeline",
+      "label": "Show delivery timeline under Buy Now",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "ship_trust_text",
+      "label": "Delivery timeline trust line",
+      "default": "Trusted by 1.8 lakh+ Indians | Secure Checkout 100% Genuine Product."
+    },
     { "type": "text", "id": "compare_heading", "label": "Compare heading", "default": "Why Choose Purani Rasoi?" },
     { "type": "text", "id": "compare_subtext", "label": "Compare subtext", "default": "Experience the true taste of tradition" },
     { "type": "checkbox", "id": "show_promo", "label": "Show promo countdown bar", "default": true },

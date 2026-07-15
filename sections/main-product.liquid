@@ -26,8 +26,8 @@
 
     <div class="pdp-layout">
       <section class="pdp-gallery" aria-label="Product images">
-        <div class="pdp-gallery__stage">
-          {%- if product.media.size > 1 -%}
+        <div class="pdp-gallery__stage{% if product.media.size > 0 %} pdp-gallery__stage--thumbs{% endif %}">
+          {%- if product.media.size > 0 -%}
             <div class="pdp-thumbs" role="list" data-thumbs-rail>
               {%- for media in product.media -%}
                 <button

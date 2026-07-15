@@ -3236,16 +3236,16 @@ a.bs-card__media {
   background: #efb530;
 }
 
-/* Tablet + desktop: full-bleed banner band (not full viewport tall) */
+/* Tablet + desktop: match slide artboard 1920×1071 — avoid short crop */
 @media (min-width: 768px) {
   .hero-slider {
     background: #faf8f2;
   }
 
   .hero-slider__track {
-    aspect-ratio: 16 / 9;
-    min-height: 18rem;
-    max-height: min(56vh, 28rem);
+    aspect-ratio: 1920 / 1071;
+    min-height: 0;
+    max-height: min(70vh, 42rem);
     height: auto;
   }
 
@@ -3278,9 +3278,8 @@ a.bs-card__media {
 
 @media (min-width: 1024px) {
   .hero-slider__track {
-    aspect-ratio: 2.2 / 1;
-    min-height: 20rem;
-    max-height: min(52vh, 30rem);
+    aspect-ratio: 1920 / 1071;
+    max-height: min(72vh, 44rem);
   }
 }
 

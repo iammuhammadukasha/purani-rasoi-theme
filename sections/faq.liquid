@@ -1,0 +1,119 @@
+<section class="pr-faq" aria-labelledby="Faq-{{ section.id }}">
+  <div class="mh-section home-mobile">
+    <h2 id="Faq-{{ section.id }}" class="mh-heading">{{ section.settings.heading }}</h2>
+    <div class="pr-faq__list pdp-acc">
+      {%- for block in section.blocks -%}
+        <details {{ block.shopify_attributes }}{% if forloop.first and section.settings.open_first %} open{% endif %}>
+          <summary>
+            <span>{{ block.settings.question }}</span>
+            <span class="pdp-acc__chev" aria-hidden="true">▾</span>
+          </summary>
+          <div class="pdp-acc__body pr-faq__answer">
+            {{ block.settings.answer }}
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="dh-section home-desktop">
+    <h2 class="dh-heading">{{ section.settings.heading }}</h2>
+    <div class="pr-faq__list pr-faq__list--desktop pdp-acc">
+      {%- for block in section.blocks -%}
+        <details {{ block.shopify_attributes }}{% if forloop.first and section.settings.open_first %} open{% endif %}>
+          <summary>
+            <span>{{ block.settings.question }}</span>
+            <span class="pdp-acc__chev" aria-hidden="true">▾</span>
+          </summary>
+          <div class="pdp-acc__body pr-faq__answer">
+            {{ block.settings.answer }}
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "class": "pr-faq-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first",
+      "label": "Open first question by default",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Achar kitne din tak fresh rehta hai?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Sahi tarike se store kiya gaya achar kai mahine tak fresh aur tasty rehta hai. Jar ko cool, dry jagah rakhein aur hamesha dry spoon use karein.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "question": "Achar kitne din tak fresh rehta hai?",
+            "answer": "<p>Sahi tarike se store kiya gaya achar kai mahine tak fresh aur tasty rehta hai. Jar ko cool, dry jagah rakhhein aur hamesha dry spoon use karein.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "Kya isme preservatives hain?",
+            "answer": "<p>Nahi. Hamare achar bina artificial colors aur preservatives ke banaye jaate hain — ghar jaisi traditional vidhi se.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "Delivery kitne din mein hoti hai?",
+            "answer": "<p>Orders usually 3–7 business days mein deliver ho jaate hain, aapke city ke hisaab se. Dispatch ke baad tracking details share ki jaati hain.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "Main kaunse flavors order kar sakta/sakti hoon?",
+            "answer": "<p>Aam, Nimbu, Mixed, Lehsun, Mirch aur seasonal specials — sab collections page par available hain.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "Return / exchange policy kya hai?",
+            "answer": "<p>Agar jar damaged ya leak hokar aaye, to delivery ke 48 hours ke andar photos ke saath humse contact karein. Hum jaldi se replacement arrange karenge.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

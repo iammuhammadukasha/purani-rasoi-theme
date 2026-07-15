@@ -3238,15 +3238,27 @@ a.bs-card__media {
 
 @media (min-width: 768px) {
   .hero-slider__track {
-    aspect-ratio: 21 / 9;
-    min-height: 18rem;
+    aspect-ratio: 16 / 9;
+    min-height: 20rem;
+    max-height: min(80vh, 48rem);
   }
 }
 
 @media (min-width: 1024px) {
+  .hero-slider {
+    background: #2b2b26;
+  }
+
   .hero-slider__track {
-    aspect-ratio: 21 / 8;
-    max-height: 34rem;
+    /* Match typical banner proportions — avoid ultra-wide crop */
+    aspect-ratio: 16 / 9;
+    min-height: 22rem;
+    max-height: min(82vh, 56rem);
+  }
+
+  .hero-slider__slide img {
+    object-fit: contain;
+    object-position: center center;
   }
 
   .hero-slider__controls {
@@ -6171,10 +6183,13 @@ footer.site-footer.mh-footer {
   color: #efb530 !important;
 }
 
-.mh-section--soft,
-.dh-reviews__grid blockquote,
-.love-carousel .mh-love {
+.mh-section--soft {
   background: #f3f4ed;
+}
+
+.love-carousel .mh-love,
+.dh-reviews__grid blockquote {
+  background: #faf8f2 !important;
 }
 
 .newsletter,

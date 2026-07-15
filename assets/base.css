@@ -5275,9 +5275,19 @@ footer.site-footer.mh-footer {
     justify-self: end;
     z-index: 1;
   }
-  .dh-tools__account,
-  .dh-tools__cart {
+  .dh-tools__account {
     display: none !important;
+  }
+
+  /* Cart appears in mobile header once the bag has items */
+  .dh-tools__cart.is-empty {
+    display: none !important;
+  }
+
+  .dh-tools__cart:not(.is-empty) {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
   }
 }
 

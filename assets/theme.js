@@ -1,5 +1,17 @@
 /* Purani Rasoi Shopify theme interactions */
 
+window.PuraniRasoi = window.PuraniRasoi || {};
+window.PuraniRasoi.updateCartUI = function updateCartUI(cart) {
+  const n = (cart && cart.item_count) || 0;
+  document.querySelectorAll(".cart-count").forEach((el) => {
+    el.textContent = String(n);
+    el.classList.toggle("is-empty", n <= 0);
+  });
+  document.querySelectorAll("[data-header-cart], .dh-tools__cart").forEach((el) => {
+    el.classList.toggle("is-empty", n <= 0);
+  });
+};
+
 (function () {
   const openBtn = document.getElementById("menu-open");
   const closeBtn = document.getElementById("menu-close");
@@ -96,11 +108,7 @@
         });
         if (!res.ok) throw new Error("Add failed");
         const cart = await fetch("/cart.js").then((r) => r.json());
-        document.querySelectorAll(".cart-count").forEach((el) => {
-          const n = cart.item_count || 0;
-          el.textContent = String(n);
-          el.classList.toggle("is-empty", n <= 0);
-        });
+        window.PuraniRasoi?.updateCartUI?.(cart);
         if (btn) {
           btn.textContent = "Added";
           setTimeout(() => {
@@ -128,11 +136,7 @@
           body: JSON.stringify({ id: Number(id), quantity: 1 }),
         });
         const cart = await fetch("/cart.js").then((r) => r.json());
-        document.querySelectorAll(".cart-count").forEach((el) => {
-          const n = cart.item_count || 0;
-          el.textContent = String(n);
-          el.classList.toggle("is-empty", n <= 0);
-        });
+        window.PuraniRasoi?.updateCartUI?.(cart);
         btn.textContent = "Added";
         setTimeout(() => {
           btn.innerHTML = label;

@@ -95,9 +95,14 @@
       >
         <span class="material-symbols-outlined" aria-hidden="true">person</span>
       </a>
-      <a href="{{ routes.cart_url }}" class="dh-tools__cart" aria-label="{{ 'general.cart' | t }}">
+      <a
+        href="{{ routes.cart_url }}"
+        class="dh-tools__cart{% if cart.item_count == 0 %} is-empty{% endif %}"
+        data-header-cart
+        aria-label="{{ 'general.cart' | t }}"
+      >
         <span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span>
-        <span class="cart-count cart-badge">{{ cart.item_count }}</span>
+        <span class="cart-count cart-badge{% if cart.item_count == 0 %} is-empty{% endif %}">{{ cart.item_count }}</span>
       </a>
     </div>
   </div>

@@ -2,11 +2,49 @@
   "type": "footer",
   "name": "Footer group",
   "sections": {
-    "newsletter": {
-      "type": "newsletter",
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "f1": {
+          "type": "item",
+          "settings": {
+            "question": "Achar kitne din tak fresh rehta hai?",
+            "answer": "<p>Sahi tarike se store kiya gaya achar kai mahine tak fresh aur tasty rehta hai. Jar ko cool, dry jagah rakhhein aur hamesha dry spoon use karein.</p>"
+          }
+        },
+        "f2": {
+          "type": "item",
+          "settings": {
+            "question": "Kya isme preservatives hain?",
+            "answer": "<p>Nahi. Hamare achar bina artificial colors aur preservatives ke banaye jaate hain — ghar jaisi traditional vidhi se.</p>"
+          }
+        },
+        "f3": {
+          "type": "item",
+          "settings": {
+            "question": "Delivery kitne din mein hoti hai?",
+            "answer": "<p>Orders usually 3–7 business days mein deliver ho jaate hain, aapke city ke hisaab se. Dispatch ke baad tracking details share ki jaati hain.</p>"
+          }
+        },
+        "f4": {
+          "type": "item",
+          "settings": {
+            "question": "Main kaunse flavors order kar sakta/sakti hoon?",
+            "answer": "<p>Aam, Nimbu, Mixed, Lehsun, Mirch aur seasonal specials — sab collections page par available hain.</p>"
+          }
+        },
+        "f5": {
+          "type": "item",
+          "settings": {
+            "question": "Return / exchange policy kya hai?",
+            "answer": "<p>Agar jar damaged ya leak hokar aaye, to delivery ke 48 hours ke andar photos ke saath humse contact karein. Hum jaldi se replacement arrange karenge.</p>"
+          }
+        }
+      },
+      "block_order": ["f1", "f2", "f3", "f4", "f5"],
       "settings": {
-        "heading": "Get 10% OFF on your first order!",
-        "copy": "Join our kitchen family for recipes, offers & ghar jaisa swad updates."
+        "heading": "FAQs",
+        "open_first": false
       }
     },
     "certs-bar": {
@@ -23,5 +61,5 @@
       }
     }
   },
-  "order": ["newsletter", "certs-bar", "footer"]
+  "order": ["faq", "certs-bar", "footer"]
 }

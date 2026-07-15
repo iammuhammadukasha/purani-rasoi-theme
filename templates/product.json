@@ -107,14 +107,27 @@
         "delivery_text": "Delivery in 3-5 Days",
         "compare_heading": "Why Choose Purani Rasoi?",
         "compare_subtext": "Experience the true taste of tradition",
-        "show_promo": true,
+        "show_promo": false,
         "promo_heading": "Buy 2 Get Free Shipping",
         "promo_subtext": "Limited Time Offer!",
         "promo_end": "2026-12-31T23:59:59",
         "show_related": true,
         "related_heading": "You May Also Like"
       }
+    },
+    "reviews": {
+      "type": "testimonials",
+      "blocks": {
+        "r1": { "type": "review", "settings": { "quote": "“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”", "author": "Priya Sharma" } },
+        "r2": { "type": "review", "settings": { "quote": "“Nimbu ka achar try kiya, bahut hi tasty aur fresh. Will order again!”", "author": "Rohit Verma" } },
+        "r3": { "type": "review", "settings": { "quote": "“Best achar I have ever had. 100% recommended!”", "author": "Neha Agarwal" } }
+      },
+      "block_order": ["r1", "r2", "r3"],
+      "settings": {
+        "heading": "What Our Customers Say",
+        "heading_mobile": "Customer Reviews"
+      }
     }
   },
-  "order": ["main"]
+  "order": ["main", "reviews"]
 }

@@ -13,7 +13,7 @@
   --pr-surface-low: #f5f1ea;
   --pr-surface-high: #ebe2d5;
   --pr-max: 1200px;
-  --font-display: "Yatra One", cursive;
+  --font-display: "Google Sans", system-ui, sans-serif;
   --font-body: "Google Sans", system-ui, sans-serif;
   --fs-h1: 38px;
   --lh-h1: 48px;
@@ -67,7 +67,7 @@
 .font-cinzel,
 .font-display {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
   font-size: 1.25rem;
   line-height: 1.1;
   letter-spacing: -0.02em;

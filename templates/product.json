@@ -133,7 +133,7 @@
         "promo_heading": "Buy 2 Get Free Shipping",
         "promo_subtext": "Limited Time Offer!",
         "promo_end": "2026-12-31T23:59:59",
-        "show_related": true,
+        "show_related": false,
         "related_heading": "You May Also Like",
         "reviews_heading": "What Our Customers Say",
         "reviews_heading_mobile": "Customer Reviews"

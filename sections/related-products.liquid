@@ -1,0 +1,52 @@
+{%- comment -%}
+  Placed after FAQs in the footer group. Only renders on product pages.
+{%- endcomment -%}
+{%- if product != blank -%}
+  <section class="pdp-related-wrap" aria-labelledby="Related-{{ section.id }}">
+    <div class="pdp-related max-w-site mx-auto">
+      <h2 id="Related-{{ section.id }}">{{ section.settings.heading | default: 'You May Also Like' }}</h2>
+      <div class="pdp-related__rail hide-scrollbar">
+        {%- assign related = product.collections.first -%}
+        {%- if related == blank -%}
+          {%- assign related = collections.all -%}
+        {%- endif -%}
+        {%- if related -%}
+          {%- assign shown = 0 -%}
+          {%- for rel in related.products -%}
+            {%- if shown >= section.settings.products_to_show -%}{%- break -%}{%- endif -%}
+            {%- unless rel.id == product.id -%}
+              {% render 'product-card', product: rel %}
+              {%- assign shown = shown | plus: 1 -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Related products",
+  "tag": "section",
+  "class": "pr-related-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "You May Also Like"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 8
+    }
+  ],
+  "presets": [{ "name": "Related products" }]
+}
+{% endschema %}

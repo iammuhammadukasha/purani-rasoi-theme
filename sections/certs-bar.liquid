@@ -7,58 +7,97 @@
         </h2>
       {%- endif -%}
 
-      <div class="pr-trust-marks__row">
-        {%- if section.blocks.size > 0 -%}
-          {%- for block in section.blocks -%}
-            <div class="pr-trust-marks__pill" {{ block.shopify_attributes }}>
-              {%- if block.settings.logo != blank -%}
+      <div
+        class="pr-trust-marks__viewport"
+        data-trust-marquee
+        style="--trust-marquee-duration: {{ section.settings.speed | default: 28 }}s;"
+      >
+        <div class="pr-trust-marks__track">
+          <div class="pr-trust-marks__group">
+            {%- if section.blocks.size > 0 -%}
+              {%- for block in section.blocks -%}
+                <div class="pr-trust-marks__pill" {{ block.shopify_attributes }}>
+                  {%- if block.settings.logo != blank -%}
+                    <span class="pr-trust-marks__logo">
+                      <img src="{{ block.settings.logo | image_url: width: 120 }}" alt="" width="40" height="40" loading="lazy">
+                    </span>
+                  {%- elsif block.settings.label == 'FSSAI' -%}
+                    <span class="pr-trust-marks__logo">
+                      <img src="{{ 'cert-fssai.png' | asset_url }}" alt="" width="40" height="40" loading="lazy">
+                    </span>
+                  {%- else -%}
+                    <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">
+                      {{ block.settings.label | slice: 0, 1 }}
+                    </span>
+                  {%- endif -%}
+                  <span class="pr-trust-marks__label">{{ block.settings.label }}</span>
+                </div>
+              {%- endfor -%}
+            {%- else -%}
+              <div class="pr-trust-marks__pill">
+                <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">I</span>
+                <span class="pr-trust-marks__label">ISO</span>
+              </div>
+              <div class="pr-trust-marks__pill">
                 <span class="pr-trust-marks__logo">
-                  <img
-                    src="{{ block.settings.logo | image_url: width: 120 }}"
-                    alt=""
-                    width="40"
-                    height="40"
-                    loading="lazy"
-                  >
+                  <img src="{{ 'cert-fssai.png' | asset_url }}" alt="" width="40" height="40" loading="lazy">
                 </span>
-              {%- elsif block.settings.label == 'FSSAI' -%}
+                <span class="pr-trust-marks__label">FSSAI</span>
+              </div>
+              <div class="pr-trust-marks__pill">
+                <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">F</span>
+                <span class="pr-trust-marks__label">FDA</span>
+              </div>
+              <div class="pr-trust-marks__pill">
+                <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">A</span>
+                <span class="pr-trust-marks__label">APEDA</span>
+              </div>
+            {%- endif -%}
+          </div>
+
+          {%- comment -%} Duplicate set for seamless infinite loop {%- endcomment -%}
+          <div class="pr-trust-marks__group" aria-hidden="true">
+            {%- if section.blocks.size > 0 -%}
+              {%- for block in section.blocks -%}
+                <div class="pr-trust-marks__pill">
+                  {%- if block.settings.logo != blank -%}
+                    <span class="pr-trust-marks__logo">
+                      <img src="{{ block.settings.logo | image_url: width: 120 }}" alt="" width="40" height="40" loading="lazy">
+                    </span>
+                  {%- elsif block.settings.label == 'FSSAI' -%}
+                    <span class="pr-trust-marks__logo">
+                      <img src="{{ 'cert-fssai.png' | asset_url }}" alt="" width="40" height="40" loading="lazy">
+                    </span>
+                  {%- else -%}
+                    <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">
+                      {{ block.settings.label | slice: 0, 1 }}
+                    </span>
+                  {%- endif -%}
+                  <span class="pr-trust-marks__label">{{ block.settings.label }}</span>
+                </div>
+              {%- endfor -%}
+            {%- else -%}
+              <div class="pr-trust-marks__pill">
+                <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">I</span>
+                <span class="pr-trust-marks__label">ISO</span>
+              </div>
+              <div class="pr-trust-marks__pill">
                 <span class="pr-trust-marks__logo">
-                  <img
-                    src="{{ 'cert-fssai.png' | asset_url }}"
-                    alt=""
-                    width="40"
-                    height="40"
-                    loading="lazy"
-                  >
+                  <img src="{{ 'cert-fssai.png' | asset_url }}" alt="" width="40" height="40" loading="lazy">
                 </span>
-              {%- else -%}
-                <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">
-                  {{ block.settings.label | slice: 0, 1 }}
-                </span>
-              {%- endif -%}
-              <span class="pr-trust-marks__label">{{ block.settings.label }}</span>
-            </div>
-          {%- endfor -%}
-        {%- else -%}
-          <div class="pr-trust-marks__pill">
-            <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">I</span>
-            <span class="pr-trust-marks__label">ISO</span>
+                <span class="pr-trust-marks__label">FSSAI</span>
+              </div>
+              <div class="pr-trust-marks__pill">
+                <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">F</span>
+                <span class="pr-trust-marks__label">FDA</span>
+              </div>
+              <div class="pr-trust-marks__pill">
+                <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">A</span>
+                <span class="pr-trust-marks__label">APEDA</span>
+              </div>
+            {%- endif -%}
           </div>
-          <div class="pr-trust-marks__pill">
-            <span class="pr-trust-marks__logo">
-              <img src="{{ 'cert-fssai.png' | asset_url }}" alt="" width="40" height="40" loading="lazy">
-            </span>
-            <span class="pr-trust-marks__label">FSSAI</span>
-          </div>
-          <div class="pr-trust-marks__pill">
-            <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">F</span>
-            <span class="pr-trust-marks__label">FDA</span>
-          </div>
-          <div class="pr-trust-marks__pill">
-            <span class="pr-trust-marks__logo pr-trust-marks__logo--initial" aria-hidden="true">A</span>
-            <span class="pr-trust-marks__label">APEDA</span>
-          </div>
-        {%- endif -%}
+        </div>
       </div>
     </div>
   </section>
@@ -76,6 +115,16 @@
       "id": "heading",
       "label": "Heading",
       "default": "Certifications & Trust Marks"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 12,
+      "max": 60,
+      "step": 2,
+      "unit": "s",
+      "label": "Loop speed",
+      "default": 28
     }
   ],
   "blocks": [

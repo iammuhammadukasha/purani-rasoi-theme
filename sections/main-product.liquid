@@ -312,87 +312,131 @@
       </section>
     {%- endif -%}
 
-    {%- assign review_count = 0 -%}
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'review' -%}{%- assign review_count = review_count | plus: 1 -%}{%- endif -%}
-    {%- endfor -%}
-    {%- if review_count > 0 -%}
-      <section class="pr-reviews pdp-reviews" aria-labelledby="Reviews-{{ section.id }}">
-        <div
-          class="mh-section mh-section--soft home-mobile love-carousel"
-          data-love-carousel
-          data-interval="{{ section.settings.reviews_interval | default: 4000 }}"
-        >
-          <h2 id="Reviews-{{ section.id }}" class="mh-heading">
-            {{ section.settings.reviews_heading_mobile | default: 'Customer Reviews' }}
-          </h2>
-          <div class="love-carousel__viewport">
-            {%- assign review_slide = 0 -%}
-            {%- for block in section.blocks -%}
-              {%- if block.type == 'review' -%}
-                <blockquote
-                  class="mh-love love-carousel__slide{% if review_slide == 0 %} is-active{% endif %}"
-                  data-love-slide
-                  aria-hidden="{% if review_slide == 0 %}false{% else %}true{% endif %}"
-                  {{ block.shopify_attributes }}
-                >
-                  <div class="mh-love__stars" aria-hidden="true">★★★★★</div>
-                  <p>{{ block.settings.quote }}</p>
-                  <footer>
-                    {%- if block.settings.avatar != blank -%}
-                      <img src="{{ block.settings.avatar | image_url: width: 72 }}" alt="" width="36" height="36" loading="lazy">
-                    {%- else -%}
-                      <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" width="36" height="36" loading="lazy">
-                    {%- endif -%}
-                    <cite>{{ block.settings.author }}</cite>
-                  </footer>
-                </blockquote>
-                {%- assign review_slide = review_slide | plus: 1 -%}
-              {%- endif -%}
+    {%- comment -%} Always under Why Choose — use theme blocks when present, else defaults {%- endcomment -%}
+    {%- assign review_blocks = section.blocks | where: 'type', 'review' -%}
+    {%- assign review_heading_m = section.settings.reviews_heading_mobile | default: 'Customer Reviews' -%}
+    {%- assign review_heading_d = section.settings.reviews_heading | default: 'What Our Customers Say' -%}
+    <section class="pr-reviews pdp-reviews" aria-labelledby="Reviews-{{ section.id }}">
+      <div
+        class="mh-section mh-section--soft home-mobile love-carousel"
+        data-love-carousel
+        data-interval="{{ section.settings.reviews_interval | default: 4000 }}"
+      >
+        <h2 id="Reviews-{{ section.id }}" class="mh-heading">{{ review_heading_m }}</h2>
+        <div class="love-carousel__viewport">
+          {%- if review_blocks.size > 0 -%}
+            {%- for block in review_blocks -%}
+              <blockquote
+                class="mh-love love-carousel__slide{% if forloop.first %} is-active{% endif %}"
+                data-love-slide
+                aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                <div class="mh-love__stars" aria-hidden="true">★★★★★</div>
+                <p>{{ block.settings.quote }}</p>
+                <footer>
+                  {%- if block.settings.avatar != blank -%}
+                    <img src="{{ block.settings.avatar | image_url: width: 72 }}" alt="" width="36" height="36" loading="lazy">
+                  {%- else -%}
+                    <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" width="36" height="36" loading="lazy">
+                  {%- endif -%}
+                  <cite>{{ block.settings.author }}</cite>
+                </footer>
+              </blockquote>
             {%- endfor -%}
-          </div>
-          <div class="mh-dots" data-love-dots role="tablist" aria-label="Testimonials">
-            {%- assign review_index = 0 -%}
-            {%- for block in section.blocks -%}
-              {%- if block.type == 'review' -%}
-                <button
-                  type="button"
-                  class="mh-dots__dot{% if review_index == 0 %} is-active{% endif %}"
-                  data-love-dot="{{ review_index }}"
-                  aria-label="Show review {{ review_index | plus: 1 }}"
-                  {% if review_index == 0 %}aria-current="true"{% endif %}
-                ></button>
-                {%- assign review_index = review_index | plus: 1 -%}
-              {%- endif -%}
-            {%- endfor -%}
-          </div>
+          {%- else -%}
+            <blockquote class="mh-love love-carousel__slide is-active" data-love-slide aria-hidden="false">
+              <div class="mh-love__stars" aria-hidden="true">★★★★★</div>
+              <p>“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”</p>
+              <footer>
+                <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" width="36" height="36" loading="lazy">
+                <cite>Priya Sharma</cite>
+              </footer>
+            </blockquote>
+            <blockquote class="mh-love love-carousel__slide" data-love-slide aria-hidden="true">
+              <div class="mh-love__stars" aria-hidden="true">★★★★★</div>
+              <p>“Nimbu ka achar try kiya, bahut hi tasty aur fresh. Will order again!”</p>
+              <footer>
+                <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" width="36" height="36" loading="lazy">
+                <cite>Rohit Verma</cite>
+              </footer>
+            </blockquote>
+            <blockquote class="mh-love love-carousel__slide" data-love-slide aria-hidden="true">
+              <div class="mh-love__stars" aria-hidden="true">★★★★★</div>
+              <p>“Best achar I have ever had. 100% recommended!”</p>
+              <footer>
+                <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" width="36" height="36" loading="lazy">
+                <cite>Neha Agarwal</cite>
+              </footer>
+            </blockquote>
+          {%- endif -%}
         </div>
+        <div class="mh-dots" data-love-dots role="tablist" aria-label="Testimonials">
+          {%- if review_blocks.size > 0 -%}
+            {%- for block in review_blocks -%}
+              <button
+                type="button"
+                class="mh-dots__dot{% if forloop.first %} is-active{% endif %}"
+                data-love-dot="{{ forloop.index0 }}"
+                aria-label="Show review {{ forloop.index }}"
+                {% if forloop.first %}aria-current="true"{% endif %}
+              ></button>
+            {%- endfor -%}
+          {%- else -%}
+            <button type="button" class="mh-dots__dot is-active" data-love-dot="0" aria-label="Show review 1" aria-current="true"></button>
+            <button type="button" class="mh-dots__dot" data-love-dot="1" aria-label="Show review 2"></button>
+            <button type="button" class="mh-dots__dot" data-love-dot="2" aria-label="Show review 3"></button>
+          {%- endif -%}
+        </div>
+      </div>
 
-        <div class="dh-reviews home-desktop">
-          <h2 class="dh-heading dh-heading--light">
-            {{ section.settings.reviews_heading | default: 'What Our Customers Say' }}
-          </h2>
-          <div class="dh-reviews__grid">
-            {%- for block in section.blocks -%}
-              {%- if block.type == 'review' -%}
-                <blockquote {{ block.shopify_attributes }}>
-                  <div class="dh-reviews__stars">★★★★★</div>
-                  <p>{{ block.settings.quote }}</p>
-                  <footer>
-                    {%- if block.settings.avatar != blank -%}
-                      <img src="{{ block.settings.avatar | image_url: width: 72 }}" alt="" loading="lazy">
-                    {%- else -%}
-                      <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" loading="lazy">
-                    {%- endif -%}
-                    <cite>{{ block.settings.author }}</cite>
-                  </footer>
-                </blockquote>
-              {%- endif -%}
+      <div class="dh-reviews home-desktop">
+        <h2 class="dh-heading dh-heading--light">{{ review_heading_d }}</h2>
+        <div class="dh-reviews__grid">
+          {%- if review_blocks.size > 0 -%}
+            {%- for block in review_blocks -%}
+              <blockquote {{ block.shopify_attributes }}>
+                <div class="dh-reviews__stars">★★★★★</div>
+                <p>{{ block.settings.quote }}</p>
+                <footer>
+                  {%- if block.settings.avatar != blank -%}
+                    <img src="{{ block.settings.avatar | image_url: width: 72 }}" alt="" loading="lazy">
+                  {%- else -%}
+                    <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" loading="lazy">
+                  {%- endif -%}
+                  <cite>{{ block.settings.author }}</cite>
+                </footer>
+              </blockquote>
             {%- endfor -%}
-          </div>
+          {%- else -%}
+            <blockquote>
+              <div class="dh-reviews__stars">★★★★★</div>
+              <p>“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”</p>
+              <footer>
+                <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" loading="lazy">
+                <cite>Priya Sharma</cite>
+              </footer>
+            </blockquote>
+            <blockquote>
+              <div class="dh-reviews__stars">★★★★★</div>
+              <p>“Nimbu ka achar try kiya, bahut hi tasty aur fresh. Will order again!”</p>
+              <footer>
+                <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" loading="lazy">
+                <cite>Rohit Verma</cite>
+              </footer>
+            </blockquote>
+            <blockquote>
+              <div class="dh-reviews__stars">★★★★★</div>
+              <p>“Best achar I have ever had. 100% recommended!”</p>
+              <footer>
+                <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" loading="lazy">
+                <cite>Neha Agarwal</cite>
+              </footer>
+            </blockquote>
+          {%- endif -%}
         </div>
-      </section>
-    {%- endif -%}
+      </div>
+    </section>
 
     {%- if section.settings.show_promo -%}
       <section class="pdp-promo" data-pdp-promo data-end="{{ section.settings.promo_end }}">

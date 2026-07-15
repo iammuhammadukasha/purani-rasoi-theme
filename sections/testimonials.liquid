@@ -1,3 +1,10 @@
+{%- comment -%}
+  On product pages, reviews are rendered inside main-product (directly under Why Choose).
+  Skip this standalone section so it does not appear again at the bottom.
+{%- endcomment -%}
+{%- if template.name == 'product' -%}
+  {%- comment -%} intentionally empty {%- endcomment -%}
+{%- else -%}
 <section class="pr-reviews" aria-labelledby="Reviews-{{ section.id }}">
   <div
     class="mh-section mh-section--soft home-mobile love-carousel"
@@ -61,6 +68,7 @@
     </div>
   </div>
 </section>
+{%- endif -%}
 
 {% schema %}
 {

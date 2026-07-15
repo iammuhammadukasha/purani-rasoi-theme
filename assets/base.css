@@ -2013,7 +2013,16 @@ a {
 }
 
 .pdp-reviews {
-  margin: 0.5rem 0 1.5rem;
+  width: calc(100% + 2rem);
+  margin: 0.75rem -1rem 1.75rem;
+}
+
+@media (min-width: 768px) {
+  .pdp-reviews {
+    width: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 .pdp__inner {

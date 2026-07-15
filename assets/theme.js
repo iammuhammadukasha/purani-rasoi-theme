@@ -33,7 +33,7 @@ window.PuraniRasoi.closeCartDrawer = function closeCartDrawer() {
   document.body.style.overflow = "";
   window.setTimeout(() => {
     if (!drawer.classList.contains("is-open")) drawer.hidden = true;
-  }, 380);
+  }, 560);
 };
 
 window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {

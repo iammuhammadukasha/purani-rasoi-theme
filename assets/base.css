@@ -6206,19 +6206,17 @@ footer.site-footer.mh-footer {
 .pr-trust-marks {
   background: #faf8f2;
   border-top: 1px solid rgba(94, 111, 54, 0.08);
-  padding: 1.5rem 0 1.75rem;
-  overflow: hidden;
+  padding: 1.5rem 1rem 1.75rem;
 }
 
 .pr-trust-marks__inner {
-  width: 100%;
+  max-width: min(1400px, 96vw);
   margin: 0 auto;
   text-align: center;
 }
 
 .pr-trust-marks__heading {
   margin: 0 0 1rem;
-  padding: 0 1rem;
   font-family: var(--font-body);
   font-size: clamp(1.35rem, 2.8vw, 1.85rem);
   font-weight: 700;
@@ -6226,43 +6224,29 @@ footer.site-footer.mh-footer {
   line-height: 1.25;
 }
 
-/* Single-row infinite loop slider */
-.pr-trust-marks__viewport {
-  --trust-marquee-duration: 28s;
-  width: 100%;
-  overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-}
-
-.pr-trust-marks__track {
-  display: flex;
-  width: max-content;
-  align-items: center;
-  animation: pr-trust-marquee var(--trust-marquee-duration) linear infinite;
-  will-change: transform;
-}
-
-.pr-trust-marks__viewport:hover .pr-trust-marks__track,
-.pr-trust-marks__viewport:focus-within .pr-trust-marks__track {
-  animation-play-state: paused;
-}
-
-.pr-trust-marks__group {
+.pr-trust-marks__row {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  gap: 0.85rem;
-  padding-right: 0.85rem;
+  justify-content: center;
+  gap: 0.65rem 0.75rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 0.15rem 0;
+}
+
+.pr-trust-marks__row::-webkit-scrollbar {
+  display: none;
 }
 
 .pr-trust-marks__pill {
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
-  gap: 0.65rem;
-  min-height: 3.25rem;
-  padding: 0.45rem 1.15rem 0.45rem 0.45rem;
+  gap: 0.55rem;
+  min-height: 3rem;
+  padding: 0.4rem 1rem 0.4rem 0.4rem;
   border-radius: 999px;
   background: #f3f4ed;
   border: 1px solid rgba(94, 111, 54, 0.14);
@@ -6270,8 +6254,8 @@ footer.site-footer.mh-footer {
 
 .pr-trust-marks__logo {
   flex-shrink: 0;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.35rem;
+  height: 2.35rem;
   border-radius: 999px;
   background: #fff;
   display: grid;
@@ -6290,7 +6274,7 @@ footer.site-footer.mh-footer {
 
 .pr-trust-marks__logo--initial {
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: #5e6f36;
   background: #fff;
@@ -6298,7 +6282,7 @@ footer.site-footer.mh-footer {
 
 .pr-trust-marks__label {
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 0.92rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: #5e6f36;
@@ -6306,58 +6290,29 @@ footer.site-footer.mh-footer {
   white-space: nowrap;
 }
 
-@keyframes pr-trust-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pr-trust-marks__track {
-    animation: none;
-  }
-
-  .pr-trust-marks__viewport {
-    overflow-x: auto;
-    mask-image: none;
-    -webkit-mask-image: none;
-  }
-
-  .pr-trust-marks__track {
-    width: auto;
-  }
-}
-
 @media (min-width: 768px) {
   .pr-trust-marks {
-    padding: 1.75rem 0 2rem;
+    padding: 1.75rem 1.5rem 2rem;
   }
 
-  .pr-trust-marks__heading {
-    margin-bottom: 1.15rem;
-  }
-
-  .pr-trust-marks__group {
-    gap: 1.15rem;
-    padding-right: 1.15rem;
+  .pr-trust-marks__row {
+    gap: 1rem 1.25rem;
+    overflow: visible;
   }
 
   .pr-trust-marks__pill {
-    min-height: 3.65rem;
-    padding: 0.5rem 1.4rem 0.5rem 0.5rem;
-    gap: 0.75rem;
+    min-height: 3.5rem;
+    padding: 0.5rem 1.35rem 0.5rem 0.5rem;
+    gap: 0.7rem;
   }
 
   .pr-trust-marks__logo {
-    width: 2.85rem;
-    height: 2.85rem;
+    width: 2.75rem;
+    height: 2.75rem;
   }
 
   .pr-trust-marks__label {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
   }
 }
 
@@ -7782,7 +7737,7 @@ footer.site-footer.mh-footer {
   inset: 0;
   background: rgba(43, 43, 38, 0.45);
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .pr-cart-drawer.is-open .pr-cart-drawer__backdrop {
@@ -7801,11 +7756,11 @@ footer.site-footer.mh-footer {
   box-shadow: 12px 0 40px rgba(43, 43, 38, 0.18);
   display: flex;
   flex-direction: column;
-  transform: translateX(-28px);
+  transform: translateX(-100%);
   opacity: 0;
   transition:
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.35s ease;
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   overflow: hidden;
 }
 

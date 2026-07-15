@@ -1277,12 +1277,16 @@ a {
 .newsletter {
   background: #7e1e22;
   padding: 2rem 1.25rem;
+  text-align: center;
 }
 
 .newsletter__inner {
   max-width: 640px;
   margin: 0 auto;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .newsletter__title {
@@ -4436,17 +4440,23 @@ a.bs-card__media {
   color: #fff;
   text-align: center;
   padding: calc(1.75rem + 10px) 1.15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.mh-newsletter__mail {
+.mh-newsletter__mail,
+.newsletter .mh-newsletter__mail,
+.newsletter .material-symbols-outlined.mh-newsletter__mail,
+.mh-newsletter .material-symbols-outlined {
   display: block !important;
   font-size: 1.75rem !important;
   width: 1.75rem !important;
   height: 1.75rem !important;
-  color: #d4a017;
-  margin: 0 auto 0.5rem;
-  text-align: center;
-  line-height: 1;
+  color: #d4a017 !important;
+  margin: 0 auto 0.5rem !important;
+  text-align: center !important;
+  line-height: 1 !important;
 }
 
 .mh-newsletter h2 {

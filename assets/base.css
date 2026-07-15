@@ -908,7 +908,7 @@ a {
   position: fixed;
   right: 1.1rem;
   bottom: 1.1rem;
-  z-index: 50;
+  z-index: 70;
   width: 3.35rem;
   height: 3.35rem;
   border-radius: 999px;
@@ -924,7 +924,9 @@ a {
 
 @media (max-width: 1023px) {
   .wa-float {
-    bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+    /* Clear fixed bottom nav (offset + bar height) + gap */
+    bottom: calc(6.75rem + env(safe-area-inset-bottom, 0px));
+    right: 1rem;
   }
 }
 

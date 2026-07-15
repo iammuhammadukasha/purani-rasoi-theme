@@ -3165,7 +3165,7 @@ a.bs-card__media {
 .hero-slider {
   position: relative;
   width: 100%;
-  background: #2a120f;
+  background: #faf8f2;
   overflow: hidden;
 }
 
@@ -3236,29 +3236,40 @@ a.bs-card__media {
   background: #efb530;
 }
 
+/* Tablet + desktop: full-bleed width, image natural height (no side bars / no crop) */
 @media (min-width: 768px) {
-  .hero-slider__track {
-    aspect-ratio: 16 / 9;
-    min-height: 20rem;
-    max-height: min(80vh, 48rem);
-  }
-}
-
-@media (min-width: 1024px) {
   .hero-slider {
-    background: #2b2b26;
+    background: #faf8f2;
   }
 
   .hero-slider__track {
-    /* Match typical banner proportions — avoid ultra-wide crop */
-    aspect-ratio: 16 / 9;
-    min-height: 22rem;
-    max-height: min(82vh, 56rem);
+    aspect-ratio: auto;
+    min-height: 0;
+    max-height: none;
+    height: auto;
+  }
+
+  .hero-slider__slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-slider__slide.is-active {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
   }
 
   .hero-slider__slide img {
-    object-fit: contain;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: unset;
     object-position: center center;
+    display: block;
   }
 
   .hero-slider__controls {

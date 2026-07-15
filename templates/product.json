@@ -35,6 +35,27 @@
           "type": "compare_row",
           "settings": { "us_text": "Made with Love & Care", "them_text": "Commercial Recipe" }
         },
+        "r1": {
+          "type": "review",
+          "settings": {
+            "quote": "“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”",
+            "author": "Priya Sharma"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "quote": "“Nimbu ka achar try kiya, bahut hi tasty aur fresh. Will order again!”",
+            "author": "Rohit Verma"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "quote": "“Best achar I have ever had. 100% recommended!”",
+            "author": "Neha Agarwal"
+          }
+        },
         "trust1": {
           "type": "trust",
           "settings": { "icon": "local_shipping", "label": "Free Shipping", "sublabel": "on orders above ₹499" }
@@ -97,6 +118,7 @@
         "tag1", "tag2", "tag3",
         "f1", "f2", "f3", "f4", "f5", "f6",
         "c1", "c2", "c3", "c4", "c5",
+        "r1", "r2", "r3",
         "trust1", "trust2", "trust3", "trust4",
         "acc1", "acc2", "acc3", "acc4", "acc5"
       ],
@@ -112,22 +134,11 @@
         "promo_subtext": "Limited Time Offer!",
         "promo_end": "2026-12-31T23:59:59",
         "show_related": true,
-        "related_heading": "You May Also Like"
-      }
-    },
-    "reviews": {
-      "type": "testimonials",
-      "blocks": {
-        "r1": { "type": "review", "settings": { "quote": "“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”", "author": "Priya Sharma" } },
-        "r2": { "type": "review", "settings": { "quote": "“Nimbu ka achar try kiya, bahut hi tasty aur fresh. Will order again!”", "author": "Rohit Verma" } },
-        "r3": { "type": "review", "settings": { "quote": "“Best achar I have ever had. 100% recommended!”", "author": "Neha Agarwal" } }
-      },
-      "block_order": ["r1", "r2", "r3"],
-      "settings": {
-        "heading": "What Our Customers Say",
-        "heading_mobile": "Customer Reviews"
+        "related_heading": "You May Also Like",
+        "reviews_heading": "What Our Customers Say",
+        "reviews_heading_mobile": "Customer Reviews"
       }
     }
   },
-  "order": ["main", "reviews"]
+  "order": ["main"]
 }

@@ -312,6 +312,88 @@
       </section>
     {%- endif -%}
 
+    {%- assign review_count = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'review' -%}{%- assign review_count = review_count | plus: 1 -%}{%- endif -%}
+    {%- endfor -%}
+    {%- if review_count > 0 -%}
+      <section class="pr-reviews pdp-reviews" aria-labelledby="Reviews-{{ section.id }}">
+        <div
+          class="mh-section mh-section--soft home-mobile love-carousel"
+          data-love-carousel
+          data-interval="{{ section.settings.reviews_interval | default: 4000 }}"
+        >
+          <h2 id="Reviews-{{ section.id }}" class="mh-heading">
+            {{ section.settings.reviews_heading_mobile | default: 'Customer Reviews' }}
+          </h2>
+          <div class="love-carousel__viewport">
+            {%- assign review_slide = 0 -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'review' -%}
+                <blockquote
+                  class="mh-love love-carousel__slide{% if review_slide == 0 %} is-active{% endif %}"
+                  data-love-slide
+                  aria-hidden="{% if review_slide == 0 %}false{% else %}true{% endif %}"
+                  {{ block.shopify_attributes }}
+                >
+                  <div class="mh-love__stars" aria-hidden="true">★★★★★</div>
+                  <p>{{ block.settings.quote }}</p>
+                  <footer>
+                    {%- if block.settings.avatar != blank -%}
+                      <img src="{{ block.settings.avatar | image_url: width: 72 }}" alt="" width="36" height="36" loading="lazy">
+                    {%- else -%}
+                      <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" width="36" height="36" loading="lazy">
+                    {%- endif -%}
+                    <cite>{{ block.settings.author }}</cite>
+                  </footer>
+                </blockquote>
+                {%- assign review_slide = review_slide | plus: 1 -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <div class="mh-dots" data-love-dots role="tablist" aria-label="Testimonials">
+            {%- assign review_index = 0 -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'review' -%}
+                <button
+                  type="button"
+                  class="mh-dots__dot{% if review_index == 0 %} is-active{% endif %}"
+                  data-love-dot="{{ review_index }}"
+                  aria-label="Show review {{ review_index | plus: 1 }}"
+                  {% if review_index == 0 %}aria-current="true"{% endif %}
+                ></button>
+                {%- assign review_index = review_index | plus: 1 -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <div class="dh-reviews home-desktop">
+          <h2 class="dh-heading dh-heading--light">
+            {{ section.settings.reviews_heading | default: 'What Our Customers Say' }}
+          </h2>
+          <div class="dh-reviews__grid">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'review' -%}
+                <blockquote {{ block.shopify_attributes }}>
+                  <div class="dh-reviews__stars">★★★★★</div>
+                  <p>{{ block.settings.quote }}</p>
+                  <footer>
+                    {%- if block.settings.avatar != blank -%}
+                      <img src="{{ block.settings.avatar | image_url: width: 72 }}" alt="" loading="lazy">
+                    {%- else -%}
+                      <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" loading="lazy">
+                    {%- endif -%}
+                    <cite>{{ block.settings.author }}</cite>
+                  </footer>
+                </blockquote>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </section>
+    {%- endif -%}
+
     {%- if section.settings.show_promo -%}
       <section class="pdp-promo" data-pdp-promo data-end="{{ section.settings.promo_end }}">
         <div class="pdp-promo__copy">
@@ -372,28 +454,6 @@
       </div>
     {%- endif -%}
   </div>
-
-  <div class="pdp-sticky" data-pdp-sticky>
-    <div class="pdp-sticky__inner max-w-site mx-auto">
-      <div class="pdp-sticky__product">
-        {%- if product.featured_media -%}
-          <img src="{{ product.featured_media | image_url: width: 120 }}" alt="" width="48" height="48" loading="lazy">
-        {%- endif -%}
-        <div>
-          <p class="pdp-sticky__title">{{ brand_name }} {{ product.title }}</p>
-          <p class="pdp-sticky__price" data-sticky-price>{{ current_variant.price | money }}</p>
-        </div>
-      </div>
-      <div class="pdp-sticky__actions">
-        <button type="button" class="pdp-add pdp-sticky__add" data-sticky-add {% unless current_variant.available %}disabled{% endunless %}>
-          ADD TO CART
-        </button>
-        <button type="button" class="pdp-buy pdp-sticky__buy" data-sticky-buy {% unless current_variant.available %}disabled{% endunless %}>
-          BUY NOW
-        </button>
-      </div>
-    </div>
-  </div>
 </div>
 
 <script type="application/json" id="ProductJSON-{{ section.id }}">
@@ -413,9 +473,6 @@
     const buyNow = form.querySelector('[data-buy-now]');
     const addBtn = form.querySelector('[data-add-to-cart]');
     const mainImg = document.getElementById('pdp-main-img');
-    const stickyPrice = root.querySelector('[data-sticky-price]');
-    const stickyAdd = root.querySelector('[data-sticky-add]');
-    const stickyBuy = root.querySelector('[data-sticky-buy]');
     const stockEl = root.querySelector('[data-pdp-stock]');
 
     function syncQty() {
@@ -450,23 +507,6 @@
     buyNow?.addEventListener('click', (e) => {
       e.preventDefault();
       addThen('/checkout').catch(() => form.submit());
-    });
-    stickyBuy?.addEventListener('click', () => {
-      addThen('/checkout').catch(() => form.requestSubmit?.() || form.submit());
-    });
-    stickyAdd?.addEventListener('click', () => {
-      const label = stickyAdd.innerHTML;
-      stickyAdd.disabled = true;
-      stickyAdd.textContent = 'Adding…';
-      addThen()
-        .then(() => {
-          stickyAdd.textContent = 'Added';
-          setTimeout(() => {
-            stickyAdd.innerHTML = label;
-            stickyAdd.disabled = false;
-          }, 1200);
-        })
-        .catch(() => form.requestSubmit?.() || form.submit());
     });
 
     root.querySelectorAll('[data-thumb]').forEach((btn) => {
@@ -520,7 +560,6 @@
         row += '</div><p class="pdp-price__tax">(Inclusive of all taxes)</p>';
         priceEl.innerHTML = row;
       }
-      if (stickyPrice) stickyPrice.textContent = money(v.price);
       if (addBtn) {
         addBtn.disabled = !v.available;
         addBtn.innerHTML = v.available
@@ -528,8 +567,6 @@
           : {{ 'products.product.sold_out' | t | json }};
       }
       if (buyNow) buyNow.disabled = !v.available;
-      if (stickyAdd) stickyAdd.disabled = !v.available;
-      if (stickyBuy) stickyBuy.disabled = !v.available;
       if (stockEl) {
         if (v.available) {
           stockEl.classList.remove('pdp-stock--out');
@@ -584,7 +621,19 @@
     { "type": "text", "id": "promo_subtext", "label": "Promo subtext", "default": "Limited Time Offer!" },
     { "type": "text", "id": "promo_end", "label": "Promo end datetime", "info": "ISO format, e.g. 2026-12-31T23:59:59", "default": "2026-12-31T23:59:59" },
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
-    { "type": "text", "id": "related_heading", "label": "Related heading", "default": "You May Also Like" }
+    { "type": "text", "id": "related_heading", "label": "Related heading", "default": "You May Also Like" },
+    { "type": "text", "id": "reviews_heading", "label": "Reviews heading (desktop)", "default": "What Our Customers Say" },
+    { "type": "text", "id": "reviews_heading_mobile", "label": "Reviews heading (mobile)", "default": "Customer Reviews" },
+    {
+      "type": "range",
+      "id": "reviews_interval",
+      "min": 2500,
+      "max": 8000,
+      "step": 500,
+      "unit": "ms",
+      "label": "Reviews auto-rotate speed",
+      "default": 4000
+    }
   ],
   "blocks": [
     {
@@ -635,6 +684,15 @@
         { "type": "text", "id": "title", "label": "Title", "default": "Product Highlights" },
         { "type": "richtext", "id": "body", "label": "Body", "default": "<ul><li>100% Homemade</li><li>No Artificial Colors</li><li>Made in Small Batches</li></ul>" },
         { "type": "checkbox", "id": "open", "label": "Open by default", "default": false }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Customer review",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”" },
+        { "type": "text", "id": "author", "label": "Author", "default": "Priya Sharma" },
+        { "type": "image_picker", "id": "avatar", "label": "Avatar" }
       ]
     }
   ],

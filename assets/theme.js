@@ -739,20 +739,18 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
       runAjaxSearch(ajaxInput?.value || "");
     });
 
-  /* Mobile category carousel arrows */
-  document.querySelectorAll("[data-cats-carousel]").forEach((root) => {
+  /* Shop by Category arrows — nudge row when needed */
+  document.querySelectorAll("[data-pr-cats]").forEach((root) => {
     const rail = root.querySelector("[data-cats-rail]");
     const prev = root.querySelector("[data-cats-prev]");
     const next = root.querySelector("[data-cats-next]");
     if (!rail) return;
-
-    function scrollByCard(dir) {
-      const card = rail.querySelector(".mh-cat");
-      const step = card ? card.getBoundingClientRect().width + 16 : 120;
-      rail.scrollBy({ left: dir * step, behavior: "smooth" });
-    }
-
-    prev?.addEventListener("click", () => scrollByCard(-1));
-    next?.addEventListener("click", () => scrollByCard(1));
+    const step = () => Math.max(rail.clientWidth * 0.2, 64);
+    prev?.addEventListener("click", () => {
+      rail.scrollBy({ left: -step(), behavior: "smooth" });
+    });
+    next?.addEventListener("click", () => {
+      rail.scrollBy({ left: step(), behavior: "smooth" });
+    });
   });
 })();

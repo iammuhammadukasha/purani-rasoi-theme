@@ -1,57 +1,29 @@
-<section id="categories" class="pr-categories">
-  <div class="mh-section mh-cats-section home-mobile">
-    <h2 class="mh-heading mh-cats-heading">
-      <span class="mh-cats-flourish" aria-hidden="true">
-        <svg viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M36 12c-6-1-12-6-14-10-1 5-5 9-12 11" stroke="#c9a227" stroke-width="1.4" stroke-linecap="round"/>
-          <ellipse cx="18" cy="8" rx="4" ry="6.5" transform="rotate(-35 18 8)" fill="#d4af37" opacity=".9"/>
-          <ellipse cx="26" cy="11" rx="3.2" ry="5" transform="rotate(20 26 11)" fill="#c9a227"/>
+<section id="categories" class="pr-cats" data-pr-cats aria-labelledby="CatsHeading-{{ section.id }}">
+  <div class="pr-cats__head">
+    <h2 id="CatsHeading-{{ section.id }}" class="pr-cats__heading">
+      <span class="pr-cats__flourish" aria-hidden="true">
+        <svg viewBox="0 0 28 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 14c-5-1-9-6-10-12-1 6-5 11-10 12" stroke="#5e6f36" stroke-width="1.4" stroke-linecap="round"/>
+          <ellipse cx="14" cy="6" rx="3.2" ry="5.5" fill="#5e6f36"/>
         </svg>
       </span>
-      <span class="mh-cats-heading__text">{{ section.settings.heading }}</span>
-      <span class="mh-cats-flourish" aria-hidden="true">
-        <svg viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 12c6-1 12-6 14-10 1 5 5 9 12 11" stroke="#c9a227" stroke-width="1.4" stroke-linecap="round"/>
-          <ellipse cx="22" cy="8" rx="4" ry="6.5" transform="rotate(35 22 8)" fill="#d4af37" opacity=".9"/>
-          <ellipse cx="14" cy="11" rx="3.2" ry="5" transform="rotate(-20 14 11)" fill="#c9a227"/>
+      <span class="pr-cats__heading-text">{{ section.settings.heading | default: 'Shop By Category' }}</span>
+      <span class="pr-cats__flourish pr-cats__flourish--flip" aria-hidden="true">
+        <svg viewBox="0 0 28 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 14c-5-1-9-6-10-12-1 6-5 11-10 12" stroke="#5e6f36" stroke-width="1.4" stroke-linecap="round"/>
+          <ellipse cx="14" cy="6" rx="3.2" ry="5.5" fill="#5e6f36"/>
         </svg>
       </span>
     </h2>
-
-    <div class="mh-cats-carousel" data-cats-carousel>
-      <button type="button" class="mh-cats-arrow mh-cats-arrow--prev" data-cats-prev aria-label="Previous categories">
-        <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
-      </button>
-
-      <div class="mh-cats hide-scrollbar" data-cats-rail>
-        {%- for block in section.blocks -%}
-          {%- liquid
-            assign href = block.settings.link | default: routes.all_products_collection_url
-            if block.settings.image != blank
-              assign img = block.settings.image | image_url: width: 400
-            else
-              assign fallback = block.settings.fallback_asset | default: 'aam.png'
-              assign img = fallback | asset_url
-            endif
-          -%}
-          <a href="{{ href }}" class="mh-cat" {{ block.shopify_attributes }}>
-            <span class="mh-cat__ring">
-              <img src="{{ img }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="200" height="200">
-            </span>
-            <span class="mh-cat__label">{{ block.settings.title }}</span>
-          </a>
-        {%- endfor -%}
-      </div>
-
-      <button type="button" class="mh-cats-arrow mh-cats-arrow--next" data-cats-next aria-label="Next categories">
-        <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
-      </button>
-    </div>
+    <div class="pr-cats__rule" aria-hidden="true"></div>
   </div>
 
-  <div class="dh-section home-desktop">
-    <h2 class="dh-heading">{{ section.settings.heading }}</h2>
-    <div class="dh-cats">
+  <div class="pr-cats__wrap">
+    <button type="button" class="pr-cats__arrow pr-cats__arrow--prev" data-cats-prev aria-label="Previous categories">
+      <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+    </button>
+
+    <div class="pr-cats__rail" data-cats-rail>
       {%- for block in section.blocks -%}
         {%- liquid
           assign href = block.settings.link | default: routes.all_products_collection_url
@@ -62,21 +34,29 @@
             assign img = fallback | asset_url
           endif
         -%}
-        <a href="{{ href }}" class="dh-cat" {{ block.shopify_attributes }}>
-          <img src="{{ img }}" alt="" loading="lazy">
-          <span>{{ block.settings.title }}</span>
+        <a href="{{ href }}" class="pr-cats__item" {{ block.shopify_attributes }}>
+          <span class="pr-cats__ring">
+            <img src="{{ img }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="200" height="200">
+          </span>
+          <span class="pr-cats__label">{{ block.settings.title }}</span>
         </a>
       {%- endfor -%}
     </div>
+
+    <button type="button" class="pr-cats__arrow pr-cats__arrow--next" data-cats-next aria-label="Next categories">
+      <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+    </button>
   </div>
 </section>
 
 {% schema %}
 {
   "name": "Category circles",
+  "tag": "section",
+  "class": "pr-cats-section",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "SHOP BY CATEGORY" },
-    { "type": "text", "id": "view_all_label", "label": "View all label", "default": "View All Categories" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop By Category" },
+    { "type": "text", "id": "view_all_label", "label": "View all label (unused)", "default": "View All Categories" },
     { "type": "url", "id": "view_all_link", "label": "View all link" }
   ],
   "blocks": [
@@ -99,7 +79,8 @@
         { "type": "category", "settings": { "title": "Mixed Achar", "fallback_asset": "mixed.png" } },
         { "type": "category", "settings": { "title": "Lehsun Ka Achar", "fallback_asset": "lehsun.png" } },
         { "type": "category", "settings": { "title": "Kathal Ka Achar", "fallback_asset": "product-aam-kathal.png" } },
-        { "type": "category", "settings": { "title": "Mirch Achar", "fallback_asset": "mirch.png" } }
+        { "type": "category", "settings": { "title": "Mirch Achar", "fallback_asset": "mirch.png" } },
+        { "type": "category", "settings": { "title": "Nimbu Ka Achar", "fallback_asset": "nimbu.png" } }
       ]
     }
   ]

@@ -23,24 +23,26 @@
       <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
     </button>
 
-    <div class="pr-cats__rail" data-cats-rail>
-      {%- for block in section.blocks -%}
-        {%- liquid
-          assign href = block.settings.link | default: routes.all_products_collection_url
-          if block.settings.image != blank
-            assign img = block.settings.image | image_url: width: 400
-          else
-            assign fallback = block.settings.fallback_asset | default: 'aam.png'
-            assign img = fallback | asset_url
-          endif
-        -%}
-        <a href="{{ href }}" class="pr-cats__item" {{ block.shopify_attributes }}>
-          <span class="pr-cats__ring">
-            <img src="{{ img }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="200" height="200">
-          </span>
-          <span class="pr-cats__label">{{ block.settings.title }}</span>
-        </a>
-      {%- endfor -%}
+    <div class="pr-cats__viewport">
+      <div class="pr-cats__rail" data-cats-rail>
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign href = block.settings.link | default: routes.all_products_collection_url
+            if block.settings.image != blank
+              assign img = block.settings.image | image_url: width: 400
+            else
+              assign fallback = block.settings.fallback_asset | default: 'aam.png'
+              assign img = fallback | asset_url
+            endif
+          -%}
+          <a href="{{ href }}" class="pr-cats__item" {{ block.shopify_attributes }}>
+            <span class="pr-cats__ring">
+              <img src="{{ img }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="200" height="200">
+            </span>
+            <span class="pr-cats__label">{{ block.settings.title }}</span>
+          </a>
+        {%- endfor -%}
+      </div>
     </div>
 
     <button type="button" class="pr-cats__arrow pr-cats__arrow--next" data-cats-next aria-label="Next categories">
@@ -78,7 +80,7 @@
         { "type": "category", "settings": { "title": "Aam Ka Achar", "fallback_asset": "aam.png" } },
         { "type": "category", "settings": { "title": "Mixed Achar", "fallback_asset": "mixed.png" } },
         { "type": "category", "settings": { "title": "Lehsun Ka Achar", "fallback_asset": "lehsun.png" } },
-        { "type": "category", "settings": { "title": "Kathal Ka Achar", "fallback_asset": "product-aam-kathal.png" } },
+        { "type": "category", "settings": { "title": "Kathal Ka Achar", "fallback_asset": "aam-featured.png" } },
         { "type": "category", "settings": { "title": "Mirch Achar", "fallback_asset": "mirch.png" } },
         { "type": "category", "settings": { "title": "Nimbu Ka Achar", "fallback_asset": "nimbu.png" } }
       ]

@@ -739,18 +739,98 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
       runAjaxSearch(ajaxInput?.value || "");
     });
 
-  /* Shop by Category arrows — nudge row when needed */
+  /* Shop by Category — mobile 3-up carousel + auto-slide */
   document.querySelectorAll("[data-pr-cats]").forEach((root) => {
     const rail = root.querySelector("[data-cats-rail]");
     const prev = root.querySelector("[data-cats-prev]");
     const next = root.querySelector("[data-cats-next]");
     if (!rail) return;
-    const step = () => Math.max(rail.clientWidth * 0.2, 64);
+
+    const mq = window.matchMedia("(max-width: 767px)");
+    const isMobile = () => mq.matches;
+    const gap = () => {
+      const styles = getComputedStyle(rail);
+      return parseFloat(styles.columnGap || styles.gap) || 10;
+    };
+    const stepSize = () => {
+      const item = rail.querySelector(".pr-cats__item");
+      if (!item) return rail.clientWidth;
+      return item.getBoundingClientRect().width + gap();
+    };
+    const atEnd = () =>
+      rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 8;
+
+    const goNext = (smooth = true) => {
+      if (!isMobile()) return;
+      const behavior = smooth ? "smooth" : "auto";
+      if (atEnd()) {
+        rail.scrollTo({ left: 0, behavior });
+      } else {
+        rail.scrollBy({ left: stepSize(), behavior });
+      }
+    };
+    const goPrev = () => {
+      if (!isMobile()) return;
+      if (rail.scrollLeft <= 8) {
+        rail.scrollTo({ left: rail.scrollWidth, behavior: "smooth" });
+      } else {
+        rail.scrollBy({ left: -stepSize(), behavior: "smooth" });
+      }
+    };
+
+    let timer = null;
+    const stop = () => {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    };
+    const start = () => {
+      stop();
+      if (!isMobile()) return;
+      timer = setInterval(() => goNext(true), 3500);
+    };
+    const bump = () => {
+      stop();
+      start();
+    };
+
     prev?.addEventListener("click", () => {
-      rail.scrollBy({ left: -step(), behavior: "smooth" });
+      goPrev();
+      bump();
     });
     next?.addEventListener("click", () => {
-      rail.scrollBy({ left: step(), behavior: "smooth" });
+      goNext(true);
+      bump();
     });
+
+    rail.addEventListener(
+      "pointerdown",
+      () => {
+        stop();
+      },
+      { passive: true }
+    );
+    rail.addEventListener(
+      "pointerup",
+      () => {
+        bump();
+      },
+      { passive: true }
+    );
+    root.addEventListener("mouseenter", stop);
+    root.addEventListener("mouseleave", start);
+
+    const onModeChange = () => {
+      if (!isMobile()) {
+        stop();
+        rail.scrollTo({ left: 0 });
+      } else {
+        start();
+      }
+    };
+    if (mq.addEventListener) mq.addEventListener("change", onModeChange);
+    else mq.addListener(onModeChange);
+    start();
   });
 })();

@@ -3771,8 +3771,6 @@ a.bs-card__media {
   object-fit: contain;
   object-position: center center;
   display: block;
-  /* Knock out solid black PNG backgrounds on cream strip */
-  mix-blend-mode: lighten;
 }
 
 .pr-benefits__title {

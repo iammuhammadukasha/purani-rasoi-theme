@@ -52,13 +52,12 @@
         "c1": { "type": "category", "settings": { "title": "Aam Ka Achar", "fallback_asset": "aam.png" } },
         "c2": { "type": "category", "settings": { "title": "Mixed Achar", "fallback_asset": "mixed.png" } },
         "c3": { "type": "category", "settings": { "title": "Lehsun Ka Achar", "fallback_asset": "lehsun.png" } },
-        "c4": { "type": "category", "settings": { "title": "Nimbu Ka Achar", "fallback_asset": "nimbu.png" } },
-        "c5": { "type": "category", "settings": { "title": "Mirch Ka Achar", "fallback_asset": "mirch.png" } },
-        "c6": { "type": "category", "settings": { "title": "Kaccha Aam", "fallback_asset": "mixed-hero.png" } }
+        "c4": { "type": "category", "settings": { "title": "Kathal Ka Achar", "fallback_asset": "product-aam-kathal.png" } },
+        "c5": { "type": "category", "settings": { "title": "Mirch Achar", "fallback_asset": "mirch.png" } }
       },
-      "block_order": ["c1", "c2", "c3", "c4", "c5", "c6"],
+      "block_order": ["c1", "c2", "c3", "c4", "c5"],
       "settings": {
-        "heading": "Shop By Category",
+        "heading": "SHOP BY CATEGORY",
         "view_all_label": "View All Categories"
       }
     },

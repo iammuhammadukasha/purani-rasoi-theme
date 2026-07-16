@@ -9538,3 +9538,14 @@ footer.site-footer.mh-footer {
     height: 6rem;
   }
 }
+
+/* Hide Why Us olive benefits strip on desktop (mobile keeps mh-why) */
+@media (min-width: 1024px) {
+  .pr-why {
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+}

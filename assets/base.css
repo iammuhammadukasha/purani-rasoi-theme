@@ -3770,6 +3770,8 @@ a.bs-card__media {
   height: 100%;
   object-fit: contain;
   display: block;
+  /* Knock out solid black PNG backgrounds on cream strip */
+  mix-blend-mode: lighten;
 }
 
 .pr-benefits__title {

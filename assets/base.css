@@ -3746,8 +3746,8 @@ a.bs-card__media {
 }
 
 .pr-benefits__icon {
-  width: 3.75rem;
-  height: 3.75rem;
+  width: 4.25rem;
+  height: 4.25rem;
   margin-bottom: 0.55rem;
   display: grid;
   place-items: center;
@@ -3808,8 +3808,8 @@ a.bs-card__media {
   }
 
   .pr-benefits__icon {
-    width: 4.5rem;
-    height: 4.5rem;
+    width: 5.25rem;
+    height: 5.25rem;
     margin-bottom: 0.7rem;
   }
 

@@ -130,7 +130,7 @@
                     when 1
                       assign b_sub = 'Ghar jaisa swaad, pure pyaar ke saath'
                     when 2
-                      assign b_sub = 'Koi artificial cheez nahi, sirf natural ingredients'
+                      assign b_sub = 'Koi artifcial cheez nahi, sirf natural ingredients'
                     when 3
                       assign b_sub = 'Choti batches, bada swaad'
                     when 4
@@ -158,49 +158,27 @@
               <article class="pr-benefits__item" {{ block.shopify_attributes }}>
                 <div class="pr-benefits__icon" aria-hidden="true">
                   {%- if block.settings.image != blank -%}
-                    <img src="{{ block.settings.image | image_url: width: 160 }}" alt="" width="72" height="72" loading="lazy">
+                    <img src="{{ block.settings.image | image_url: width: 200 }}" alt="" width="88" height="88" loading="lazy">
                   {%- else -%}
-                    {%- case b_icon -%}
-                      {%- when 'mortar' -%}
-                        <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M18 34h36c1 0 2 1 2 2v4c0 10-8 18-20 18S16 50 16 40v-4c0-1 1-2 2-2z" fill="#4a4a46" stroke="#2b2b26" stroke-width="1.4"/>
-                          <path d="M16 40h40" stroke="#2b2b26" stroke-width="1.2" opacity=".35"/>
-                          <path d="M34 18c0 8 2 14 6 18" stroke="#2b2b26" stroke-width="2.2" stroke-linecap="round"/>
-                          <circle cx="40" cy="16" r="3.2" fill="#2b2b26"/>
-                          <ellipse cx="28" cy="30" rx="4" ry="7" transform="rotate(-20 28 30)" fill="#5e6f36"/>
-                          <ellipse cx="46" cy="28" rx="3.5" ry="6" transform="rotate(25 46 28)" fill="#3d5a2a"/>
-                          <path d="M24 52c4 3 10 4 12 4s8-1 12-4" stroke="#5e6f36" stroke-width="1.3" stroke-linecap="round"/>
-                        </svg>
-                      {%- when 'handi' -%}
-                        <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <ellipse cx="34" cy="48" rx="16" ry="10" fill="#8b5a2b"/>
-                          <path d="M18 42c0-8 7-14 16-14s16 6 16 14" fill="#a86b35" stroke="#6b4220" stroke-width="1.3"/>
-                          <ellipse cx="34" cy="30" rx="12" ry="4" fill="#6b4220"/>
-                          <path d="M28 26c0-4 3-7 6-7s6 3 6 7" stroke="#6b4220" stroke-width="1.6" fill="none"/>
-                          <ellipse cx="52" cy="50" rx="8" ry="5" fill="#8b5a2b" stroke="#6b4220" stroke-width="1"/>
-                          <ellipse cx="52" cy="47" rx="6" ry="2.2" fill="#a86b35"/>
-                          <ellipse cx="22" cy="36" rx="3.5" ry="6" transform="rotate(-30 22 36)" fill="#5e6f36"/>
-                          <ellipse cx="44" cy="34" rx="3" ry="5" transform="rotate(20 44 34)" fill="#3d5a2a"/>
-                        </svg>
-                      {%- when 'heart' -%}
-                        <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M36 56S14 42 14 28c0-7 5-12 12-12 4 0 8 2 10 6 2-4 6-6 10-6 7 0 12 5 12 12 0 14-22 28-22 28z" stroke="#5c4030" stroke-width="2.2" fill="none" stroke-linejoin="round"/>
-                          <ellipse cx="36" cy="34" rx="5" ry="9" fill="#5e6f36"/>
-                          <path d="M36 28v18" stroke="#3d5a2a" stroke-width="1.2" stroke-linecap="round"/>
-                          <path d="M36 36c-3 1-5 4-5 6M36 38c3 1 5 3 5 5" stroke="#3d5a2a" stroke-width="1" stroke-linecap="round"/>
-                        </svg>
-                      {%- else -%}
-                        <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M14 34 L36 16 L58 34" stroke="#8b6914" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
-                          <path d="M20 34v20h32V34" fill="#d4b483" stroke="#8b6914" stroke-width="1.6"/>
-                          <rect x="30" y="42" width="12" height="12" rx="1" fill="#6b4220"/>
-                          <rect x="24" y="38" width="8" height="8" rx="1" fill="#f3e6c8" stroke="#8b6914" stroke-width="1"/>
-                          <path d="M26 42h4M28 38v4" stroke="#8b6914" stroke-width="1"/>
-                          <ellipse cx="18" cy="50" rx="4" ry="7" transform="rotate(-25 18 50)" fill="#5e6f36"/>
-                          <ellipse cx="54" cy="48" rx="3.5" ry="6" transform="rotate(20 54 48)" fill="#3d5a2a"/>
-                          <ellipse cx="48" cy="52" rx="3" ry="5" transform="rotate(35 48 52)" fill="#5e6f36"/>
-                        </svg>
-                    {%- endcase -%}
+                    {%- liquid
+                      case b_icon
+                        when 'mortar'
+                          assign benefit_asset = 'benefit-preservatives.png'
+                        when 'handi'
+                          assign benefit_asset = 'benefit-batches.png'
+                        when 'heart'
+                          assign benefit_asset = 'benefit-love.png'
+                        else
+                          assign benefit_asset = 'benefit-homemade.png'
+                      endcase
+                    -%}
+                    <img
+                      src="{{ benefit_asset | asset_url }}"
+                      alt=""
+                      width="88"
+                      height="88"
+                      loading="lazy"
+                    >
                   {%- endif -%}
                 </div>
                 <h3 class="pr-benefits__title">{{ b_title }}</h3>
@@ -213,28 +191,28 @@
         {%- else -%}
           <article class="pr-benefits__item">
             <div class="pr-benefits__icon" aria-hidden="true">
-              <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 34 L36 16 L58 34" stroke="#8b6914" stroke-width="2.2" stroke-linejoin="round" fill="none"/><path d="M20 34v20h32V34" fill="#d4b483" stroke="#8b6914" stroke-width="1.6"/><rect x="30" y="42" width="12" height="12" rx="1" fill="#6b4220"/><rect x="24" y="38" width="8" height="8" rx="1" fill="#f3e6c8" stroke="#8b6914" stroke-width="1"/><ellipse cx="18" cy="50" rx="4" ry="7" transform="rotate(-25 18 50)" fill="#5e6f36"/><ellipse cx="54" cy="48" rx="3.5" ry="6" transform="rotate(20 54 48)" fill="#3d5a2a"/></svg>
+              <img src="{{ 'benefit-homemade.png' | asset_url }}" alt="" width="88" height="88" loading="lazy">
             </div>
             <h3 class="pr-benefits__title">100% Homemade</h3>
             <p class="pr-benefits__sub">Ghar jaisa swaad, pure pyaar ke saath</p>
           </article>
           <article class="pr-benefits__item">
             <div class="pr-benefits__icon" aria-hidden="true">
-              <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 34h36c1 0 2 1 2 2v4c0 10-8 18-20 18S16 50 16 40v-4c0-1 1-2 2-2z" fill="#4a4a46" stroke="#2b2b26" stroke-width="1.4"/><path d="M34 18c0 8 2 14 6 18" stroke="#2b2b26" stroke-width="2.2" stroke-linecap="round"/><circle cx="40" cy="16" r="3.2" fill="#2b2b26"/><ellipse cx="28" cy="30" rx="4" ry="7" transform="rotate(-20 28 30)" fill="#5e6f36"/><ellipse cx="46" cy="28" rx="3.5" ry="6" transform="rotate(25 46 28)" fill="#3d5a2a"/></svg>
+              <img src="{{ 'benefit-preservatives.png' | asset_url }}" alt="" width="88" height="88" loading="lazy">
             </div>
             <h3 class="pr-benefits__title">No Preservatives</h3>
-            <p class="pr-benefits__sub">Koi artificial cheez nahi, sirf natural ingredients</p>
+            <p class="pr-benefits__sub">Koi artifcial cheez nahi, sirf natural ingredients</p>
           </article>
           <article class="pr-benefits__item">
             <div class="pr-benefits__icon" aria-hidden="true">
-              <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="34" cy="48" rx="16" ry="10" fill="#8b5a2b"/><path d="M18 42c0-8 7-14 16-14s16 6 16 14" fill="#a86b35" stroke="#6b4220" stroke-width="1.3"/><ellipse cx="34" cy="30" rx="12" ry="4" fill="#6b4220"/><ellipse cx="52" cy="50" rx="8" ry="5" fill="#8b5a2b" stroke="#6b4220" stroke-width="1"/><ellipse cx="22" cy="36" rx="3.5" ry="6" transform="rotate(-30 22 36)" fill="#5e6f36"/></svg>
+              <img src="{{ 'benefit-batches.png' | asset_url }}" alt="" width="88" height="88" loading="lazy">
             </div>
             <h3 class="pr-benefits__title">Handcrafted In Small Batches</h3>
             <p class="pr-benefits__sub">Choti batches, bada swaad</p>
           </article>
           <article class="pr-benefits__item">
             <div class="pr-benefits__icon" aria-hidden="true">
-              <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M36 56S14 42 14 28c0-7 5-12 12-12 4 0 8 2 10 6 2-4 6-6 10-6 7 0 12 5 12 12 0 14-22 28-22 28z" stroke="#5c4030" stroke-width="2.2" fill="none" stroke-linejoin="round"/><ellipse cx="36" cy="34" rx="5" ry="9" fill="#5e6f36"/></svg>
+              <img src="{{ 'benefit-love.png' | asset_url }}" alt="" width="88" height="88" loading="lazy">
             </div>
             <h3 class="pr-benefits__title">Made With Love</h3>
             <p class="pr-benefits__sub">Har jar me hai humara dil</p>
@@ -306,7 +284,7 @@
           "settings": {
             "illustration": "mortar",
             "title": "No Preservatives",
-            "subtitle": "Koi artificial cheez nahi, sirf natural ingredients"
+            "subtitle": "Koi artifcial cheez nahi, sirf natural ingredients"
           }
         },
         {

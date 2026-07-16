@@ -94,16 +94,153 @@
     {%- endif -%}
   {%- endfor -%}
 
-  {%- if trust_count > 0 -%}
-    <section class="mh-usp" aria-label="Brand promises">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'trust' -%}
-          <div class="mh-usp__item" {{ block.shopify_attributes }}>
-            <span class="mh-usp__icon material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
-            <span>{{ block.settings.label | replace: '<br />', ' ' | replace: '<br>', ' ' | strip_html }}</span>
-          </div>
+  {%- if trust_count > 0 or section.settings.show_benefits -%}
+    <section class="pr-benefits" aria-label="Brand promises">
+      <div class="pr-benefits__leaf pr-benefits__leaf--left" aria-hidden="true">
+        <svg viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32c6-2 12-10 14-18 1 8 6 14 14 18" stroke="#3d5a2a" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M22 14c-3 5-5 10-6 15M28 18c2 5 4 9 6 12" stroke="#5e6f36" stroke-width="1.2" stroke-linecap="round"/>
+          <ellipse cx="18" cy="12" rx="5" ry="8" transform="rotate(-28 18 12)" fill="#5e6f36" opacity=".85"/>
+          <ellipse cx="30" cy="16" rx="4.5" ry="7" transform="rotate(22 30 16)" fill="#3d5a2a" opacity=".9"/>
+        </svg>
+      </div>
+      <div class="pr-benefits__leaf pr-benefits__leaf--right" aria-hidden="true">
+        <svg viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M40 32c-6-2-12-10-14-18-1 8-6 14-14 18" stroke="#3d5a2a" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M26 14c3 5 5 10 6 15M20 18c-2 5-4 9-6 12" stroke="#5e6f36" stroke-width="1.2" stroke-linecap="round"/>
+          <ellipse cx="30" cy="12" rx="5" ry="8" transform="rotate(28 30 12)" fill="#5e6f36" opacity=".85"/>
+          <ellipse cx="18" cy="16" rx="4.5" ry="7" transform="rotate(-22 18 16)" fill="#3d5a2a" opacity=".9"/>
+        </svg>
+      </div>
+
+      <div class="pr-benefits__row">
+        {%- if trust_count > 0 -%}
+          {%- assign ti = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'trust' -%}
+              {%- assign ti = ti | plus: 1 -%}
+              {%- liquid
+                assign b_title = block.settings.title
+                if b_title == blank
+                  assign b_title = block.settings.label | newline_to_br | replace: '<br />', ' ' | replace: '<br/>', ' ' | strip_html | strip
+                endif
+                assign b_sub = block.settings.subtitle
+                if b_sub == blank
+                  case ti
+                    when 1
+                      assign b_sub = 'Ghar jaisa swaad, pure pyaar ke saath'
+                    when 2
+                      assign b_sub = 'Koi artificial cheez nahi, sirf natural ingredients'
+                    when 3
+                      assign b_sub = 'Choti batches, bada swaad'
+                    when 4
+                      assign b_sub = 'Har jar me hai humara dil'
+                    else
+                      assign b_sub = ''
+                  endcase
+                endif
+                assign b_icon = block.settings.illustration
+                if b_icon == blank
+                  case ti
+                    when 1
+                      assign b_icon = 'house'
+                    when 2
+                      assign b_icon = 'mortar'
+                    when 3
+                      assign b_icon = 'handi'
+                    when 4
+                      assign b_icon = 'heart'
+                    else
+                      assign b_icon = 'house'
+                  endcase
+                endif
+              -%}
+              <article class="pr-benefits__item" {{ block.shopify_attributes }}>
+                <div class="pr-benefits__icon" aria-hidden="true">
+                  {%- if block.settings.image != blank -%}
+                    <img src="{{ block.settings.image | image_url: width: 160 }}" alt="" width="72" height="72" loading="lazy">
+                  {%- else -%}
+                    {%- case b_icon -%}
+                      {%- when 'mortar' -%}
+                        <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M18 34h36c1 0 2 1 2 2v4c0 10-8 18-20 18S16 50 16 40v-4c0-1 1-2 2-2z" fill="#4a4a46" stroke="#2b2b26" stroke-width="1.4"/>
+                          <path d="M16 40h40" stroke="#2b2b26" stroke-width="1.2" opacity=".35"/>
+                          <path d="M34 18c0 8 2 14 6 18" stroke="#2b2b26" stroke-width="2.2" stroke-linecap="round"/>
+                          <circle cx="40" cy="16" r="3.2" fill="#2b2b26"/>
+                          <ellipse cx="28" cy="30" rx="4" ry="7" transform="rotate(-20 28 30)" fill="#5e6f36"/>
+                          <ellipse cx="46" cy="28" rx="3.5" ry="6" transform="rotate(25 46 28)" fill="#3d5a2a"/>
+                          <path d="M24 52c4 3 10 4 12 4s8-1 12-4" stroke="#5e6f36" stroke-width="1.3" stroke-linecap="round"/>
+                        </svg>
+                      {%- when 'handi' -%}
+                        <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <ellipse cx="34" cy="48" rx="16" ry="10" fill="#8b5a2b"/>
+                          <path d="M18 42c0-8 7-14 16-14s16 6 16 14" fill="#a86b35" stroke="#6b4220" stroke-width="1.3"/>
+                          <ellipse cx="34" cy="30" rx="12" ry="4" fill="#6b4220"/>
+                          <path d="M28 26c0-4 3-7 6-7s6 3 6 7" stroke="#6b4220" stroke-width="1.6" fill="none"/>
+                          <ellipse cx="52" cy="50" rx="8" ry="5" fill="#8b5a2b" stroke="#6b4220" stroke-width="1"/>
+                          <ellipse cx="52" cy="47" rx="6" ry="2.2" fill="#a86b35"/>
+                          <ellipse cx="22" cy="36" rx="3.5" ry="6" transform="rotate(-30 22 36)" fill="#5e6f36"/>
+                          <ellipse cx="44" cy="34" rx="3" ry="5" transform="rotate(20 44 34)" fill="#3d5a2a"/>
+                        </svg>
+                      {%- when 'heart' -%}
+                        <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M36 56S14 42 14 28c0-7 5-12 12-12 4 0 8 2 10 6 2-4 6-6 10-6 7 0 12 5 12 12 0 14-22 28-22 28z" stroke="#5c4030" stroke-width="2.2" fill="none" stroke-linejoin="round"/>
+                          <ellipse cx="36" cy="34" rx="5" ry="9" fill="#5e6f36"/>
+                          <path d="M36 28v18" stroke="#3d5a2a" stroke-width="1.2" stroke-linecap="round"/>
+                          <path d="M36 36c-3 1-5 4-5 6M36 38c3 1 5 3 5 5" stroke="#3d5a2a" stroke-width="1" stroke-linecap="round"/>
+                        </svg>
+                      {%- else -%}
+                        <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M14 34 L36 16 L58 34" stroke="#8b6914" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
+                          <path d="M20 34v20h32V34" fill="#d4b483" stroke="#8b6914" stroke-width="1.6"/>
+                          <rect x="30" y="42" width="12" height="12" rx="1" fill="#6b4220"/>
+                          <rect x="24" y="38" width="8" height="8" rx="1" fill="#f3e6c8" stroke="#8b6914" stroke-width="1"/>
+                          <path d="M26 42h4M28 38v4" stroke="#8b6914" stroke-width="1"/>
+                          <ellipse cx="18" cy="50" rx="4" ry="7" transform="rotate(-25 18 50)" fill="#5e6f36"/>
+                          <ellipse cx="54" cy="48" rx="3.5" ry="6" transform="rotate(20 54 48)" fill="#3d5a2a"/>
+                          <ellipse cx="48" cy="52" rx="3" ry="5" transform="rotate(35 48 52)" fill="#5e6f36"/>
+                        </svg>
+                    {%- endcase -%}
+                  {%- endif -%}
+                </div>
+                <h3 class="pr-benefits__title">{{ b_title }}</h3>
+                {%- if b_sub != blank -%}
+                  <p class="pr-benefits__sub">{{ b_sub }}</p>
+                {%- endif -%}
+              </article>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          <article class="pr-benefits__item">
+            <div class="pr-benefits__icon" aria-hidden="true">
+              <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 34 L36 16 L58 34" stroke="#8b6914" stroke-width="2.2" stroke-linejoin="round" fill="none"/><path d="M20 34v20h32V34" fill="#d4b483" stroke="#8b6914" stroke-width="1.6"/><rect x="30" y="42" width="12" height="12" rx="1" fill="#6b4220"/><rect x="24" y="38" width="8" height="8" rx="1" fill="#f3e6c8" stroke="#8b6914" stroke-width="1"/><ellipse cx="18" cy="50" rx="4" ry="7" transform="rotate(-25 18 50)" fill="#5e6f36"/><ellipse cx="54" cy="48" rx="3.5" ry="6" transform="rotate(20 54 48)" fill="#3d5a2a"/></svg>
+            </div>
+            <h3 class="pr-benefits__title">100% Homemade</h3>
+            <p class="pr-benefits__sub">Ghar jaisa swaad, pure pyaar ke saath</p>
+          </article>
+          <article class="pr-benefits__item">
+            <div class="pr-benefits__icon" aria-hidden="true">
+              <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 34h36c1 0 2 1 2 2v4c0 10-8 18-20 18S16 50 16 40v-4c0-1 1-2 2-2z" fill="#4a4a46" stroke="#2b2b26" stroke-width="1.4"/><path d="M34 18c0 8 2 14 6 18" stroke="#2b2b26" stroke-width="2.2" stroke-linecap="round"/><circle cx="40" cy="16" r="3.2" fill="#2b2b26"/><ellipse cx="28" cy="30" rx="4" ry="7" transform="rotate(-20 28 30)" fill="#5e6f36"/><ellipse cx="46" cy="28" rx="3.5" ry="6" transform="rotate(25 46 28)" fill="#3d5a2a"/></svg>
+            </div>
+            <h3 class="pr-benefits__title">No Preservatives</h3>
+            <p class="pr-benefits__sub">Koi artificial cheez nahi, sirf natural ingredients</p>
+          </article>
+          <article class="pr-benefits__item">
+            <div class="pr-benefits__icon" aria-hidden="true">
+              <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="34" cy="48" rx="16" ry="10" fill="#8b5a2b"/><path d="M18 42c0-8 7-14 16-14s16 6 16 14" fill="#a86b35" stroke="#6b4220" stroke-width="1.3"/><ellipse cx="34" cy="30" rx="12" ry="4" fill="#6b4220"/><ellipse cx="52" cy="50" rx="8" ry="5" fill="#8b5a2b" stroke="#6b4220" stroke-width="1"/><ellipse cx="22" cy="36" rx="3.5" ry="6" transform="rotate(-30 22 36)" fill="#5e6f36"/></svg>
+            </div>
+            <h3 class="pr-benefits__title">Handcrafted In Small Batches</h3>
+            <p class="pr-benefits__sub">Choti batches, bada swaad</p>
+          </article>
+          <article class="pr-benefits__item">
+            <div class="pr-benefits__icon" aria-hidden="true">
+              <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M36 56S14 42 14 28c0-7 5-12 12-12 4 0 8 2 10 6 2-4 6-6 10-6 7 0 12 5 12 12 0 14-22 28-22 28z" stroke="#5c4030" stroke-width="2.2" fill="none" stroke-linejoin="round"/><ellipse cx="36" cy="34" rx="5" ry="9" fill="#5e6f36"/></svg>
+            </div>
+            <h3 class="pr-benefits__title">Made With Love</h3>
+            <p class="pr-benefits__sub">Har jar me hai humara dil</p>
+          </article>
         {%- endif -%}
-      {%- endfor -%}
+      </div>
     </section>
   {%- endif -%}
 </div>
@@ -112,7 +249,8 @@
 {
   "name": "Hero banner",
   "settings": [
-    { "type": "url", "id": "cta_link", "label": "Default slide link (fallback)" }
+    { "type": "url", "id": "cta_link", "label": "Default slide link (fallback)" },
+    { "type": "checkbox", "id": "show_benefits", "label": "Show benefits strip when no trust blocks", "default": true }
   ],
   "blocks": [
     {
@@ -126,10 +264,25 @@
     },
     {
       "type": "trust",
-      "name": "Trust item",
+      "name": "Benefit item",
       "settings": [
-        { "type": "text", "id": "icon", "label": "Material icon name", "default": "cooking" },
-        { "type": "textarea", "id": "label", "label": "Label", "default": "100%\nHomemade" }
+        {
+          "type": "select",
+          "id": "illustration",
+          "label": "Illustration",
+          "options": [
+            { "value": "house", "label": "Homemade house" },
+            { "value": "mortar", "label": "Mortar & pestle" },
+            { "value": "handi", "label": "Handi / pot" },
+            { "value": "heart", "label": "Heart with leaf" }
+          ],
+          "default": "house"
+        },
+        { "type": "image_picker", "id": "image", "label": "Custom icon (optional)" },
+        { "type": "text", "id": "title", "label": "Title", "default": "100% Homemade" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Ghar jaisa swaad, pure pyaar ke saath" },
+        { "type": "text", "id": "icon", "label": "Legacy material icon (unused)", "default": "cooking" },
+        { "type": "textarea", "id": "label", "label": "Legacy label (fallback title)", "default": "100%\nHomemade" }
       ]
     }
   ],
@@ -140,10 +293,38 @@
         { "type": "slide", "settings": { "label": "Every Jar Opens A Memory" } },
         { "type": "slide", "settings": { "label": "Shop Now" } },
         { "type": "slide", "settings": { "label": "Explore Collection" } },
-        { "type": "trust", "settings": { "icon": "cooking", "label": "100%\nHomemade" } },
-        { "type": "trust", "settings": { "icon": "experiment", "label": "No\nPreservatives" } },
-        { "type": "trust", "settings": { "icon": "skillet", "label": "Handcrafted\nIn Small Batches" } },
-        { "type": "trust", "settings": { "icon": "favorite", "label": "Made With\nLove" } }
+        {
+          "type": "trust",
+          "settings": {
+            "illustration": "house",
+            "title": "100% Homemade",
+            "subtitle": "Ghar jaisa swaad, pure pyaar ke saath"
+          }
+        },
+        {
+          "type": "trust",
+          "settings": {
+            "illustration": "mortar",
+            "title": "No Preservatives",
+            "subtitle": "Koi artificial cheez nahi, sirf natural ingredients"
+          }
+        },
+        {
+          "type": "trust",
+          "settings": {
+            "illustration": "handi",
+            "title": "Handcrafted In Small Batches",
+            "subtitle": "Choti batches, bada swaad"
+          }
+        },
+        {
+          "type": "trust",
+          "settings": {
+            "illustration": "heart",
+            "title": "Made With Love",
+            "subtitle": "Har jar me hai humara dil"
+          }
+        }
       ]
     }
   ]

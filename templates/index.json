@@ -6,10 +6,42 @@
         "s1": { "type": "slide", "settings": { "label": "Every Jar Opens A Memory" } },
         "s2": { "type": "slide", "settings": { "label": "Shop Now" } },
         "s3": { "type": "slide", "settings": { "label": "Explore Collection" } },
-        "t1": { "type": "trust", "settings": { "icon": "cooking", "label": "100%\nHomemade" } },
-        "t2": { "type": "trust", "settings": { "icon": "experiment", "label": "No\nPreservatives" } },
-        "t3": { "type": "trust", "settings": { "icon": "skillet", "label": "Handcrafted\nIn Small Batches" } },
-        "t4": { "type": "trust", "settings": { "icon": "favorite", "label": "Made With\nLove" } }
+        "t1": {
+          "type": "trust",
+          "settings": {
+            "illustration": "house",
+            "title": "100% Homemade",
+            "subtitle": "Ghar jaisa swaad, pure pyaar ke saath",
+            "label": "100% Homemade"
+          }
+        },
+        "t2": {
+          "type": "trust",
+          "settings": {
+            "illustration": "mortar",
+            "title": "No Preservatives",
+            "subtitle": "Koi artificial cheez nahi, sirf natural ingredients",
+            "label": "No Preservatives"
+          }
+        },
+        "t3": {
+          "type": "trust",
+          "settings": {
+            "illustration": "handi",
+            "title": "Handcrafted In Small Batches",
+            "subtitle": "Choti batches, bada swaad",
+            "label": "Handcrafted In Small Batches"
+          }
+        },
+        "t4": {
+          "type": "trust",
+          "settings": {
+            "illustration": "heart",
+            "title": "Made With Love",
+            "subtitle": "Har jar me hai humara dil",
+            "label": "Made With Love"
+          }
+        }
       },
       "block_order": ["s1", "s2", "s3", "t1", "t2", "t3", "t4"],
       "settings": {}

@@ -1,18 +1,27 @@
-{%- comment -%} Product card — matches storefront .bs-card {%- endcomment -%}
+{%- comment -%} Product card — vertical by default; layout: 'split' for homepage Best Sellers {%- endcomment -%}
 {%- liquid
   assign card_product = product
   assign variant = card_product.selected_or_first_available_variant
+  assign card_class = 'bs-card'
+  if layout == 'split'
+    assign card_class = card_class | append: ' bs-card--split'
+  endif
+  if badge_tone == 'gold'
+    assign badge_class = 'bs-card__badge bs-card__badge--gold'
+  else
+    assign badge_class = 'bs-card__badge bs-card__badge--olive'
+  endif
 -%}
-<article class="bs-card">
+<article class="{{ card_class }}">
   <a href="{{ card_product.url }}" class="bs-card__media">
     {%- if badge != blank -%}
-      <span class="bs-card__badge">{{ badge }}</span>
+      <span class="{{ badge_class }}">{{ badge }}</span>
     {%- elsif card_product.tags contains 'bestseller' or card_product.tags contains 'Best Seller' -%}
-      <span class="bs-card__badge">Best Seller</span>
+      <span class="bs-card__badge bs-card__badge--olive">Bestseller</span>
     {%- endif -%}
     {%- if card_product.featured_media -%}
       <img
-        src="{{ card_product.featured_media | image_url: width: 600 }}"
+        src="{{ card_product.featured_media | image_url: width: 700 }}"
         alt="{{ card_product.featured_media.alt | escape | default: card_product.title | escape }}"
         width="400"
         height="480"
@@ -27,10 +36,17 @@
       <a href="{{ card_product.url }}">{{ card_product.title }}</a>
     </h3>
     {%- if show_rating -%}
-      <div class="bs-card__rating"><span class="bs-card__stars" aria-hidden="true">★★★★★</span></div>
+      <div class="bs-card__rating">
+        <span class="bs-card__stars" aria-hidden="true">★★★★★</span>
+        {%- if review_count != blank -%}
+          <span class="bs-card__reviews">({{ review_count }})</span>
+        {%- endif -%}
+      </div>
     {%- endif -%}
     {%- if variant.title != 'Default Title' -%}
       <p class="bs-card__size">{{ variant.title }}</p>
+    {%- elsif card_product.metafields.custom.size != blank -%}
+      <p class="bs-card__size">{{ card_product.metafields.custom.size.value }}</p>
     {%- endif -%}
     {% render 'price', product: card_product %}
     {%- if variant.available -%}
@@ -40,10 +56,10 @@
         data-add-variant="{{ variant.id }}"
       >
         <span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span>
-        {{ 'products.product.add_to_cart' | t }}
+        Add to Cart
       </button>
     {%- else -%}
-      <button type="button" class="bs-card__btn" disabled>{{ 'products.product.sold_out' | t }}</button>
+      <button type="button" class="bs-card__btn" disabled>Sold out</button>
     {%- endif -%}
   </div>
 </article>

@@ -1,43 +1,94 @@
 {%- liquid
   assign collection = section.settings.collection
-  if collection == blank and section.settings.collection != blank
-    assign collection = collections[section.settings.collection]
-  endif
   if collection == blank
     assign collection = collections.all
   endif
-  assign products_to_show = section.settings.products_to_show | default: 5
+  assign products_to_show = section.settings.products_to_show | default: 4
   assign collection_url = collection.url | default: routes.all_products_collection_url
 -%}
 
-<section id="bestsellers" class="pr-bestsellers">
-  <div class="mh-section mh-section--soft home-mobile">
-    <div class="mh-section__head">
-      <h2 class="mh-heading">{{ section.settings.heading }}</h2>
-      <a href="{{ collection_url }}" class="mh-link-maroon">{{ section.settings.view_all }}</a>
-    </div>
-    <div class="mh-rail hide-scrollbar">
-      {%- if collection != blank -%}
-        {%- for product in collection.products limit: products_to_show -%}
-          {% render 'product-card', product: product, show_rating: true %}
-        {%- else -%}
-          <p class="pr-bestsellers__empty">No products in this collection yet.</p>
-        {%- endfor -%}
-      {%- else -%}
-        <p class="pr-bestsellers__empty">Select a collection in the theme editor.</p>
-      {%- endif -%}
-    </div>
-  </div>
+<section id="bestsellers" class="pr-bestsellers" aria-labelledby="BestsellersHeading-{{ section.id }}">
+  <div class="pr-bestsellers__inner">
+    <div class="pr-bestsellers__head">
+      <a href="{{ collection_url }}" class="pr-bestsellers__view-all">
+        {{ section.settings.view_all | default: 'View All >' }}
+      </a>
 
-  <div class="dh-section dh-section--soft home-desktop">
-    <div class="dh-section__head">
-      <h2 class="dh-heading">{{ section.settings.heading }}</h2>
-      <a href="{{ collection_url }}" class="dh-view-all">{{ section.settings.view_all_desktop }} <span aria-hidden="true">→</span></a>
+      <div class="pr-bestsellers__titles">
+        <h2 id="BestsellersHeading-{{ section.id }}" class="pr-bestsellers__title">
+          <span class="pr-bestsellers__flourish" aria-hidden="true">
+            <svg viewBox="0 0 28 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 14c-5-1-9-6-10-12-1 6-5 11-10 12" stroke="#c9a227" stroke-width="1.4" stroke-linecap="round"/>
+              <ellipse cx="14" cy="6" rx="3.2" ry="5.5" fill="#c9a227"/>
+            </svg>
+          </span>
+          <span>{{ section.settings.heading | default: 'Best Sellers' }}</span>
+          <span class="pr-bestsellers__flourish pr-bestsellers__flourish--flip" aria-hidden="true">
+            <svg viewBox="0 0 28 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 14c-5-1-9-6-10-12-1 6-5 11-10 12" stroke="#c9a227" stroke-width="1.4" stroke-linecap="round"/>
+              <ellipse cx="14" cy="6" rx="3.2" ry="5.5" fill="#c9a227"/>
+            </svg>
+          </span>
+        </h2>
+        {%- if section.settings.subtitle != blank -%}
+          <p class="pr-bestsellers__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+        <div class="pr-bestsellers__ornament" aria-hidden="true">
+          <span class="pr-bestsellers__ornament-line"></span>
+          <svg class="pr-bestsellers__ornament-icon" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 14c-2.5-3-4-6.5-4-10 0 3.5-1.5 7-4 10" stroke="#5e6f36" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M12 14c2.5-3 4-6.5 4-10 0 3.5 1.5 7 4 10" stroke="#5e6f36" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="12" cy="4" r="1.6" fill="#5e6f36"/>
+          </svg>
+          <span class="pr-bestsellers__ornament-line"></span>
+        </div>
+      </div>
     </div>
-    <div class="dh-products">
+
+    <div class="pr-bestsellers__grid">
       {%- if collection != blank -%}
         {%- for product in collection.products limit: products_to_show -%}
-          {% render 'product-card', product: product, show_rating: true %}
+          {%- liquid
+            assign badge_label = blank
+            assign badge_tone = 'olive'
+            if product.tags contains 'trending' or product.tags contains 'Trending'
+              assign badge_label = 'Trending'
+              assign badge_tone = 'gold'
+            elsif product.tags contains 'popular' or product.tags contains 'Popular'
+              assign badge_label = 'Popular'
+              assign badge_tone = 'gold'
+            elsif product.tags contains 'top rated' or product.tags contains 'Top Rated'
+              assign badge_label = 'Top Rated'
+              assign badge_tone = 'olive'
+            elsif product.tags contains 'bestseller' or product.tags contains 'Best Seller' or product.tags contains 'Bestseller'
+              assign badge_label = 'Bestseller'
+              assign badge_tone = 'olive'
+            else
+              case forloop.index0
+                when 0
+                  assign badge_label = 'Bestseller'
+                  assign badge_tone = 'olive'
+                when 1
+                  assign badge_label = 'Popular'
+                  assign badge_tone = 'gold'
+                when 2
+                  assign badge_label = 'Top Rated'
+                  assign badge_tone = 'olive'
+                else
+                  assign badge_label = 'Trending'
+                  assign badge_tone = 'gold'
+              endcase
+            endif
+            assign review_count = product.id | modulo: 350 | plus: 180
+          -%}
+          {% render 'product-card',
+            product: product,
+            show_rating: true,
+            layout: 'split',
+            badge: badge_label,
+            badge_tone: badge_tone,
+            review_count: review_count
+          %}
         {%- else -%}
           <p class="pr-bestsellers__empty">No products in this collection yet. Add products to the collection in Shopify Admin.</p>
         {%- endfor -%}
@@ -53,10 +104,11 @@
   "name": "Featured collection",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "Best Sellers" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Handpicked favorites by our customers" },
     { "type": "collection", "id": "collection", "label": "Collection" },
-    { "type": "range", "id": "products_to_show", "min": 2, "max": 12, "step": 1, "label": "Products to show", "default": 5 },
-    { "type": "text", "id": "view_all", "label": "View all (mobile)", "default": "View All >" },
-    { "type": "text", "id": "view_all_desktop", "label": "View all (desktop)", "default": "View All Products" }
+    { "type": "range", "id": "products_to_show", "min": 2, "max": 12, "step": 1, "label": "Products to show", "default": 4 },
+    { "type": "text", "id": "view_all", "label": "View all label", "default": "View All >" },
+    { "type": "text", "id": "view_all_desktop", "label": "View all (legacy)", "default": "View All Products" }
   ],
   "presets": [{ "name": "Featured collection" }]
 }

@@ -72,6 +72,26 @@
         "view_all_desktop": "View All Products"
       }
     },
+    "process": {
+      "type": "pickle-process",
+      "blocks": {
+        "p1": { "type": "step", "settings": { "title": "Carefully Selected Ingredients", "fallback_asset": "aam.png", "sketch": "mango" } },
+        "p2": { "type": "step", "settings": { "title": "Blended With Authentic Spices", "fallback_asset": "benefit-preservatives.png", "sketch": "spices" } },
+        "p3": { "type": "step", "settings": { "title": "Handmixed With Care", "fallback_asset": "banner-kitchen.png", "sketch": "mix" } },
+        "p4": { "type": "step", "settings": { "title": "Naturally Aged To Perfection", "fallback_asset": "benefit-batches.png", "sketch": "jar" } },
+        "p5": { "type": "step", "settings": { "title": "Packed Hygienically With Love", "fallback_asset": "product-aam.png", "sketch": "pack" } },
+        "f1": { "type": "feature", "settings": { "icon": "home", "title": "Homemade Taste" } },
+        "f2": { "type": "feature", "settings": { "icon": "eco", "title": "No Artificial Preservatives" } },
+        "f3": { "type": "feature", "settings": { "icon": "soup_kitchen", "title": "Traditional Recipes" } },
+        "f4": { "type": "feature", "settings": { "icon": "favorite", "title": "Small Batch Made" } }
+      },
+      "block_order": ["p1", "p2", "p3", "p4", "p5", "f1", "f2", "f3", "f4"],
+      "settings": {
+        "heading": "Our Pickle Making Process",
+        "hero_fallback": "story-kitchen.png",
+        "hero_alt": "Traditional pickle making"
+      }
+    },
     "why": {
       "type": "why-us",
       "blocks": {
@@ -123,5 +143,5 @@
       }
     }
   },
-  "order": ["hero", "categories", "bestsellers", "why", "story", "reviews", "blog"]
+  "order": ["hero", "categories", "bestsellers", "process", "why", "story", "reviews", "blog"]
 }

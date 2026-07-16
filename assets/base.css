@@ -8755,32 +8755,36 @@ footer.site-footer.mh-footer {
 /* ===== Homepage Best Sellers — split cards (reference layout) ===== */
 .pr-bestsellers {
   background: #faf8f2;
-  padding: 1.5rem 0.85rem 1.85rem;
+  padding: 1.35rem 0 1.6rem;
 }
 
 .pr-bestsellers__inner {
   max-width: 1100px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .pr-bestsellers__head {
-  position: relative;
-  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
   text-align: center;
+  padding: 0 0.85rem;
 }
 
 .pr-bestsellers__view-all {
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: static;
+  order: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.4rem 0.85rem;
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.95rem;
   border: 1px solid rgba(94, 111, 54, 0.35);
   border-radius: 999px;
   font-family: var(--font-body);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -8797,7 +8801,9 @@ footer.site-footer.mh-footer {
 }
 
 .pr-bestsellers__titles {
-  padding: 0 4.5rem;
+  order: 1;
+  padding: 0;
+  width: 100%;
 }
 
 .pr-bestsellers__title {
@@ -8864,7 +8870,10 @@ footer.site-footer.mh-footer {
 .pr-bestsellers__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.85rem;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .pr-bestsellers__empty {
@@ -8876,16 +8885,18 @@ footer.site-footer.mh-footer {
   color: #6b5b52;
 }
 
-/* Split product card */
+/* Split product card — full width on mobile */
 .pr-bestsellers .bs-card--split {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
   align-items: stretch;
   gap: 0;
+  width: 100%;
+  max-width: none;
   min-width: 0;
   background: #f3efe6;
   border: none;
-  border-radius: 22px;
+  border-radius: 0;
   padding: 0;
   overflow: hidden;
   box-shadow: none;
@@ -9025,22 +9036,43 @@ footer.site-footer.mh-footer {
   color: #fff !important;
 }
 
-@media (max-width: 420px) {
-  .pr-bestsellers__titles {
-    padding: 1.7rem 0 0;
+@media (max-width: 639px) {
+  .pr-bestsellers .bs-card--split .bs-card__price {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
   }
 
-  .pr-bestsellers__view-all {
-    top: 0;
-    right: 0;
-    font-size: 0.6rem;
-    padding: 0.32rem 0.65rem;
+  .pr-bestsellers .bs-card--split .bs-card__off {
+    flex-basis: auto;
   }
 }
 
 @media (min-width: 640px) {
   .pr-bestsellers {
     padding: 2rem 1.25rem 2.35rem;
+  }
+
+  .pr-bestsellers__head {
+    position: relative;
+    display: block;
+    padding: 0;
+    margin-bottom: 1.35rem;
+  }
+
+  .pr-bestsellers__titles {
+    order: unset;
+    padding: 0 5.5rem;
+  }
+
+  .pr-bestsellers__view-all {
+    position: absolute;
+    top: 0;
+    right: 0;
+    order: unset;
+    margin-top: 0;
+    font-size: 0.72rem;
+    padding: 0.42rem 0.9rem;
   }
 
   .pr-bestsellers__grid {

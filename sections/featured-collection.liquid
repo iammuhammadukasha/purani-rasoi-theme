@@ -94,7 +94,7 @@
     </div>
 
     <a href="{{ collection_url }}" class="pr-bestsellers__view-all">
-      {{ section.settings.view_all | default: 'View All >' }}
+      {{ section.settings.view_all | default: 'View More' }}
     </a>
   </div>
 </section>
@@ -107,7 +107,7 @@
     { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Handpicked favorites by our customers" },
     { "type": "collection", "id": "collection", "label": "Collection" },
     { "type": "range", "id": "products_to_show", "min": 2, "max": 12, "step": 1, "label": "Products to show", "default": 4 },
-    { "type": "text", "id": "view_all", "label": "View all label", "default": "View All >" },
+    { "type": "text", "id": "view_all", "label": "View all label", "default": "View More" },
     { "type": "text", "id": "view_all_desktop", "label": "View all (legacy)", "default": "View All Products" }
   ],
   "presets": [{ "name": "Featured collection" }]

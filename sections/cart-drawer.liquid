@@ -1,15 +1,7 @@
 {%- comment -%}
-  Slide-in cart drawer (opens from left with fade).
+  Slide-in cart drawer (opens from right with fade).
   Refreshed via Section Rendering API: /?sections=cart-drawer
 {%- endcomment -%}
-{%- assign threshold = settings.free_shipping_threshold | default: 49900 -%}
-{%- assign remaining = threshold | minus: cart.total_price -%}
-{%- if remaining < 0 -%}{%- assign remaining = 0 -%}{%- endif -%}
-{%- assign progress = 100 -%}
-{%- if threshold > 0 -%}
-  {%- assign progress = cart.total_price | times: 100 | divided_by: threshold -%}
-  {%- if progress > 100 -%}{%- assign progress = 100 -%}{%- endif -%}
-{%- endif -%}
 
 <div
   id="CartDrawer"
@@ -49,22 +41,6 @@
 
     <div class="pr-cart-drawer__body" data-cart-drawer-body>
       {%- if cart.item_count > 0 -%}
-        <div class="pr-cart-drawer__ship" data-free-ship>
-          {%- if remaining == 0 -%}
-            <p class="pr-cart-drawer__ship-msg is-success">Congratulations! You've earned free shipping!</p>
-          {%- else -%}
-            <p class="pr-cart-drawer__ship-msg">
-              Add {{ remaining | money }} more for <strong>free shipping</strong>
-            </p>
-          {%- endif -%}
-          <div class="pr-cart-drawer__ship-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ progress }}">
-            <span class="pr-cart-drawer__ship-fill" style="width: {{ progress }}%;"></span>
-            <span class="pr-cart-drawer__ship-gift" aria-hidden="true">
-              <span class="material-symbols-outlined">redeem</span>
-            </span>
-          </div>
-        </div>
-
         <ul class="pr-cart-drawer__items">
           {%- for item in cart.items -%}
             <li class="pr-cart-drawer__item" data-cart-item data-key="{{ item.key }}">

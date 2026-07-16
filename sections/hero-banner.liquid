@@ -48,8 +48,8 @@
               <img
                 src="{{ slide_src }}"
                 alt="{{ slide_alt | escape }}"
-                width="1920"
-                height="1071"
+                width="{{ slide_w }}"
+                height="{{ slide_h }}"
                 {% if i == 1 %}loading="eager"{% else %}loading="lazy"{% endif %}
               >
             </a>
@@ -76,6 +76,15 @@
       {%- endif -%}
     </div>
 
+    <div class="hero-slider__controls">
+      <button type="button" class="hero-slider__arrow hero-slider__arrow--prev" data-hero-prev aria-label="Previous slide">
+        <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+      </button>
+      <div class="hero-slider__dots" data-hero-dots role="tablist" aria-label="Hero slides"></div>
+      <button type="button" class="hero-slider__arrow hero-slider__arrow--next" data-hero-next aria-label="Next slide">
+        <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+      </button>
+    </div>
   </section>
 
   {%- assign trust_count = 0 -%}

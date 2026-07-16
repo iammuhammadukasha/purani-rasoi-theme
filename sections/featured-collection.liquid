@@ -10,10 +10,6 @@
 <section id="bestsellers" class="pr-bestsellers" aria-labelledby="BestsellersHeading-{{ section.id }}">
   <div class="pr-bestsellers__inner">
     <div class="pr-bestsellers__head">
-      <a href="{{ collection_url }}" class="pr-bestsellers__view-all">
-        {{ section.settings.view_all | default: 'View All >' }}
-      </a>
-
       <div class="pr-bestsellers__titles">
         <h2 id="BestsellersHeading-{{ section.id }}" class="pr-bestsellers__title">
           <span class="pr-bestsellers__flourish" aria-hidden="true">
@@ -96,6 +92,10 @@
         <p class="pr-bestsellers__empty">Select a collection in the theme editor to show products.</p>
       {%- endif -%}
     </div>
+
+    <a href="{{ collection_url }}" class="pr-bestsellers__view-all">
+      {{ section.settings.view_all | default: 'View All >' }}
+    </a>
   </div>
 </section>
 

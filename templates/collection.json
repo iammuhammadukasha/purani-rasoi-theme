@@ -6,29 +6,29 @@
         "trust_1": {
           "type": "trust",
           "settings": {
-            "icon": "soup_kitchen",
-            "label": "100%<br>Homemade"
+            "label": "100% Homemade",
+            "fallback_asset": "benefit-homemade.png"
           }
         },
         "trust_2": {
           "type": "trust",
           "settings": {
-            "icon": "science",
-            "label": "No<br>Preservatives"
+            "label": "No Preservatives",
+            "fallback_asset": "benefit-preservatives.png"
           }
         },
         "trust_3": {
           "type": "trust",
           "settings": {
-            "icon": "skillet",
-            "label": "Small Batch<br>Mode"
+            "label": "Traditional Recipes",
+            "fallback_asset": "benefit-batches.png"
           }
         },
         "trust_4": {
           "type": "trust",
           "settings": {
-            "icon": "shopping_bag",
-            "label": "Secure<br>Packaging"
+            "label": "Small Batch Made",
+            "fallback_asset": "benefit-love.png"
           }
         },
         "promise_1": {

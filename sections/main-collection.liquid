@@ -25,9 +25,19 @@
   <section class="shop-usp" aria-label="Brand promises">
     {%- for block in section.blocks -%}
       {%- if block.type == 'trust' -%}
+        {%- liquid
+          if block.settings.image != blank
+            assign trust_img = block.settings.image | image_url: width: 240
+          else
+            assign trust_fallback = block.settings.fallback_asset | default: 'benefit-homemade.png'
+            assign trust_img = trust_fallback | asset_url
+          endif
+        -%}
         <div class="shop-usp__item" {{ block.shopify_attributes }}>
-          <span class="shop-usp__icon material-symbols-outlined" aria-hidden="true">{{ block.settings.icon }}</span>
-          <span>{{ block.settings.label }}</span>
+          <span class="shop-usp__icon" aria-hidden="true">
+            <img src="{{ trust_img }}" alt="" width="120" height="120" loading="lazy">
+          </span>
+          <h3 class="shop-usp__title">{{ block.settings.label }}</h3>
         </div>
       {%- endif -%}
     {%- endfor -%}
@@ -248,8 +258,10 @@
       "type": "trust",
       "name": "Trust badge",
       "settings": [
-        { "type": "text", "id": "icon", "label": "Material icon name", "default": "soup_kitchen" },
-        { "type": "html", "id": "label", "label": "Label (use <br> for line break)", "default": "100%<br>Homemade" }
+        { "type": "text", "id": "label", "label": "Heading", "default": "100% Homemade" },
+        { "type": "image_picker", "id": "image", "label": "Icon image" },
+        { "type": "text", "id": "fallback_asset", "label": "Fallback asset filename", "default": "benefit-homemade.png" },
+        { "type": "text", "id": "icon", "label": "Legacy icon name (unused)", "default": "soup_kitchen" }
       ]
     },
     {
@@ -265,10 +277,10 @@
     {
       "name": "Collection products",
       "blocks": [
-        { "type": "trust", "settings": { "icon": "soup_kitchen", "label": "100%<br>Homemade" } },
-        { "type": "trust", "settings": { "icon": "science", "label": "No<br>Preservatives" } },
-        { "type": "trust", "settings": { "icon": "skillet", "label": "Small Batch<br>Mode" } },
-        { "type": "trust", "settings": { "icon": "shopping_bag", "label": "Secure<br>Packaging" } },
+        { "type": "trust", "settings": { "label": "100% Homemade", "fallback_asset": "benefit-homemade.png" } },
+        { "type": "trust", "settings": { "label": "No Preservatives", "fallback_asset": "benefit-preservatives.png" } },
+        { "type": "trust", "settings": { "label": "Traditional Recipes", "fallback_asset": "benefit-batches.png" } },
+        { "type": "trust", "settings": { "label": "Small Batch Made", "fallback_asset": "benefit-love.png" } },
         { "type": "promise", "settings": { "icon": "emoji_people", "label": "Made with Tradition" } },
         { "type": "promise", "settings": { "icon": "wb_sunny", "label": "Sun Dried & Natural" } },
         { "type": "promise", "settings": { "icon": "spa", "label": "Premium Ingredients" } },

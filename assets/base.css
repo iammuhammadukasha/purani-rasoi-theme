@@ -2904,7 +2904,24 @@ a {
 }
 
 .pdp-related {
-  padding: 1.35rem 0 0.75rem;
+  padding: 0.25rem 0 0.75rem;
+}
+
+/* Related products reuse Best Sellers card grid — neutralize old rail layout */
+.pdp-related-wrap .pr-bestsellers.pdp-related {
+  padding: 0.35rem 0 0.5rem;
+  background: transparent;
+  max-width: min(1400px, 96vw);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pdp-related-wrap .pr-bestsellers__grid {
+  margin-top: 0.35rem;
+}
+
+.pdp-related-wrap .pr-bestsellers__view-all {
+  display: none;
 }
 
 .pdp-related h2 {
@@ -2926,66 +2943,10 @@ a {
 
 .pdp-related h2::before,
 .pdp-related h2::after {
-  content: "";
-  width: 2.25rem;
-  height: 1px;
-  background: rgba(94, 111, 54, 0.35);
+  content: none;
 }
 
 .pdp-related__rail {
-  display: flex;
-  gap: 0.75rem;
-  overflow-x: auto;
-  padding: 0 0.1rem 0.35rem;
-  scrollbar-width: none;
-}
-
-.pdp-related__rail::-webkit-scrollbar {
-  display: none;
-}
-
-.pdp-related__rail .bs-card,
-.pdp-related__card {
-  flex: 0 0 46%;
-  max-width: 11.5rem;
-  min-width: 9.5rem;
-  padding: 0.55rem;
-  border: 1px solid rgba(94, 111, 54, 0.12);
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: none;
-}
-
-.pdp-related__rail .bs-card__media,
-.pdp-related__card .bs-card__media {
-  margin-bottom: 0.45rem;
-  aspect-ratio: 1;
-  border-radius: 8px;
-  background: #f3f4ed;
-}
-
-.pdp-related__rail .bs-card__media img,
-.pdp-related__card .bs-card__media img {
-  width: 92%;
-  height: 92%;
-  max-width: 92%;
-  max-height: 92%;
-  object-fit: contain;
-}
-
-.pdp-related__rail .bs-card__title {
-  font-family: var(--font-body);
-  font-size: var(--fs-product);
-  font-weight: var(--fw-medium);
-  margin-bottom: 0.25rem;
-}
-
-.pdp-related__rail .bs-card__btn {
-  display: none;
-}
-
-.pdp-related__rail .bs-card__rating,
-.pdp-related__rail .bs-card__size {
   display: none;
 }
 
@@ -7616,11 +7577,11 @@ footer.site-footer.mh-footer {
 
 .pdp-related-wrap {
   background: #faf8f2;
-  padding: 0.75rem 1rem 1rem;
+  padding: 1rem 1rem 1.35rem;
 }
 
 .pdp-related {
-  padding: 0.25rem 0 0.75rem;
+  padding: 0.25rem 0 0.5rem;
 }
 
 .pdp-acc {
@@ -9348,25 +9309,25 @@ footer.site-footer.mh-footer {
   }
 
   .pr-bestsellers .bs-card--split .bs-card__stars {
-    font-size: 0.7rem;
+    font-size: 0.92rem;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__reviews,
   .pr-bestsellers .bs-card--split .bs-card__size {
-    font-size: 0.7rem;
+    font-size: 0.85rem;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__price strong {
-    font-size: 1.02rem !important;
+    font-size: 1.22rem !important;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__price s {
     display: block !important;
-    font-size: 0.65rem !important;
+    font-size: 0.82rem !important;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__off {
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     padding: 0.22rem 0.5rem;
   }
 

@@ -1,5 +1,6 @@
 {%- comment -%}
   Placed after FAQs in the footer group. Only renders on product pages with items.
+  Cards match homepage Best Sellers (split layout).
 {%- endcomment -%}
 {%- if product != blank -%}
   {%- assign related = product.collections.first -%}
@@ -18,14 +19,60 @@
 
   {%- if related_count > 0 -%}
     <section class="pdp-related-wrap" aria-labelledby="Related-{{ section.id }}">
-      <div class="pdp-related max-w-site mx-auto">
-        <h2 id="Related-{{ section.id }}">{{ section.settings.heading | default: 'You May Also Like' }}</h2>
-        <div class="pdp-related__rail hide-scrollbar">
+      <div class="pdp-related pr-bestsellers max-w-site mx-auto">
+        {%- assign related_heading = section.settings.heading | default: 'You May Also Like' -%}
+        {%- assign related_heading_id = 'Related-' | append: section.id -%}
+        {% render 'section-heading',
+          heading: related_heading,
+          heading_id: related_heading_id
+        %}
+
+        <div class="pr-bestsellers__grid">
           {%- assign shown = 0 -%}
           {%- for rel in related.products -%}
             {%- if shown >= section.settings.products_to_show -%}{%- break -%}{%- endif -%}
             {%- unless rel.id == product.id -%}
-              {% render 'product-card', product: rel %}
+              {%- liquid
+                assign badge_label = blank
+                assign badge_tone = 'olive'
+                if rel.tags contains 'trending' or rel.tags contains 'Trending'
+                  assign badge_label = 'Trending'
+                  assign badge_tone = 'gold'
+                elsif rel.tags contains 'popular' or rel.tags contains 'Popular'
+                  assign badge_label = 'Popular'
+                  assign badge_tone = 'gold'
+                elsif rel.tags contains 'top rated' or rel.tags contains 'Top Rated'
+                  assign badge_label = 'Top Rated'
+                  assign badge_tone = 'olive'
+                elsif rel.tags contains 'bestseller' or rel.tags contains 'Best Seller' or rel.tags contains 'Bestseller'
+                  assign badge_label = 'Bestseller'
+                  assign badge_tone = 'olive'
+                else
+                  case shown
+                    when 0
+                      assign badge_label = 'Bestseller'
+                      assign badge_tone = 'olive'
+                    when 1
+                      assign badge_label = 'Popular'
+                      assign badge_tone = 'gold'
+                    when 2
+                      assign badge_label = 'Top Rated'
+                      assign badge_tone = 'olive'
+                    else
+                      assign badge_label = 'Trending'
+                      assign badge_tone = 'gold'
+                  endcase
+                endif
+                assign review_count = rel.id | modulo: 350 | plus: 180
+              -%}
+              {% render 'product-card',
+                product: rel,
+                show_rating: true,
+                layout: 'split',
+                badge: badge_label,
+                badge_tone: badge_tone,
+                review_count: review_count
+              %}
               {%- assign shown = shown | plus: 1 -%}
             {%- endunless -%}
           {%- endfor -%}
@@ -54,7 +101,7 @@
       "max": 12,
       "step": 1,
       "label": "Products to show",
-      "default": 8
+      "default": 4
     }
   ],
   "presets": [{ "name": "Related products" }]

@@ -95,10 +95,10 @@
     "why": {
       "type": "why-us",
       "blocks": {
-        "w1": { "type": "item", "settings": { "icon": "home", "title": "Ghar Jaisa Swad", "text": "Bilkul waise hi jaise maa banaya karti thi." } },
-        "w2": { "type": "item", "settings": { "icon": "eco", "title": "No Preservatives", "text": "Koi artificial color ya preservatives nahi." } },
-        "w3": { "type": "item", "settings": { "icon": "auto_stories", "title": "Traditional Recipes", "text": "Purani aur authentic vidhi se tayyar." } },
-        "w4": { "type": "item", "settings": { "icon": "package_2", "title": "Small Batch Made", "text": "Har batch fresh aur specially aapke liye." } }
+        "w1": { "type": "item", "settings": { "title": "Ghar Jaisa Swaad", "text": "Wahi pyaar, wahi ghar jaisa swaad.", "fallback_asset": "benefit-homemade.png" } },
+        "w2": { "type": "item", "settings": { "title": "No Preservatives", "text": "Koi artificial cheez nahi, sirf natural ingredients.", "fallback_asset": "benefit-preservatives.png" } },
+        "w3": { "type": "item", "settings": { "title": "Traditional Recipes", "text": "Purani recipes, nayi pehchaan ke saath.", "fallback_asset": "benefit-batches.png" } },
+        "w4": { "type": "item", "settings": { "title": "Small Batch Made", "text": "Choti batches, zyada dhyaan, behtar swaad.", "fallback_asset": "benefit-love.png" } }
       },
       "block_order": ["w1", "w2", "w3", "w4"],
       "settings": { "heading": "Why Purani Rasoi" }

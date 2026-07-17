@@ -9620,13 +9620,230 @@ footer.site-footer.mh-footer {
   }
 }
 
-/* Hide Why Us olive benefits strip on desktop (mobile keeps mh-why) */
-@media (min-width: 1024px) {
+/* ===== Why Purani Rasoi — circular feature cards ===== */
+.pr-why-section {
+  background: #faf8f2;
+}
+
+.pr-why {
+  background: #faf8f2;
+  padding: 1.75rem 0.85rem 2rem;
+}
+
+.pr-why__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.pr-why__head {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.pr-why__title {
+  margin: 0 0 0.45rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 4.4vw, 1.7rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #3d4a24;
+  line-height: 1.2;
+}
+
+.pr-why__heading-text {
+  white-space: nowrap;
+}
+
+.pr-why__flourish {
+  width: 2.5rem;
+  height: auto;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.pr-why__flourish img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.pr-why__flourish--flip {
+  transform: scaleX(-1);
+}
+
+.pr-why__rule {
+  position: relative;
+  width: min(14rem, 60vw);
+  height: 1px;
+  margin: 0.35rem auto 0;
+  background: linear-gradient(90deg, transparent, #c9a227 12%, #c9a227 88%, transparent);
+}
+
+.pr-why__rule::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.55rem;
+  height: 0.55rem;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(circle at 50% 20%, #c9a227 0 28%, transparent 30%),
+    radial-gradient(circle at 50% 80%, #c9a227 0 28%, transparent 30%),
+    radial-gradient(circle at 20% 50%, #c9a227 0 28%, transparent 30%),
+    radial-gradient(circle at 80% 50%, #c9a227 0 28%, transparent 30%);
+}
+
+.pr-why__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 0.85rem;
+}
+
+.pr-why__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 0;
+  padding: 0 0.25rem;
+}
+
+.pr-why__circle {
+  width: min(42vw, 8.5rem);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(94, 111, 54, 0.1);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 0.55rem;
+  box-sizing: border-box;
+}
+
+.pr-why__circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.pr-why__leaf {
+  display: flex;
+  margin: 0.55rem 0 0.4rem;
+  width: 1.5rem;
+  height: 0.85rem;
+}
+
+.pr-why__leaf svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.pr-why__item-title {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-display);
+  font-size: clamp(0.72rem, 2.8vw, 0.88rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #3d4a24;
+  line-height: 1.25;
+}
+
+.pr-why__item-text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(0.68rem, 2.5vw, 0.8rem);
+  font-weight: 500;
+  color: #5c534a;
+  line-height: 1.4;
+  max-width: 14rem;
+}
+
+@media (min-width: 768px) {
   .pr-why {
-    display: none !important;
-    height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
+    padding: 2.5rem 1.25rem 2.75rem;
+  }
+
+  .pr-why__head {
+    margin-bottom: 2rem;
+  }
+
+  .pr-why__title {
+    font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+    gap: 0.65rem;
+  }
+
+  .pr-why__flourish {
+    width: 3.4rem;
+  }
+
+  .pr-why__rule {
+    width: min(18rem, 42vw);
+  }
+
+  .pr-why__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    align-items: start;
+  }
+
+  .pr-why__item {
+    position: relative;
+    padding: 0 0.85rem;
+  }
+
+  .pr-why__item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 1.75rem;
+    right: 0;
+    width: 0;
+    height: 5.5rem;
+    border-right: 1px solid rgba(201, 162, 39, 0.45);
+  }
+
+  .pr-why__item:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: calc(1.75rem + 2.55rem);
+    right: -0.2rem;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: #c9a227;
+    z-index: 1;
+  }
+
+  .pr-why__circle {
+    width: clamp(7.5rem, 11vw, 9.5rem);
+    padding: 0.7rem;
+  }
+
+  .pr-why__leaf {
+    width: 1.75rem;
+    height: 1rem;
+    margin: 0.7rem 0 0.5rem;
+  }
+
+  .pr-why__item-title {
+    font-size: clamp(0.82rem, 1.1vw, 0.95rem);
+    letter-spacing: 0.06em;
+  }
+
+  .pr-why__item-text {
+    font-size: clamp(0.78rem, 1vw, 0.88rem);
+    max-width: 15rem;
   }
 }
+

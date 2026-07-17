@@ -43,7 +43,7 @@
           }
         }
       },
-      "block_order": ["s1", "s2", "s3", "t1", "t2", "t3", "t4"],
+      "block_order": ["s2", "s1", "s3", "t1", "t2", "t3", "t4"],
       "settings": {}
     },
     "categories": {

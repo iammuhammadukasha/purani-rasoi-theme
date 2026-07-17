@@ -11,7 +11,8 @@
     data-love-carousel
     data-interval="{{ section.settings.interval | default: 4000 }}"
   >
-    <h2 id="Reviews-{{ section.id }}" class="mh-heading">{{ section.settings.heading_mobile }}</h2>
+    {%- assign reviews_heading_id = 'Reviews-' | append: section.id -%}
+    {% render 'section-heading', heading: section.settings.heading_mobile, heading_id: reviews_heading_id %}
 
     <div class="love-carousel__viewport">
       {%- for block in section.blocks -%}
@@ -49,7 +50,7 @@
   </div>
 
   <div class="dh-reviews home-desktop">
-    <h2 class="dh-heading dh-heading--light">{{ section.settings.heading }}</h2>
+    {% render 'section-heading', heading: section.settings.heading, class: 'pr-head--light' %}
     <div class="dh-reviews__grid">
       {%- for block in section.blocks -%}
         <blockquote {{ block.shopify_attributes }}>

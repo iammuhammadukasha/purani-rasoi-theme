@@ -123,24 +123,7 @@
         "heading": "What Our Customers Say",
         "heading_mobile": "Customer Love"
       }
-    },
-    "blog": {
-      "type": "blog-cards",
-      "blocks": {
-        "b1": { "type": "post", "settings": { "title": "Aam Ke Achar Ke Fayde", "fallback_asset": "product-aam.png" } },
-        "b2": { "type": "post", "settings": { "title": "Achar Ke Saath Perfect Meals", "fallback_asset": "story-kitchen.png" } },
-        "b3": { "type": "post", "settings": { "title": "Hamari Traditional Recipe", "fallback_asset": "banner-kitchen.png" } },
-        "b4": { "type": "post", "settings": { "title": "Achar Ko Kaise Store Karein", "fallback_asset": "product-aam-kathal.png" } }
-      },
-      "block_order": ["b1", "b2", "b3", "b4"],
-      "settings": {
-        "heading": "Recipes & Blog",
-        "view_all": "View All >",
-        "view_all_desktop": "View All Articles",
-        "view_all_link": "/blogs/news",
-        "posts_to_show": 4
-      }
     }
   },
-  "order": ["hero", "categories", "bestsellers", "process", "why", "story", "reviews", "blog"]
+  "order": ["hero", "categories", "bestsellers", "process", "why", "story", "reviews"]
 }

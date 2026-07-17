@@ -1,6 +1,7 @@
 <section class="pr-faq" aria-labelledby="Faq-{{ section.id }}">
   <div class="mh-section home-mobile">
-    <h2 id="Faq-{{ section.id }}" class="mh-heading">{{ section.settings.heading }}</h2>
+    {%- assign faq_heading_id = 'Faq-' | append: section.id -%}
+    {% render 'section-heading', heading: section.settings.heading, heading_id: faq_heading_id %}
     <div class="pr-faq__list">
       {%- for block in section.blocks -%}
         <details class="pr-faq__item" {{ block.shopify_attributes }}{% if forloop.first and section.settings.open_first %} open{% endif %}>
@@ -17,7 +18,7 @@
   </div>
 
   <div class="dh-section home-desktop">
-    <h2 class="dh-heading">{{ section.settings.heading }}</h2>
+    {% render 'section-heading', heading: section.settings.heading %}
     <div class="pr-faq__list pr-faq__list--desktop">
       {%- for block in section.blocks -%}
         <details class="pr-faq__item" {{ block.shopify_attributes }}{% if forloop.first and section.settings.open_first %} open{% endif %}>

@@ -2444,9 +2444,19 @@ a {
 
 .pdp-price__row {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 0.65rem;
+  width: 100%;
+}
+
+.pdp-price__amounts {
+  display: flex;
   align-items: baseline;
   flex-wrap: wrap;
   gap: 0.5rem;
+  min-width: 0;
 }
 
 .pdp-price strong,
@@ -2476,6 +2486,9 @@ a {
   font-size: 0.7rem;
   font-weight: var(--fw-bold);
   line-height: 1.2;
+  margin-left: auto;
+  flex-shrink: 0;
+  align-self: center;
 }
 
 .pdp-price__tax {
@@ -10151,5 +10164,105 @@ footer.site-footer.mh-footer {
 
   .pr-variant-picker__panel {
     max-width: 24rem;
+  }
+}
+
+/* Shared section heading — leaf flourishes + gold diamond rule */
+.pr-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin: 0 0 1rem;
+}
+
+.pr-head__title {
+  margin: 0 0 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 4.5vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #3d4a24;
+  line-height: 1.2;
+}
+
+.pr-head--light .pr-head__title {
+  color: #3d4a24;
+}
+
+.pr-head__text {
+  white-space: nowrap;
+}
+
+.pr-head__flourish {
+  width: 2.6rem;
+  height: auto;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.pr-head__flourish img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.pr-head__flourish--flip {
+  transform: scaleX(-1);
+}
+
+.pr-head__rule {
+  position: relative;
+  width: min(12rem, 55vw);
+  height: 1px;
+  margin: 0.2rem auto 0;
+  background: linear-gradient(90deg, transparent, #c9a227 12%, #c9a227 88%, transparent);
+}
+
+.pr-head__rule::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.42rem;
+  height: 0.42rem;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: #c9a227;
+  border: 1px solid #faf8f2;
+  box-sizing: border-box;
+}
+
+.pr-reviews .pr-head,
+.pdp-reviews .pr-head,
+.pr-faq .pr-head,
+.pr-faq-section .pr-head {
+  margin-bottom: 1.1rem;
+}
+
+@media (min-width: 768px) {
+  .pr-head__title {
+    font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+    gap: 0.65rem;
+  }
+
+  .pr-head__flourish {
+    width: 3.4rem;
+  }
+
+  .pr-head__rule {
+    width: min(16rem, 40vw);
+    margin-top: 0.45rem;
+  }
+
+  .pr-head__text {
+    white-space: normal;
   }
 }

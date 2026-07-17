@@ -1,0 +1,19 @@
+{%- comment -%}
+  Shared section heading: leaf flourishes + gold diamond rule.
+  {% render 'section-heading', heading: 'Title', heading_id: 'Id-123' %}
+{%- endcomment -%}
+<div class="pr-head{% if class != blank %} {{ class }}{% endif %}">
+  <h2
+    {% if heading_id != blank %}id="{{ heading_id }}"{% endif %}
+    class="pr-head__title{% if title_class != blank %} {{ title_class }}{% endif %}"
+  >
+    <span class="pr-head__flourish" aria-hidden="true">
+      <img src="{{ 'cats-flourish-leaf.png' | asset_url }}" alt="" width="84" height="36" loading="lazy">
+    </span>
+    <span class="pr-head__text">{{ heading }}</span>
+    <span class="pr-head__flourish pr-head__flourish--flip" aria-hidden="true">
+      <img src="{{ 'cats-flourish-leaf.png' | asset_url }}" alt="" width="84" height="36" loading="lazy">
+    </span>
+  </h2>
+  <div class="pr-head__rule" aria-hidden="true"></div>
+</div>

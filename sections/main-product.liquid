@@ -12,18 +12,6 @@
 
 <div class="pdp" data-pdp data-section-id="{{ section.id }}">
   <div class="pdp__inner max-w-site mx-auto">
-    <nav class="pdp-crumbs" aria-label="Breadcrumb">
-      <a href="{{ routes.root_url }}">Home</a>
-      <span aria-hidden="true">›</span>
-      <a href="{{ routes.all_products_collection_url }}">Shop</a>
-      {%- if product.collections.first -%}
-        <span aria-hidden="true">›</span>
-        <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
-      {%- endif -%}
-      <span aria-hidden="true">›</span>
-      <span aria-current="page">{{ product.title }}</span>
-    </nav>
-
     <div class="pdp-layout">
       <section class="pdp-gallery" aria-label="Product images">
         {%- liquid
@@ -115,9 +103,13 @@
 
           <div class="pdp-price" id="price-{{ section.id }}" data-pdp-price>
             <div class="pdp-price__row">
-              <strong data-price-current>{{ current_variant.price | money }}</strong>
+              <div class="pdp-price__amounts">
+                <strong data-price-current>{{ current_variant.price | money }}</strong>
+                {%- if current_variant.compare_at_price > current_variant.price -%}
+                  <s data-price-compare>{{ current_variant.compare_at_price | money }}</s>
+                {%- endif -%}
+              </div>
               {%- if current_variant.compare_at_price > current_variant.price -%}
-                <s data-price-compare>{{ current_variant.compare_at_price | money }}</s>
                 {%- assign save = current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round -%}
                 <span class="pdp-price__off" data-price-off>{{ save }}% OFF</span>
               {%- endif -%}
@@ -381,7 +373,8 @@
         data-love-carousel
         data-interval="{{ section.settings.reviews_interval | default: 4000 }}"
       >
-        <h2 id="Reviews-{{ section.id }}" class="mh-heading">{{ review_heading_m }}</h2>
+        {%- assign reviews_heading_id = 'Reviews-' | append: section.id -%}
+        {% render 'section-heading', heading: review_heading_m, heading_id: reviews_heading_id %}
         <div class="love-carousel__viewport">
           {%- if review_blocks.size > 0 -%}
             {%- for block in review_blocks -%}
@@ -450,7 +443,7 @@
       </div>
 
       <div class="dh-reviews home-desktop">
-        <h2 class="dh-heading dh-heading--light">{{ review_heading_d }}</h2>
+        {% render 'section-heading', heading: review_heading_d, class: 'pr-head--light' %}
         <div class="dh-reviews__grid">
           {%- if review_blocks.size > 0 -%}
             {%- for block in review_blocks -%}
@@ -618,10 +611,12 @@
       idInput.value = v.id;
       const priceEl = document.getElementById('price-{{ section.id }}');
       if (priceEl) {
-        let row = '<div class="pdp-price__row"><strong data-price-current">' + money(v.price) + '</strong>';
+        let row = '<div class="pdp-price__row"><div class="pdp-price__amounts"><strong data-price-current">' + money(v.price) + '</strong>';
         if (v.compare_at_price > v.price) {
           const save = Math.round(((v.compare_at_price - v.price) * 100) / v.compare_at_price);
-          row += ' <s data-price-compare>' + money(v.compare_at_price) + '</s> <span class="pdp-price__off" data-price-off>' + save + '% OFF</span>';
+          row += '<s data-price-compare>' + money(v.compare_at_price) + '</s></div><span class="pdp-price__off" data-price-off>' + save + '% OFF</span>';
+        } else {
+          row += '</div>';
         }
         row += '</div><p class="pdp-price__tax">(Inclusive of all taxes)</p>';
         priceEl.innerHTML = row;

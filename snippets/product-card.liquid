@@ -11,6 +11,12 @@
   else
     assign badge_class = 'bs-card__badge bs-card__badge--olive'
   endif
+  assign available_variants = 0
+  for v in card_product.variants
+    if v.available
+      assign available_variants = available_variants | plus: 1
+    endif
+  endfor
 -%}
 <article class="{{ card_class }}">
   <a href="{{ card_product.url }}" class="bs-card__media">
@@ -49,11 +55,14 @@
       <p class="bs-card__size">{{ card_product.metafields.custom.size.value }}</p>
     {%- endif -%}
     {% render 'price', product: card_product %}
-    {%- if variant.available -%}
+    {%- if available_variants > 0 -%}
       <button
         type="button"
         class="bs-card__btn"
-        data-add-variant="{{ variant.id }}"
+        data-open-variant-picker
+        data-product-handle="{{ card_product.handle }}"
+        data-product-url="{{ card_product.url }}"
+        data-fallback-variant="{{ variant.id }}"
       >
         <span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span>
         Add to Cart

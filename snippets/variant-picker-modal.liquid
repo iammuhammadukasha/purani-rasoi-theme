@@ -1,0 +1,39 @@
+{%- comment -%} Shared variant picker modal (opened from product cards) {%- endcomment -%}
+<div
+  id="VariantPicker"
+  class="pr-variant-picker"
+  hidden
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="VariantPickerTitle"
+>
+  <div class="pr-variant-picker__backdrop" data-variant-picker-close tabindex="-1"></div>
+  <div class="pr-variant-picker__panel">
+    <header class="pr-variant-picker__head">
+      <div class="pr-variant-picker__product">
+        <div class="pr-variant-picker__thumb">
+          <img data-vp-image src="" alt="" width="72" height="72">
+        </div>
+        <div class="pr-variant-picker__meta">
+          <h2 id="VariantPickerTitle" class="pr-variant-picker__title" data-vp-title></h2>
+          <p class="pr-variant-picker__hint">Select an option</p>
+        </div>
+      </div>
+      <button type="button" class="pr-variant-picker__close" data-variant-picker-close aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </header>
+
+    <div class="pr-variant-picker__body">
+      <p class="pr-variant-picker__label">Choose variant</p>
+      <div class="pr-variant-picker__options" data-vp-options role="listbox" aria-label="Product variants"></div>
+    </div>
+
+    <footer class="pr-variant-picker__foot">
+      <button type="button" class="pr-variant-picker__add" data-vp-add disabled>
+        Add to Cart
+      </button>
+    </footer>
+  </div>
+</div>

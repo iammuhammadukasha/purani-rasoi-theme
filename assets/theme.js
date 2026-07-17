@@ -174,30 +174,204 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
     });
   });
 
-  document.querySelectorAll("[data-add-variant]").forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      const id = btn.getAttribute("data-add-variant");
-      if (!id) return;
-      const label = btn.innerHTML;
+  async function addVariantToCart(variantId, btn) {
+    const label = btn ? btn.innerHTML : "";
+    if (btn) {
       btn.disabled = true;
       btn.textContent = "Adding…";
-      try {
-        await fetch("/cart/add.js", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({ id: Number(id), quantity: 1 }),
-        });
-        const cart = await fetch("/cart.js").then((r) => r.json());
-        window.PuraniRasoi?.updateCartUI?.(cart);
-        window.PuraniRasoi?.openCartDrawer?.();
+    }
+    try {
+      await fetch("/cart/add.js", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ id: Number(variantId), quantity: 1 }),
+      });
+      const cart = await fetch("/cart.js").then((r) => r.json());
+      window.PuraniRasoi?.updateCartUI?.(cart);
+      window.PuraniRasoi?.openCartDrawer?.();
+      if (btn) {
         btn.textContent = "Added";
         setTimeout(() => {
           btn.innerHTML = label;
           btn.disabled = false;
         }, 1200);
-      } catch (e) {
-        window.location.href = `/cart/add?id=${id}&quantity=1`;
       }
+      return true;
+    } catch (e) {
+      window.location.href = `/cart/add?id=${variantId}&quantity=1`;
+      return false;
+    }
+  }
+
+  function formatVariantMoney(cents) {
+    const n = Number(cents) / 100;
+    try {
+      return new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 0,
+      }).format(n);
+    } catch (_) {
+      return "₹" + Math.round(n).toLocaleString("en-IN");
+    }
+  }
+
+  function getVariantPickerEls() {
+    const root = document.getElementById("VariantPicker");
+    if (!root) return null;
+    return {
+      root,
+      title: root.querySelector("[data-vp-title]"),
+      image: root.querySelector("[data-vp-image]"),
+      options: root.querySelector("[data-vp-options]"),
+      addBtn: root.querySelector("[data-vp-add]"),
+    };
+  }
+
+  let selectedVariantId = null;
+
+  window.PuraniRasoi.closeVariantPicker = function closeVariantPicker() {
+    const els = getVariantPickerEls();
+    if (!els) return;
+    els.root.classList.remove("is-open");
+    els.root.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    setTimeout(() => {
+      if (!els.root.classList.contains("is-open")) els.root.hidden = true;
+    }, 220);
+    selectedVariantId = null;
+  };
+
+  window.PuraniRasoi.openVariantPicker = async function openVariantPicker(handle, triggerBtn) {
+    const els = getVariantPickerEls();
+    if (!els || !handle) return;
+
+    els.addBtn.disabled = true;
+    els.addBtn.textContent = "Add to Cart";
+    els.options.innerHTML = '<p class="pr-variant-picker__loading">Loading options…</p>';
+    els.root.hidden = false;
+    els.root.removeAttribute("hidden");
+    requestAnimationFrame(() => {
+      els.root.classList.add("is-open");
+      els.root.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    });
+
+    try {
+      const product = await fetch(`/products/${handle}.js`).then((r) => {
+        if (!r.ok) throw new Error("product fetch failed");
+        return r.json();
+      });
+
+      const variants = (product.variants || []).filter((v) => v.available !== false);
+      if (!variants.length) {
+        els.options.innerHTML = '<p class="pr-variant-picker__loading">Sold out</p>';
+        return;
+      }
+
+      /* Only skip picker for a single default (untitled) variant */
+      if (
+        variants.length === 1 &&
+        (!variants[0].title || variants[0].title === "Default Title")
+      ) {
+        window.PuraniRasoi.closeVariantPicker();
+        await addVariantToCart(variants[0].id, triggerBtn);
+        return;
+      }
+
+      const imgSrc =
+        (product.featured_image && (product.featured_image.src || product.featured_image)) ||
+        (product.images && product.images[0]) ||
+        "";
+      if (els.image) {
+        els.image.src = typeof imgSrc === "string" ? imgSrc : imgSrc.src || "";
+        els.image.alt = product.title || "";
+      }
+      if (els.title) els.title.textContent = product.title || "";
+
+      selectedVariantId = variants[0].id;
+      els.options.innerHTML = "";
+      variants.forEach((v, i) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "pr-variant-picker__option" + (i === 0 ? " is-selected" : "");
+        btn.setAttribute("role", "option");
+        btn.setAttribute("aria-selected", i === 0 ? "true" : "false");
+        btn.dataset.variantId = String(v.id);
+        const name = v.title && v.title !== "Default Title" ? v.title : "Default";
+        btn.innerHTML =
+          '<span class="pr-variant-picker__option-name">' +
+          name +
+          '</span><span class="pr-variant-picker__option-price">' +
+          formatVariantMoney(v.price) +
+          "</span>";
+        btn.addEventListener("click", () => {
+          selectedVariantId = v.id;
+          els.options.querySelectorAll(".pr-variant-picker__option").forEach((el) => {
+            el.classList.remove("is-selected");
+            el.setAttribute("aria-selected", "false");
+          });
+          btn.classList.add("is-selected");
+          btn.setAttribute("aria-selected", "true");
+        });
+        els.options.appendChild(btn);
+      });
+
+      els.addBtn.disabled = false;
+      els.addBtn.onclick = async () => {
+        if (!selectedVariantId) return;
+        els.addBtn.disabled = true;
+        els.addBtn.textContent = "Adding…";
+        const ok = await addVariantToCart(selectedVariantId, null);
+        if (ok) {
+          window.PuraniRasoi.closeVariantPicker();
+          if (triggerBtn) {
+            const prev = triggerBtn.innerHTML;
+            triggerBtn.textContent = "Added";
+            setTimeout(() => {
+              triggerBtn.innerHTML = prev;
+            }, 1200);
+          }
+        } else {
+          els.addBtn.disabled = false;
+          els.addBtn.textContent = "Add to Cart";
+        }
+      };
+    } catch (err) {
+      window.PuraniRasoi.closeVariantPicker();
+      const fallback = triggerBtn?.getAttribute("data-fallback-variant");
+      if (fallback) await addVariantToCart(fallback, triggerBtn);
+    }
+  };
+
+  document.addEventListener("click", (e) => {
+    if (e.target.closest("[data-variant-picker-close]")) {
+      e.preventDefault();
+      window.PuraniRasoi.closeVariantPicker();
+      return;
+    }
+
+    const openBtn = e.target.closest("[data-open-variant-picker]");
+    if (openBtn) {
+      e.preventDefault();
+      const handle = openBtn.getAttribute("data-product-handle");
+      window.PuraniRasoi.openVariantPicker(handle, openBtn);
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    const els = getVariantPickerEls();
+    if (els && els.root.classList.contains("is-open")) {
+      window.PuraniRasoi.closeVariantPicker();
+    }
+  });
+
+  document.querySelectorAll("[data-add-variant]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const id = btn.getAttribute("data-add-variant");
+      if (!id) return;
+      await addVariantToCart(id, btn);
     });
   });
 

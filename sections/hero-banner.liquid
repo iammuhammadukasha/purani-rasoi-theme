@@ -97,20 +97,10 @@
   {%- if trust_count > 0 or section.settings.show_benefits -%}
     <section class="pr-benefits" aria-label="Brand promises">
       <div class="pr-benefits__leaf pr-benefits__leaf--left" aria-hidden="true">
-        <svg viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 32c6-2 12-10 14-18 1 8 6 14 14 18" stroke="#3d5a2a" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M22 14c-3 5-5 10-6 15M28 18c2 5 4 9 6 12" stroke="#5e6f36" stroke-width="1.2" stroke-linecap="round"/>
-          <ellipse cx="18" cy="12" rx="5" ry="8" transform="rotate(-28 18 12)" fill="#5e6f36" opacity=".85"/>
-          <ellipse cx="30" cy="16" rx="4.5" ry="7" transform="rotate(22 30 16)" fill="#3d5a2a" opacity=".9"/>
-        </svg>
+        <img src="{{ 'benefit-corner-leaf.png' | asset_url }}" alt="" width="160" height="120" loading="lazy">
       </div>
       <div class="pr-benefits__leaf pr-benefits__leaf--right" aria-hidden="true">
-        <svg viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M40 32c-6-2-12-10-14-18-1 8-6 14-14 18" stroke="#3d5a2a" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M26 14c3 5 5 10 6 15M20 18c-2 5-4 9-6 12" stroke="#5e6f36" stroke-width="1.2" stroke-linecap="round"/>
-          <ellipse cx="30" cy="12" rx="5" ry="8" transform="rotate(28 30 12)" fill="#5e6f36" opacity=".85"/>
-          <ellipse cx="18" cy="16" rx="4.5" ry="7" transform="rotate(-22 18 16)" fill="#3d5a2a" opacity=".9"/>
-        </svg>
+        <img src="{{ 'benefit-corner-leaf.png' | asset_url }}" alt="" width="160" height="120" loading="lazy">
       </div>
 
       <div class="pr-benefits__row">

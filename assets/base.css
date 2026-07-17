@@ -9081,19 +9081,19 @@ footer.site-footer.mh-footer {
 
 .pr-bestsellers .bs-card--split .bs-card__stars {
   color: #d4a017;
-  font-size: 0.55rem;
-  letter-spacing: 0.02em;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
   line-height: 1;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__reviews {
-  font-size: 0.55rem;
+  font-size: 0.72rem;
   color: #8a7a70;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__size {
   margin: 0;
-  font-size: 0.6rem;
+  font-size: 0.78rem;
   color: #8a7a70;
 }
 
@@ -9121,7 +9121,7 @@ footer.site-footer.mh-footer {
 
 .pr-bestsellers .bs-card--split .bs-card__price strong {
   font-family: var(--font-body) !important;
-  font-size: 0.85rem !important;
+  font-size: 1.05rem !important;
   font-weight: 700 !important;
   color: #3d4a24 !important;
   line-height: 1.15;
@@ -9131,7 +9131,7 @@ footer.site-footer.mh-footer {
 
 .pr-bestsellers .bs-card--split .bs-card__price s {
   display: block !important;
-  font-size: 0.58rem !important;
+  font-size: 0.72rem !important;
   color: #a59a92 !important;
   white-space: nowrap;
   line-height: 1.2;
@@ -9238,12 +9238,12 @@ footer.site-footer.mh-footer {
   }
 
   .pr-bestsellers .bs-card--split .bs-card__stars {
-    font-size: 0.62rem;
+    font-size: 0.85rem;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__reviews,
   .pr-bestsellers .bs-card--split .bs-card__size {
-    font-size: 0.65rem;
+    font-size: 0.8rem;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__price {
@@ -9257,18 +9257,18 @@ footer.site-footer.mh-footer {
   }
 
   .pr-bestsellers .bs-card--split .bs-card__price strong {
-    font-size: 0.95rem !important;
+    font-size: 1.15rem !important;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__price s {
     display: block !important;
-    font-size: 0.62rem !important;
+    font-size: 0.78rem !important;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__off {
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     padding: 0.2rem 0.45rem;
-    margin-top: 0.06rem;
+    margin-top: 0.08rem;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__btn {

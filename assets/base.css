@@ -1,4 +1,4 @@
-ï»¿/* Purani Rasoi ? design system tokens */
+/* Purani Rasoi ? design system tokens */
 
 :root {
   /* Colors ? Brand (farm-to-table) */
@@ -769,7 +769,7 @@ a {
   justify-content: center;
   overflow: hidden;
   flex-shrink: 0;
-  padding: 1.55rem 0.7rem 0.7rem;
+  padding: 1.05rem 0.55rem 0.55rem;
   box-sizing: border-box;
 }
 
@@ -1969,7 +1969,7 @@ a {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 1.55rem 0.65rem 0.65rem;
+  padding: 1.05rem 0.55rem 0.55rem;
   box-sizing: border-box;
 }
 
@@ -2913,7 +2913,7 @@ a {
   padding: 0.25rem 0 0.75rem;
 }
 
-/* Related products reuse Best Sellers card grid â€” neutralize old rail layout */
+/* Related products reuse Best Sellers card grid — neutralize old rail layout */
 .pdp-related-wrap .pr-bestsellers.pdp-related {
   padding: 0.35rem 0 0.5rem;
   background: transparent;
@@ -2932,19 +2932,19 @@ a {
 
 /* Match / tighten You May Also Like card image padding */
 .pdp-related-wrap .bs-card--split .bs-card__media {
-  padding: 1.35rem 0.65rem 0.7rem !important;
+  padding: 1.05rem 0.55rem 0.55rem !important;
   background: #ffffff !important;
 }
 
 @media (min-width: 640px) {
   .pdp-related-wrap .bs-card--split .bs-card__media {
-    padding: 1.25rem 0.55rem 0.55rem !important;
+    padding: 1rem 0.5rem 0.5rem !important;
   }
 }
 
 @media (min-width: 900px) {
   .pdp-related-wrap .bs-card--split .bs-card__media {
-    padding: 1.3rem 0.6rem 0.6rem !important;
+    padding: 1.05rem 0.55rem 0.55rem !important;
   }
 }
 
@@ -6999,7 +6999,7 @@ footer.site-footer.mh-footer {
   }
 }
 
-/* Brand system overrides â€” olive footers, gold stars */
+/* Brand system overrides — olive footers, gold stars */
 .site-footer,
 .mh-footer,
 .mh-footer.site-footer,
@@ -8538,7 +8538,7 @@ footer.site-footer.mh-footer {
     border-radius: 26px 0 0 26px;
   }
 }
-/* ===== Shop by Category â€” mobile 3-up carousel / desktop all centered ===== */
+/* ===== Shop by Category — mobile 3-up carousel / desktop all centered ===== */
 .pr-cats-section {
   background: #faf8f2;
 }
@@ -8817,7 +8817,7 @@ footer.site-footer.mh-footer {
 }
 
 
-/* ===== Homepage Best Sellers â€” split cards (reference layout) ===== */
+/* ===== Homepage Best Sellers — split cards (reference layout) ===== */
 .pr-bestsellers {
   background: #faf8f2;
   padding: 1.35rem 0 1.6rem;
@@ -8992,7 +8992,7 @@ footer.site-footer.mh-footer {
   background: #ffffff !important;
   overflow: hidden;
   flex-shrink: 0;
-  padding: 1.35rem 0.65rem 0.7rem;
+  padding: 1.05rem 0.55rem 0.55rem;
   box-sizing: border-box;
 }
 
@@ -9214,7 +9214,7 @@ footer.site-footer.mh-footer {
     height: 100%;
     min-height: 8rem;
     max-height: 9.5rem;
-    padding: 1.25rem 0.55rem 0.55rem;
+    padding: 1rem 0.5rem 0.5rem;
     background: #ffffff !important;
   }
 
@@ -9328,7 +9328,7 @@ footer.site-footer.mh-footer {
   .pr-bestsellers .bs-card--split .bs-card__media {
     min-height: 8.5rem;
     max-height: 10rem;
-    padding: 1.3rem 0.6rem 0.6rem;
+    padding: 1.05rem 0.55rem 0.55rem;
     background: #ffffff !important;
   }
 
@@ -9765,7 +9765,7 @@ footer.site-footer.mh-footer {
   .pr-process__card-media img { width: 4.85rem; height: 4.85rem; }
 }
 
-/* ===== Why Purani Rasoi â€” circular feature cards ===== */
+/* ===== Why Purani Rasoi — circular feature cards ===== */
 .pr-why-section {
   background: #faf8f2;
 }
@@ -10218,7 +10218,7 @@ footer.site-footer.mh-footer {
   }
 }
 
-/* Shared section heading â€” leaf flourishes + gold diamond rule */
+/* Shared section heading — leaf flourishes + gold diamond rule */
 .pr-head {
   display: flex;
   flex-direction: column;

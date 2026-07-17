@@ -1935,6 +1935,19 @@ a {
   max-width: none;
   min-width: 0;
   flex: none;
+  padding: 0.45rem 0.45rem 0.65rem;
+}
+
+.shop-grid .bs-card__media {
+  margin-bottom: 0.55rem;
+  border-radius: 8px;
+  padding: 1.05rem 0.5rem 0.5rem !important;
+  background: #ffffff !important;
+}
+
+.shop-grid .bs-card__badge {
+  top: 0.55rem;
+  left: 0.55rem;
 }
 
 .shop-grid.is-list {
@@ -1969,11 +1982,7 @@ a {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 1.05rem 0.55rem 0.55rem;
-  box-sizing: border-box;
-}
-
-.shop-grid.is-list .bs-card__media img {
+  padding: 1.05rem 0.5rem 0.5rem;
   width: 100% !important;
   height: 100% !important;
   max-width: 100% !important;
@@ -2913,7 +2922,7 @@ a {
   padding: 0.25rem 0 0.75rem;
 }
 
-/* Related products reuse Best Sellers card grid — neutralize old rail layout */
+/* Related products reuse Best Sellers card grid ? neutralize old rail layout */
 .pdp-related-wrap .pr-bestsellers.pdp-related {
   padding: 0.35rem 0 0.5rem;
   background: transparent;
@@ -6999,7 +7008,7 @@ footer.site-footer.mh-footer {
   }
 }
 
-/* Brand system overrides — olive footers, gold stars */
+/* Brand system overrides ? olive footers, gold stars */
 .site-footer,
 .mh-footer,
 .mh-footer.site-footer,
@@ -8538,7 +8547,7 @@ footer.site-footer.mh-footer {
     border-radius: 26px 0 0 26px;
   }
 }
-/* ===== Shop by Category — mobile 3-up carousel / desktop all centered ===== */
+/* ===== Shop by Category ? mobile 3-up carousel / desktop all centered ===== */
 .pr-cats-section {
   background: #faf8f2;
 }
@@ -8817,7 +8826,7 @@ footer.site-footer.mh-footer {
 }
 
 
-/* ===== Homepage Best Sellers — split cards (reference layout) ===== */
+/* ===== Homepage Best Sellers ? split cards (reference layout) ===== */
 .pr-bestsellers {
   background: #faf8f2;
   padding: 1.35rem 0 1.6rem;
@@ -9765,7 +9774,7 @@ footer.site-footer.mh-footer {
   .pr-process__card-media img { width: 4.85rem; height: 4.85rem; }
 }
 
-/* ===== Why Purani Rasoi — circular feature cards ===== */
+/* ===== Why Purani Rasoi ? circular feature cards ===== */
 .pr-why-section {
   background: #faf8f2;
 }
@@ -10218,7 +10227,7 @@ footer.site-footer.mh-footer {
   }
 }
 
-/* Shared section heading — leaf flourishes + gold diamond rule */
+/* Shared section heading ? leaf flourishes + gold diamond rule */
 .pr-head {
   display: flex;
   flex-direction: column;

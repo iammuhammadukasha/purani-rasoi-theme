@@ -21,7 +21,7 @@
           "type": "trust",
           "settings": {
             "label": "Traditional Recipes",
-            "fallback_asset": "benefit-batches.png"
+            "fallback_asset": "benefit-recipes.png"
           }
         },
         "trust_4": {

@@ -24,18 +24,6 @@
   else
     assign story_url = '/pages/our-story'
   endif
-  if section.settings.link_blog != blank
-    assign blog_url = section.settings.link_blog
-  elsif blogs.news != blank
-    assign blog_url = blogs.news.url
-  else
-    assign blog_url = '/blogs/news'
-  endif
-  if section.settings.link_wholesale != blank
-    assign wholesale_url = section.settings.link_wholesale
-  else
-    assign wholesale_url = routes.all_products_collection_url
-  endif
   if section.settings.link_contact != blank
     assign contact_url = section.settings.link_contact
   else
@@ -78,8 +66,6 @@
           </div>
         </li>
         <li><a href="{{ story_url }}">Our Story</a></li>
-        <li><a href="{{ blog_url }}">Recipes &amp; Blog</a></li>
-        <li><a href="{{ wholesale_url }}">Wholesale</a></li>
         <li><a href="{{ contact_url }}">Contact</a></li>
       </ul>
     </nav>
@@ -143,8 +129,6 @@
   <a href="{{ home_url }}"><span class="material-symbols-outlined" aria-hidden="true">home</span><span>Home</span></a>
   <a href="{{ shop_url }}"><span class="material-symbols-outlined" aria-hidden="true">storefront</span><span>Shop</span></a>
   <a href="{{ story_url }}"><span class="material-symbols-outlined" aria-hidden="true">menu_book</span><span>Our Story</span></a>
-  <a href="{{ blog_url }}"><span class="material-symbols-outlined" aria-hidden="true">article</span><span>Recipes &amp; Blog</span></a>
-  <a href="{{ wholesale_url }}"><span class="material-symbols-outlined" aria-hidden="true">inventory_2</span><span>Wholesale</span></a>
   <a href="{{ contact_url }}"><span class="material-symbols-outlined" aria-hidden="true">call</span><span>Contact</span></a>
 </nav>
 
@@ -156,8 +140,6 @@
     { "type": "url", "id": "link_shop", "label": "Shop link" },
     { "type": "link_list", "id": "shop_menu", "label": "Shop dropdown menu (optional)" },
     { "type": "url", "id": "link_story", "label": "Our Story link" },
-    { "type": "url", "id": "link_blog", "label": "Recipes & Blog link" },
-    { "type": "url", "id": "link_wholesale", "label": "Wholesale link" },
     { "type": "url", "id": "link_contact", "label": "Contact link" }
   ],
   "enabled_on": { "groups": ["header"] }

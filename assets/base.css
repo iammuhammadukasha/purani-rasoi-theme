@@ -1950,6 +1950,49 @@ a {
   left: 0.55rem;
 }
 
+/* Collection cards: keep sale, compare, and OFF on one line */
+.shop-grid .bs-card__price {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 0.3rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.shop-grid .bs-card__amounts {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: baseline !important;
+  flex-wrap: nowrap !important;
+  gap: 0.3rem !important;
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
+.shop-grid .bs-card__price strong {
+  font-size: 0.95rem !important;
+  white-space: nowrap;
+  line-height: 1.15;
+}
+
+.shop-grid .bs-card__price s {
+  display: inline !important;
+  font-size: 0.65rem !important;
+  white-space: nowrap;
+  line-height: 1.15;
+}
+
+.shop-grid .bs-card__off {
+  margin-left: 0.1rem;
+  flex-shrink: 0;
+  font-size: 0.55rem;
+  padding: 0.12rem 0.28rem;
+  white-space: nowrap;
+}
+
 .shop-grid.is-list {
   grid-template-columns: minmax(0, 1fr);
   gap: 0.75rem;
@@ -9341,7 +9384,7 @@ footer.site-footer.mh-footer {
   .pr-bestsellers .bs-card--split .bs-card__media {
     min-height: 8.5rem;
     max-height: 10rem;
-    padding: 1.05rem 0.55rem 0.55rem;
+    padding: 1.5rem 0.65rem 0.65rem;
     background: #ffffff !important;
   }
 

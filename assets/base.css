@@ -3696,7 +3696,7 @@ a.bs-card__media {
   position: relative;
   margin: 0.85rem auto 0;
   max-width: min(1480px, 100%);
-  padding: 1.35rem 0.75rem 2.15rem;
+  padding: 1.35rem 0.75rem 1.65rem;
   background: #fefaf3;
   border: 1px solid #e6dcc8;
   border-radius: 1.35rem;
@@ -3705,8 +3705,8 @@ a.bs-card__media {
 
 .pr-benefits__leaf {
   position: absolute;
-  bottom: 0.1rem;
-  width: 4.75rem;
+  bottom: 0.15rem;
+  width: 2.35rem;
   height: auto;
   pointer-events: none;
   z-index: 0;
@@ -3721,11 +3721,11 @@ a.bs-card__media {
 }
 
 .pr-benefits__leaf--left {
-  left: 0.15rem;
+  left: 0.3rem;
 }
 
 .pr-benefits__leaf--right {
-  right: 0.15rem;
+  right: 0.3rem;
   transform: scaleX(-1);
 }
 

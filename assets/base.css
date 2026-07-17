@@ -769,7 +769,7 @@ a {
   justify-content: center;
   overflow: hidden;
   flex-shrink: 0;
-  padding: 2.1rem 0.75rem 0.85rem;
+  padding: 1.55rem 0.7rem 0.7rem;
   box-sizing: border-box;
 }
 
@@ -1969,7 +1969,7 @@ a {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 2.1rem 0.7rem 0.7rem;
+  padding: 1.55rem 0.65rem 0.65rem;
   box-sizing: border-box;
 }
 
@@ -8974,7 +8974,7 @@ footer.site-footer.mh-footer {
   background: #ffffff !important;
   overflow: hidden;
   flex-shrink: 0;
-  padding: 2.35rem 0.85rem 0.95rem;
+  padding: 1.7rem 0.75rem 0.8rem;
   box-sizing: border-box;
 }
 

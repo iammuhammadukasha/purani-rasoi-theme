@@ -75,11 +75,11 @@
     "process": {
       "type": "pickle-process",
       "blocks": {
-        "p1": { "type": "step", "settings": { "title": "Carefully Selected Ingredients", "fallback_asset": "aam.png", "sketch": "mango" } },
-        "p2": { "type": "step", "settings": { "title": "Blended With Authentic Spices", "fallback_asset": "benefit-preservatives.png", "sketch": "spices" } },
-        "p3": { "type": "step", "settings": { "title": "Handmixed With Care", "fallback_asset": "banner-kitchen.png", "sketch": "mix" } },
-        "p4": { "type": "step", "settings": { "title": "Naturally Aged To Perfection", "fallback_asset": "benefit-batches.png", "sketch": "jar" } },
-        "p5": { "type": "step", "settings": { "title": "Packed Hygienically With Love", "fallback_asset": "product-aam.png", "sketch": "pack" } },
+        "p1": { "type": "step", "settings": { "title": "Carefully Selected Ingredients", "text": "Only the freshest mangoes and spices are handpicked for every batch.", "fallback_asset": "aam.png" } },
+        "p2": { "type": "step", "settings": { "title": "Blended With Authentic Spices", "text": "Traditional masalas are blended by hand for true homemade flavour.", "fallback_asset": "benefit-preservatives.png" } },
+        "p3": { "type": "step", "settings": { "title": "Handmixed With Care", "text": "Each jar is mixed slowly with care, just like in a purani rasoi.", "fallback_asset": "banner-kitchen.png" } },
+        "p4": { "type": "step", "settings": { "title": "Naturally Aged To Perfection", "text": "Pickles rest and mature naturally for rich, deep taste.", "fallback_asset": "benefit-batches.png" } },
+        "p5": { "type": "step", "settings": { "title": "Packed Hygienically With Love", "text": "Every jar is sealed clean and packed with love for your kitchen.", "fallback_asset": "product-aam.png" } },
         "f1": { "type": "feature", "settings": { "icon": "home", "title": "Homemade Taste" } },
         "f2": { "type": "feature", "settings": { "icon": "eco", "title": "No Artificial Preservatives" } },
         "f3": { "type": "feature", "settings": { "icon": "soup_kitchen", "title": "Traditional Recipes" } },

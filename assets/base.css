@@ -9645,8 +9645,8 @@ footer.site-footer.mh-footer {
     border-radius: 0;
   }
   .pr-process__hero img { max-height: min(42vw, 24rem); }
-  .pr-process__flow::before { left: 1.2rem; top: -1.6rem; }
-  .pr-process__flow::after { left: 0.95rem; top: -1.8rem; width: 0.65rem; height: 0.65rem; }
+  .pr-process__spine { left: 1.35rem; top: -1rem; }
+  .pr-process__step:not(:last-child)::before { left: 1.35rem; }
   .pr-process__step { grid-template-columns: 2.75rem minmax(0, 1fr); gap: 0.85rem; }
   .pr-process__num { width: 2.4rem; height: 2.4rem; font-size: 1rem; }
   .pr-process__steps { gap: 1rem; }

@@ -833,8 +833,10 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
             ? '<p class="ajax-search__excerpt">' + escapeHtml(excerpt) + (excerpt.length >= 90 ? "…" : "") + "</p>"
             : "") +
           '<div class="bs-card__price">' +
+          '<div class="bs-card__amounts">' +
           (priceLabel ? "<strong>" + escapeHtml(priceLabel) + "</strong>" : "") +
           (hasCompare ? "<s>" + escapeHtml(money(compareNum)) + "</s>" : "") +
+          "</div>" +
           (savePct > 0 ? '<span class="bs-card__off">' + savePct + "% OFF</span>" : "") +
           "</div>" +
           '<p class="ajax-search__stock ' +

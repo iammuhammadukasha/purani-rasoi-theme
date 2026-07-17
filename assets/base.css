@@ -9101,9 +9101,9 @@ footer.site-footer.mh-footer {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: nowrap;
-  gap: 0.35rem;
+  gap: 0.4rem;
   margin: 0.1rem 0 0.25rem;
   width: 100%;
   min-width: 0;
@@ -9115,7 +9115,8 @@ footer.site-footer.mh-footer {
   align-items: flex-start !important;
   gap: 0.08rem !important;
   min-width: 0;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
+  width: auto;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__price strong {
@@ -9141,13 +9142,12 @@ footer.site-footer.mh-footer {
   flex: 0 0 auto;
   width: auto;
   max-width: none;
-  margin-left: auto;
-  margin-top: 0.1rem;
+  margin: 0.05rem 0 0;
   background: #efb530 !important;
   color: #5c3d0a !important;
-  border-radius: 3px;
-  padding: 0.1rem 0.28rem;
-  font-size: 0.5rem;
+  border-radius: 4px;
+  padding: 0.18rem 0.4rem;
+  font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1.2;
@@ -9248,7 +9248,7 @@ footer.site-footer.mh-footer {
 
   .pr-bestsellers .bs-card--split .bs-card__price {
     margin: 0.12rem 0 0.3rem;
-    gap: 0.4rem;
+    gap: 0.45rem;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__amounts {
@@ -9266,9 +9266,9 @@ footer.site-footer.mh-footer {
   }
 
   .pr-bestsellers .bs-card--split .bs-card__off {
-    font-size: 0.55rem;
-    padding: 0.12rem 0.32rem;
-    margin-top: 0.12rem;
+    font-size: 0.68rem;
+    padding: 0.2rem 0.45rem;
+    margin-top: 0.06rem;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__btn {
@@ -9366,8 +9366,8 @@ footer.site-footer.mh-footer {
   }
 
   .pr-bestsellers .bs-card--split .bs-card__off {
-    font-size: 0.58rem;
-    padding: 0.12rem 0.35rem;
+    font-size: 0.72rem;
+    padding: 0.22rem 0.5rem;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__btn {

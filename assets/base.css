@@ -3759,9 +3759,9 @@ a.bs-card__media {
 }
 
 .pr-benefits__icon {
-  width: 2.65rem;
-  height: 2.65rem;
-  margin-bottom: 0.35rem;
+  width: 3.85rem;
+  height: 3.85rem;
+  margin-bottom: 0.4rem;
   display: grid;
   place-items: center;
 }
@@ -3797,7 +3797,7 @@ a.bs-card__media {
 @media (min-width: 768px) {
   .pr-benefits {
     margin-top: 1.15rem;
-    padding: 1.75rem 1rem 2.75rem;
+    padding: 1.75rem 1rem 2rem;
     border-radius: 1.75rem;
   }
 
@@ -3817,9 +3817,9 @@ a.bs-card__media {
   }
 
   .pr-benefits__icon {
-    width: 5.25rem;
-    height: 5.25rem;
-    margin-bottom: 0.7rem;
+    width: 6.75rem;
+    height: 6.75rem;
+    margin-bottom: 0.75rem;
   }
 
   .pr-benefits__title {
@@ -3833,15 +3833,15 @@ a.bs-card__media {
   }
 
   .pr-benefits__leaf {
-    width: 6.5rem;
+    width: 3rem;
   }
 
   .pr-benefits__leaf--left {
-    left: 0.35rem;
+    left: 0.55rem;
   }
 
   .pr-benefits__leaf--right {
-    right: 0.35rem;
+    right: 0.55rem;
   }
 }
 

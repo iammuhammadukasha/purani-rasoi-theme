@@ -1950,14 +1950,19 @@ a {
   left: 0.55rem;
 }
 
-/* Collection cards: sale + OFF on one line, compare under sale */
+/* Collection cards: sale + OFF on one line when space allows; stack on narrow cards */
+.shop-grid .bs-card {
+  container-type: inline-size;
+  container-name: shop-card;
+}
+
 .shop-grid .bs-card__price {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
-  flex-wrap: nowrap;
-  gap: 0.35rem;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.35rem;
   width: 100%;
   min-width: 0;
 }
@@ -1969,11 +1974,12 @@ a {
   flex-wrap: nowrap !important;
   gap: 0.1rem !important;
   min-width: 0;
-  flex: 0 1 auto;
+  flex: 1 1 auto;
+  max-width: 100%;
 }
 
 .shop-grid .bs-card__price strong {
-  font-size: 0.95rem !important;
+  font-size: clamp(0.78rem, 3.6vw, 0.95rem) !important;
   white-space: nowrap;
   line-height: 1.15;
   display: block !important;
@@ -1981,19 +1987,49 @@ a {
 
 .shop-grid .bs-card__price s {
   display: block !important;
-  font-size: 0.65rem !important;
+  font-size: clamp(0.55rem, 2.8vw, 0.65rem) !important;
   white-space: nowrap;
   line-height: 1.2;
 }
 
 .shop-grid .bs-card__off {
-  margin-left: 0.1rem;
-  margin-top: 0.08rem;
-  flex-shrink: 0;
+  margin-left: 0;
+  margin-top: 0.05rem;
+  flex: 0 0 auto;
   font-size: 0.55rem;
   padding: 0.12rem 0.28rem;
   white-space: nowrap;
   align-self: flex-start;
+}
+
+/* Narrow shop cards: badge under crossed-out price */
+@container shop-card (max-width: 11.5rem) {
+  .shop-grid .bs-card__price {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .shop-grid .bs-card__off {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .shop-grid .bs-card__price {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .shop-grid .bs-card__price strong {
+    font-size: 0.82rem !important;
+  }
+
+  .shop-grid .bs-card__off {
+    margin-top: 0;
+    font-size: 0.52rem;
+  }
 }
 
 .shop-grid.is-list {
@@ -2525,19 +2561,21 @@ a {
 
 .pdp-price__row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-  gap: 0.65rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.65rem;
   width: 100%;
 }
 
 .pdp-price__amounts {
   display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  gap: 0.2rem;
   min-width: 0;
+  flex: 1 1 auto;
 }
 
 .pdp-price strong,
@@ -2567,9 +2605,17 @@ a {
   font-size: 0.7rem;
   font-weight: var(--fw-bold);
   line-height: 1.2;
-  margin-left: auto;
+  margin-left: 0;
   flex-shrink: 0;
-  align-self: center;
+  align-self: flex-start;
+}
+
+@media (max-width: 480px) {
+  .pdp-price__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
 }
 
 .pdp-price__tax {
@@ -9035,6 +9081,8 @@ footer.site-footer.mh-footer {
   overflow: hidden;
   box-shadow: 0 3px 10px rgba(94, 111, 54, 0.05);
   box-sizing: border-box;
+  container-type: inline-size;
+  container-name: split-card;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__media {
@@ -9151,8 +9199,8 @@ footer.site-footer.mh-footer {
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
-  flex-wrap: nowrap;
-  gap: 0.4rem;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.4rem;
   margin: -0.15rem 0 0.4rem;
   width: 100%;
   min-width: 0;
@@ -9164,13 +9212,14 @@ footer.site-footer.mh-footer {
   align-items: flex-start !important;
   gap: 0.18rem !important;
   min-width: 0;
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   width: auto;
+  max-width: 100%;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__price strong {
   font-family: var(--font-body) !important;
-  font-size: 1.05rem !important;
+  font-size: clamp(0.82rem, 3.2vw, 1.05rem) !important;
   font-weight: 700 !important;
   color: #3d4a24 !important;
   line-height: 1.15;
@@ -9180,7 +9229,7 @@ footer.site-footer.mh-footer {
 
 .pr-bestsellers .bs-card--split .bs-card__price s {
   display: block !important;
-  font-size: 0.72rem !important;
+  font-size: clamp(0.52rem, 2.4vw, 0.72rem) !important;
   color: #a59a92 !important;
   white-space: nowrap;
   line-height: 1.2;
@@ -9202,6 +9251,32 @@ footer.site-footer.mh-footer {
   line-height: 1.2;
   white-space: nowrap;
   align-self: flex-start;
+}
+
+@container split-card (max-width: 11.5rem) {
+  .pr-bestsellers .bs-card--split .bs-card__price {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .pr-bestsellers .bs-card--split .bs-card__off {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .pr-bestsellers .bs-card--split .bs-card__price {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .pr-bestsellers .bs-card--split .bs-card__off {
+    margin-top: 0;
+    font-size: 0.55rem;
+    padding: 0.14rem 0.32rem;
+  }
 }
 
 .pr-bestsellers .bs-card--split .bs-card__btn {

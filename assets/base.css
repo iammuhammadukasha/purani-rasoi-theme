@@ -9334,12 +9334,12 @@ footer.site-footer.mh-footer {
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
-  gap: 0.35rem;
+  gap: 0.4rem;
   max-width: 100%;
   font-family: var(--font-display);
-  font-size: clamp(0.72rem, 3.4vw, 1.55rem);
+  font-size: clamp(0.92rem, 4.2vw, 1.85rem);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #3d4a24;
   line-height: 1.15;
@@ -9352,7 +9352,7 @@ footer.site-footer.mh-footer {
 }
 
 .pr-process__flourish {
-  width: clamp(1.35rem, 6vw, 3rem);
+  width: clamp(1.55rem, 6.5vw, 3.35rem);
   height: auto;
   flex-shrink: 0;
   display: inline-flex;
@@ -9368,6 +9368,27 @@ footer.site-footer.mh-footer {
 
 .pr-process__flourish--flip {
   transform: scaleX(-1);
+}
+
+.pr-process__rule {
+  position: relative;
+  width: min(13rem, 58vw);
+  height: 1px;
+  margin: 0.55rem auto 0;
+  background: linear-gradient(90deg, transparent, #c9a227 12%, #c9a227 88%, transparent);
+}
+
+.pr-process__rule::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.45rem;
+  height: 0.45rem;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: #c9a227;
+  border: 1px solid #faf8f2;
+  box-sizing: border-box;
 }
 
 /* Full-bleed hero under heading */
@@ -9636,8 +9657,9 @@ footer.site-footer.mh-footer {
 @media (min-width: 640px) {
   .pr-process { padding: 2rem 0 2.5rem; }
   .pr-process__inner { max-width: 780px; padding: 0 1.25rem; }
-  .pr-process__title { font-size: clamp(1.25rem, 2.2vw, 1.7rem); gap: 0.55rem; }
-  .pr-process__flourish { width: 3.1rem; }
+  .pr-process__title { font-size: clamp(1.45rem, 2.4vw, 1.95rem); gap: 0.6rem; }
+  .pr-process__flourish { width: 3.4rem; }
+  .pr-process__rule { width: min(16rem, 40vw); margin-top: 0.65rem; }
   .pr-process__hero {
     max-height: min(42vw, 24rem);
     border-radius: 0;

@@ -13,31 +13,17 @@
       <div class="pr-bestsellers__titles">
         <h2 id="BestsellersHeading-{{ section.id }}" class="pr-bestsellers__title">
           <span class="pr-bestsellers__flourish" aria-hidden="true">
-            <svg viewBox="0 0 28 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M24 14c-5-1-9-6-10-12-1 6-5 11-10 12" stroke="#c9a227" stroke-width="1.4" stroke-linecap="round"/>
-              <ellipse cx="14" cy="6" rx="3.2" ry="5.5" fill="#c9a227"/>
-            </svg>
+            <img src="{{ 'cats-flourish-leaf.png' | asset_url }}" alt="" width="84" height="36" loading="lazy">
           </span>
-          <span>{{ section.settings.heading | default: 'Best Sellers' }}</span>
+          <span class="pr-bestsellers__heading-text">{{ section.settings.heading | default: 'Best Sellers' }}</span>
           <span class="pr-bestsellers__flourish pr-bestsellers__flourish--flip" aria-hidden="true">
-            <svg viewBox="0 0 28 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M24 14c-5-1-9-6-10-12-1 6-5 11-10 12" stroke="#c9a227" stroke-width="1.4" stroke-linecap="round"/>
-              <ellipse cx="14" cy="6" rx="3.2" ry="5.5" fill="#c9a227"/>
-            </svg>
+            <img src="{{ 'cats-flourish-leaf.png' | asset_url }}" alt="" width="84" height="36" loading="lazy">
           </span>
         </h2>
         {%- if section.settings.subtitle != blank -%}
           <p class="pr-bestsellers__subtitle">{{ section.settings.subtitle }}</p>
         {%- endif -%}
-        <div class="pr-bestsellers__ornament" aria-hidden="true">
-          <span class="pr-bestsellers__ornament-line"></span>
-          <svg class="pr-bestsellers__ornament-icon" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 14c-2.5-3-4-6.5-4-10 0 3.5-1.5 7-4 10" stroke="#5e6f36" stroke-width="1.2" stroke-linecap="round"/>
-            <path d="M12 14c2.5-3 4-6.5 4-10 0 3.5 1.5 7 4 10" stroke="#5e6f36" stroke-width="1.2" stroke-linecap="round"/>
-            <circle cx="12" cy="4" r="1.6" fill="#5e6f36"/>
-          </svg>
-          <span class="pr-bestsellers__ornament-line"></span>
-        </div>
+        <div class="pr-bestsellers__rule" aria-hidden="true"></div>
       </div>
     </div>
 

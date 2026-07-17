@@ -1983,6 +1983,10 @@ a {
   justify-content: center;
   overflow: hidden;
   padding: 1.05rem 0.5rem 0.5rem;
+  box-sizing: border-box;
+}
+
+.shop-grid.is-list .bs-card__media img {
   width: 100% !important;
   height: 100% !important;
   max-width: 100% !important;

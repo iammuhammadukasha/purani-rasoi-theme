@@ -8881,10 +8881,11 @@ footer.site-footer.mh-footer {
 .pr-bestsellers__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.55rem;
+  gap: 0.75rem;
   width: 100%;
-  padding: 0 0.5rem;
+  padding: 0 0.75rem;
   box-sizing: border-box;
+  align-items: stretch;
 }
 
 .pr-bestsellers__empty {
@@ -8896,33 +8897,35 @@ footer.site-footer.mh-footer {
   color: #6b5b52;
 }
 
-/* Split product card — 2x2 grid */
+/* Homepage Best Sellers cards */
 .pr-bestsellers .bs-card--split {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  align-items: stretch;
-  gap: 0;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: none;
-  min-width: 0;
-  background: #f3efe6;
-  border: none;
-  border-radius: 14px;
-  padding: 0;
+  min-width: 0 !important;
+  height: 100%;
+  background: #fff;
+  border: 1px solid rgba(94, 111, 54, 0.12);
+  border-radius: 16px;
+  padding: 0 !important;
   overflow: hidden;
-  box-shadow: none;
+  box-shadow: 0 4px 14px rgba(94, 111, 54, 0.06);
+  box-sizing: border-box;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__media {
   position: relative;
-  aspect-ratio: auto;
+  display: block;
   width: 100%;
-  height: 100%;
-  min-height: 7.5rem;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  min-height: 0;
   margin: 0;
   border-radius: 0;
-  background: #ebe4d6;
+  background: #f3efe6;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__media img {
@@ -8931,6 +8934,7 @@ footer.site-footer.mh-footer {
   max-width: none;
   max-height: none;
   object-fit: cover;
+  object-position: center;
   filter: none;
 }
 
@@ -8939,11 +8943,16 @@ footer.site-footer.mh-footer {
 }
 
 .pr-bestsellers .bs-card--split .bs-card__badge {
-  top: 0.55rem;
-  left: 0.55rem;
+  top: 0.45rem;
+  left: 0.45rem;
   border-radius: 6px;
-  padding: 0.28rem 0.5rem;
-  font-size: 0.58rem;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.55rem;
+  letter-spacing: 0.04em;
+  max-width: calc(100% - 0.9rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pr-bestsellers .bs-card__badge--olive {
@@ -8957,20 +8966,27 @@ footer.site-footer.mh-footer {
 }
 
 .pr-bestsellers .bs-card--split .bs-card__body {
-  padding: 0.45rem 0.4rem 0.5rem;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 0.08rem;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0.2rem;
   min-width: 0;
+  padding: 0.65rem 0.6rem 0.7rem;
+  box-sizing: border-box;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__title {
   margin: 0;
-  font-size: clamp(0.68rem, 2.8vw, 0.85rem);
+  font-size: 0.78rem;
   font-weight: 700;
   color: #3d4a24;
-  line-height: 1.2;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__title a {
@@ -8979,84 +8995,81 @@ footer.site-footer.mh-footer {
 }
 
 .pr-bestsellers .bs-card--split .bs-card__rating {
-  margin: 0.1rem 0 0;
-  gap: 0.3rem;
+  margin: 0;
+  gap: 0.2rem;
+  flex-wrap: wrap;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__stars {
   color: #d4a017;
-  font-size: 0.55rem;
+  font-size: 0.62rem;
   letter-spacing: 0.02em;
+  line-height: 1;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__reviews {
-  font-size: 0.55rem;
+  font-size: 0.62rem;
   color: #8a7a70;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__size {
-  margin: 0.02rem 0 0.1rem;
-  font-size: 0.58rem;
+  margin: 0;
+  font-size: 0.68rem;
   color: #8a7a70;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__price {
-  margin: 0 0 0.3rem;
-  gap: 0.15rem 0.3rem;
-  align-items: baseline;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  margin: 0.15rem 0 0.35rem;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__price strong {
   font-family: var(--font-body);
-  font-size: clamp(0.72rem, 2.8vw, 0.9rem);
+  font-size: 0.92rem;
   font-weight: 700;
   color: #3d4a24;
+  line-height: 1.2;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__price s {
-  font-size: 0.55rem;
+  font-size: 0.65rem;
   color: #a59a92;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__off {
-  flex-basis: 100%;
+  flex-basis: auto;
   width: fit-content;
-  margin-top: 0.05rem;
+  margin: 0;
   background: #efb530;
   color: #5c3d0a;
-  border-radius: 4px;
-  padding: 0.12rem 0.3rem;
-  font-size: 0.5rem;
+  border-radius: 5px;
+  padding: 0.15rem 0.35rem;
+  font-size: 0.58rem;
   font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__btn {
-  margin-top: 0.1rem;
+  margin-top: auto;
   width: 100%;
-  border-radius: 8px;
+  max-width: 100%;
+  box-sizing: border-box;
+  border-radius: 10px;
   background: #5e6f36 !important;
   color: #fff !important;
-  padding: 0.4rem 0.25rem;
-  font-size: 0.48rem;
-  letter-spacing: 0.04em;
-  gap: 0.2rem;
+  padding: 0.55rem 0.4rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  gap: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__btn .material-symbols-outlined {
-  font-size: 0.95rem !important;
-  color: #fff !important;
-}
-
-@media (max-width: 639px) {
-  .pr-bestsellers .bs-card--split .bs-card__price {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.15rem;
-  }
-
-  .pr-bestsellers .bs-card--split .bs-card__off {
-    flex-basis: auto;
-  }
+  display: none;
 }
 
 @media (min-width: 640px) {
@@ -9088,30 +9101,75 @@ footer.site-footer.mh-footer {
   }
 
   .pr-bestsellers__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.1rem;
+    gap: 1.15rem;
     padding: 0;
   }
 
+  /* Horizontal split cards from tablet up */
   .pr-bestsellers .bs-card--split {
-    border-radius: 26px;
+    display: grid;
+    grid-template-columns: minmax(0, 42%) minmax(0, 58%);
+    align-items: stretch;
+    border-radius: 22px;
+    background: #f7f3ea;
+    border: none;
+    box-shadow: none;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__media {
-    min-height: 11.5rem;
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 11rem;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__body {
-    padding: 0.9rem 1rem 1rem;
+    padding: 0.85rem 0.9rem 0.9rem;
+    gap: 0.18rem;
+    justify-content: center;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__title {
-    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+    font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+    -webkit-line-clamp: 2;
+  }
+
+  .pr-bestsellers .bs-card--split .bs-card__stars {
+    font-size: 0.75rem;
+  }
+
+  .pr-bestsellers .bs-card--split .bs-card__reviews,
+  .pr-bestsellers .bs-card--split .bs-card__size {
+    font-size: 0.75rem;
+  }
+
+  .pr-bestsellers .bs-card--split .bs-card__price {
+    margin: 0.2rem 0 0.45rem;
+    gap: 0.2rem;
+  }
+
+  .pr-bestsellers .bs-card--split .bs-card__price strong {
+    font-size: 1.1rem;
+  }
+
+  .pr-bestsellers .bs-card--split .bs-card__price s {
+    font-size: 0.72rem;
+  }
+
+  .pr-bestsellers .bs-card--split .bs-card__off {
+    font-size: 0.65rem;
+    padding: 0.18rem 0.4rem;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__btn {
-    font-size: 0.72rem;
-    padding: 0.65rem 0.75rem;
+    font-size: 0.7rem;
+    padding: 0.62rem 0.65rem;
+    border-radius: 11px;
+  }
+
+  .pr-bestsellers .bs-card--split .bs-card__btn .material-symbols-outlined {
+    display: inline-block;
+    font-size: 1rem !important;
+    color: #fff !important;
   }
 }
 
@@ -9159,13 +9217,22 @@ footer.site-footer.mh-footer {
     gap: 1.35rem;
   }
 
+  .pr-bestsellers .bs-card--split {
+    border-radius: 26px;
+    grid-template-columns: minmax(0, 44%) minmax(0, 56%);
+  }
+
   .pr-bestsellers .bs-card--split .bs-card__media {
-    min-height: 13.5rem;
+    min-height: 13rem;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__body {
-    padding: 1.1rem 1.15rem 1.15rem;
-    gap: 0.2rem;
+    padding: 1.05rem 1.1rem 1.1rem;
+    gap: 0.22rem;
+  }
+
+  .pr-bestsellers .bs-card--split .bs-card__title {
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
   }
 
   .pr-bestsellers .bs-card--split .bs-card__stars {

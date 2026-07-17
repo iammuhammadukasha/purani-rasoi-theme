@@ -9400,39 +9400,49 @@ footer.site-footer.mh-footer {
 
 .pr-process__inner--steps {
   position: relative;
-  padding-top: 0.15rem;
+  padding-top: 0.35rem;
+  overflow: visible;
 }
 
-/* Dotted line starts from the full-width hero into the steps */
+/* Dotted line from hero into steps */
 .pr-process__flow {
   position: relative;
-  padding-top: 0.35rem;
+  padding-top: 0.5rem;
+  overflow: visible;
 }
 
-.pr-process__flow::before {
-  content: "";
+.pr-process__spine {
   position: absolute;
-  left: 1.05rem;
-  top: -1.35rem;
-  bottom: 1.35rem;
-  width: 0;
-  border-left: 2px dotted #5e6f36;
+  left: 1.2rem;
+  top: -0.85rem;
+  bottom: 1.75rem;
+  width: 3px;
+  transform: translateX(-50%);
+  background-image: radial-gradient(circle, #5e6f36 1.35px, transparent 1.55px);
+  background-size: 3px 11px;
+  background-repeat: repeat-y;
+  background-position: center top;
   z-index: 0;
   pointer-events: none;
 }
 
-.pr-process__flow::after {
+.pr-process__spine::before {
   content: "";
   position: absolute;
-  left: 0.82rem;
-  top: -1.55rem;
-  width: 0.55rem;
-  height: 0.55rem;
+  left: 50%;
+  top: 0;
+  width: 0.65rem;
+  height: 0.65rem;
   border-radius: 999px;
   background: #5e6f36;
+  transform: translate(-50%, -40%);
   box-shadow: 0 0 0 3px #faf8f2;
-  z-index: 1;
-  pointer-events: none;
+}
+
+.pr-process__flow::before,
+.pr-process__flow::after {
+  content: none;
+  display: none;
 }
 
 .pr-process__steps {
@@ -9454,11 +9464,28 @@ footer.site-footer.mh-footer {
   position: relative;
 }
 
+.pr-process__step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 1.2rem;
+  top: 2.95rem;
+  bottom: -0.85rem;
+  width: 3px;
+  transform: translateX(-50%);
+  background-image: radial-gradient(circle, #5e6f36 1.35px, transparent 1.55px);
+  background-size: 3px 11px;
+  background-repeat: repeat-y;
+  z-index: 0;
+  pointer-events: none;
+}
+
 .pr-process__marker {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 0.85rem;
+  position: relative;
+  z-index: 2;
 }
 
 .pr-process__num {

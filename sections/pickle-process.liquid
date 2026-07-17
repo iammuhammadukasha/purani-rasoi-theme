@@ -20,23 +20,22 @@
         </span>
       </h2>
     </header>
+  </div>
 
+  <div class="pr-process__hero-full">
+    <div class="pr-process__hero">
+      <img
+        src="{{ hero_img }}"
+        alt="{{ section.settings.hero_alt | default: 'Traditional pickle making' | escape }}"
+        width="1600"
+        height="900"
+        loading="lazy"
+      >
+    </div>
+  </div>
+
+  <div class="pr-process__inner pr-process__inner--steps">
     <div class="pr-process__flow">
-      <div class="pr-process__hero-row">
-        <div class="pr-process__marker pr-process__marker--hero" aria-hidden="true">
-          <span class="pr-process__dot"></span>
-        </div>
-        <div class="pr-process__hero">
-          <img
-            src="{{ hero_img }}"
-            alt="{{ section.settings.hero_alt | default: 'Traditional pickle making' | escape }}"
-            width="1600"
-            height="900"
-            loading="lazy"
-          >
-        </div>
-      </div>
-
       <ol class="pr-process__steps">
         {%- assign step_i = 0 -%}
         {%- for block in section.blocks -%}

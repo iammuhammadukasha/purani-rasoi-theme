@@ -9196,7 +9196,7 @@ footer.site-footer.mh-footer {
     height: 100%;
     min-height: 8rem;
     max-height: 9.5rem;
-    padding: 2.1rem 0.65rem 0.65rem;
+    padding: 1.55rem 0.6rem 0.6rem;
     background: #ffffff !important;
   }
 
@@ -9310,7 +9310,7 @@ footer.site-footer.mh-footer {
   .pr-bestsellers .bs-card--split .bs-card__media {
     min-height: 8.5rem;
     max-height: 10rem;
-    padding: 2.2rem 0.7rem 0.7rem;
+    padding: 1.6rem 0.65rem 0.65rem;
     background: #ffffff !important;
   }
 

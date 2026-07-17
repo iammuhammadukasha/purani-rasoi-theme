@@ -9011,9 +9011,9 @@ footer.site-footer.mh-footer {
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  gap: 0.12rem;
+  gap: 0.35rem;
   min-width: 0;
-  padding: 0.5rem 0.5rem 0.55rem;
+  padding: 0.65rem 0.6rem 0.7rem;
   box-sizing: border-box;
 }
 
@@ -9035,8 +9035,8 @@ footer.site-footer.mh-footer {
 }
 
 .pr-bestsellers .bs-card--split .bs-card__rating {
-  margin: 0;
-  gap: 0.15rem;
+  margin: 0.05rem 0 0;
+  gap: 0.2rem;
   flex-wrap: wrap;
 }
 
@@ -9053,7 +9053,7 @@ footer.site-footer.mh-footer {
 }
 
 .pr-bestsellers .bs-card--split .bs-card__size {
-  margin: 0;
+  margin: 0.05rem 0 0.1rem;
   font-size: 0.78rem;
   color: #8a7a70;
 }
@@ -9065,7 +9065,7 @@ footer.site-footer.mh-footer {
   justify-content: flex-start;
   flex-wrap: nowrap;
   gap: 0.4rem;
-  margin: 0.1rem 0 0.25rem;
+  margin: 0.15rem 0 0.4rem;
   width: 100%;
   min-width: 0;
 }
@@ -9074,7 +9074,7 @@ footer.site-footer.mh-footer {
   display: flex !important;
   flex-direction: column !important;
   align-items: flex-start !important;
-  gap: 0.08rem !important;
+  gap: 0.18rem !important;
   min-width: 0;
   flex: 0 1 auto;
   width: auto;
@@ -9188,9 +9188,9 @@ footer.site-footer.mh-footer {
   }
 
   .pr-bestsellers .bs-card--split .bs-card__body {
-    padding: 0.65rem 0.7rem 0.7rem;
-    gap: 0.12rem;
-    justify-content: center;
+    padding: 0.75rem 0.75rem 0.8rem;
+    gap: 0.4rem;
+    justify-content: flex-start;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__title {
@@ -9208,7 +9208,7 @@ footer.site-footer.mh-footer {
   }
 
   .pr-bestsellers .bs-card--split .bs-card__price {
-    margin: 0.12rem 0 0.3rem;
+    margin: 0.2rem 0 0.45rem;
     gap: 0.45rem;
   }
 
@@ -9300,8 +9300,8 @@ footer.site-footer.mh-footer {
   }
 
   .pr-bestsellers .bs-card--split .bs-card__body {
-    padding: 0.75rem 0.85rem 0.8rem;
-    gap: 0.14rem;
+    padding: 0.85rem 0.9rem 0.9rem;
+    gap: 0.45rem;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__title {

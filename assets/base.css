@@ -1950,24 +1950,24 @@ a {
   left: 0.55rem;
 }
 
-/* Collection cards: keep sale, compare, and OFF on one line */
+/* Collection cards: sale + OFF on one line, compare under sale */
 .shop-grid .bs-card__price {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   flex-wrap: nowrap;
-  gap: 0.3rem;
+  gap: 0.35rem;
   width: 100%;
   min-width: 0;
 }
 
 .shop-grid .bs-card__amounts {
   display: flex !important;
-  flex-direction: row !important;
-  align-items: baseline !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
   flex-wrap: nowrap !important;
-  gap: 0.3rem !important;
+  gap: 0.1rem !important;
   min-width: 0;
   flex: 0 1 auto;
 }
@@ -1976,21 +1976,24 @@ a {
   font-size: 0.95rem !important;
   white-space: nowrap;
   line-height: 1.15;
+  display: block !important;
 }
 
 .shop-grid .bs-card__price s {
-  display: inline !important;
+  display: block !important;
   font-size: 0.65rem !important;
   white-space: nowrap;
-  line-height: 1.15;
+  line-height: 1.2;
 }
 
 .shop-grid .bs-card__off {
   margin-left: 0.1rem;
+  margin-top: 0.08rem;
   flex-shrink: 0;
   font-size: 0.55rem;
   padding: 0.12rem 0.28rem;
   white-space: nowrap;
+  align-self: flex-start;
 }
 
 .shop-grid.is-list {

@@ -837,9 +837,10 @@ a {
 
 .bs-card__amounts {
   display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0.35rem 0.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  gap: 0.1rem;
   min-width: 0;
 }
 
@@ -851,9 +852,11 @@ a {
 }
 
 .bs-card__price s {
+  display: block;
   font-family: var(--font-body);
   font-size: 0.8125rem;
   color: #a59a92;
+  line-height: 1.2;
 }
 
 .bs-card__off {
@@ -9107,10 +9110,10 @@ footer.site-footer.mh-footer {
 }
 
 .pr-bestsellers .bs-card--split .bs-card__amounts {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.05rem;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 0.08rem !important;
   min-width: 0;
   flex: 1 1 auto;
 }
@@ -9122,13 +9125,16 @@ footer.site-footer.mh-footer {
   color: #3d4a24 !important;
   line-height: 1.15;
   white-space: nowrap;
+  display: block !important;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__price s {
-  font-size: 0.58rem;
-  color: #a59a92;
+  display: block !important;
+  font-size: 0.58rem !important;
+  color: #a59a92 !important;
   white-space: nowrap;
   line-height: 1.2;
+  margin: 0;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__off {
@@ -9246,7 +9252,8 @@ footer.site-footer.mh-footer {
   }
 
   .pr-bestsellers .bs-card--split .bs-card__amounts {
-    gap: 0.08rem;
+    flex-direction: column !important;
+    gap: 0.1rem !important;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__price strong {
@@ -9254,7 +9261,8 @@ footer.site-footer.mh-footer {
   }
 
   .pr-bestsellers .bs-card--split .bs-card__price s {
-    font-size: 0.62rem;
+    display: block !important;
+    font-size: 0.62rem !important;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__off {
@@ -9353,7 +9361,8 @@ footer.site-footer.mh-footer {
   }
 
   .pr-bestsellers .bs-card--split .bs-card__price s {
-    font-size: 0.65rem;
+    display: block !important;
+    font-size: 0.65rem !important;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__off {

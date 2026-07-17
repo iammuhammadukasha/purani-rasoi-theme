@@ -26,9 +26,13 @@
 
     <div class="pdp-layout">
       <section class="pdp-gallery" aria-label="Product images">
-        <div class="pdp-gallery__stage{% if product.media.size > 0 %} pdp-gallery__stage--thumbs{% endif %}">
-          {%- if product.media.size > 0 -%}
-            <div class="pdp-thumbs" role="list" data-thumbs-rail>
+        {%- liquid
+          assign thumb_min = 5
+          assign media_count = product.media.size
+        -%}
+        <div class="pdp-gallery__stage pdp-gallery__stage--thumbs">
+          <div class="pdp-thumbs" role="list" data-thumbs-rail>
+            {%- if media_count > 0 -%}
               {%- for media in product.media -%}
                 <button
                   type="button"
@@ -39,8 +43,17 @@
                   <img src="{{ media | image_url: width: 200 }}" alt="" loading="lazy" width="80" height="80">
                 </button>
               {%- endfor -%}
-            </div>
-          {%- endif -%}
+            {%- endif -%}
+
+            {%- if media_count < thumb_min -%}
+              {%- assign empty_slots = thumb_min | minus: media_count -%}
+              {%- for i in (1..empty_slots) -%}
+                <div class="pdp-thumbs__item pdp-thumbs__item--empty" role="listitem" aria-hidden="true">
+                  <span class="pdp-thumbs__plus" aria-hidden="true">+</span>
+                </div>
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
 
           <div class="pdp-gallery__main">
             {%- if product.selected_or_first_available_variant.featured_media != blank -%}

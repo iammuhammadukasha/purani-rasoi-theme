@@ -2177,6 +2177,7 @@ a {
     flex: 0 0 4.25rem;
     width: 4.25rem;
     height: 4.25rem;
+    aspect-ratio: auto;
   }
 
   .pdp-gallery__stage--thumbs .pdp-gallery__main {
@@ -2232,19 +2233,25 @@ a {
 }
 
 .pdp-thumbs {
-  display: flex;
-  gap: 0.5rem;
-  overflow-x: auto;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.45rem;
+  overflow: visible;
   scroll-behavior: smooth;
   flex: 1 1 auto;
   order: 2;
   padding: 0.15rem 0;
-  scrollbar-width: none;
+  width: 100%;
 }
 
 @media (min-width: 1024px) {
   .pdp-thumbs {
     order: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-x: visible;
+    overflow-y: auto;
+    grid-template-columns: none;
   }
 }
 
@@ -2254,21 +2261,42 @@ a {
 
 .pdp-thumbs button,
 .pdp-thumbs__item {
-  flex: 0 0 3.65rem;
-  width: 3.65rem;
-  height: 3.65rem;
+  flex: 0 0 auto;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  min-width: 0;
   border-radius: 8px;
   overflow: hidden;
   border: 1.5px solid rgba(94, 111, 54, 0.14);
   background: #fff;
   padding: 0;
   cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
 }
 
 .pdp-thumbs button.is-active,
 .pdp-thumbs__item.is-active {
   border-color: #5e6f36;
   border-width: 2px;
+}
+
+.pdp-thumbs__item--empty {
+  cursor: default;
+  pointer-events: none;
+  background: #f7f4ec;
+  border-style: dashed;
+  border-color: rgba(94, 111, 54, 0.28);
+}
+
+.pdp-thumbs__plus {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1;
+  color: rgba(94, 111, 54, 0.45);
 }
 
 .pdp-thumbs img {

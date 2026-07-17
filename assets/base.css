@@ -9579,13 +9579,11 @@ footer.site-footer.mh-footer {
   line-height: 1.4;
 }
 
-.pr-process__features {
-  position: relative;
-  margin-top: 1.5rem;
-  padding: 1rem 0.5rem 0.85rem;
-  border: 1px solid rgba(94, 111, 54, 0.22);
-  border-radius: 16px;
-  background: #f7f3ea;
+.pr-process__features,
+.pr-process__features-leaf,
+.pr-process__features-row,
+.pr-process__feature {
+  display: none !important;
 }
 
 .pr-process__features-leaf {

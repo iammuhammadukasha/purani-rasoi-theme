@@ -71,26 +71,6 @@
         {%- endfor -%}
       </ol>
     </div>
-
-    {%- assign feature_blocks = section.blocks | where: 'type', 'feature' -%}
-    {%- if feature_blocks.size > 0 -%}
-      <div class="pr-process__features">
-        <div class="pr-process__features-leaf pr-process__features-leaf--left" aria-hidden="true">
-          <img src="{{ 'cats-flourish-leaf.png' | asset_url }}" alt="" width="84" height="36" loading="lazy">
-        </div>
-        <div class="pr-process__features-row">
-          {%- for block in feature_blocks -%}
-            <div class="pr-process__feature" {{ block.shopify_attributes }}>
-              <span class="pr-process__feature-icon material-symbols-outlined" aria-hidden="true">{{ block.settings.icon | default: 'home' }}</span>
-              <span class="pr-process__feature-label">{{ block.settings.title }}</span>
-            </div>
-          {%- endfor -%}
-        </div>
-        <div class="pr-process__features-leaf pr-process__features-leaf--right" aria-hidden="true">
-          <img src="{{ 'cats-flourish-leaf.png' | asset_url }}" alt="" width="84" height="36" loading="lazy">
-        </div>
-      </div>
-    {%- endif -%}
   </div>
 </section>
 
@@ -115,15 +95,6 @@
         { "type": "image_picker", "id": "image", "label": "Step image" },
         { "type": "text", "id": "fallback_asset", "label": "Fallback asset filename", "default": "story-kitchen.png" }
       ]
-    },
-    {
-      "type": "feature",
-      "name": "Bottom feature",
-      "limit": 4,
-      "settings": [
-        { "type": "text", "id": "icon", "label": "Material icon name", "default": "home" },
-        { "type": "text", "id": "title", "label": "Label", "default": "Homemade Taste" }
-      ]
     }
   ],
   "presets": [
@@ -134,11 +105,7 @@
         { "type": "step", "settings": { "title": "Blended With Authentic Spices", "text": "Traditional masalas are blended by hand for true homemade flavour.", "fallback_asset": "benefit-preservatives.png" } },
         { "type": "step", "settings": { "title": "Handmixed With Care", "text": "Each jar is mixed slowly with care, just like in a purani rasoi.", "fallback_asset": "banner-kitchen.png" } },
         { "type": "step", "settings": { "title": "Naturally Aged To Perfection", "text": "Pickles rest and mature naturally for rich, deep taste.", "fallback_asset": "benefit-batches.png" } },
-        { "type": "step", "settings": { "title": "Packed Hygienically With Love", "text": "Every jar is sealed clean and packed with love for your kitchen.", "fallback_asset": "product-aam.png" } },
-        { "type": "feature", "settings": { "icon": "home", "title": "Homemade Taste" } },
-        { "type": "feature", "settings": { "icon": "eco", "title": "No Artificial Preservatives" } },
-        { "type": "feature", "settings": { "icon": "soup_kitchen", "title": "Traditional Recipes" } },
-        { "type": "feature", "settings": { "icon": "favorite", "title": "Small Batch Made" } }
+        { "type": "step", "settings": { "title": "Packed Hygienically With Love", "text": "Every jar is sealed clean and packed with love for your kitchen.", "fallback_asset": "product-aam.png" } }
       ]
     }
   ]

@@ -8,9 +8,13 @@
   assign price = target.price
 -%}
 <div class="{{ class | default: 'bs-card__price' }}">
-  <strong>{{ price | money }}</strong>
+  <div class="bs-card__amounts">
+    <strong>{{ price | money }}</strong>
+    {%- if compare_at > price -%}
+      <s>{{ compare_at | money }}</s>
+    {%- endif -%}
+  </div>
   {%- if compare_at > price -%}
-    <s>{{ compare_at | money }}</s>
     {%- assign save = compare_at | minus: price | times: 100.0 | divided_by: compare_at | round -%}
     <span class="bs-card__off">{{ save }}% OFF</span>
   {%- endif -%}

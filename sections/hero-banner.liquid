@@ -147,29 +147,16 @@
               -%}
               <article class="pr-benefits__item" {{ block.shopify_attributes }}>
                 <div class="pr-benefits__icon" aria-hidden="true">
-                  {%- if block.settings.image != blank -%}
-                    <img src="{{ block.settings.image | image_url: width: 200 }}" alt="" width="88" height="88" loading="lazy">
-                  {%- else -%}
-                    {%- liquid
-                      case b_icon
-                        when 'mortar'
-                          assign benefit_asset = 'benefit-preservatives.png'
-                        when 'handi'
-                          assign benefit_asset = 'benefit-batches.png'
-                        when 'heart'
-                          assign benefit_asset = 'benefit-love.png'
-                        else
-                          assign benefit_asset = 'benefit-homemade.png'
-                      endcase
-                    -%}
-                    <img
-                      src="{{ benefit_asset | asset_url }}"
-                      alt=""
-                      width="88"
-                      height="88"
-                      loading="lazy"
-                    >
-                  {%- endif -%}
+                  {%- case ti -%}
+                    {%- when 1 -%}
+                      <img src="{{ 'benefit-homemade.png' | asset_url }}" alt="" width="88" height="88" loading="lazy">
+                    {%- when 2 -%}
+                      <img src="{{ 'benefit-preservatives.png' | asset_url }}" alt="" width="88" height="88" loading="lazy">
+                    {%- when 3 -%}
+                      <img src="{{ 'benefit-batches.png' | asset_url }}" alt="" width="88" height="88" loading="lazy">
+                    {%- else -%}
+                      <img src="{{ 'benefit-love.png' | asset_url }}" alt="" width="88" height="88" loading="lazy">
+                  {%- endcase -%}
                 </div>
                 <h3 class="pr-benefits__title">{{ b_title }}</h3>
                 {%- if b_sub != blank -%}

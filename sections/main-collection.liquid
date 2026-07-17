@@ -23,21 +23,34 @@
 
 {%- if section.settings.show_trust -%}
   <section class="shop-usp" aria-label="Brand promises">
+    {%- assign trust_n = 0 -%}
     {%- for block in section.blocks -%}
       {%- if block.type == 'trust' -%}
+        {%- assign trust_n = trust_n | plus: 1 -%}
         {%- liquid
-          if block.settings.image != blank
-            assign trust_img = block.settings.image | image_url: width: 240
-          else
-            assign trust_fallback = block.settings.fallback_asset | default: 'benefit-homemade.png'
-            assign trust_img = trust_fallback | asset_url
+          case trust_n
+            when 1
+              assign trust_img = 'benefit-homemade.png' | asset_url
+              assign trust_label = '100% Homemade'
+            when 2
+              assign trust_img = 'benefit-preservatives.png' | asset_url
+              assign trust_label = 'No Preservatives'
+            when 3
+              assign trust_img = 'benefit-batches.png' | asset_url
+              assign trust_label = 'Traditional Recipes'
+            else
+              assign trust_img = 'benefit-love.png' | asset_url
+              assign trust_label = 'Small Batch Made'
+          endcase
+          if block.settings.label != blank
+            assign trust_label = block.settings.label
           endif
         -%}
         <div class="shop-usp__item" {{ block.shopify_attributes }}>
           <span class="shop-usp__icon" aria-hidden="true">
             <img src="{{ trust_img }}" alt="" width="120" height="120" loading="lazy">
           </span>
-          <h3 class="shop-usp__title">{{ block.settings.label }}</h3>
+          <h3 class="shop-usp__title">{{ trust_label }}</h3>
         </div>
       {%- endif -%}
     {%- endfor -%}

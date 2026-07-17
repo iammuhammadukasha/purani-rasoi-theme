@@ -16,12 +16,16 @@
     <div class="pr-why__grid">
       {%- for block in section.blocks -%}
         {%- liquid
-          if block.settings.image != blank
-            assign why_img = block.settings.image | image_url: width: 400
-          else
-            assign why_fallback = block.settings.fallback_asset | default: 'benefit-homemade.png'
-            assign why_img = why_fallback | asset_url
-          endif
+          case forloop.index
+            when 1
+              assign why_img = 'benefit-homemade.png' | asset_url
+            when 2
+              assign why_img = 'benefit-preservatives.png' | asset_url
+            when 3
+              assign why_img = 'benefit-batches.png' | asset_url
+            else
+              assign why_img = 'benefit-love.png' | asset_url
+          endcase
         -%}
         <article class="pr-why__item" {{ block.shopify_attributes }}>
           <div class="pr-why__circle">

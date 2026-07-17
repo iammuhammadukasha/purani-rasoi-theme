@@ -53,6 +53,27 @@
             "author": "Neha Agarwal"
           }
         },
+        "r4": {
+          "type": "review",
+          "settings": {
+            "quote": "“Mirch ka achar bilkul nani ke haath jaisa. Pure oil aur masale — no compromise!”",
+            "author": "Ananya Gupta"
+          }
+        },
+        "r5": {
+          "type": "review",
+          "settings": {
+            "quote": "“Mixed pickle is our family favourite now. Fresh, tangy, and arrives packed with care.”",
+            "author": "Vikram Singh"
+          }
+        },
+        "r6": {
+          "type": "review",
+          "settings": {
+            "quote": "“Ordered for my parents — they said it tastes just like homemade. Instant repurchase!”",
+            "author": "Meera Kapoor"
+          }
+        },
         "trust1": {
           "type": "trust",
           "settings": { "icon": "local_shipping", "label": "Free Shipping", "sublabel": "on orders above ₹499" }
@@ -114,7 +135,7 @@
         "tag1", "tag2", "tag3",
         "f1", "f2", "f3", "f4", "f5", "f6",
         "c1", "c2", "c3", "c4", "c5",
-        "r1", "r2", "r3",
+        "r1", "r2", "r3", "r4", "r5", "r6",
         "trust1", "trust2", "trust3", "trust4",
         "acc1", "acc2", "acc3", "acc4", "acc5"
       ],

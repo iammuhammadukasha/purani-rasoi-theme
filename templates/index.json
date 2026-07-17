@@ -113,9 +113,12 @@
       "blocks": {
         "r1": { "type": "review", "settings": { "quote": "“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”", "author": "Priya Sharma" } },
         "r2": { "type": "review", "settings": { "quote": "“Nimbu ka achar try kiya, bahut hi tasty aur fresh. Will order again!”", "author": "Rohit Verma" } },
-        "r3": { "type": "review", "settings": { "quote": "“Best achar I have ever had. 100% recommended!”", "author": "Neha Agarwal" } }
+        "r3": { "type": "review", "settings": { "quote": "“Best achar I have ever had. 100% recommended!”", "author": "Neha Agarwal" } },
+        "r4": { "type": "review", "settings": { "quote": "“Mirch ka achar bilkul nani ke haath jaisa. Pure oil aur masale — no compromise!”", "author": "Ananya Gupta" } },
+        "r5": { "type": "review", "settings": { "quote": "“Mixed pickle is our family favourite now. Fresh, tangy, and arrives packed with care.”", "author": "Vikram Singh" } },
+        "r6": { "type": "review", "settings": { "quote": "“Ordered for my parents — they said it tastes just like homemade. Instant repurchase!”", "author": "Meera Kapoor" } }
       },
-      "block_order": ["r1", "r2", "r3"],
+      "block_order": ["r1", "r2", "r3", "r4", "r5", "r6"],
       "settings": {
         "heading": "What Our Customers Say",
         "heading_mobile": "Customer Love"

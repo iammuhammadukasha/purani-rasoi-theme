@@ -3025,7 +3025,7 @@ a.bs-card__media {
 
 /* Footer ? brand | quick links | help */
 .site-footer {
-  background: #2b2b26;
+  background: #5e6f36;
   color: #ffffff;
   padding-top: 2rem;
 }
@@ -6985,12 +6985,12 @@ footer.site-footer.mh-footer {
   }
 }
 
-/* Brand system overrides ? charcoal footers, coral urgency, gold stars */
+/* Brand system overrides — olive footers, gold stars */
 .site-footer,
 .mh-footer,
 .mh-footer.site-footer,
 footer.site-footer.mh-footer {
-  background: #2b2b26 !important;
+  background: #5e6f36 !important;
   color: #ffffff;
 }
 

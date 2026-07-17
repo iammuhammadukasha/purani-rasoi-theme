@@ -8880,10 +8880,10 @@ footer.site-footer.mh-footer {
 
 .pr-bestsellers__grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.65rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
   width: 100%;
-  padding: 0;
+  padding: 0 0.5rem;
   box-sizing: border-box;
 }
 
@@ -8896,10 +8896,10 @@ footer.site-footer.mh-footer {
   color: #6b5b52;
 }
 
-/* Split product card — full width on mobile */
+/* Split product card — 2x2 grid */
 .pr-bestsellers .bs-card--split {
   display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   align-items: stretch;
   gap: 0;
   width: 100%;
@@ -8907,7 +8907,7 @@ footer.site-footer.mh-footer {
   min-width: 0;
   background: #f3efe6;
   border: none;
-  border-radius: 0;
+  border-radius: 14px;
   padding: 0;
   overflow: hidden;
   box-shadow: none;
@@ -8918,7 +8918,7 @@ footer.site-footer.mh-footer {
   aspect-ratio: auto;
   width: 100%;
   height: 100%;
-  min-height: 9.5rem;
+  min-height: 7.5rem;
   margin: 0;
   border-radius: 0;
   background: #ebe4d6;
@@ -8957,17 +8957,17 @@ footer.site-footer.mh-footer {
 }
 
 .pr-bestsellers .bs-card--split .bs-card__body {
-  padding: 0.7rem 0.75rem 0.75rem;
+  padding: 0.45rem 0.4rem 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.15rem;
+  gap: 0.08rem;
   min-width: 0;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__title {
   margin: 0;
-  font-size: clamp(0.85rem, 3.2vw, 1.05rem);
+  font-size: clamp(0.68rem, 2.8vw, 0.85rem);
   font-weight: 700;
   color: #3d4a24;
   line-height: 1.2;
@@ -8985,61 +8985,61 @@ footer.site-footer.mh-footer {
 
 .pr-bestsellers .bs-card--split .bs-card__stars {
   color: #d4a017;
-  font-size: 0.72rem;
+  font-size: 0.55rem;
   letter-spacing: 0.02em;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__reviews {
-  font-size: 0.68rem;
+  font-size: 0.55rem;
   color: #8a7a70;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__size {
-  margin: 0.05rem 0 0.2rem;
-  font-size: 0.72rem;
+  margin: 0.02rem 0 0.1rem;
+  font-size: 0.58rem;
   color: #8a7a70;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__price {
-  margin: 0 0 0.45rem;
-  gap: 0.25rem 0.45rem;
+  margin: 0 0 0.3rem;
+  gap: 0.15rem 0.3rem;
   align-items: baseline;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__price strong {
   font-family: var(--font-body);
-  font-size: clamp(0.95rem, 3.4vw, 1.15rem);
+  font-size: clamp(0.72rem, 2.8vw, 0.9rem);
   font-weight: 700;
   color: #3d4a24;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__price s {
-  font-size: 0.72rem;
+  font-size: 0.55rem;
   color: #a59a92;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__off {
   flex-basis: 100%;
   width: fit-content;
-  margin-top: 0.1rem;
+  margin-top: 0.05rem;
   background: #efb530;
   color: #5c3d0a;
-  border-radius: 5px;
-  padding: 0.18rem 0.4rem;
-  font-size: 0.62rem;
+  border-radius: 4px;
+  padding: 0.12rem 0.3rem;
+  font-size: 0.5rem;
   font-weight: 700;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__btn {
-  margin-top: 0.15rem;
+  margin-top: 0.1rem;
   width: 100%;
-  border-radius: 10px;
+  border-radius: 8px;
   background: #5e6f36 !important;
   color: #fff !important;
-  padding: 0.55rem 0.5rem;
-  font-size: 0.62rem;
-  letter-spacing: 0.06em;
-  gap: 0.3rem;
+  padding: 0.4rem 0.25rem;
+  font-size: 0.48rem;
+  letter-spacing: 0.04em;
+  gap: 0.2rem;
 }
 
 .pr-bestsellers .bs-card--split .bs-card__btn .material-symbols-outlined {
@@ -9090,6 +9090,7 @@ footer.site-footer.mh-footer {
   .pr-bestsellers__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.1rem;
+    padding: 0;
   }
 
   .pr-bestsellers .bs-card--split {

@@ -3784,7 +3784,7 @@ a.bs-card__media {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
-  align-items: start;
+  align-items: stretch;
 }
 
 .pr-benefits__item {
@@ -3795,14 +3795,15 @@ a.bs-card__media {
   text-align: center;
   padding: 0.1rem 0.3rem 0.35rem;
   min-width: 0;
+  height: 100%;
 }
 
 .pr-benefits__item:not(:last-child)::after {
   content: "";
   position: absolute;
-  top: 10%;
+  top: 0.25rem;
   right: 0;
-  bottom: 10%;
+  bottom: 0.25rem;
   width: 0;
   border-right: 1px dotted #c9b89a;
 }
@@ -3852,7 +3853,7 @@ a.bs-card__media {
 
   .pr-benefits__row {
     gap: 0;
-    align-items: start;
+    align-items: stretch;
   }
 
   .pr-benefits__item {
@@ -3860,8 +3861,8 @@ a.bs-card__media {
   }
 
   .pr-benefits__item:not(:last-child)::after {
-    top: 12%;
-    bottom: 12%;
+    top: 0.35rem;
+    bottom: 0.35rem;
     border-right-width: 1.5px;
   }
 

@@ -9118,7 +9118,7 @@ footer.site-footer.mh-footer {
 
 .pr-bestsellers .bs-card--split .bs-card__price strong {
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: 0.64rem;
   font-weight: 700;
   color: #3d4a24;
   line-height: 1.15;
@@ -9126,7 +9126,7 @@ footer.site-footer.mh-footer {
 }
 
 .pr-bestsellers .bs-card--split .bs-card__price s {
-  font-size: 0.52rem;
+  font-size: 0.46rem;
   color: #a59a92;
   white-space: nowrap;
 }
@@ -9135,14 +9135,14 @@ footer.site-footer.mh-footer {
   flex: 0 0 auto;
   width: auto;
   max-width: none;
-  margin-left: 0.15rem;
+  margin-left: 0.1rem;
   background: #efb530;
   color: #5c3d0a;
   border-radius: 3px;
-  padding: 0.08rem 0.2rem;
-  font-size: 0.42rem;
+  padding: 0.06rem 0.16rem;
+  font-size: 0.38rem;
   font-weight: 700;
-  letter-spacing: 0.01em;
+  letter-spacing: 0;
   line-height: 1.2;
   white-space: nowrap;
   align-self: center;
@@ -9249,17 +9249,17 @@ footer.site-footer.mh-footer {
   }
 
   .pr-bestsellers .bs-card--split .bs-card__price strong {
-    font-size: 0.88rem;
+    font-size: 0.78rem;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__price s {
-    font-size: 0.58rem;
+    font-size: 0.52rem;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__off {
-    font-size: 0.5rem;
-    padding: 0.1rem 0.28rem;
-    margin-left: 0.2rem;
+    font-size: 0.45rem;
+    padding: 0.08rem 0.22rem;
+    margin-left: 0.15rem;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__btn {

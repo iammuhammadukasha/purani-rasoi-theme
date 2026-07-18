@@ -1449,6 +1449,31 @@ a {
   text-decoration: underline;
 }
 
+.shop-banner.shop-banner--crumbs-only {
+  align-items: flex-start;
+  min-height: 6rem;
+}
+
+.shop-banner--crumbs-only .shop-banner__content {
+  padding-top: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .shop-banner.shop-banner--crumbs-only {
+    min-height: 7rem;
+  }
+
+  .shop-banner--crumbs-only .shop-banner__content {
+    padding-top: 1.15rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .shop-banner.shop-banner--crumbs-only {
+    min-height: 7.5rem;
+  }
+}
+
 /* Shop trust strip ? match mobile reference (circled icons, 4-up) */
 .shop-usp {
   display: flex;
@@ -9287,8 +9312,8 @@ footer.site-footer.mh-footer {
   background: #efb530 !important;
   color: #5c3d0a !important;
   border-radius: 4px;
-  padding: 0.18rem 0.4rem;
-  font-size: 0.62rem;
+  padding: 0.24rem 0.55rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1.2;
@@ -9317,8 +9342,8 @@ footer.site-footer.mh-footer {
 
   .pr-bestsellers .bs-card--split .bs-card__off {
     margin-top: 0;
-    font-size: 0.55rem;
-    padding: 0.14rem 0.32rem;
+    font-size: 0.72rem;
+    padding: 0.2rem 0.45rem;
   }
 }
 
@@ -9791,34 +9816,18 @@ footer.site-footer.mh-footer {
 
 .pr-process__card-media {
   position: relative;
-  width: 4.4rem;
-  height: 4.4rem;
+  width: 5rem;
+  height: 5rem;
   flex-shrink: 0;
   display: grid;
   place-items: center;
 }
 
-.pr-process__card-ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 50% 50%, transparent 58%, #faf8f2 59% 64%, transparent 65%),
-    repeating-conic-gradient(
-      from 8deg,
-      #a67c52 0deg 10deg,
-      #d4b07a 10deg 14deg,
-      #a67c52 14deg 24deg,
-      transparent 24deg 30deg
-    );
-  z-index: 0;
-}
-
 .pr-process__card-media img {
   position: relative;
   z-index: 1;
-  width: 3.55rem;
-  height: 3.55rem;
+  width: 4.3rem;
+  height: 4.3rem;
   border-radius: 50%;
   object-fit: cover;
   display: block;
@@ -9923,8 +9932,8 @@ footer.site-footer.mh-footer {
   .pr-process__num { width: 2.4rem; height: 2.4rem; font-size: 1rem; }
   .pr-process__steps { gap: 1rem; }
   .pr-process__card { gap: 0.95rem; padding: 0.85rem 1rem; border-radius: 16px; min-height: 5.75rem; }
-  .pr-process__card-media { width: 5.5rem; height: 5.5rem; }
-  .pr-process__card-media img { width: 4.4rem; height: 4.4rem; }
+  .pr-process__card-media { width: 6.2rem; height: 6.2rem; }
+  .pr-process__card-media img { width: 5.3rem; height: 5.3rem; }
   .pr-process__card-title { font-size: clamp(1.05rem, 1.5vw, 1.2rem); }
   .pr-process__card-text { font-size: 0.9rem; }
   .pr-process__features { margin-top: 1.85rem; padding: 1.25rem 1rem 1rem; border-radius: 20px; }
@@ -9948,8 +9957,8 @@ footer.site-footer.mh-footer {
   .pr-process__inner { max-width: 860px; }
   .pr-process__hero,
   .pr-process__hero img { max-height: 26rem; }
-  .pr-process__card-media { width: 6rem; height: 6rem; }
-  .pr-process__card-media img { width: 4.85rem; height: 4.85rem; }
+  .pr-process__card-media { width: 6.8rem; height: 6.8rem; }
+  .pr-process__card-media img { width: 5.8rem; height: 5.8rem; }
 }
 
 /* ===== Why Purani Rasoi ? circular feature cards ===== */

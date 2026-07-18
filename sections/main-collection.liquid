@@ -4,7 +4,7 @@
   assign current_sort = collection.sort_by | default: collection.default_sort_by
 -%}
 
-<section class="shop-banner" aria-label="{{ heading | escape }}">
+<section class="shop-banner shop-banner--crumbs-only" aria-label="{{ heading | escape }}">
   {%- if section.settings.banner != blank -%}
     <img src="{{ section.settings.banner | image_url: width: 2000 }}" alt="" loading="eager">
   {%- elsif collection.image -%}
@@ -14,7 +14,7 @@
   {%- endif -%}
   <div class="shop-banner__shade" aria-hidden="true"></div>
   <div class="shop-banner__content">
-    <h1>{{ heading }}</h1>
+    <h1 class="sr-only">{{ heading }}</h1>
     <p class="shop-banner__crumbs">
       <a href="{{ routes.root_url }}">Home</a> &gt; {{ crumb }}
     </p>

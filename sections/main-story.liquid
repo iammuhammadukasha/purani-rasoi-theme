@@ -16,7 +16,7 @@
 -%}
 
 <article class="story-page">
-  <section class="shop-banner story-page__banner" aria-label="{{ section.settings.hero_title | default: page.title | escape }}">
+  <section class="shop-banner shop-banner--crumbs-only story-page__banner" aria-label="{{ section.settings.hero_title | default: page.title | escape }}">
     <img
       src="{{ hero_img }}"
       alt=""
@@ -31,7 +31,7 @@
         <span aria-hidden="true">/</span>
         <span>{{ section.settings.crumb_label | default: 'Our Story' }}</span>
       </nav>
-      <h1>{{ section.settings.hero_title | default: page.title | default: 'Hamari Kahani' }}</h1>
+      <h1 class="sr-only">{{ section.settings.hero_title | default: page.title | default: 'Hamari Kahani' }}</h1>
     </div>
   </section>
 

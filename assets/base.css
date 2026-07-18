@@ -1964,145 +1964,9 @@ a {
   box-sizing: border-box;
 }
 
-/* Override horizontal-rail .bs-card (max-width: 280px) on shop page */
-.shop-grid .bs-card {
-  width: 100%;
-  max-width: none;
-  min-width: 0;
-  flex: none;
-  padding: 0.75rem 0.75rem 0.9rem;
-}
-
-.shop-grid .bs-card__media {
-  margin-bottom: 0.65rem;
-  border-radius: 8px;
-  padding: 1.55rem 0.65rem 0.65rem !important;
-  background: #ffffff !important;
-}
-
-.shop-grid .bs-card__badge {
-  top: 0.55rem;
-  left: 0.55rem;
-}
-
-.shop-grid .bs-card__title {
-  min-height: 5.3rem;
-}
-
-/* Collection cards: sale + OFF on one line when space allows; stack on narrow cards */
-.shop-grid .bs-card {
-  container-type: inline-size;
-  container-name: shop-card;
-}
-
-.shop-grid .bs-card__price {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: 0.25rem 0.35rem;
-  width: 100%;
-  min-width: 0;
-}
-
-.shop-grid .bs-card__amounts {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  flex-wrap: nowrap !important;
-  gap: 0.1rem !important;
-  min-width: 0;
-  flex: 1 1 auto;
-  max-width: 100%;
-}
-
-.shop-grid .bs-card__price strong {
-  font-size: clamp(0.88rem, 3.8vw, 1.05rem) !important;
-  font-weight: 800 !important;
-  white-space: nowrap;
-  line-height: 1.15;
-  display: block !important;
-}
-
-.shop-grid .bs-card__price s {
-  display: block !important;
-  font-size: clamp(0.68rem, 3.2vw, 0.82rem) !important;
-  white-space: nowrap;
-  line-height: 1.2;
-}
-
-.shop-grid .bs-card__off {
-  margin-left: 0;
-  margin-top: 0.05rem;
-  flex: 0 0 auto;
-  font-size: 0.72rem;
-  padding: 0.2rem 0.42rem;
-  white-space: nowrap;
-  align-self: flex-start;
-}
-
-/* Narrow shop cards: badge under crossed-out price */
-@container shop-card (max-width: 11.5rem) {
-  .shop-grid .bs-card__price {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.25rem;
-  }
-
-  .shop-grid .bs-card__off {
-    margin-top: 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .shop-grid .bs-card__price {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.25rem;
-  }
-
-  .shop-grid .bs-card__price strong {
-    font-size: 0.92rem !important;
-    font-weight: 800 !important;
-  }
-
-  .shop-grid .bs-card__off {
-    margin-top: 0;
-    font-size: 0.66rem;
-  }
-}
-
-.shop-grid .bs-card__btn {
-  gap: 0.25rem;
-  padding: 0.62rem 0.4rem;
-  font-size: 0.78rem !important;
-  letter-spacing: 0.03em;
-  overflow: visible;
-}
-
-.shop-grid .bs-card__btn .material-symbols-outlined {
-  display: inline-block !important;
-  font-size: 0.95rem !important;
-  width: 0.95rem;
-  height: 0.95rem;
-  flex-shrink: 0;
-  color: #fff !important;
-}
-
-@media (max-width: 380px) {
-  .shop-grid .bs-card__btn {
-    font-size: 0.68rem !important;
-    padding: 0.58rem 0.3rem;
-    gap: 0.2rem;
-  }
-
-  .shop-grid .bs-card__btn .material-symbols-outlined {
-    font-size: 0.85rem !important;
-    width: 0.85rem;
-    height: 0.85rem;
-  }
-}
+/* Collection grid cards now reuse the compact homepage Best Sellers
+   card style (see ":is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split"
+   rules further down) instead of their own vertical-card styling. */
 
 .shop-grid.is-list {
   grid-template-columns: minmax(0, 1fr);
@@ -9139,7 +9003,7 @@ footer.site-footer.mh-footer {
 }
 
 /* Homepage Best Sellers cards */
-.pr-bestsellers .bs-card--split {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -9157,7 +9021,7 @@ footer.site-footer.mh-footer {
   container-name: split-card;
 }
 
-.pr-bestsellers .bs-card--split .bs-card__media {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__media {
   position: relative;
   display: flex;
   align-items: center;
@@ -9175,7 +9039,7 @@ footer.site-footer.mh-footer {
   box-sizing: border-box;
 }
 
-.pr-bestsellers .bs-card--split .bs-card__media img {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__media img {
   width: 100%;
   height: 100%;
   max-width: 100%;
@@ -9185,11 +9049,11 @@ footer.site-footer.mh-footer {
   filter: none;
 }
 
-.pr-bestsellers .bs-card--split:hover .bs-card__media img {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split:hover .bs-card__media img {
   transform: scale(1.03);
 }
 
-.pr-bestsellers .bs-card--split .bs-card__badge {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__badge {
   top: 0.45rem;
   left: 0.45rem;
   border-radius: 5px;
@@ -9203,17 +9067,17 @@ footer.site-footer.mh-footer {
   z-index: 2;
 }
 
-.pr-bestsellers .bs-card__badge--olive {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card__badge--olive {
   background: #5e6f36;
   color: #fff;
 }
 
-.pr-bestsellers .bs-card__badge--gold {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card__badge--gold {
   background: #c9a227;
   color: #fff;
 }
 
-.pr-bestsellers .bs-card--split .bs-card__body {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__body {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
@@ -9225,7 +9089,7 @@ footer.site-footer.mh-footer {
   box-sizing: border-box;
 }
 
-.pr-bestsellers .bs-card--split .bs-card__title {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__title {
   margin: 0;
   font-size: 0.7rem;
   font-weight: 700;
@@ -9237,36 +9101,36 @@ footer.site-footer.mh-footer {
   overflow: hidden;
 }
 
-.pr-bestsellers .bs-card--split .bs-card__title a {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__title a {
   color: inherit;
   text-decoration: none;
 }
 
-.pr-bestsellers .bs-card--split .bs-card__rating {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__rating {
   margin: 0.05rem 0 0;
   gap: 0.2rem;
   flex-wrap: wrap;
 }
 
-.pr-bestsellers .bs-card--split .bs-card__stars {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__stars {
   color: #d4a017;
   font-size: 0.78rem;
   letter-spacing: 0.03em;
   line-height: 1;
 }
 
-.pr-bestsellers .bs-card--split .bs-card__reviews {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__reviews {
   font-size: 0.72rem;
   color: #8a7a70;
 }
 
-.pr-bestsellers .bs-card--split .bs-card__size {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__size {
   margin: 0;
   font-size: 0.78rem;
   color: #8a7a70;
 }
 
-.pr-bestsellers .bs-card--split .bs-card__price {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__price {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -9278,7 +9142,7 @@ footer.site-footer.mh-footer {
   min-width: 0;
 }
 
-.pr-bestsellers .bs-card--split .bs-card__amounts {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__amounts {
   display: flex !important;
   flex-direction: column !important;
   align-items: flex-start !important;
@@ -9289,7 +9153,7 @@ footer.site-footer.mh-footer {
   max-width: 100%;
 }
 
-.pr-bestsellers .bs-card--split .bs-card__price strong {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__price strong {
   font-family: var(--font-body) !important;
   font-size: clamp(0.9rem, 3.4vw, 1.12rem) !important;
   font-weight: 800 !important;
@@ -9299,7 +9163,7 @@ footer.site-footer.mh-footer {
   display: block !important;
 }
 
-.pr-bestsellers .bs-card--split .bs-card__price s {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__price s {
   display: block !important;
   font-size: clamp(0.64rem, 2.9vw, 0.86rem) !important;
   color: #a59a92 !important;
@@ -9308,7 +9172,7 @@ footer.site-footer.mh-footer {
   margin: 0;
 }
 
-.pr-bestsellers .bs-card--split .bs-card__off {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__off {
   flex: 0 0 auto;
   width: auto;
   max-width: none;
@@ -9326,32 +9190,32 @@ footer.site-footer.mh-footer {
 }
 
 @container split-card (max-width: 11.5rem) {
-  .pr-bestsellers .bs-card--split .bs-card__price {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__price {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.25rem;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__off {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__off {
     margin-top: 0;
   }
 }
 
 @media (max-width: 480px) {
-  .pr-bestsellers .bs-card--split .bs-card__price {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__price {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.25rem;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__off {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__off {
     margin-top: 0;
     font-size: 0.72rem;
     padding: 0.2rem 0.45rem;
   }
 }
 
-.pr-bestsellers .bs-card--split .bs-card__btn {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__btn {
   margin-top: auto;
   width: 100%;
   max-width: 100%;
@@ -9367,7 +9231,7 @@ footer.site-footer.mh-footer {
   overflow: visible;
 }
 
-.pr-bestsellers .bs-card--split .bs-card__btn .material-symbols-outlined {
+:is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__btn .material-symbols-outlined {
   display: inline-block !important;
   font-size: 0.95rem !important;
   width: 0.95rem;
@@ -9413,7 +9277,7 @@ footer.site-footer.mh-footer {
   }
 
   /* Horizontal split cards from tablet up */
-  .pr-bestsellers .bs-card--split {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split {
     display: grid;
     grid-template-columns: minmax(0, 38%) minmax(0, 62%);
     align-items: stretch;
@@ -9423,7 +9287,7 @@ footer.site-footer.mh-footer {
     box-shadow: 0 3px 10px rgba(94, 111, 54, 0.05);
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__media {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__media {
     aspect-ratio: auto;
     height: 100%;
     min-height: 8rem;
@@ -9432,59 +9296,59 @@ footer.site-footer.mh-footer {
     background: #ffffff !important;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__body {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__body {
     padding: 0.75rem 0.75rem 0.8rem;
     gap: 0.4rem;
     justify-content: flex-start;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__title {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__title {
     font-size: clamp(0.8rem, 1.2vw, 0.95rem);
     -webkit-line-clamp: 2;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__stars {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__stars {
     font-size: 0.85rem;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__reviews,
-  .pr-bestsellers .bs-card--split .bs-card__size {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__reviews,
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__size {
     font-size: 0.8rem;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__price {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__price {
     margin: -0.15rem 0 0.45rem;
     gap: 0.45rem;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__amounts {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__amounts {
     flex-direction: column !important;
     gap: 0.1rem !important;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__price strong {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__price strong {
     font-size: 1.2rem !important;
     font-weight: 800 !important;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__price s {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__price s {
     display: block !important;
     font-size: 0.92rem !important;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__off {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__off {
     font-size: 0.72rem;
     padding: 0.2rem 0.45rem;
     margin-top: 0.08rem;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__btn {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__btn {
     font-size: 0.78rem;
     padding: 0.5rem 0.55rem;
     border-radius: 9px;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__btn .material-symbols-outlined {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__btn .material-symbols-outlined {
     display: inline-block;
     font-size: 0.9rem !important;
     color: #fff !important;
@@ -9535,52 +9399,52 @@ footer.site-footer.mh-footer {
     gap: 1rem;
   }
 
-  .pr-bestsellers .bs-card--split {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split {
     border-radius: 16px;
     grid-template-columns: minmax(0, 36%) minmax(0, 64%);
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__media {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__media {
     min-height: 8.5rem;
     max-height: 10rem;
     padding: 1.5rem 0.65rem 0.65rem;
     background: #ffffff !important;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__body {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__body {
     padding: 0.85rem 0.9rem 0.9rem;
     gap: 0.45rem;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__title {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__title {
     font-size: clamp(0.88rem, 1.15vw, 1.02rem);
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__stars {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__stars {
     font-size: 0.92rem;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__reviews,
-  .pr-bestsellers .bs-card--split .bs-card__size {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__reviews,
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__size {
     font-size: 0.85rem;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__price strong {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__price strong {
     font-size: 1.28rem !important;
     font-weight: 800 !important;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__price s {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__price s {
     display: block !important;
     font-size: 0.96rem !important;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__off {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__off {
     font-size: 0.75rem;
     padding: 0.22rem 0.5rem;
   }
 
-  .pr-bestsellers .bs-card--split .bs-card__btn {
+  :is(.pr-bestsellers, .shop-grid:not(.is-list)) .bs-card--split .bs-card__btn {
     font-size: 0.82rem;
     padding: 0.55rem 0.7rem;
     border-radius: 10px;

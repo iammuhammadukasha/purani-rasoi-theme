@@ -196,7 +196,7 @@
 <section class="shop-grid" aria-label="Products" id="product-grid">
   {%- paginate collection.products by section.settings.products_per_page -%}
     {%- for product in collection.products -%}
-      {% render 'product-card', product: product, show_rating: true %}
+      {% render 'product-card', product: product, show_rating: true, layout: 'split' %}
     {%- else -%}
       <p style="grid-column:1/-1;text-align:center;padding:3rem">No products found in this collection.</p>
     {%- endfor -%}

@@ -112,6 +112,7 @@
           "settings": {
             "title": "Nutritional Information",
             "body": "<p>Approx. values per 100g — Energy 180 kcal, Fat 12g, Carbs 14g, Protein 2g.</p>",
+            "metafield": "custom.nutritional_information",
             "open": false
           }
         },
@@ -120,6 +121,7 @@
           "settings": {
             "title": "How to Use",
             "body": "<p>Serve with dal-chawal, paratha, or as a side with everyday meals.</p>",
+            "metafield": "custom.how_to_use",
             "open": false
           }
         },
@@ -128,6 +130,7 @@
           "settings": {
             "title": "Storage Instructions",
             "body": "<p>Store in a cool, dry place. Always use a clean dry spoon. Refrigerate after opening.</p>",
+            "metafield": "custom.storage_instructions",
             "open": false
           }
         }

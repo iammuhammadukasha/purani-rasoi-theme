@@ -9356,7 +9356,7 @@ footer.site-footer.mh-footer {
   background: #5e6f36 !important;
   color: #fff !important;
   padding: 0.5rem 0.35rem;
-  font-size: 0.55rem !important;
+  font-size: 0.7rem !important;
   letter-spacing: 0.03em;
   gap: 0.2rem;
   white-space: nowrap;
@@ -9365,9 +9365,9 @@ footer.site-footer.mh-footer {
 
 .pr-bestsellers .bs-card--split .bs-card__btn .material-symbols-outlined {
   display: inline-block !important;
-  font-size: 0.85rem !important;
-  width: 0.85rem;
-  height: 0.85rem;
+  font-size: 0.95rem !important;
+  width: 0.95rem;
+  height: 0.95rem;
   flex-shrink: 0;
   color: #fff !important;
   line-height: 1 !important;
@@ -9475,7 +9475,7 @@ footer.site-footer.mh-footer {
   }
 
   .pr-bestsellers .bs-card--split .bs-card__btn {
-    font-size: 0.62rem;
+    font-size: 0.78rem;
     padding: 0.5rem 0.55rem;
     border-radius: 9px;
   }
@@ -9577,7 +9577,7 @@ footer.site-footer.mh-footer {
   }
 
   .pr-bestsellers .bs-card--split .bs-card__btn {
-    font-size: 0.68rem;
+    font-size: 0.82rem;
     padding: 0.55rem 0.7rem;
     border-radius: 10px;
   }

@@ -4,7 +4,13 @@
   assign brand_name = section.settings.brand_eyebrow | default: shop.name
   assign delivery_text = section.settings.delivery_text | default: 'Delivery in 3-5 Days'
   assign rating_text = section.settings.rating_text | default: '4.9 (428 Reviews)'
+  if product.metafields.custom.rating_text != blank
+    assign rating_text = product.metafields.custom.rating_text
+  endif
   assign orders_text = section.settings.orders_text | default: '2500+ Orders'
+  if product.metafields.custom.orders_text != blank
+    assign orders_text = product.metafields.custom.orders_text
+  endif
   assign promo_heading = section.settings.promo_heading | default: 'Buy 2 Get Free Shipping'
   assign compare_heading = section.settings.compare_heading | default: 'Why Choose Purani Rasoi?'
   assign compare_sub = section.settings.compare_subtext | default: 'Experience the true taste of tradition'
@@ -684,8 +690,8 @@
   "name": "Product information",
   "settings": [
     { "type": "text", "id": "brand_eyebrow", "label": "Brand eyebrow", "default": "Purani Rasoi" },
-    { "type": "text", "id": "rating_text", "label": "Rating text", "default": "4.9 (428 Reviews)" },
-    { "type": "text", "id": "orders_text", "label": "Orders text", "default": "2500+ Orders" },
+    { "type": "text", "id": "rating_text", "label": "Rating text (fallback, shown when a product has no rating_text metafield)", "default": "4.9 (428 Reviews)" },
+    { "type": "text", "id": "orders_text", "label": "Orders text (fallback, shown when a product has no orders_text metafield)", "default": "2500+ Orders" },
     { "type": "text", "id": "delivery_text", "label": "Delivery text", "default": "Delivery in 3-5 Days" },
     {
       "type": "checkbox",

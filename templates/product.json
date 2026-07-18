@@ -103,6 +103,7 @@
           "settings": {
             "title": "Ingredients",
             "body": "<p>Raw mango, mustard oil, fennel, fenugreek, red chilli, salt, turmeric, asafoetida.</p>",
+            "metafield": "custom.ingredients",
             "open": false
           }
         },

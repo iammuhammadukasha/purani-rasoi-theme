@@ -9297,7 +9297,7 @@ footer.site-footer.mh-footer {
 
 .pr-bestsellers .bs-card--split .bs-card__price s {
   display: block !important;
-  font-size: clamp(0.52rem, 2.4vw, 0.72rem) !important;
+  font-size: clamp(0.64rem, 2.9vw, 0.86rem) !important;
   color: #a59a92 !important;
   white-space: nowrap;
   line-height: 1.2;
@@ -9465,7 +9465,7 @@ footer.site-footer.mh-footer {
 
   .pr-bestsellers .bs-card--split .bs-card__price s {
     display: block !important;
-    font-size: 0.78rem !important;
+    font-size: 0.92rem !important;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__off {
@@ -9568,7 +9568,7 @@ footer.site-footer.mh-footer {
 
   .pr-bestsellers .bs-card--split .bs-card__price s {
     display: block !important;
-    font-size: 0.82rem !important;
+    font-size: 0.96rem !important;
   }
 
   .pr-bestsellers .bs-card--split .bs-card__off {

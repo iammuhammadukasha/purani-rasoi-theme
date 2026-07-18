@@ -303,12 +303,24 @@
       <div class="pdp-acc">
         {%- for block in section.blocks -%}
           {%- if block.type == 'accordion' -%}
+            {%- liquid
+              assign acc_body = block.settings.body
+              if block.settings.metafield != blank
+                assign mf_parts = block.settings.metafield | split: '.'
+                if mf_parts.size == 2
+                  assign mf_value = product.metafields[mf_parts[0]][mf_parts[1]]
+                  if mf_value != blank
+                    assign acc_body = mf_value
+                  endif
+                endif
+              endif
+            -%}
             <details {% if block.settings.open %}open{% endif %} {{ block.shopify_attributes }}>
               <summary>
                 <span>{{ block.settings.title }}</span>
                 <span class="pdp-acc__chev material-symbols-outlined" aria-hidden="true">expand_more</span>
               </summary>
-              <div class="pdp-acc__body">{{ block.settings.body }}</div>
+              <div class="pdp-acc__body">{{ acc_body }}</div>
             </details>
           {%- endif -%}
         {%- endfor -%}
@@ -755,7 +767,13 @@
       "name": "Accordion row",
       "settings": [
         { "type": "text", "id": "title", "label": "Title", "default": "Product Highlights" },
-        { "type": "richtext", "id": "body", "label": "Body", "default": "<ul><li>100% Homemade</li><li>No Artificial Colors</li><li>Made in Small Batches</li></ul>" },
+        { "type": "richtext", "id": "body", "label": "Body (fallback text, shown when no metafield override is set)", "default": "<ul><li>100% Homemade</li><li>No Artificial Colors</li><li>Made in Small Batches</li></ul>" },
+        {
+          "type": "text",
+          "id": "metafield",
+          "label": "Per-product metafield (optional)",
+          "info": "e.g. custom.ingredients. When the current product has this metafield filled in, it replaces the Body text above for THIS product only, so every product can show its own content instead of sharing the same text."
+        },
         { "type": "checkbox", "id": "open", "label": "Open by default", "default": false }
       ]
     },

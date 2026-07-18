@@ -1986,10 +1986,6 @@ a {
 }
 
 .shop-grid .bs-card__title {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
   min-height: 4rem;
 }
 

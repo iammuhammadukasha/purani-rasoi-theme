@@ -1985,6 +1985,14 @@ a {
   left: 0.55rem;
 }
 
+.shop-grid .bs-card__title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  min-height: 4rem;
+}
+
 /* Collection cards: sale + OFF on one line when space allows; stack on narrow cards */
 .shop-grid .bs-card {
   container-type: inline-size;

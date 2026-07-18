@@ -1451,7 +1451,7 @@ a {
 
 .shop-banner.shop-banner--crumbs-only {
   align-items: flex-start;
-  min-height: 6rem;
+  min-height: 9.5rem;
 }
 
 .shop-banner--crumbs-only .shop-banner__content {
@@ -1460,7 +1460,7 @@ a {
 
 @media (min-width: 768px) {
   .shop-banner.shop-banner--crumbs-only {
-    min-height: 7rem;
+    min-height: 12.5rem;
   }
 
   .shop-banner--crumbs-only .shop-banner__content {
@@ -1470,7 +1470,7 @@ a {
 
 @media (min-width: 1024px) {
   .shop-banner.shop-banner--crumbs-only {
-    min-height: 7.5rem;
+    min-height: 14.5rem;
   }
 }
 

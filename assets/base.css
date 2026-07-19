@@ -8214,6 +8214,62 @@ footer.site-footer.mh-footer {
   color: #fff !important;
 }
 
+.pr-cart-drawer__shipping {
+  flex-shrink: 0;
+  padding: 0.9rem 1.1rem 0.75rem;
+  border-bottom: 1px solid rgba(94, 111, 54, 0.1);
+}
+
+.pr-cart-drawer__shipping-msg {
+  margin: 0 0 0.7rem;
+  font-size: 0.9rem;
+  color: #2b2b26;
+}
+
+.pr-cart-drawer__shipping-msg strong {
+  font-weight: 700;
+}
+
+.pr-cart-drawer__shipping-msg--done {
+  color: #5e6f36;
+}
+
+.pr-cart-drawer__shipping-track {
+  position: relative;
+  height: 0.6rem;
+  background: #e9e7dc;
+  border-radius: 999px;
+  margin-right: 0.85rem;
+}
+
+.pr-cart-drawer__shipping-fill {
+  height: 100%;
+  min-width: 0.6rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4d5c2b, #7c8f4a);
+  transition: width 0.4s ease;
+}
+
+.pr-cart-drawer__shipping-icon {
+  position: absolute;
+  right: -0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  background: #5e6f36;
+  box-shadow: 0 0 0 4px rgba(94, 111, 54, 0.18);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pr-cart-drawer__shipping-icon .material-symbols-outlined {
+  font-size: 1rem !important;
+  color: #fff !important;
+}
+
 .pr-cart-drawer__body {
   flex: 1 1 auto;
   overflow-y: auto;

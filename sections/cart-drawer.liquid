@@ -39,6 +39,37 @@
       </button>
     </header>
 
+    {%- assign free_shipping_threshold = settings.free_shipping_threshold | default: 0 -%}
+    {%- if cart.item_count > 0 and free_shipping_threshold > 0 -%}
+      {%- assign shipping_progress = cart.total_price | times: 100.0 | divided_by: free_shipping_threshold | round: 1 -%}
+      {%- if shipping_progress > 100 -%}{%- assign shipping_progress = 100 -%}{%- endif -%}
+      <div class="pr-cart-drawer__shipping" data-cart-shipping-progress>
+        {%- if cart.total_price >= free_shipping_threshold -%}
+          <p class="pr-cart-drawer__shipping-msg pr-cart-drawer__shipping-msg--done">
+            <strong>Congratulations!</strong> You've earned free shipping!
+          </p>
+        {%- else -%}
+          {%- assign shipping_remaining = free_shipping_threshold | minus: cart.total_price -%}
+          <p class="pr-cart-drawer__shipping-msg">
+            Add <strong>{{ shipping_remaining | money }}</strong> more for <strong>FREE shipping!</strong>
+          </p>
+        {%- endif -%}
+        <div
+          class="pr-cart-drawer__shipping-track"
+          role="progressbar"
+          aria-valuenow="{{ shipping_progress | round }}"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-label="Progress to free shipping"
+        >
+          <div class="pr-cart-drawer__shipping-fill" style="width: {{ shipping_progress }}%;"></div>
+          <span class="pr-cart-drawer__shipping-icon" aria-hidden="true">
+            <span class="material-symbols-outlined">redeem</span>
+          </span>
+        </div>
+      </div>
+    {%- endif -%}
+
     <div class="pr-cart-drawer__body" data-cart-drawer-body>
       {%- if cart.item_count > 0 -%}
         <ul class="pr-cart-drawer__items">

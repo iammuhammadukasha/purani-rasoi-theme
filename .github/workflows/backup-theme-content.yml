@@ -29,7 +29,6 @@ jobs:
           SHOPIFY_CLI_TTY: "0"
         run: |
           shopify theme pull \
-            --json \
             --theme "${{ secrets.SHOPIFY_THEME_ID }}" \
             --store "${{ secrets.SHOPIFY_FLAG_STORE }}" \
             --password "${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}" \

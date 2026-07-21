@@ -19,7 +19,7 @@
 <div class="pdp" data-pdp data-section-id="{{ section.id }}">
   <div class="pdp__inner max-w-site mx-auto">
     <div class="pdp-layout">
-      <section class="pdp-gallery" aria-label="Product images" data-pdp-gallery data-interval="2000">
+      <section class="pdp-gallery" aria-label="Product images" data-pdp-gallery>
         {%- liquid
           assign thumb_min = 5
           assign media_count = product.media.size
@@ -87,16 +87,6 @@
               </div>
             {%- else -%}
               {{ 'product-1' | placeholder_svg_tag: 'pdp-placeholder' }}
-            {%- endif -%}
-            {%- if media_count > 1 -%}
-              <div class="pdp-gallery__controls" aria-hidden="false">
-                <button type="button" class="pdp-gallery__arrow pdp-gallery__arrow--prev" data-gallery-prev aria-label="Previous image">
-                  <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
-                </button>
-                <button type="button" class="pdp-gallery__arrow pdp-gallery__arrow--next" data-gallery-next aria-label="Next image">
-                  <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
-                </button>
-              </div>
             {%- endif -%}
           </div>
         </div>
@@ -578,12 +568,11 @@
     const buyNow = form.querySelector('[data-buy-now]');
     const addBtn = form.querySelector('[data-add-to-cart]');
     const track = root.querySelector('[data-gallery-track]');
+    const viewport = root.querySelector('[data-gallery-viewport]');
     const slides = Array.from(root.querySelectorAll('[data-gallery-slide]'));
     const stockEl = root.querySelector('[data-pdp-stock]');
     const thumbs = Array.from(root.querySelectorAll('[data-thumb]'));
     let galleryIndex = Math.max(0, thumbs.findIndex((t) => t.classList.contains('is-active')));
-    let galleryTimer = null;
-    const galleryInterval = Math.max(2000, parseInt(root.querySelector('[data-pdp-gallery]')?.getAttribute('data-interval') || '2000', 10));
 
     function applyGalleryTransform(instant) {
       if (!track || !slides.length) return;
@@ -598,7 +587,7 @@
       }
     }
 
-    function showGallerySlide(i, restartAutoplay, instant) {
+    function showGallerySlide(i, instant) {
       if (!slides.length || !track) return;
       const next = (i + slides.length) % slides.length;
       if (next === galleryIndex && !instant) return;
@@ -607,15 +596,6 @@
       thumbs.forEach(function (b, n) {
         b.classList.toggle('is-active', n === galleryIndex);
       });
-      if (restartAutoplay) restartGalleryAutoplay();
-    }
-
-    function restartGalleryAutoplay() {
-      if (galleryTimer) clearInterval(galleryTimer);
-      if (slides.length < 2) return;
-      galleryTimer = setInterval(function () {
-        showGallerySlide(galleryIndex + 1, false, false);
-      }, galleryInterval);
     }
 
     function findGalleryIndexForVariant(variant) {
@@ -646,7 +626,7 @@
     function syncGalleryToVariant(variant) {
       var idx = findGalleryIndexForVariant(variant);
       if (idx >= 0) {
-        showGallerySlide(idx, true, false);
+        showGallerySlide(idx, false);
         return;
       }
       if (variant && variant.featured_image) {
@@ -695,24 +675,30 @@
     root.querySelectorAll('[data-thumb]').forEach((btn) => {
       btn.addEventListener('click', () => {
         var idx = parseInt(btn.getAttribute('data-slide-index') || String(thumbs.indexOf(btn)), 10);
-        showGallerySlide(idx, true, false);
+        showGallerySlide(idx, false);
       });
     });
 
-    root.querySelector('[data-gallery-prev]')?.addEventListener('click', () => showGallerySlide(galleryIndex - 1, true, false));
-    root.querySelector('[data-gallery-next]')?.addEventListener('click', () => showGallerySlide(galleryIndex + 1, true, false));
+    if (viewport && slides.length > 1) {
+      var touchStartX = 0;
+      var touchStartY = 0;
+      var swipeThreshold = 40;
 
-    const galleryEl = root.querySelector('[data-pdp-gallery]');
-    galleryEl?.addEventListener('mouseenter', () => {
-      if (galleryTimer) clearInterval(galleryTimer);
-    });
-    galleryEl?.addEventListener('mouseleave', restartGalleryAutoplay);
-    galleryEl?.addEventListener('focusin', () => {
-      if (galleryTimer) clearInterval(galleryTimer);
-    });
-    galleryEl?.addEventListener('focusout', restartGalleryAutoplay);
+      viewport.addEventListener('touchstart', function (e) {
+        if (!e.touches.length) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
 
-    if (thumbs.length > 1) restartGalleryAutoplay();
+      viewport.addEventListener('touchend', function (e) {
+        if (!e.changedTouches.length) return;
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        var dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) < swipeThreshold || Math.abs(dx) < Math.abs(dy)) return;
+        if (dx < 0) showGallerySlide(galleryIndex + 1, false);
+        else showGallerySlide(galleryIndex - 1, false);
+      }, { passive: true });
+    }
 
     form.querySelectorAll('[data-option-value]').forEach((btn) => {
       btn.addEventListener('click', () => {

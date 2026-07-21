@@ -1,0 +1,6 @@
+# Merchant content — edited in Shopify Admin → Customize.
+# Do not push these or theme editor changes will be overwritten.
+
+config/settings_data.json
+templates/*.json
+sections/*-group.json

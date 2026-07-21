@@ -5,10 +5,25 @@ Online Store 2.0 theme for Purani Rasoi. Push to `main` auto-deploys to an unpub
 ## Auto-deploy
 
 ```text
-Edit → git push origin main → GitHub Actions → shopify theme push → Draft theme
+Edit code → git push origin main → GitHub Actions → shopify theme push → Draft theme
 ```
 
 Preview the draft in Shopify admin, then publish when ready.
+
+### Theme editor vs code deploy
+
+**Customize** changes (text, images, section order, theme settings) live in JSON files on Shopify:
+`config/settings_data.json`, `templates/*.json`, `sections/*-group.json`.
+
+`shopify theme push` overwrites the remote theme with your git copy. Without `.shopifyignore`, every deploy resets those files and **wipes Customize edits**.
+
+This repo ignores those paths in `.shopifyignore`, so deploys push **code only** (Liquid, CSS, JS, schemas). Edit storefront content in **Customize**; edit theme code in git.
+
+To back up Customize changes into git:
+
+```bash
+shopify theme pull --store YOUR_STORE.myshopify.com --theme THEME_ID
+```
 
 ### Required GitHub secrets
 

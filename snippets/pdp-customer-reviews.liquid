@@ -1,0 +1,237 @@
+{%- liquid
+  assign heading = section.settings.reviews_heading_mobile | default: 'Customer Reviews'
+  assign average = section.settings.reviews_average | default: '4.7'
+  assign total_label = section.settings.reviews_total | default: '1,092 reviews'
+  assign write_url = section.settings.write_review_url
+
+  assign count_5 = section.settings.star_5_count | default: 896
+  assign count_4 = section.settings.star_4_count | default: 132
+  assign count_3 = section.settings.star_3_count | default: 42
+  assign count_2 = section.settings.star_2_count | default: 13
+  assign count_1 = section.settings.star_1_count | default: 9
+
+  assign bar_total = count_5 | plus: count_4 | plus: count_3 | plus: count_2 | plus: count_1
+  if bar_total == 0
+    assign bar_total = 1
+  endif
+
+  assign pct_5 = count_5 | times: 100.0 | divided_by: bar_total
+  assign pct_4 = count_4 | times: 100.0 | divided_by: bar_total
+  assign pct_3 = count_3 | times: 100.0 | divided_by: bar_total
+  assign pct_2 = count_2 | times: 100.0 | divided_by: bar_total
+  assign pct_1 = count_1 | times: 100.0 | divided_by: bar_total
+-%}
+
+<section
+  class="pdp-customer-reviews"
+  aria-labelledby="Reviews-{{ section.id }}"
+  data-pdp-reviews
+  data-section-id="{{ section.id }}"
+>
+  <header class="pdp-customer-reviews__head">
+    <h2 class="pdp-customer-reviews__title" id="Reviews-{{ section.id }}">{{ heading }}</h2>
+    <p class="pdp-customer-reviews__summary">
+      <strong>{{ average }}</strong>
+      <span>{{ total_label }}</span>
+    </p>
+  </header>
+
+  {%- assign has_photos = false -%}
+  {%- for block in review_blocks -%}
+    {%- if block.settings.photo != blank or block.settings.avatar != blank -%}
+      {%- assign has_photos = true -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if has_photos -%}
+    <div class="pdp-customer-reviews__photos" aria-label="Customer photos">
+      {%- for block in review_blocks -%}
+        {%- liquid
+          assign gallery_img = block.settings.photo
+          if gallery_img == blank
+            assign gallery_img = block.settings.avatar
+          endif
+        -%}
+        {%- if gallery_img != blank -%}
+          <button
+            type="button"
+            class="pdp-customer-reviews__photo"
+            data-review-photo="{{ forloop.index0 }}"
+            aria-label="View customer photo {{ forloop.index }}"
+          >
+            <img
+              src="{{ gallery_img | image_url: width: 200 }}"
+              alt=""
+              width="72"
+              height="72"
+              loading="lazy"
+            >
+          </button>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  {%- if write_url != blank -%}
+    <a href="{{ write_url }}" class="pdp-customer-reviews__write">Write a review</a>
+  {%- else -%}
+    <button type="button" class="pdp-customer-reviews__write" data-review-write>Write a review</button>
+  {%- endif -%}
+
+  <div class="pdp-customer-reviews__bars" aria-label="Rating breakdown">
+    {%- for star in (5..1) -%}
+      {%- liquid
+        case star
+          when 5
+            assign star_count = count_5
+            assign star_pct = pct_5
+          when 4
+            assign star_count = count_4
+            assign star_pct = pct_4
+          when 3
+            assign star_count = count_3
+            assign star_pct = pct_3
+          when 2
+            assign star_count = count_2
+            assign star_pct = pct_2
+          else
+            assign star_count = count_1
+            assign star_pct = pct_1
+        endcase
+      -%}
+      <div class="pdp-customer-reviews__bar-row">
+        <span class="pdp-customer-reviews__bar-label">
+          {{ star }}
+          <span class="pdp-customer-reviews__star" aria-hidden="true">★</span>
+        </span>
+        <span class="pdp-customer-reviews__bar-track">
+          <span class="pdp-customer-reviews__bar-fill" style="width: {{ star_pct }}%;"></span>
+        </span>
+        <span class="pdp-customer-reviews__bar-count">{{ star_count }}</span>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div class="pdp-customer-reviews__toolbar">
+    <button
+      type="button"
+      class="pdp-customer-reviews__filter-btn"
+      data-review-filter-toggle
+      aria-label="Filter reviews"
+      aria-expanded="false"
+    >
+      <span class="material-symbols-outlined" aria-hidden="true">tune</span>
+    </button>
+    <div class="pdp-customer-reviews__filter-menu" data-review-filter-menu hidden>
+      <button type="button" data-review-filter="all" class="is-active">All ratings</button>
+      <button type="button" data-review-filter="5">5 stars</button>
+      <button type="button" data-review-filter="4">4 stars</button>
+      <button type="button" data-review-filter="3">3 stars</button>
+      <button type="button" data-review-filter="2">2 stars</button>
+      <button type="button" data-review-filter="1">1 star</button>
+    </div>
+    <label class="pdp-customer-reviews__sort">
+      <span class="visually-hidden">Sort reviews</span>
+      <select data-review-sort aria-label="Sort reviews">
+        <option value="recent">Most recent</option>
+        <option value="highest">Highest rating</option>
+        <option value="lowest">Lowest rating</option>
+      </select>
+      <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
+    </label>
+  </div>
+
+  <div class="pdp-customer-reviews__list" data-reviews-list>
+    {%- if review_blocks.size > 0 -%}
+      {%- for block in review_blocks -%}
+        {%- liquid
+          assign rating = block.settings.rating | default: 5 | plus: 0
+          assign author = block.settings.author | default: 'Anonymous'
+          assign initial = author | strip | slice: 0, 1 | upcase
+          assign review_title = block.settings.title
+          assign review_body = block.settings.quote
+          assign review_date = block.settings.date | default: '07/21/2026'
+          assign sort_key = review_blocks.size | minus: forloop.index0
+        -%}
+        <article
+          class="pdp-review-card"
+          data-review-card
+          data-rating="{{ rating }}"
+          data-sort-order="{{ sort_key }}"
+          data-index="{{ forloop.index0 }}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="pdp-review-card__stars" aria-label="{{ rating }} out of 5 stars">
+            {%- for i in (1..5) -%}
+              <span class="pdp-review-card__star{% if i <= rating %} is-filled{% endif %}" aria-hidden="true">★</span>
+            {%- endfor -%}
+          </div>
+          <div class="pdp-review-card__meta">
+            <div class="pdp-review-card__avatar" aria-hidden="true">
+              {%- if block.settings.avatar != blank -%}
+                <img src="{{ block.settings.avatar | image_url: width: 80 }}" alt="" width="40" height="40" loading="lazy">
+              {%- else -%}
+                <span>{{ initial }}</span>
+              {%- endif -%}
+            </div>
+            <div class="pdp-review-card__author-wrap">
+              <div class="pdp-review-card__author-row">
+                <strong class="pdp-review-card__author">{{ author }}</strong>
+                {%- unless block.settings.verified == false -%}
+                  <span class="pdp-review-card__verified">
+                    <span class="material-symbols-outlined" aria-hidden="true">verified</span>
+                    Verified
+                  </span>
+                {%- endunless -%}
+              </div>
+              <time class="pdp-review-card__date" datetime="{{ review_date }}">{{ review_date }}</time>
+            </div>
+          </div>
+          {%- if review_title != blank -%}
+            <h3 class="pdp-review-card__title">{{ review_title }}</h3>
+          {%- endif -%}
+          {%- if review_body != blank -%}
+            <p class="pdp-review-card__body">{{ review_body }}</p>
+          {%- endif -%}
+          {%- if block.settings.photo != blank -%}
+            <div class="pdp-review-card__photo">
+              <img
+                src="{{ block.settings.photo | image_url: width: 400 }}"
+                alt=""
+                width="120"
+                height="120"
+                loading="lazy"
+              >
+            </div>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    {%- else -%}
+      <article class="pdp-review-card" data-review-card data-rating="4" data-sort-order="1" data-index="0">
+        <div class="pdp-review-card__stars" aria-label="4 out of 5 stars">
+          <span class="pdp-review-card__star is-filled">★</span>
+          <span class="pdp-review-card__star is-filled">★</span>
+          <span class="pdp-review-card__star is-filled">★</span>
+          <span class="pdp-review-card__star is-filled">★</span>
+          <span class="pdp-review-card__star">★</span>
+        </div>
+        <div class="pdp-review-card__meta">
+          <div class="pdp-review-card__avatar"><span>A</span></div>
+          <div class="pdp-review-card__author-wrap">
+            <div class="pdp-review-card__author-row">
+              <strong class="pdp-review-card__author">Anonymous</strong>
+              <span class="pdp-review-card__verified">
+                <span class="material-symbols-outlined" aria-hidden="true">verified</span>
+                Verified
+              </span>
+            </div>
+            <time class="pdp-review-card__date">07/21/2026</time>
+          </div>
+        </div>
+        <h3 class="pdp-review-card__title">Awesome taste, just like homemade</h3>
+        <p class="pdp-review-card__body">“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”</p>
+      </article>
+    {%- endif -%}
+  </div>
+</section>

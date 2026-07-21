@@ -690,6 +690,84 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
     restart();
   });
 
+  /* Product page customer reviews */
+  document.querySelectorAll("[data-pdp-reviews]").forEach((root) => {
+    const list = root.querySelector("[data-reviews-list]");
+    const cards = () => Array.from(root.querySelectorAll("[data-review-card]"));
+    const sortSelect = root.querySelector("[data-review-sort]");
+    const filterToggle = root.querySelector("[data-review-filter-toggle]");
+    const filterMenu = root.querySelector("[data-review-filter-menu]");
+    let activeFilter = "all";
+
+    function applyReviewsView() {
+      const sort = sortSelect?.value || "recent";
+      const visible = cards().filter((card) => {
+        if (activeFilter === "all") return true;
+        return String(card.getAttribute("data-rating")) === activeFilter;
+      });
+
+      cards().forEach((card) => card.classList.add("is-hidden"));
+      visible.sort((a, b) => {
+        if (sort === "highest") {
+          return Number(b.getAttribute("data-rating")) - Number(a.getAttribute("data-rating"));
+        }
+        if (sort === "lowest") {
+          return Number(a.getAttribute("data-rating")) - Number(b.getAttribute("data-rating"));
+        }
+        return Number(b.getAttribute("data-sort-order")) - Number(a.getAttribute("data-sort-order"));
+      }).forEach((card) => {
+        card.classList.remove("is-hidden");
+        list?.appendChild(card);
+      });
+    }
+
+    sortSelect?.addEventListener("change", applyReviewsView);
+
+    filterToggle?.addEventListener("click", () => {
+      const open = filterMenu?.hasAttribute("hidden");
+      if (open) {
+        filterMenu.removeAttribute("hidden");
+        filterToggle.setAttribute("aria-expanded", "true");
+      } else {
+        filterMenu?.setAttribute("hidden", "");
+        filterToggle.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    filterMenu?.querySelectorAll("[data-review-filter]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeFilter = btn.getAttribute("data-review-filter") || "all";
+        filterMenu.querySelectorAll("[data-review-filter]").forEach((b) => {
+          b.classList.toggle("is-active", b === btn);
+        });
+        filterMenu.setAttribute("hidden", "");
+        filterToggle?.setAttribute("aria-expanded", "false");
+        applyReviewsView();
+      });
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!filterMenu || filterMenu.hasAttribute("hidden")) return;
+      if (root.contains(e.target)) return;
+      filterMenu.setAttribute("hidden", "");
+      filterToggle?.setAttribute("aria-expanded", "false");
+    });
+
+    root.querySelectorAll("[data-review-photo]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = btn.getAttribute("data-review-photo");
+        const target = root.querySelector('[data-review-card][data-index="' + idx + '"]');
+        target?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+    });
+
+    root.querySelector("[data-review-write]")?.addEventListener("click", () => {
+      window.alert("Review submissions can be connected to your reviews app or a form link in theme settings.");
+    });
+
+    applyReviewsView();
+  });
+
   /* Ajax / predictive search overlay */
   const ajaxSearch = document.getElementById("ajax-search");
   const ajaxInput = ajaxSearch?.querySelector("[data-ajax-search-input]");

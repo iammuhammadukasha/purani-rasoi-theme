@@ -400,132 +400,10 @@
       </section>
     {%- endif -%}
 
-    {%- comment -%} Always under Why Choose — use theme blocks when present, else defaults {%- endcomment -%}
     {%- assign review_blocks = section.blocks | where: 'type', 'review' -%}
-    {%- assign review_heading_m = section.settings.reviews_heading_mobile | default: 'Customer Reviews' -%}
-    {%- assign review_heading_d = section.settings.reviews_heading | default: 'What Our Customers Say' -%}
-    <section class="pr-reviews pdp-reviews" aria-labelledby="Reviews-{{ section.id }}">
-      <div
-        class="mh-section mh-section--soft home-mobile love-carousel"
-        data-love-carousel
-        data-interval="{{ section.settings.reviews_interval | default: 4000 }}"
-      >
-        {%- assign reviews_heading_id = 'Reviews-' | append: section.id -%}
-        {% render 'section-heading', heading: review_heading_m, heading_id: reviews_heading_id %}
-        <div class="love-carousel__viewport">
-          {%- if review_blocks.size > 0 -%}
-            {%- for block in review_blocks -%}
-              <blockquote
-                class="mh-love love-carousel__slide{% if forloop.first %} is-active{% endif %}"
-                data-love-slide
-                aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
-                {{ block.shopify_attributes }}
-              >
-                <div class="mh-love__stars" aria-hidden="true">★★★★★</div>
-                <p>{{ block.settings.quote }}</p>
-                <footer>
-                  {%- if block.settings.avatar != blank -%}
-                    <img src="{{ block.settings.avatar | image_url: width: 72 }}" alt="" width="36" height="36" loading="lazy">
-                  {%- else -%}
-                    <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" width="36" height="36" loading="lazy">
-                  {%- endif -%}
-                  <cite>{{ block.settings.author }}</cite>
-                </footer>
-              </blockquote>
-            {%- endfor -%}
-          {%- else -%}
-            <blockquote class="mh-love love-carousel__slide is-active" data-love-slide aria-hidden="false">
-              <div class="mh-love__stars" aria-hidden="true">★★★★★</div>
-              <p>“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”</p>
-              <footer>
-                <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" width="36" height="36" loading="lazy">
-                <cite>Priya Sharma</cite>
-              </footer>
-            </blockquote>
-            <blockquote class="mh-love love-carousel__slide" data-love-slide aria-hidden="true">
-              <div class="mh-love__stars" aria-hidden="true">★★★★★</div>
-              <p>“Nimbu ka achar try kiya, bahut hi tasty aur fresh. Will order again!”</p>
-              <footer>
-                <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" width="36" height="36" loading="lazy">
-                <cite>Rohit Verma</cite>
-              </footer>
-            </blockquote>
-            <blockquote class="mh-love love-carousel__slide" data-love-slide aria-hidden="true">
-              <div class="mh-love__stars" aria-hidden="true">★★★★★</div>
-              <p>“Best achar I have ever had. 100% recommended!”</p>
-              <footer>
-                <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" width="36" height="36" loading="lazy">
-                <cite>Neha Agarwal</cite>
-              </footer>
-            </blockquote>
-          {%- endif -%}
-        </div>
-        <div class="mh-dots" data-love-dots role="tablist" aria-label="Testimonials">
-          {%- if review_blocks.size > 0 -%}
-            {%- for block in review_blocks -%}
-              <button
-                type="button"
-                class="mh-dots__dot{% if forloop.first %} is-active{% endif %}"
-                data-love-dot="{{ forloop.index0 }}"
-                aria-label="Show review {{ forloop.index }}"
-                {% if forloop.first %}aria-current="true"{% endif %}
-              ></button>
-            {%- endfor -%}
-          {%- else -%}
-            <button type="button" class="mh-dots__dot is-active" data-love-dot="0" aria-label="Show review 1" aria-current="true"></button>
-            <button type="button" class="mh-dots__dot" data-love-dot="1" aria-label="Show review 2"></button>
-            <button type="button" class="mh-dots__dot" data-love-dot="2" aria-label="Show review 3"></button>
-          {%- endif -%}
-        </div>
-      </div>
-
-      <div class="dh-reviews home-desktop">
-        {% render 'section-heading', heading: review_heading_d, class: 'pr-head--light' %}
-        <div class="dh-reviews__grid">
-          {%- if review_blocks.size > 0 -%}
-            {%- for block in review_blocks -%}
-              <blockquote {{ block.shopify_attributes }}>
-                <div class="dh-reviews__stars">★★★★★</div>
-                <p>{{ block.settings.quote }}</p>
-                <footer>
-                  {%- if block.settings.avatar != blank -%}
-                    <img src="{{ block.settings.avatar | image_url: width: 72 }}" alt="" loading="lazy">
-                  {%- else -%}
-                    <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" loading="lazy">
-                  {%- endif -%}
-                  <cite>{{ block.settings.author }}</cite>
-                </footer>
-              </blockquote>
-            {%- endfor -%}
-          {%- else -%}
-            <blockquote>
-              <div class="dh-reviews__stars">★★★★★</div>
-              <p>“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”</p>
-              <footer>
-                <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" loading="lazy">
-                <cite>Priya Sharma</cite>
-              </footer>
-            </blockquote>
-            <blockquote>
-              <div class="dh-reviews__stars">★★★★★</div>
-              <p>“Nimbu ka achar try kiya, bahut hi tasty aur fresh. Will order again!”</p>
-              <footer>
-                <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" loading="lazy">
-                <cite>Rohit Verma</cite>
-              </footer>
-            </blockquote>
-            <blockquote>
-              <div class="dh-reviews__stars">★★★★★</div>
-              <p>“Best achar I have ever had. 100% recommended!”</p>
-              <footer>
-                <img src="{{ 'logo-purani-rasoi.png' | asset_url }}" alt="" loading="lazy">
-                <cite>Neha Agarwal</cite>
-              </footer>
-            </blockquote>
-          {%- endif -%}
-        </div>
-      </div>
-    </section>
+    <div class="pdp-reviews">
+      {% render 'pdp-customer-reviews', section: section, review_blocks: review_blocks %}
+    </div>
 
     {%- if section.settings.show_promo -%}
       <section class="pdp-promo" data-pdp-promo data-end="{{ section.settings.promo_end }}">
@@ -817,18 +695,15 @@
     { "type": "text", "id": "promo_end", "label": "Promo end datetime", "info": "ISO format, e.g. 2026-12-31T23:59:59", "default": "2026-12-31T23:59:59" },
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
     { "type": "text", "id": "related_heading", "label": "Related heading", "default": "You May Also Like" },
-    { "type": "text", "id": "reviews_heading", "label": "Reviews heading (desktop)", "default": "What Our Customers Say" },
-    { "type": "text", "id": "reviews_heading_mobile", "label": "Reviews heading (mobile)", "default": "Customer Reviews" },
-    {
-      "type": "range",
-      "id": "reviews_interval",
-      "min": 2500,
-      "max": 8000,
-      "step": 500,
-      "unit": "ms",
-      "label": "Reviews auto-rotate speed",
-      "default": 4000
-    }
+    { "type": "text", "id": "reviews_heading_mobile", "label": "Reviews heading", "default": "Customer Reviews" },
+    { "type": "text", "id": "reviews_average", "label": "Average rating", "default": "4.7" },
+    { "type": "text", "id": "reviews_total", "label": "Total reviews label", "default": "1,092 reviews" },
+    { "type": "url", "id": "write_review_url", "label": "Write a review link (optional)" },
+    { "type": "number", "id": "star_5_count", "label": "5 star count (summary bars)", "default": 896 },
+    { "type": "number", "id": "star_4_count", "label": "4 star count (summary bars)", "default": 132 },
+    { "type": "number", "id": "star_3_count", "label": "3 star count (summary bars)", "default": 42 },
+    { "type": "number", "id": "star_2_count", "label": "2 star count (summary bars)", "default": 13 },
+    { "type": "number", "id": "star_1_count", "label": "1 star count (summary bars)", "default": 9 }
   ],
   "blocks": [
     {
@@ -891,9 +766,14 @@
       "type": "review",
       "name": "Customer review",
       "settings": [
-        { "type": "textarea", "id": "quote", "label": "Quote", "default": "“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”" },
+        { "type": "range", "id": "rating", "label": "Star rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "title", "label": "Review title" },
+        { "type": "textarea", "id": "quote", "label": "Review body", "default": "“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”" },
         { "type": "text", "id": "author", "label": "Author", "default": "Priya Sharma" },
-        { "type": "image_picker", "id": "avatar", "label": "Avatar" }
+        { "type": "text", "id": "date", "label": "Date", "default": "07/21/2026" },
+        { "type": "checkbox", "id": "verified", "label": "Verified buyer", "default": true },
+        { "type": "image_picker", "id": "avatar", "label": "Avatar" },
+        { "type": "image_picker", "id": "photo", "label": "Review photo (shows in gallery)" }
       ]
     }
   ],

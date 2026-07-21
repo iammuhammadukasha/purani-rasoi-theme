@@ -995,7 +995,7 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
       runAjaxSearch(ajaxInput?.value || "");
     });
 
-  /* Shop by Category — mobile 3-up carousel + auto-slide */
+  /* Shop by Category — mobile 3-up carousel (manual arrows / swipe only) */
   document.querySelectorAll("[data-pr-cats]").forEach((root) => {
     const rail = root.querySelector("[data-cats-rail]");
     const prev = root.querySelector("[data-cats-prev]");
@@ -1016,13 +1016,12 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
     const atEnd = () =>
       rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 8;
 
-    const goNext = (smooth = true) => {
+    const goNext = () => {
       if (!isMobile()) return;
-      const behavior = smooth ? "smooth" : "auto";
       if (atEnd()) {
-        rail.scrollTo({ left: 0, behavior });
+        rail.scrollTo({ left: 0, behavior: "smooth" });
       } else {
-        rail.scrollBy({ left: stepSize(), behavior });
+        rail.scrollBy({ left: stepSize(), behavior: "smooth" });
       }
     };
     const goPrev = () => {
@@ -1034,59 +1033,13 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
       }
     };
 
-    let timer = null;
-    const stop = () => {
-      if (timer) {
-        clearInterval(timer);
-        timer = null;
-      }
-    };
-    const start = () => {
-      stop();
-      if (!isMobile()) return;
-      timer = setInterval(() => goNext(true), 3500);
-    };
-    const bump = () => {
-      stop();
-      start();
-    };
-
-    prev?.addEventListener("click", () => {
-      goPrev();
-      bump();
-    });
-    next?.addEventListener("click", () => {
-      goNext(true);
-      bump();
-    });
-
-    rail.addEventListener(
-      "pointerdown",
-      () => {
-        stop();
-      },
-      { passive: true }
-    );
-    rail.addEventListener(
-      "pointerup",
-      () => {
-        bump();
-      },
-      { passive: true }
-    );
-    root.addEventListener("mouseenter", stop);
-    root.addEventListener("mouseleave", start);
+    prev?.addEventListener("click", goPrev);
+    next?.addEventListener("click", goNext);
 
     const onModeChange = () => {
-      if (!isMobile()) {
-        stop();
-        rail.scrollTo({ left: 0 });
-      } else {
-        start();
-      }
+      if (!isMobile()) rail.scrollTo({ left: 0 });
     };
     if (mq.addEventListener) mq.addEventListener("change", onModeChange);
     else mq.addListener(onModeChange);
-    start();
   });
 })();

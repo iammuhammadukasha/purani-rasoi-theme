@@ -23,6 +23,18 @@
         {%- liquid
           assign thumb_min = 5
           assign media_count = product.media.size
+          assign initial_media = product.featured_media
+          if product.selected_or_first_available_variant.featured_media != blank
+            assign initial_media = product.selected_or_first_available_variant.featured_media
+          endif
+          assign initial_index = 0
+          if initial_media and media_count > 0
+            for media in product.media
+              if media.id == initial_media.id
+                assign initial_index = forloop.index0
+              endif
+            endfor
+          endif
         -%}
         <div class="pdp-gallery__stage pdp-gallery__stage--thumbs">
           <div class="pdp-thumbs" role="list" data-thumbs-rail>
@@ -30,8 +42,10 @@
               {%- for media in product.media -%}
                 <button
                   type="button"
-                  class="pdp-thumbs__item{% if forloop.first %} is-active{% endif %}"
+                  class="pdp-thumbs__item{% if forloop.index0 == initial_index %} is-active{% endif %}"
                   data-thumb="{{ media | image_url: width: 1400 }}"
+                  data-media-id="{{ media.id }}"
+                  data-slide-index="{{ forloop.index0 }}"
                   aria-label="View image {{ forloop.index }}"
                 >
                   <img src="{{ media | image_url: width: 200 }}" alt="" loading="lazy" width="80" height="80">
@@ -50,19 +64,27 @@
           </div>
 
           <div class="pdp-gallery__main">
-            {%- if product.selected_or_first_available_variant.featured_media != blank -%}
-              {%- assign featured = product.selected_or_first_available_variant.featured_media -%}
-            {%- else -%}
-              {%- assign featured = product.featured_media -%}
-            {%- endif -%}
-            {%- if featured -%}
-              <img
-                id="pdp-main-img"
-                src="{{ featured | image_url: width: 1400 }}"
-                alt="{{ featured.alt | escape | default: product.title | escape }}"
-                width="800"
-                height="800"
-              >
+            {%- if media_count > 0 -%}
+              <div class="pdp-gallery__viewport" data-gallery-viewport>
+                <div
+                  class="pdp-gallery__track"
+                  data-gallery-track
+                  style="transform: translateX(-{{ initial_index | times: 100 }}%)"
+                >
+                  {%- for media in product.media -%}
+                    <div class="pdp-gallery__slide" data-gallery-slide data-media-id="{{ media.id }}">
+                      <img
+                        {% if forloop.index0 == initial_index %}id="pdp-main-img"{% endif %}
+                        src="{{ media | image_url: width: 1400 }}"
+                        alt="{{ media.alt | escape | default: product.title | escape }}"
+                        width="800"
+                        height="800"
+                        {% unless forloop.index0 == initial_index %}loading="lazy"{% endunless %}
+                      >
+                    </div>
+                  {%- endfor -%}
+                </div>
+              </div>
             {%- else -%}
               {{ 'product-1' | placeholder_svg_tag: 'pdp-placeholder' }}
             {%- endif -%}
@@ -555,38 +577,84 @@
     const qtyInput = form.querySelector('[data-qty-input]');
     const buyNow = form.querySelector('[data-buy-now]');
     const addBtn = form.querySelector('[data-add-to-cart]');
-    const mainImg = document.getElementById('pdp-main-img');
+    const track = root.querySelector('[data-gallery-track]');
+    const slides = Array.from(root.querySelectorAll('[data-gallery-slide]'));
     const stockEl = root.querySelector('[data-pdp-stock]');
     const thumbs = Array.from(root.querySelectorAll('[data-thumb]'));
     let galleryIndex = Math.max(0, thumbs.findIndex((t) => t.classList.contains('is-active')));
     let galleryTimer = null;
     const galleryInterval = Math.max(2000, parseInt(root.querySelector('[data-pdp-gallery]')?.getAttribute('data-interval') || '2000', 10));
 
-    function showGallerySlide(i, restartAutoplay) {
-      if (!thumbs.length || !mainImg) return;
-      galleryIndex = (i + thumbs.length) % thumbs.length;
-      const btn = thumbs[galleryIndex];
-      const src = btn.getAttribute('data-thumb');
-      if (src) mainImg.src = src;
-      thumbs.forEach((b, n) => b.classList.toggle('is-active', n === galleryIndex));
+    function applyGalleryTransform(instant) {
+      if (!track || !slides.length) return;
+      if (instant) track.classList.add('is-instant');
+      track.style.transform = 'translateX(-' + (galleryIndex * 100) + '%)';
+      if (instant) {
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            track.classList.remove('is-instant');
+          });
+        });
+      }
+    }
+
+    function showGallerySlide(i, restartAutoplay, instant) {
+      if (!slides.length || !track) return;
+      const next = (i + slides.length) % slides.length;
+      if (next === galleryIndex && !instant) return;
+      galleryIndex = next;
+      applyGalleryTransform(!!instant);
+      thumbs.forEach(function (b, n) {
+        b.classList.toggle('is-active', n === galleryIndex);
+      });
       if (restartAutoplay) restartGalleryAutoplay();
     }
 
     function restartGalleryAutoplay() {
       if (galleryTimer) clearInterval(galleryTimer);
-      if (thumbs.length < 2) return;
-      galleryTimer = setInterval(() => showGallerySlide(galleryIndex + 1, false), galleryInterval);
+      if (slides.length < 2) return;
+      galleryTimer = setInterval(function () {
+        showGallerySlide(galleryIndex + 1, false, false);
+      }, galleryInterval);
     }
 
-    function syncGalleryToSrc(src) {
-      if (!src || !thumbs.length) return;
-      const normalized = src.split('?')[0];
-      const idx = thumbs.findIndex((btn) => {
-        const thumbSrc = btn.getAttribute('data-thumb');
-        return thumbSrc && thumbSrc.split('?')[0] === normalized;
-      });
-      if (idx >= 0) showGallerySlide(idx, true);
-      else if (mainImg) mainImg.src = src;
+    function findGalleryIndexForVariant(variant) {
+      if (!variant || !slides.length) return -1;
+      var mediaId = variant.featured_media && variant.featured_media.id;
+      if (!mediaId && variant.featured_image) mediaId = variant.featured_image.id;
+      if (mediaId) {
+        mediaId = String(mediaId);
+        var slideIdx = slides.findIndex(function (slide) {
+          return String(slide.getAttribute('data-media-id')) === mediaId;
+        });
+        if (slideIdx >= 0) return slideIdx;
+        var thumbIdx = thumbs.findIndex(function (btn) {
+          return String(btn.getAttribute('data-media-id')) === mediaId;
+        });
+        if (thumbIdx >= 0) return thumbIdx;
+      }
+      if (variant.featured_image && variant.featured_image.src) {
+        var variantFile = variant.featured_image.src.split('/').pop().split('?')[0];
+        return thumbs.findIndex(function (btn) {
+          var thumbSrc = btn.getAttribute('data-thumb') || '';
+          return thumbSrc.split('/').pop().split('?')[0] === variantFile;
+        });
+      }
+      return -1;
+    }
+
+    function syncGalleryToVariant(variant) {
+      var idx = findGalleryIndexForVariant(variant);
+      if (idx >= 0) {
+        showGallerySlide(idx, true, false);
+        return;
+      }
+      if (variant && variant.featured_image) {
+        var activeImg = slides[galleryIndex] && slides[galleryIndex].querySelector('img');
+        if (activeImg) {
+          activeImg.src = variant.featured_image.src.replace(/(\.[a-zA-Z]+)(\?.*)?$/, '_1400x$1');
+        }
+      }
     }
 
     function syncQty() {
@@ -625,11 +693,14 @@
     });
 
     root.querySelectorAll('[data-thumb]').forEach((btn) => {
-      btn.addEventListener('click', () => showGallerySlide(thumbs.indexOf(btn), true));
+      btn.addEventListener('click', () => {
+        var idx = parseInt(btn.getAttribute('data-slide-index') || String(thumbs.indexOf(btn)), 10);
+        showGallerySlide(idx, true, false);
+      });
     });
 
-    root.querySelector('[data-gallery-prev]')?.addEventListener('click', () => showGallerySlide(galleryIndex - 1, true));
-    root.querySelector('[data-gallery-next]')?.addEventListener('click', () => showGallerySlide(galleryIndex + 1, true));
+    root.querySelector('[data-gallery-prev]')?.addEventListener('click', () => showGallerySlide(galleryIndex - 1, true, false));
+    root.querySelector('[data-gallery-next]')?.addEventListener('click', () => showGallerySlide(galleryIndex + 1, true, false));
 
     const galleryEl = root.querySelector('[data-pdp-gallery]');
     galleryEl?.addEventListener('mouseenter', () => {
@@ -704,9 +775,7 @@
           stockEl.textContent = 'Sold out';
         }
       }
-      if (v.featured_image && mainImg) {
-        syncGalleryToSrc(v.featured_image.src.replace(/(\.[a-zA-Z]+)(\?.*)?$/, '_1400x$1'));
-      }
+      syncGalleryToVariant(v);
     }
     selects.forEach((s) => s.addEventListener('change', update));
 

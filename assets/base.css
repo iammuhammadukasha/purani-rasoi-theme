@@ -2248,13 +2248,37 @@ a {
   min-width: 0;
 }
 
-@media (min-width: 1024px) {
-  .pdp-gallery__main {
-    border-radius: 16px;
-    min-height: 28rem;
+.pdp-gallery__viewport {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.pdp-gallery__track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.pdp-gallery__track.is-instant {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdp-gallery__track {
+    transition: none;
   }
 }
 
+.pdp-gallery__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+}
+
+.pdp-gallery__slide img,
 .pdp-gallery__main img {
   width: 100%;
   height: 100%;
@@ -2262,6 +2286,13 @@ a {
   object-position: center;
   display: block;
   background: #f3f4ed;
+}
+
+@media (min-width: 1024px) {
+  .pdp-gallery__main {
+    border-radius: 16px;
+    min-height: 28rem;
+  }
 }
 
 .pdp-gallery__controls {

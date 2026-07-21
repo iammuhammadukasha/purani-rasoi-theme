@@ -761,10 +761,6 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
       });
     });
 
-    root.querySelector("[data-review-write]")?.addEventListener("click", () => {
-      window.alert("Review submissions can be connected to your reviews app or a form link in theme settings.");
-    });
-
     applyReviewsView();
   });
 

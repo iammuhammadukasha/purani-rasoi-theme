@@ -2264,10 +2264,17 @@ a {
   background: #f3f4ed;
 }
 
-.pdp-wish {
+.pdp-gallery__controls {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.pdp-gallery__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   width: 2.35rem;
   height: 2.35rem;
   border: 0;
@@ -2278,11 +2285,27 @@ a {
   place-items: center;
   box-shadow: 0 4px 14px rgba(94, 111, 54, 0.14);
   cursor: pointer;
+  pointer-events: auto;
+  padding: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.pdp-wish .material-symbols-outlined {
-  font-size: 1.2rem;
-  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+.pdp-gallery__arrow:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.pdp-gallery__arrow--prev {
+  left: 0.75rem;
+}
+
+.pdp-gallery__arrow--next {
+  right: 0.75rem;
+}
+
+.pdp-gallery__arrow .material-symbols-outlined {
+  font-size: 1.35rem;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 
 .pdp-thumbs {
@@ -7904,12 +7927,12 @@ footer.site-footer.mh-footer {
     border-radius: 18px;
   }
 
-  .pdp-wish {
+  .pdp-gallery__arrow {
     width: 2.85rem;
     height: 2.85rem;
   }
 
-  .pdp-wish .material-symbols-outlined {
+  .pdp-gallery__arrow .material-symbols-outlined {
     font-size: 1.45rem;
   }
 

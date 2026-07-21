@@ -68,15 +68,17 @@
   });
 
   const mainImg = document.getElementById("pdp-main-img");
-  document.querySelectorAll("[data-thumb]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const src = btn.getAttribute("data-thumb");
-      if (!src || !mainImg) return;
-      mainImg.src = src;
-      document.querySelectorAll("[data-thumb]").forEach((b) => b.classList.remove("is-active"));
-      btn.classList.add("is-active");
+  if (!document.querySelector("[data-pdp-gallery]")) {
+    document.querySelectorAll("[data-thumb]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const src = btn.getAttribute("data-thumb");
+        if (!src || !mainImg) return;
+        mainImg.src = src;
+        document.querySelectorAll("[data-thumb]").forEach((b) => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
+      });
     });
-  });
+  }
 
   const thumbsRail = document.querySelector("[data-thumbs-rail]");
   document.querySelector("[data-thumbs-prev]")?.addEventListener("click", () => {

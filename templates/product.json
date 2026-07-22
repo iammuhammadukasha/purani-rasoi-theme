@@ -3,92 +3,135 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "tag1": { "type": "attribute_tag", "settings": { "icon": "home", "label": "Homemade" } },
-        "tag2": { "type": "attribute_tag", "settings": { "icon": "wb_sunny", "label": "Sun Dried" } },
-        "tag3": { "type": "attribute_tag", "settings": { "icon": "block", "label": "No Preservatives" } },
-        "f1": { "type": "feature", "settings": { "icon": "restaurant", "label": "Premium Lal Mirch" } },
-        "f2": { "type": "feature", "settings": { "icon": "nutrition", "label": "Farm Fresh Mangoes" } },
-        "f3": { "type": "feature", "settings": { "icon": "spa", "label": "Traditional Spices" } },
-        "f4": { "type": "feature", "settings": { "icon": "wb_sunny", "label": "Sun Dried Naturally" } },
-        "f5": { "type": "feature", "settings": { "icon": "science_off", "label": "No Artificial Preservatives" } },
-        "f6": { "type": "feature", "settings": { "icon": "favorite", "label": "Made with Love" } },
+        "tag1": {
+          "type": "attribute_tag",
+          "settings": {
+            "icon": "home",
+            "label": "Homemade"
+          }
+        },
+        "tag2": {
+          "type": "attribute_tag",
+          "settings": {
+            "icon": "wb_sunny",
+            "label": "Sun Dried"
+          }
+        },
+        "tag3": {
+          "type": "attribute_tag",
+          "settings": {
+            "icon": "block",
+            "label": "No Preservatives"
+          }
+        },
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "icon": "restaurant",
+            "label": "Premium Lal Mirch"
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "icon": "nutrition",
+            "label": "Farm Fresh Mangoes"
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "icon": "spa",
+            "label": "Traditional Spices"
+          }
+        },
+        "f4": {
+          "type": "feature",
+          "settings": {
+            "icon": "wb_sunny",
+            "label": "Sun Dried Naturally"
+          }
+        },
+        "f5": {
+          "type": "feature",
+          "settings": {
+            "icon": "science_off",
+            "label": "No Artificial Preservatives"
+          }
+        },
+        "f6": {
+          "type": "feature",
+          "settings": {
+            "icon": "favorite",
+            "label": "Made with Love"
+          }
+        },
         "c1": {
           "type": "compare_row",
-          "settings": { "us_text": "Homemade in Small Batches", "them_text": "Mass Production" }
+          "settings": {
+            "us_text": "Homemade in Small Batches",
+            "them_text": "Mass Production"
+          }
         },
         "c2": {
           "type": "compare_row",
-          "settings": { "us_text": "Sun Dried & Naturally Processed", "them_text": "Artificial Flavours" }
+          "settings": {
+            "us_text": "Sun Dried & Naturally Processed",
+            "them_text": "Artificial Flavours"
+          }
         },
         "c3": {
           "type": "compare_row",
-          "settings": { "us_text": "No Chemicals or Preservatives", "them_text": "Added Preservatives" }
+          "settings": {
+            "us_text": "No Chemicals or Preservatives",
+            "them_text": "Added Preservatives"
+          }
         },
         "c4": {
           "type": "compare_row",
-          "settings": { "us_text": "Traditional Family Recipe", "them_text": "Machine Made" }
+          "settings": {
+            "us_text": "Traditional Family Recipe",
+            "them_text": "Machine Made"
+          }
         },
         "c5": {
           "type": "compare_row",
-          "settings": { "us_text": "Made with Love & Care", "them_text": "Commercial Recipe" }
-        },
-        "r1": {
-          "type": "review",
           "settings": {
-            "quote": "“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”",
-            "author": "Priya Sharma"
-          }
-        },
-        "r2": {
-          "type": "review",
-          "settings": {
-            "quote": "“Nimbu ka achar try kiya, bahut hi tasty aur fresh. Will order again!”",
-            "author": "Rohit Verma"
-          }
-        },
-        "r3": {
-          "type": "review",
-          "settings": {
-            "quote": "“Best achar I have ever had. 100% recommended!”",
-            "author": "Neha Agarwal"
-          }
-        },
-        "r4": {
-          "type": "review",
-          "settings": {
-            "quote": "“Mirch ka achar bilkul nani ke haath jaisa. Pure oil aur masale — no compromise!”",
-            "author": "Ananya Gupta"
-          }
-        },
-        "r5": {
-          "type": "review",
-          "settings": {
-            "quote": "“Mixed pickle is our family favourite now. Fresh, tangy, and arrives packed with care.”",
-            "author": "Vikram Singh"
-          }
-        },
-        "r6": {
-          "type": "review",
-          "settings": {
-            "quote": "“Ordered for my parents — they said it tastes just like homemade. Instant repurchase!”",
-            "author": "Meera Kapoor"
+            "us_text": "Made with Love & Care",
+            "them_text": "Commercial Recipe"
           }
         },
         "trust1": {
           "type": "trust",
-          "settings": { "icon": "local_shipping", "label": "Free Shipping", "sublabel": "on orders above ₹499" }
+          "settings": {
+            "icon": "local_shipping",
+            "label": "Free Shipping",
+            "sublabel": "on orders above ₹499"
+          }
         },
         "trust2": {
           "type": "trust",
-          "settings": { "icon": "package_2", "label": "Secure Packaging", "sublabel": "Safe & Hygienic" }
+          "settings": {
+            "icon": "package_2",
+            "label": "Secure Packaging",
+            "sublabel": "Safe & Hygienic"
+          }
         },
         "trust3": {
           "type": "trust",
-          "settings": { "icon": "local_shipping", "label": "Delivery", "sublabel": "3-5 Business Days" }
+          "settings": {
+            "icon": "local_shipping",
+            "label": "Delivery",
+            "sublabel": "3-5 Business Days"
+          }
         },
         "trust4": {
           "type": "trust",
-          "settings": { "icon": "assignment_return", "label": "Easy Returns", "sublabel": "7 Days Return Policy" }
+          "settings": {
+            "icon": "assignment_return",
+            "label": "Easy Returns",
+            "sublabel": "7 Days Return Policy"
+          }
         },
         "acc1": {
           "type": "accordion",
@@ -136,12 +179,29 @@
         }
       },
       "block_order": [
-        "tag1", "tag2", "tag3",
-        "f1", "f2", "f3", "f4", "f5", "f6",
-        "c1", "c2", "c3", "c4", "c5",
-        "r1", "r2", "r3", "r4", "r5", "r6",
-        "trust1", "trust2", "trust3", "trust4",
-        "acc1", "acc2", "acc3", "acc4", "acc5"
+        "tag1",
+        "tag2",
+        "tag3",
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6",
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "trust1",
+        "trust2",
+        "trust3",
+        "trust4",
+        "acc1",
+        "acc2",
+        "acc3",
+        "acc4",
+        "acc5"
       ],
       "settings": {
         "brand_eyebrow": "Purani Rasoi",
@@ -157,11 +217,11 @@
         "promo_subtext": "Limited Time Offer!",
         "promo_end": "2026-12-31T23:59:59",
         "show_related": false,
-        "related_heading": "You May Also Like",
-        "reviews_heading": "What Our Customers Say",
-        "reviews_heading_mobile": "Customer Reviews"
+        "related_heading": "You May Also Like"
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

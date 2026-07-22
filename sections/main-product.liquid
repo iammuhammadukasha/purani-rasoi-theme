@@ -115,12 +115,8 @@
 
         <div class="pdp-meta">
           <div class="pdp-meta__rating">
-            {%- if section.settings.reviews_source == 'shopify' -%}
-              <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-            {%- else -%}
-              <span class="pdp-meta__stars" aria-hidden="true">★★★★★</span>
-              <span class="pdp-meta__count">{{ rating_text }}</span>
-            {%- endif -%}
+            <span class="pdp-meta__stars" aria-hidden="true">★★★★★</span>
+            <span class="pdp-meta__count">{{ rating_text }}</span>
           </div>
           {%- if orders_text != blank -%}
             <span class="pdp-meta__orders">{{ orders_text }}</span>
@@ -404,11 +400,14 @@
       </section>
     {%- endif -%}
 
-    {%- if section.settings.reviews_source == 'shopify' -%}
-      <div class="pdp-reviews pdp-reviews--spr">
-        <div id="shopify-product-reviews" data-id="{{ product.id }}">
-          {{ product.metafields.spr.reviews }}
-        </div>
+    {%- assign has_review_apps = false -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == '@app' -%}
+        {%- assign has_review_apps = true -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if has_review_apps -%}
+      <div class="pdp-reviews">
         {%- for block in section.blocks -%}
           {%- if block.type == '@app' -%}
             <div class="pdp-reviews__app" {{ block.shopify_attributes }}>
@@ -416,11 +415,6 @@
             </div>
           {%- endif -%}
         {%- endfor -%}
-      </div>
-    {%- else -%}
-      {%- assign review_blocks = section.blocks | where: 'type', 'review' -%}
-      <div class="pdp-reviews">
-        {% render 'pdp-customer-reviews', section: section, review_blocks: review_blocks %}
       </div>
     {%- endif -%}
 
@@ -715,42 +709,9 @@
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
     { "type": "text", "id": "related_heading", "label": "Related heading", "default": "You May Also Like" },
     {
-      "type": "select",
-      "id": "reviews_source",
-      "label": "Customer reviews source",
-      "options": [
-        { "value": "custom", "label": "Custom store design (recommended)" },
-        { "value": "shopify", "label": "Shopify Product Reviews app" }
-      ],
-      "default": "custom",
-      "info": "Custom mode uses your designed reviews section and Write a review form. Do not add Loox sections if you want only this design."
-    },
-    {
       "type": "paragraph",
-      "content": "Metaobject reviews: Settings → Custom data → Metaobjects → Add definition. Name can be \"Product review\" but Type must be customer_product_review (product_review is reserved). Fields: product (Product), rating (Integer), title (Single line), body (Multi-line), author (Single line), date (Single line), verified (True/false), photo (File), published (True/false). Enable Storefront access. Publish entries in Content → Metaobjects."
-    },
-    {
-      "type": "text",
-      "id": "review_metaobject_type",
-      "label": "Review metaobject type handle",
-      "default": "customer_product_review",
-      "info": "Must match the Type field on your metaobject definition. Do not use product_review — it is reserved by Shopify."
-    },
-    { "type": "text", "id": "reviews_heading_mobile", "label": "Reviews heading", "default": "Customer Reviews" },
-    { "type": "text", "id": "reviews_average", "label": "Average rating", "default": "4.7" },
-    { "type": "text", "id": "reviews_total", "label": "Total reviews label", "default": "1,092 reviews" },
-    { "type": "url", "id": "write_review_url", "label": "External write-review link (optional)", "info": "Leave empty to use your on-page Write a review form." },
-    {
-      "type": "text",
-      "id": "review_imgbb_api_key",
-      "label": "Review photo upload key (optional)",
-      "info": "Free key from https://api.imgbb.com — lets customer photos upload and appear as a link in your review email. Without it, photos are still selected but only a note is emailed."
-    },
-    { "type": "number", "id": "star_5_count", "label": "5 star count (summary bars)", "default": 896 },
-    { "type": "number", "id": "star_4_count", "label": "4 star count (summary bars)", "default": 132 },
-    { "type": "number", "id": "star_3_count", "label": "3 star count (summary bars)", "default": 42 },
-    { "type": "number", "id": "star_2_count", "label": "2 star count (summary bars)", "default": 13 },
-    { "type": "number", "id": "star_1_count", "label": "1 star count (summary bars)", "default": 9 }
+      "content": "Reviews: add a Judge.me (or other) app block in this section via Theme editor → Product information → Add block."
+    }
   ],
   "blocks": [
     {
@@ -812,20 +773,6 @@
         { "type": "checkbox", "id": "open", "label": "Open by default", "default": false }
       ]
     },
-    {
-      "type": "review",
-      "name": "Customer review",
-      "settings": [
-        { "type": "range", "id": "rating", "label": "Star rating", "min": 1, "max": 5, "step": 1, "default": 5 },
-        { "type": "text", "id": "title", "label": "Review title" },
-        { "type": "textarea", "id": "quote", "label": "Review body", "default": "“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”" },
-        { "type": "text", "id": "author", "label": "Author", "default": "Priya Sharma" },
-        { "type": "text", "id": "date", "label": "Date", "default": "07/21/2026" },
-        { "type": "checkbox", "id": "verified", "label": "Verified buyer", "default": true },
-        { "type": "image_picker", "id": "avatar", "label": "Avatar" },
-        { "type": "image_picker", "id": "photo", "label": "Review photo (shows in gallery)" }
-      ]
-    }
   ],
   "presets": [{ "name": "Product information" }]
 }

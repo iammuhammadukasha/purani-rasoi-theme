@@ -767,7 +767,18 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
     const starBtns = Array.from(root.querySelectorAll("[data-review-star]"));
     const successMsg = root.querySelector("[data-review-success]");
     const successSlot = root.querySelector("[data-review-success-slot]");
+    const reviewForm = root.querySelector("[data-review-form]");
+    const photoInput = root.querySelector("[data-review-photo-input]");
+    const photoPreview = root.querySelector("[data-review-photo-preview]");
+    const photoBox = root.querySelector("[data-review-photo-box]");
+    const photoRemove = root.querySelector("[data-review-photo-remove]");
+    const photoUrlInput = root.querySelector("[data-review-photo-url]");
+    const photoStatus = root.querySelector("[data-review-photo-status]");
+    const bodyField = root.querySelector("[data-review-body]");
+    const submitBtn = root.querySelector("[data-review-submit]");
+    const imgbbKey = (root.getAttribute("data-imgbb-key") || "").trim();
     let rating = 5;
+    let selectedPhotoFile = null;
 
     function setRating(value) {
       rating = value;
@@ -778,11 +789,101 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
       });
     }
 
+    function clearPhoto() {
+      selectedPhotoFile = null;
+      if (photoInput) photoInput.value = "";
+      if (photoUrlInput) photoUrlInput.value = "";
+      if (photoPreview) {
+        photoPreview.hidden = true;
+        photoPreview.removeAttribute("src");
+      }
+      if (photoBox) photoBox.hidden = false;
+      if (photoRemove) photoRemove.hidden = true;
+      if (photoStatus) {
+        photoStatus.hidden = true;
+        photoStatus.textContent = "";
+      }
+    }
+
+    function showPhotoPreview(file) {
+      if (!file || !file.type.startsWith("image/")) {
+        clearPhoto();
+        return;
+      }
+      selectedPhotoFile = file;
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (photoPreview) {
+          photoPreview.src = reader.result;
+          photoPreview.hidden = false;
+        }
+        if (photoBox) photoBox.hidden = true;
+        if (photoRemove) photoRemove.hidden = false;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function compressImage(file, maxWidth, quality) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = () => {
+          const scale = Math.min(1, maxWidth / img.width);
+          const canvas = document.createElement("canvas");
+          canvas.width = Math.max(1, Math.round(img.width * scale));
+          canvas.height = Math.max(1, Math.round(img.height * scale));
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          URL.revokeObjectURL(url);
+          canvas.toBlob(
+            (blob) => {
+              if (!blob) reject(new Error("compress failed"));
+              else resolve(blob);
+            },
+            "image/jpeg",
+            quality
+          );
+        };
+        img.onerror = () => {
+          URL.revokeObjectURL(url);
+          reject(new Error("image load failed"));
+        };
+        img.src = url;
+      });
+    }
+
+    function blobToDataUrl(blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    }
+
+    async function uploadPhoto(file) {
+      const compressed = await compressImage(file, 1000, 0.72);
+      if (imgbbKey) {
+        const dataUrl = await blobToDataUrl(compressed);
+        const base64 = String(dataUrl).split(",")[1] || "";
+        const body = new FormData();
+        body.append("image", base64);
+        const res = await fetch("https://api.imgbb.com/1/upload?key=" + encodeURIComponent(imgbbKey), {
+          method: "POST",
+          body,
+        });
+        const json = await res.json();
+        if (!json?.success || !json?.data?.url) throw new Error("upload failed");
+        return json.data.url;
+      }
+      return "";
+    }
+
     function openModal() {
       if (!modal) return;
       modal.hidden = false;
       document.body.style.overflow = "hidden";
-      modal.querySelector("input, textarea, button")?.focus?.();
+      modal.querySelector("input:not([type='hidden']):not([type='file']), textarea, button")?.focus?.();
     }
 
     function closeModal() {
@@ -805,6 +906,53 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
       });
     });
     setRating(5);
+
+    photoInput?.addEventListener("change", () => {
+      const file = photoInput.files && photoInput.files[0];
+      if (file) showPhotoPreview(file);
+      else clearPhoto();
+    });
+    photoRemove?.addEventListener("click", (e) => {
+      e.preventDefault();
+      clearPhoto();
+    });
+
+    reviewForm?.addEventListener("submit", async (e) => {
+      if (!selectedPhotoFile) return;
+      e.preventDefault();
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Uploading photo…";
+      }
+      if (photoStatus) {
+        photoStatus.hidden = false;
+        photoStatus.textContent = "Preparing your photo…";
+      }
+      try {
+        const url = await uploadPhoto(selectedPhotoFile);
+        if (photoUrlInput) photoUrlInput.value = url || "";
+        if (!url && bodyField) {
+          const note = "\n\n[Customer attached a photo with this review.]";
+          if (!bodyField.value.includes("[Customer attached a photo")) {
+            bodyField.value = bodyField.value + note;
+          }
+          if (photoStatus) photoStatus.textContent = "Submitting review…";
+        } else if (photoStatus) {
+          photoStatus.textContent = "Photo uploaded. Submitting review…";
+        }
+        if (submitBtn) submitBtn.textContent = "Submit review";
+        reviewForm.submit();
+      } catch (err) {
+        if (photoStatus) {
+          photoStatus.hidden = false;
+          photoStatus.textContent = "Could not upload photo. You can remove it and submit text only, or try a smaller image.";
+        }
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Submit review";
+        }
+      }
+    });
 
     if (successMsg) {
       if (successSlot) successSlot.appendChild(successMsg.cloneNode(true));

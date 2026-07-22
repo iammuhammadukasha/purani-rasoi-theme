@@ -29,6 +29,7 @@
   data-pdp-reviews
   data-section-id="{{ section.id }}"
   data-product-title="{{ product.title | escape }}"
+  data-imgbb-key="{{ section.settings.review_imgbb_api_key | escape }}"
 >
   <header class="pdp-customer-reviews__head">
     <h2 class="pdp-customer-reviews__title" id="Reviews-{{ section.id }}">{{ heading }}</h2>
@@ -167,8 +168,31 @@
                 required
                 maxlength="2000"
                 placeholder="Tell others what you liked about this product"
+                data-review-body
               ></textarea>
             </label>
+
+            <div class="pdp-review-form__field">
+              <span class="pdp-review-form__label">Add a photo <span class="pdp-review-form__optional">(optional)</span></span>
+              <input type="hidden" name="contact[photo_url]" value="" data-review-photo-url>
+              <label class="pdp-review-form__photo">
+                <input
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  data-review-photo-input
+                  class="visually-hidden"
+                >
+                <span class="pdp-review-form__photo-box" data-review-photo-box>
+                  <span class="material-symbols-outlined" aria-hidden="true">add_a_photo</span>
+                  <span data-review-photo-label>Tap to add picture</span>
+                </span>
+                <img class="pdp-review-form__photo-preview" data-review-photo-preview hidden alt="Selected photo preview">
+              </label>
+              <button type="button" class="pdp-review-form__photo-remove" data-review-photo-remove hidden>
+                Remove photo
+              </button>
+            </div>
 
             {%- if form.errors -%}
               <p class="pdp-review-form__error" role="alert">
@@ -176,7 +200,9 @@
               </p>
             {%- endif -%}
 
-            <button type="submit" class="pdp-review-form__submit">Submit review</button>
+            <p class="pdp-review-form__hint" data-review-photo-status hidden></p>
+
+            <button type="submit" class="pdp-review-form__submit" data-review-submit>Submit review</button>
           {%- endif -%}
         {% endform %}
       </div>

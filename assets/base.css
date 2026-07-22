@@ -2362,6 +2362,65 @@ a {
   font-size: 0.85rem;
 }
 
+.pdp-review-form__optional {
+  font-weight: 400;
+  color: var(--pr-gray);
+}
+
+.pdp-review-form__photo {
+  display: block;
+  cursor: pointer;
+}
+
+.pdp-review-form__photo-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 7.5rem;
+  border: 1.5px dashed #cfcabb;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--pr-gray);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.pdp-review-form__photo-box .material-symbols-outlined {
+  font-size: 1.75rem;
+  color: var(--pr-olive);
+}
+
+.pdp-review-form__photo-preview {
+  width: 100%;
+  max-height: 12rem;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  border: 1.5px solid #e5e2d8;
+}
+
+.pdp-review-form__photo-remove {
+  margin-top: 0.45rem;
+  border: 0;
+  background: transparent;
+  color: var(--pr-olive);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+}
+
+.pdp-review-form__hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--pr-gray);
+}
+
 .pdp-review-form__submit {
   width: 100%;
   min-height: 2.75rem;

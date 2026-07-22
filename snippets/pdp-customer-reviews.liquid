@@ -3,7 +3,7 @@
   assign write_url = section.settings.write_review_url
   assign review_form_id = 'ProductReviewForm-' | append: section.id
 
-  assign mo_type = section.settings.review_metaobject_type | default: 'product_review' | strip
+  assign mo_type = section.settings.review_metaobject_type | default: 'customer_product_review' | strip
   assign review_count = 0
   assign rating_sum = 0
   assign count_5 = 0

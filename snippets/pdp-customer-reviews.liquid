@@ -3,6 +3,7 @@
   assign average = section.settings.reviews_average | default: '4.7'
   assign total_label = section.settings.reviews_total | default: '1,092 reviews'
   assign write_url = section.settings.write_review_url
+  assign review_form_id = 'ProductReviewForm-' | append: section.id
 
   assign count_5 = section.settings.star_5_count | default: 896
   assign count_4 = section.settings.star_4_count | default: 132
@@ -27,6 +28,7 @@
   aria-labelledby="Reviews-{{ section.id }}"
   data-pdp-reviews
   data-section-id="{{ section.id }}"
+  data-product-title="{{ product.title | escape }}"
 >
   <header class="pdp-customer-reviews__head">
     <h2 class="pdp-customer-reviews__title" id="Reviews-{{ section.id }}">{{ heading }}</h2>
@@ -75,7 +77,111 @@
 
   {%- if write_url != blank -%}
     <a href="{{ write_url }}" class="pdp-customer-reviews__write">Write a review</a>
+  {%- else -%}
+    <button type="button" class="pdp-customer-reviews__write" data-review-open>
+      Write a review
+    </button>
   {%- endif -%}
+
+  <div data-review-success-slot></div>
+
+  {%- unless write_url != blank -%}
+    <div
+      class="pdp-review-modal"
+      data-review-modal
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="ReviewModalTitle-{{ section.id }}"
+    >
+      <div class="pdp-review-modal__backdrop" data-review-close tabindex="-1"></div>
+      <div class="pdp-review-modal__panel">
+        <div class="pdp-review-modal__head">
+          <h3 id="ReviewModalTitle-{{ section.id }}">Write a review</h3>
+          <button type="button" class="pdp-review-modal__close" data-review-close aria-label="Close">
+            <span class="material-symbols-outlined" aria-hidden="true">close</span>
+          </button>
+        </div>
+        <p class="pdp-review-modal__product">{{ product.title }}</p>
+
+        {% form 'contact', id: review_form_id, class: 'pdp-review-form', data-review-form: '' %}
+          {%- if form.posted_successfully? -%}
+            <p class="pdp-customer-reviews__success" role="status" data-review-success>
+              Thank you! Your review was submitted and will appear here after approval.
+            </p>
+            <button type="button" class="pdp-review-form__submit" data-review-close>Done</button>
+          {%- else -%}
+            <input type="hidden" name="contact[product]" value="{{ product.title | escape }}">
+            <input type="hidden" name="contact[product_url]" value="{{ shop.url }}{{ product.url }}">
+            <input type="hidden" name="contact[rating]" value="5" data-review-rating-input>
+            <input type="hidden" name="contact[subject]" value="Product review: {{ product.title | escape }}">
+
+            <div class="pdp-review-form__field">
+              <span class="pdp-review-form__label">Your rating</span>
+              <div class="pdp-review-form__stars" data-review-stars role="radiogroup" aria-label="Star rating">
+                {%- for i in (1..5) -%}
+                  <button
+                    type="button"
+                    class="pdp-review-form__star is-active"
+                    data-review-star="{{ i }}"
+                    aria-label="{{ i }} star{% if i > 1 %}s{% endif %}"
+                  >★</button>
+                {%- endfor -%}
+              </div>
+            </div>
+
+            <label class="pdp-review-form__field">
+              <span class="pdp-review-form__label">Your name</span>
+              <input
+                type="text"
+                name="contact[name]"
+                value="{% if customer %}{{ customer.name }}{% endif %}"
+                required
+                autocomplete="name"
+                placeholder="Your name"
+              >
+            </label>
+
+            <label class="pdp-review-form__field">
+              <span class="pdp-review-form__label">Email</span>
+              <input
+                type="email"
+                name="contact[email]"
+                value="{% if customer %}{{ customer.email }}{% endif %}"
+                required
+                autocomplete="email"
+                placeholder="you@email.com"
+              >
+            </label>
+
+            <label class="pdp-review-form__field">
+              <span class="pdp-review-form__label">Review title</span>
+              <input type="text" name="contact[title]" required maxlength="120" placeholder="Sum up your experience">
+            </label>
+
+            <label class="pdp-review-form__field">
+              <span class="pdp-review-form__label">Your review</span>
+              <textarea
+                name="contact[body]"
+                rows="4"
+                required
+                maxlength="2000"
+                placeholder="Tell others what you liked about this product"
+              ></textarea>
+            </label>
+
+            {%- if form.errors -%}
+              <p class="pdp-review-form__error" role="alert">
+                {{ form.errors | default_errors }}
+              </p>
+            {%- endif -%}
+
+            <button type="submit" class="pdp-review-form__submit">Submit review</button>
+          {%- endif -%}
+        {% endform %}
+      </div>
+    </div>
+  {%- endunless -%}
 
   <div class="pdp-customer-reviews__bars" aria-label="Rating breakdown">
     {%- for star in (5..1) -%}

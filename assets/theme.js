@@ -761,6 +761,59 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
       });
     });
 
+    const modal = root.querySelector("[data-review-modal]");
+    const openBtn = root.querySelector("[data-review-open]");
+    const ratingInput = root.querySelector("[data-review-rating-input]");
+    const starBtns = Array.from(root.querySelectorAll("[data-review-star]"));
+    const successMsg = root.querySelector("[data-review-success]");
+    const successSlot = root.querySelector("[data-review-success-slot]");
+    let rating = 5;
+
+    function setRating(value) {
+      rating = value;
+      if (ratingInput) ratingInput.value = String(value);
+      starBtns.forEach((btn) => {
+        const n = Number(btn.getAttribute("data-review-star"));
+        btn.classList.toggle("is-active", n <= value);
+      });
+    }
+
+    function openModal() {
+      if (!modal) return;
+      modal.hidden = false;
+      document.body.style.overflow = "hidden";
+      modal.querySelector("input, textarea, button")?.focus?.();
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.hidden = true;
+      document.body.style.overflow = "";
+    }
+
+    openBtn?.addEventListener("click", openModal);
+    root.querySelectorAll("[data-review-close]").forEach((el) => {
+      el.addEventListener("click", closeModal);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal && !modal.hidden) closeModal();
+    });
+
+    starBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        setRating(Number(btn.getAttribute("data-review-star")) || 5);
+      });
+    });
+    setRating(5);
+
+    if (successMsg) {
+      if (successSlot) successSlot.appendChild(successMsg.cloneNode(true));
+      openModal();
+      root.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    if (root.querySelector(".pdp-review-form__error")) openModal();
+
     applyReviewsView();
   });
 

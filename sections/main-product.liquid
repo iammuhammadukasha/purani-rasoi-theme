@@ -115,7 +115,7 @@
 
         <div class="pdp-meta">
           <div class="pdp-meta__rating">
-            {%- if section.settings.reviews_source != 'custom' -%}
+            {%- if section.settings.reviews_source == 'shopify' -%}
               <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
             {%- else -%}
               <span class="pdp-meta__stars" aria-hidden="true">★★★★★</span>
@@ -404,7 +404,7 @@
       </section>
     {%- endif -%}
 
-    {%- if section.settings.reviews_source != 'custom' -%}
+    {%- if section.settings.reviews_source == 'shopify' -%}
       <div class="pdp-reviews pdp-reviews--spr">
         <div id="shopify-product-reviews" data-id="{{ product.id }}">
           {{ product.metafields.spr.reviews }}
@@ -421,13 +421,6 @@
       {%- assign review_blocks = section.blocks | where: 'type', 'review' -%}
       <div class="pdp-reviews">
         {% render 'pdp-customer-reviews', section: section, review_blocks: review_blocks %}
-        {%- for block in section.blocks -%}
-          {%- if block.type == '@app' -%}
-            <div class="pdp-reviews__app" {{ block.shopify_attributes }}>
-              {% render block %}
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
       </div>
     {%- endif -%}
 
@@ -726,21 +719,21 @@
       "id": "reviews_source",
       "label": "Customer reviews source",
       "options": [
-        { "value": "shopify", "label": "Shopify Product Reviews (recommended)" },
-        { "value": "custom", "label": "Custom theme reviews" }
+        { "value": "custom", "label": "Custom store design (recommended)" },
+        { "value": "shopify", "label": "Shopify Product Reviews app" }
       ],
-      "default": "shopify",
-      "info": "Shopify Product Reviews shows and collects real reviews from the app. Custom uses theme review blocks + on-page form."
+      "default": "custom",
+      "info": "Custom mode uses your designed reviews section and Write a review form. Do not add Loox sections if you want only this design."
     },
-    { "type": "text", "id": "reviews_heading_mobile", "label": "Reviews heading (custom mode)", "default": "Customer Reviews" },
-    { "type": "text", "id": "reviews_average", "label": "Average rating (custom mode)", "default": "4.7" },
-    { "type": "text", "id": "reviews_total", "label": "Total reviews label (custom mode)", "default": "1,092 reviews" },
-    { "type": "url", "id": "write_review_url", "label": "External write-review link (custom mode)", "info": "Only used in custom mode. Leave empty to use the built-in form." },
-    { "type": "number", "id": "star_5_count", "label": "5 star count (custom mode)", "default": 896 },
-    { "type": "number", "id": "star_4_count", "label": "4 star count (custom mode)", "default": 132 },
-    { "type": "number", "id": "star_3_count", "label": "3 star count (custom mode)", "default": 42 },
-    { "type": "number", "id": "star_2_count", "label": "2 star count (custom mode)", "default": 13 },
-    { "type": "number", "id": "star_1_count", "label": "1 star count (custom mode)", "default": 9 }
+    { "type": "text", "id": "reviews_heading_mobile", "label": "Reviews heading", "default": "Customer Reviews" },
+    { "type": "text", "id": "reviews_average", "label": "Average rating", "default": "4.7" },
+    { "type": "text", "id": "reviews_total", "label": "Total reviews label", "default": "1,092 reviews" },
+    { "type": "url", "id": "write_review_url", "label": "External write-review link (optional)", "info": "Leave empty to use your on-page Write a review form." },
+    { "type": "number", "id": "star_5_count", "label": "5 star count (summary bars)", "default": 896 },
+    { "type": "number", "id": "star_4_count", "label": "4 star count (summary bars)", "default": 132 },
+    { "type": "number", "id": "star_3_count", "label": "3 star count (summary bars)", "default": 42 },
+    { "type": "number", "id": "star_2_count", "label": "2 star count (summary bars)", "default": 13 },
+    { "type": "number", "id": "star_1_count", "label": "1 star count (summary bars)", "default": 9 }
   ],
   "blocks": [
     {

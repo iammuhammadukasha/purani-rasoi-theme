@@ -725,6 +725,17 @@
       "default": "custom",
       "info": "Custom mode uses your designed reviews section and Write a review form. Do not add Loox sections if you want only this design."
     },
+    {
+      "type": "paragraph",
+      "content": "Metaobject reviews (recommended): Settings → Custom data → Metaobjects → create type \"product_review\" with fields: product (Product), rating (Integer), title (Single line), body (Multi-line), author (Single line), date (Single line), verified (True/false), photo (File), published (True/false). Enable Storefront access. Then publish reviews in Content → Metaobjects."
+    },
+    {
+      "type": "text",
+      "id": "review_metaobject_type",
+      "label": "Review metaobject type handle",
+      "default": "product_review",
+      "info": "Must match the metaobject definition type (usually product_review)."
+    },
     { "type": "text", "id": "reviews_heading_mobile", "label": "Reviews heading", "default": "Customer Reviews" },
     { "type": "text", "id": "reviews_average", "label": "Average rating", "default": "4.7" },
     { "type": "text", "id": "reviews_total", "label": "Total reviews label", "default": "1,092 reviews" },

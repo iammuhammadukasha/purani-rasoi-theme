@@ -2446,6 +2446,14 @@ a {
   }
 }
 
+.pdp-customer-reviews__empty {
+  margin: 0.5rem 0 0;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  color: var(--pr-gray);
+  border-top: 1px solid #e5e2d8;
+}
+
 .pdp-customer-reviews__bars {
   display: grid;
   gap: 0.45rem;

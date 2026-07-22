@@ -1,21 +1,66 @@
 {%- liquid
   assign heading = section.settings.reviews_heading_mobile | default: 'Customer Reviews'
-  assign average = section.settings.reviews_average | default: '4.7'
-  assign total_label = section.settings.reviews_total | default: '1,092 reviews'
   assign write_url = section.settings.write_review_url
   assign review_form_id = 'ProductReviewForm-' | append: section.id
 
-  assign count_5 = section.settings.star_5_count | default: 896
-  assign count_4 = section.settings.star_4_count | default: 132
-  assign count_3 = section.settings.star_3_count | default: 42
-  assign count_2 = section.settings.star_2_count | default: 13
-  assign count_1 = section.settings.star_1_count | default: 9
+  assign mo_type = section.settings.review_metaobject_type | default: 'product_review' | strip
+  assign review_count = 0
+  assign rating_sum = 0
+  assign count_5 = 0
+  assign count_4 = 0
+  assign count_3 = 0
+  assign count_2 = 0
+  assign count_1 = 0
+  assign has_meta_reviews = false
+
+  if shop.metaobjects[mo_type].values != blank
+    for entry in shop.metaobjects[mo_type].values
+      assign entry_product = entry.product.value
+      if entry_product == blank or entry_product.id != product.id
+        continue
+      endif
+      if entry.published.value == false
+        continue
+      endif
+      assign has_meta_reviews = true
+      assign review_count = review_count | plus: 1
+      assign star = entry.rating.value | default: 5 | plus: 0
+      assign rating_sum = rating_sum | plus: star
+      case star
+        when 5
+          assign count_5 = count_5 | plus: 1
+        when 4
+          assign count_4 = count_4 | plus: 1
+        when 3
+          assign count_3 = count_3 | plus: 1
+        when 2
+          assign count_2 = count_2 | plus: 1
+        else
+          assign count_1 = count_1 | plus: 1
+      endcase
+    endfor
+  endif
+
+  if has_meta_reviews
+    assign average = rating_sum | times: 1.0 | divided_by: review_count | round: 1
+    assign total_label = review_count | append: ' reviews'
+    if review_count == 1
+      assign total_label = '1 review'
+    endif
+  else
+    assign average = section.settings.reviews_average | default: '4.7'
+    assign total_label = section.settings.reviews_total | default: '1,092 reviews'
+    assign count_5 = section.settings.star_5_count | default: 896
+    assign count_4 = section.settings.star_4_count | default: 132
+    assign count_3 = section.settings.star_3_count | default: 42
+    assign count_2 = section.settings.star_2_count | default: 13
+    assign count_1 = section.settings.star_1_count | default: 9
+  endif
 
   assign bar_total = count_5 | plus: count_4 | plus: count_3 | plus: count_2 | plus: count_1
   if bar_total == 0
     assign bar_total = 1
   endif
-
   assign pct_5 = count_5 | times: 100.0 | divided_by: bar_total
   assign pct_4 = count_4 | times: 100.0 | divided_by: bar_total
   assign pct_3 = count_3 | times: 100.0 | divided_by: bar_total
@@ -40,39 +85,73 @@
   </header>
 
   {%- assign has_photos = false -%}
-  {%- for block in review_blocks -%}
-    {%- if block.settings.photo != blank or block.settings.avatar != blank -%}
-      {%- assign has_photos = true -%}
-      {%- break -%}
-    {%- endif -%}
-  {%- endfor -%}
+  {%- if has_meta_reviews -%}
+    {%- for entry in shop.metaobjects[mo_type].values -%}
+      {%- assign entry_product = entry.product.value -%}
+      {%- if entry_product != blank and entry_product.id == product.id and entry.published.value != false and entry.photo.value != blank -%}
+        {%- assign has_photos = true -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- else -%}
+    {%- for block in review_blocks -%}
+      {%- if block.settings.photo != blank or block.settings.avatar != blank -%}
+        {%- assign has_photos = true -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
 
   {%- if has_photos -%}
     <div class="pdp-customer-reviews__photos" aria-label="Customer photos">
-      {%- for block in review_blocks -%}
-        {%- liquid
-          assign gallery_img = block.settings.photo
-          if gallery_img == blank
-            assign gallery_img = block.settings.avatar
-          endif
-        -%}
-        {%- if gallery_img != blank -%}
-          <button
-            type="button"
-            class="pdp-customer-reviews__photo"
-            data-review-photo="{{ forloop.index0 }}"
-            aria-label="View customer photo {{ forloop.index }}"
-          >
-            <img
-              src="{{ gallery_img | image_url: width: 200 }}"
-              alt=""
-              width="72"
-              height="72"
-              loading="lazy"
+      {%- if has_meta_reviews -%}
+        {%- assign photo_i = 0 -%}
+        {%- for entry in shop.metaobjects[mo_type].values -%}
+          {%- assign entry_product = entry.product.value -%}
+          {%- if entry_product != blank and entry_product.id == product.id and entry.published.value != false and entry.photo.value != blank -%}
+            <button
+              type="button"
+              class="pdp-customer-reviews__photo"
+              data-review-photo="{{ photo_i }}"
+              aria-label="View customer photo {{ photo_i | plus: 1 }}"
             >
-          </button>
-        {%- endif -%}
-      {%- endfor -%}
+              <img
+                src="{{ entry.photo.value | image_url: width: 200 }}"
+                alt=""
+                width="72"
+                height="72"
+                loading="lazy"
+              >
+            </button>
+            {%- assign photo_i = photo_i | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for block in review_blocks -%}
+          {%- liquid
+            assign gallery_img = block.settings.photo
+            if gallery_img == blank
+              assign gallery_img = block.settings.avatar
+            endif
+          -%}
+          {%- if gallery_img != blank -%}
+            <button
+              type="button"
+              class="pdp-customer-reviews__photo"
+              data-review-photo="{{ forloop.index0 }}"
+              aria-label="View customer photo {{ forloop.index }}"
+            >
+              <img
+                src="{{ gallery_img | image_url: width: 200 }}"
+                alt=""
+                width="72"
+                height="72"
+                loading="lazy"
+              >
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
     </div>
   {%- endif -%}
 
@@ -108,7 +187,7 @@
         {% form 'contact', id: review_form_id, class: 'pdp-review-form', data-review-form: '' %}
           {%- if form.posted_successfully? -%}
             <p class="pdp-customer-reviews__success" role="status" data-review-success>
-              Thank you! Your review was submitted and will appear here after approval.
+              Thank you! Your review was submitted and will appear here after we approve it.
             </p>
             <button type="button" class="pdp-review-form__submit" data-review-close>Done</button>
           {%- else -%}
@@ -273,7 +352,76 @@
   </div>
 
   <div class="pdp-customer-reviews__list" data-reviews-list>
-    {%- if review_blocks.size > 0 -%}
+    {%- if has_meta_reviews -%}
+      {%- assign card_i = 0 -%}
+      {%- for entry in shop.metaobjects[mo_type].values -%}
+        {%- assign entry_product = entry.product.value -%}
+        {%- if entry_product == blank or entry_product.id != product.id or entry.published.value == false -%}
+          {%- continue -%}
+        {%- endif -%}
+        {%- liquid
+          assign rating = entry.rating.value | default: 5 | plus: 0
+          assign author = entry.author.value | default: 'Anonymous'
+          assign initial = author | strip | slice: 0, 1 | upcase
+          assign review_title = entry.title.value
+          assign review_body = entry.body.value
+          assign review_date = entry.date.value | default: entry.system.created_at | date: '%m/%d/%Y'
+          assign sort_key = 1000 | minus: card_i
+          assign is_verified = entry.verified.value
+          if is_verified == blank
+            assign is_verified = true
+          endif
+        -%}
+        <article
+          class="pdp-review-card"
+          data-review-card
+          data-rating="{{ rating }}"
+          data-sort-order="{{ sort_key }}"
+          data-index="{{ card_i }}"
+        >
+          <div class="pdp-review-card__stars" aria-label="{{ rating }} out of 5 stars">
+            {%- for i in (1..5) -%}
+              <span class="pdp-review-card__star{% if i <= rating %} is-filled{% endif %}" aria-hidden="true">★</span>
+            {%- endfor -%}
+          </div>
+          <div class="pdp-review-card__meta">
+            <div class="pdp-review-card__avatar" aria-hidden="true">
+              <span>{{ initial }}</span>
+            </div>
+            <div class="pdp-review-card__author-wrap">
+              <div class="pdp-review-card__author-row">
+                <strong class="pdp-review-card__author">{{ author }}</strong>
+                {%- if is_verified -%}
+                  <span class="pdp-review-card__verified">
+                    <span class="material-symbols-outlined" aria-hidden="true">verified</span>
+                    Verified
+                  </span>
+                {%- endif -%}
+              </div>
+              <time class="pdp-review-card__date">{{ review_date }}</time>
+            </div>
+          </div>
+          {%- if review_title != blank -%}
+            <h3 class="pdp-review-card__title">{{ review_title }}</h3>
+          {%- endif -%}
+          {%- if review_body != blank -%}
+            <p class="pdp-review-card__body">{{ review_body }}</p>
+          {%- endif -%}
+          {%- if entry.photo.value != blank -%}
+            <div class="pdp-review-card__photo">
+              <img
+                src="{{ entry.photo.value | image_url: width: 400 }}"
+                alt=""
+                width="120"
+                height="120"
+                loading="lazy"
+              >
+            </div>
+          {%- endif -%}
+        </article>
+        {%- assign card_i = card_i | plus: 1 -%}
+      {%- endfor -%}
+    {%- elsif review_blocks.size > 0 -%}
       {%- for block in review_blocks -%}
         {%- liquid
           assign rating = block.settings.rating | default: 5 | plus: 0
@@ -338,30 +486,7 @@
         </article>
       {%- endfor -%}
     {%- else -%}
-      <article class="pdp-review-card" data-review-card data-rating="4" data-sort-order="1" data-index="0">
-        <div class="pdp-review-card__stars" aria-label="4 out of 5 stars">
-          <span class="pdp-review-card__star is-filled">★</span>
-          <span class="pdp-review-card__star is-filled">★</span>
-          <span class="pdp-review-card__star is-filled">★</span>
-          <span class="pdp-review-card__star is-filled">★</span>
-          <span class="pdp-review-card__star">★</span>
-        </div>
-        <div class="pdp-review-card__meta">
-          <div class="pdp-review-card__avatar"><span>A</span></div>
-          <div class="pdp-review-card__author-wrap">
-            <div class="pdp-review-card__author-row">
-              <strong class="pdp-review-card__author">Anonymous</strong>
-              <span class="pdp-review-card__verified">
-                <span class="material-symbols-outlined" aria-hidden="true">verified</span>
-                Verified
-              </span>
-            </div>
-            <time class="pdp-review-card__date">07/21/2026</time>
-          </div>
-        </div>
-        <h3 class="pdp-review-card__title">Awesome taste, just like homemade</h3>
-        <p class="pdp-review-card__body">“Aam ka achar bilkul ghar jaisa swad. Quality aur packaging dono hi best!”</p>
-      </article>
+      <p class="pdp-customer-reviews__empty">No published reviews yet. Approve the first one in Content → Metaobjects.</p>
     {%- endif -%}
   </div>
 </section>

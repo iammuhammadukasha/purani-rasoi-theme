@@ -230,7 +230,14 @@
               data-buy-now
               {% unless current_variant.available %}disabled{% endunless %}
             >
-              <span class="material-symbols-outlined" aria-hidden="true">bolt</span>
+              <img
+                class="pdp-buy__upi"
+                src="{{ 'upi_options.svg' | asset_url }}"
+                alt=""
+                width="42"
+                height="17"
+                aria-hidden="true"
+              >
               BUY NOW
             </button>
           </div>

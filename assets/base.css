@@ -2792,6 +2792,14 @@ a {
   font-size: 1.1rem;
 }
 
+.pdp-buy__upi {
+  width: 42px;
+  height: 17px;
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
 .pdp-trust {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -7807,9 +7815,13 @@ footer.site-footer.mh-footer {
     font-size: 1rem;
   }
 
-  .pdp-add .material-symbols-outlined,
-  .pdp-buy .material-symbols-outlined {
+  .pdp-add .material-symbols-outlined {
     font-size: 1.2rem;
+  }
+
+  .pdp-buy__upi {
+    width: 48px;
+    height: 19px;
   }
 
   .pdp-trust__item {
@@ -8044,9 +8056,13 @@ footer.site-footer.mh-footer {
     border-radius: 10px;
   }
 
-  .pdp-add .material-symbols-outlined,
-  .pdp-buy .material-symbols-outlined {
+  .pdp-add .material-symbols-outlined {
     font-size: 1.25rem;
+  }
+
+  .pdp-buy__upi {
+    width: 52px;
+    height: 21px;
   }
 
   .pdp-trust {

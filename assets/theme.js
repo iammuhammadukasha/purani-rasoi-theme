@@ -978,6 +978,7 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
   window.setTimeout(runShiprocketUpiFix, 800);
   window.setTimeout(runShiprocketUpiFix, 2000);
   window.setTimeout(runShiprocketUpiFix, 4000);
+  window.setTimeout(runShiprocketUpiFix, 7000);
   if (typeof MutationObserver !== "undefined") {
     const mo = new MutationObserver((mutations) => {
       for (const m of mutations) {
@@ -997,6 +998,17 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
     });
     mo.observe(document.documentElement, { childList: true, subtree: true });
   }
+
+  const cartForm = document.getElementById("cart");
+  const cartBuyNow = document.querySelector("[data-cart-buy-now]");
+  cartForm &&
+    cartBuyNow &&
+    cartBuyNow.addEventListener("click", (e) => {
+      if (window.shiprocketCheckoutEvents?.buyCart) {
+        e.preventDefault();
+        window.shiprocketCheckoutEvents.buyCart(e);
+      }
+    });
 
   /* Shop by Category — mobile 3-up carousel (manual arrows / swipe only) */
   document.querySelectorAll("[data-pr-cats]").forEach((root) => {

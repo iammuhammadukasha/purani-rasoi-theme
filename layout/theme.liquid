@@ -108,6 +108,8 @@
 
     {{ content_for_header }}
 
+    {% render 'shiprocket-assets' %}
+
     <script>
       window.PuraniRasoi = window.PuraniRasoi || {};
       window.PuraniRasoi.upiOptionsUrl = {{ 'upi_options.svg' | asset_url | json }};

@@ -1,6 +1,61 @@
 /* Purani Rasoi Shopify theme interactions */
 
 window.PuraniRasoi = window.PuraniRasoi || {};
+
+/** Replace broken Shiprocket Buy Now payment sprites with theme UPI SVG. */
+window.PuraniRasoi.fixShiprocketUpiIcons = function fixShiprocketUpiIcons(root) {
+  const url = window.PuraniRasoi.upiOptionsUrl;
+  if (!url) return;
+
+  const scope = root && root.querySelectorAll ? root : document;
+  const buttons = scope.matches?.(".sr-headless-checkout")
+    ? [scope]
+    : [...scope.querySelectorAll(".sr-headless-checkout")];
+
+  buttons.forEach((btn) => {
+    if (!(btn instanceof HTMLElement)) return;
+
+    const imgs = [...btn.querySelectorAll("img")];
+    const arrow = imgs.find(
+      (img) =>
+        /arrow/i.test(img.getAttribute("alt") || "") ||
+        /arrow|chevron/i.test(img.getAttribute("src") || "")
+    );
+    const payImgs = imgs.filter((img) => {
+      if (img === arrow || img.classList.contains("pr-sr-upi")) return false;
+      const meta = `${img.className || ""} ${img.getAttribute("alt") || ""} ${img.getAttribute("src") || ""}`;
+      if (/powered|shiprocket_logo|animation-image/i.test(meta)) return false;
+      return true;
+    });
+
+    if (payImgs.length) {
+      const first = payImgs[0];
+      first.classList.add("pr-sr-upi");
+      first.removeAttribute("srcset");
+      first.removeAttribute("sizes");
+      first.setAttribute("src", url);
+      first.setAttribute("alt", "");
+      first.setAttribute("width", "72");
+      first.setAttribute("height", "29");
+      first.setAttribute("aria-hidden", "true");
+      payImgs.slice(1).forEach((img) => img.classList.add("pr-sr-pay-hidden"));
+      return;
+    }
+
+    if (btn.querySelector("img.pr-sr-upi")) return;
+
+    const upi = document.createElement("img");
+    upi.className = "pr-sr-upi";
+    upi.src = url;
+    upi.alt = "";
+    upi.width = 72;
+    upi.height = 29;
+    upi.setAttribute("aria-hidden", "true");
+    if (arrow && arrow.parentNode) arrow.parentNode.insertBefore(upi, arrow);
+    else btn.appendChild(upi);
+  });
+};
+
 window.PuraniRasoi.updateCartUI = function updateCartUI(cart) {
   const n = (cart && cart.item_count) || 0;
   document.querySelectorAll(".cart-count").forEach((el) => {
@@ -916,6 +971,32 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
       e.preventDefault();
       runAjaxSearch(ajaxInput?.value || "");
     });
+
+  /* Shiprocket Buy Now — swap broken UPI sprites for theme asset */
+  const runShiprocketUpiFix = () => window.PuraniRasoi.fixShiprocketUpiIcons(document);
+  runShiprocketUpiFix();
+  window.setTimeout(runShiprocketUpiFix, 800);
+  window.setTimeout(runShiprocketUpiFix, 2000);
+  window.setTimeout(runShiprocketUpiFix, 4000);
+  if (typeof MutationObserver !== "undefined") {
+    const mo = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        if (
+          m.addedNodes &&
+          [...m.addedNodes].some(
+            (n) =>
+              n.nodeType === 1 &&
+              (n.matches?.(".sr-headless-checkout, .shiprocket-headless") ||
+                n.querySelector?.(".sr-headless-checkout, .shiprocket-headless"))
+          )
+        ) {
+          runShiprocketUpiFix();
+          break;
+        }
+      }
+    });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+  }
 
   /* Shop by Category — mobile 3-up carousel (manual arrows / swipe only) */
   document.querySelectorAll("[data-pr-cats]").forEach((root) => {

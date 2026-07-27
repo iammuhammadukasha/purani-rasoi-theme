@@ -108,6 +108,10 @@
 
     {{ content_for_header }}
 
+    <script>
+      window.PuraniRasoi = window.PuraniRasoi || {};
+      window.PuraniRasoi.upiOptionsUrl = {{ 'upi_options.svg' | asset_url | json }};
+    </script>
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
   </head>
 

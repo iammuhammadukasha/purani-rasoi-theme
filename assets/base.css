@@ -2800,6 +2800,22 @@ a {
   object-fit: contain;
 }
 
+/* Shiprocket Buy Now: hide broken payment sprites, show theme UPI SVG */
+.sr-headless-checkout .pr-sr-pay-hidden {
+  display: none !important;
+}
+
+.sr-headless-checkout img.pr-sr-upi {
+  display: inline-block !important;
+  width: 72px !important;
+  height: 29px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  flex-shrink: 0;
+  margin: 0 0.35rem;
+  vertical-align: middle;
+}
+
 .pdp-trust {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

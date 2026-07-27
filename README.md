@@ -65,9 +65,45 @@ Or zip and upload manually if you are not using CLI.
 | `layout/` | `theme.liquid` |
 | `sections/` | Homepage, header, footer, product, collection |
 | `templates/` | JSON templates (OS 2.0) |
-| `assets/` | CSS, JS, brand images |
+| `assets/` | CSS, JS, brand images (`logo-purani-rasoi.png`, `upi_options.svg`, …) |
 | `config/` | Theme settings |
 | `snippets/` | Reusable Liquid |
+
+## Checkout & order confirmation branding
+
+Cart/storefront live in this theme. **Shopify Checkout**, **thank-you / order status**, and **Shiprocket checkout** are branded outside theme Liquid.
+
+### Brand tokens
+
+| Token | Value |
+|-------|--------|
+| Logo | Same as header: Theme settings logo, or asset `logo-purani-rasoi.png` |
+| Primary / buttons | `#5e6f36` |
+| Background / canvas | Cream / off-white (match storefront) |
+| Links / accents | `#5e6f36` or dark body text |
+| Corner radius | ~8–10px |
+
+### Shopify Checkout + thank-you page
+
+1. Shopify admin → **Settings → Checkout → Customize** (Checkout and accounts editor).
+2. Set **header logo** to the Purani Rasoi logo (upload `logo-purani-rasoi.png` from theme assets or Files if needed).
+3. Set primary button / brand colors to **`#5e6f36`**, background to cream/off-white, corner radius ~8–10px.
+4. Set favicon if missing.
+5. Save. Thank-you and order status pages inherit this branding profile.
+
+Theme code cannot restyle Shopify Checkout layout without Plus Checkout Branding APIs.
+
+### Shiprocket / Fastrr checkout + confirmation
+
+Buy Now for India often opens Shiprocket, not Shopify Checkout. Brand those pages in the **Shiprocket / Fastrr seller dashboard** (not this repo):
+
+1. Open Shiprocket/Fastrr dashboard → store / branding settings.
+2. Upload the Purani Rasoi logo.
+3. Set primary / button / header colors to **`#5e6f36`**.
+4. Apply the same branding to confirmation / success screens if the dashboard exposes them.
+5. Save and retest Buy Now → checkout → confirmation.
+
+The theme keeps a native cart **BUY NOW** (with `upi_options.svg`) when Shiprocket does not mount; Shiprocket’s own UI still needs dashboard branding.
 
 ## Manual zip upload
 

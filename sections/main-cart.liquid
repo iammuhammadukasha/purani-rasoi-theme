@@ -34,19 +34,19 @@
         {%- endfor -%}
       </div>
 
-      <div class="cart-page__actions" style="margin-top:2rem;display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:stretch">
-        <button type="submit" name="update" class="bs-card__btn cart-page__update" style="width:100%;min-height:3.5rem;padding:0.75rem 1.25rem;background:#5e6f36;color:#fff;border:none;border-radius:10px;font-weight:700;letter-spacing:0.04em">
+      <div class="cart-page__actions">
+        <button type="submit" name="update" class="cart-page__update">
           {{ 'cart.general.update' | t }}
         </button>
         <div class="shiprocket-headless" data-type="cart"></div>
         <button type="submit" name="checkout" class="cart-page__buy" data-cart-buy-now>
-          <span>BUY NOW</span>
+          <span class="cart-page__buy-label">BUY NOW</span>
           <img
             class="cart-page__buy-upi"
             src="{{ 'upi_options.svg' | asset_url }}"
             alt=""
-            width="72"
-            height="29"
+            width="56"
+            height="22"
             aria-hidden="true"
           >
         </button>

@@ -112,6 +112,23 @@
       window.PuraniRasoi = window.PuraniRasoi || {};
       window.PuraniRasoi.upiOptionsUrl = {{ 'upi_options.svg' | asset_url | json }};
     </script>
+    <style id="pr-shiprocket-upi">
+      /* Early hide of Shiprocket payment sprite slots until theme.js swaps in upi_options.svg */
+      .shiprocket-headless .sr-headless-checkout img.sr-checkout-visible1:not([alt="right_arrow"]),
+      .shiprocket-headless .sr-headless-checkout img.sr-checkout-visible2:not([alt="right_arrow"]),
+      .shiprocket-headless .sr-headless-checkout img.sr-checkout-visible:not([alt="right_arrow"]) {
+        opacity: 0;
+        width: 1px !important;
+        height: 1px !important;
+        position: absolute !important;
+      }
+      .shiprocket-headless .sr-headless-checkout img.pr-sr-upi {
+        opacity: 1 !important;
+        position: static !important;
+        width: 72px !important;
+        height: 29px !important;
+      }
+    </style>
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
   </head>
 

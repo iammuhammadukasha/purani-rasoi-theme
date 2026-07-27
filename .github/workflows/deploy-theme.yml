@@ -29,9 +29,10 @@ jobs:
           SHOPIFY_FLAG_FORCE: "1"
           SHOPIFY_CLI_TTY: "0"
         run: |
+          # Live published theme on puranirasoi.com (Online Store → Themes)
           shopify theme push \
             --json \
-            --theme "${{ secrets.SHOPIFY_THEME_ID }}" \
+            --theme "150862299289" \
             --store "${{ secrets.SHOPIFY_FLAG_STORE }}" \
             --password "${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}" \
             --nodelete \

@@ -2803,6 +2803,12 @@ a {
 /* Shiprocket Buy Now: hide broken payment sprites, show theme UPI SVG */
 .sr-headless-checkout .pr-sr-pay-hidden {
   display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
 }
 
 .sr-headless-checkout img.pr-sr-upi {
@@ -2810,10 +2816,26 @@ a {
   width: 72px !important;
   height: 29px !important;
   max-width: none !important;
+  max-height: none !important;
   object-fit: contain !important;
-  flex-shrink: 0;
-  margin: 0 0.35rem;
-  vertical-align: middle;
+  object-position: center !important;
+  flex-shrink: 0 !important;
+  margin: 0 0.35rem !important;
+  vertical-align: middle !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  filter: none !important;
+  image-rendering: auto !important;
+  overflow: visible !important;
+}
+
+/* Common Shiprocket payment logo slots (keep arrow + powered-by) */
+.shiprocket-headless .sr-headless-checkout img.sr-checkout-visible1:not([alt="right_arrow"]):not(.pr-sr-upi),
+.shiprocket-headless .sr-headless-checkout img.sr-checkout-visible2:not([alt="right_arrow"]):not(.pr-sr-upi),
+.shiprocket-headless .sr-headless-checkout img.sr-checkout-visible:not([alt="right_arrow"]):not(.pr-sr-upi) {
+  /* JS will swap src; until then avoid broken sprite crop */
+  object-fit: contain !important;
+  max-height: 28px !important;
 }
 
 .pdp-trust {

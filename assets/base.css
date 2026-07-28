@@ -2831,24 +2831,51 @@ a {
 }
 
 .pr-buy-now__arrow {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
+  color: #fff;
+  line-height: 0;
 }
 
 .pdp-buy .pr-buy-now__arrow {
-  filter: grayscale(100%) brightness(0%);
+  color: var(--pr-dark);
 }
 
 .pr-buy-now__powered {
-  font-size: 0.62rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.22rem;
+  font-size: 0.5625rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
   text-transform: none;
-  opacity: 0.88;
+  color: #fff;
+  opacity: 0.95;
   white-space: nowrap;
+  line-height: 1;
+}
+
+.pr-buy-now__sr-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+  line-height: 0;
+}
+
+.pdp-buy .pr-buy-now__powered,
+.pdp-buy .pr-buy-now__powered-by,
+.pdp-buy .pr-buy-now__powered-brand {
+  color: var(--pr-dark);
+  opacity: 0.82;
+}
+
+.pdp-buy .pr-buy-now__sr-mark {
+  color: var(--pr-dark);
 }
 
 .pdp-buy__upi {

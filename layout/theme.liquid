@@ -103,8 +103,10 @@
       })();
     </script>
 
-    {{ 'base.css' | asset_url | stylesheet_tag }}
-    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {%- assign pr_asset_v = '20260728-3' -%}
+
+    {{ 'base.css' | asset_url | append: '&pr=' | append: pr_asset_v | stylesheet_tag }}
+    {{ 'theme.css' | asset_url | append: '&pr=' | append: pr_asset_v | stylesheet_tag }}
 
     {{ content_for_header }}
 
@@ -113,6 +115,7 @@
     <script>
       window.PuraniRasoi = window.PuraniRasoi || {};
       window.PuraniRasoi.upiOptionsUrl = {{ 'upi_options.svg' | asset_url | json }};
+      window.PuraniRasoi.themeVersion = {{ pr_asset_v | json }};
     </script>
     <style id="pr-shiprocket-upi">
       .shiprocket-headless .sr-headless-checkout img.sr-checkout-visible1:not([alt="right_arrow"]),
@@ -130,7 +133,7 @@
         height: 29px !important;
       }
     </style>
-    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+    <script src="{{ 'theme.js' | asset_url | append: '&pr=' | append: pr_asset_v }}" defer></script>
   </head>
 
   <body class="pr-body bg-cream text-maroon antialiased overflow-x-hidden" id="top">

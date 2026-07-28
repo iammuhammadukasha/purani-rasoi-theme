@@ -22,10 +22,12 @@
   }
   .shiprocket-headless[data-type='mini-cart'] .sr-headless-checkout {
     color: #ffffff;
-    border-radius: 99px;
-    height: 49px;
+    border-radius: 999px;
+    height: 4.75rem !important;
+    min-height: 4.75rem !important;
     letter-spacing: 1px;
     background-color: #5e6f36;
+    box-sizing: border-box !important;
   }
   .shiprocket-headless[data-type='cart'] .sr-headless-checkout {
     color: #ffffff;
@@ -83,6 +85,12 @@
     color: #fff;
   }
   .cart-page__buy .pr-buy-now__arrow {
+    color: #fff;
+  }
+  .pr-cart-drawer__checkout .pr-buy-now__powered,
+  .pr-cart-drawer__checkout .pr-buy-now__powered-by,
+  .pr-cart-drawer__checkout .pr-buy-now__powered-brand,
+  .pr-cart-drawer__checkout .pr-buy-now__arrow {
     color: #fff;
   }
   body.pr-sr-ready button[name='checkout']:not(.cart-page__buy),

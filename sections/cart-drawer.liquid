@@ -188,18 +188,10 @@
         <a href="{{ routes.cart_url }}" class="pr-cart-drawer__view">View cart</a>
         <form action="{{ routes.cart_url }}" method="post">
           <div class="shiprocket-headless" data-type="mini-cart"></div>
-          <button type="submit" name="checkout" class="pr-cart-drawer__checkout">
-            PROCEED TO CHECKOUT
+          <button type="submit" name="checkout" class="pr-cart-drawer__checkout" data-cart-drawer-checkout>
+            {% render 'buy-now-content', label: 'PROCEED TO CHECKOUT' %}
           </button>
         </form>
-        <ul class="pr-cart-drawer__pay" aria-label="Accepted payments">
-          <li>PhonePe</li>
-          <li>Mastercard</li>
-          <li>VISA</li>
-          <li>Paytm</li>
-          <li>GPay</li>
-          <li>UPI</li>
-        </ul>
       </footer>
     {%- endif -%}
   </aside>

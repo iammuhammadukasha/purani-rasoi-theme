@@ -94,7 +94,8 @@ window.PuraniRasoi.closeCartDrawer = function closeCartDrawer() {
 window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
   try {
     const root = (window.Shopify && Shopify.routes && Shopify.routes.root) || "/";
-    const res = await fetch(`${root}?sections=cart-drawer`);
+    const v = window.PuraniRasoi.themeVersion || Date.now();
+    const res = await fetch(`${root}?sections=cart-drawer&pr=${encodeURIComponent(v)}`);
     if (!res.ok) return;
     const data = await res.json();
     const html = data["cart-drawer"];
@@ -112,6 +113,9 @@ window.PuraniRasoi.refreshCartDrawer = async function refreshCartDrawer() {
       drawer.removeAttribute("hidden");
       drawer.classList.add("is-open");
       drawer.setAttribute("aria-hidden", "false");
+    }
+    if (typeof window.PuraniRasoi.fixShiprocketUpiIcons === "function") {
+      window.PuraniRasoi.fixShiprocketUpiIcons(document);
     }
   } catch (e) {
     /* ignore refresh errors */

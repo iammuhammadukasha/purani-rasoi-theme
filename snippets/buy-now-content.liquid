@@ -1,6 +1,7 @@
+{%- assign checkout_label = label | default: 'BUY NOW' -%}
 <span class="pr-buy-now">
   <span class="pr-buy-now__row">
-    <span class="pr-buy-now__label">BUY NOW</span>
+    <span class="pr-buy-now__label">{{ checkout_label }}</span>
     <img
       class="pr-buy-now__upi"
       src="{{ 'upi_options.svg' | asset_url }}"

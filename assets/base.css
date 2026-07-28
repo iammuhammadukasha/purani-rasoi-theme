@@ -2859,11 +2859,17 @@ a {
 }
 
 .pr-buy-now__sr-mark {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
-  object-fit: contain;
+  color: #fff;
+  line-height: 0;
+  background: transparent;
+}
+
+.pdp-buy .pr-buy-now__sr-mark {
+  color: var(--pr-dark);
 }
 
 .pdp-buy .pr-buy-now__powered,

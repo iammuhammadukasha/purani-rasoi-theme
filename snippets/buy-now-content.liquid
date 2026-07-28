@@ -18,6 +18,7 @@
       </span>
     {%- endif -%}
   </span>
+  {%- unless hide_powered -%}
   <span class="pr-buy-now__powered" aria-hidden="true">
     <span class="pr-buy-now__powered-by">Powered By</span>
     <img
@@ -30,4 +31,5 @@
     >
     <span class="pr-buy-now__powered-brand">Shiprocket</span>
   </span>
+  {%- endunless -%}
 </span>

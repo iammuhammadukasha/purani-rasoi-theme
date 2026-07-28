@@ -223,17 +223,21 @@
                 {{ 'products.product.sold_out' | t }}
               {%- endif -%}
             </button>
-            <button
-              type="submit"
-              class="pdp-buy"
-              name="add"
-              data-buy-now
-              {% unless current_variant.available %}disabled{% endunless %}
-            >
-              {% render 'buy-now-content' %}
-            </button>
+            <div class="pdp-buy-wrap">
+              <button
+                type="submit"
+                class="pdp-buy"
+                name="add"
+                data-buy-now
+                {% unless current_variant.available %}disabled{% endunless %}
+              >
+                {% render 'buy-now-content', hide_powered: true %}
+              </button>
+              <div class="pdp-buy__powered">
+                {% render 'buy-now-powered' %}
+              </div>
+            </div>
           </div>
-          {% render 'buy-now-payment-badges' %}
         {% endform %}
 
         {%- unless section.settings.show_ship_timeline == false -%}

@@ -1,7 +1,7 @@
 {%- comment -%}
-  Shiprocket / Fastrr headless Buy Now assets.
-  Mount points: .shiprocket-headless[data-type="product|cart|mini-cart"]
-  Native Buy Now / checkout stay visible until Shiprocket actually renders.
+  Shiprocket / Fastrr scripts (kept for compatibility). Theme native Buy Now buttons
+  are always shown — Shiprocket widget mounts are hidden so India visitors get the
+  same branded UPI + Powered By layout as everyone else.
 {%- endcomment -%}
 <script>
   window.checkoutBuyer = 'https://fastrr-boost-ui.pickrr.com/';
@@ -10,141 +10,34 @@
 <script src="https://fastrr-boost-ui.pickrr.com/assets/js/channels/shopify.js" defer></script>
 <script src="https://fastrr-boost-ui.pickrr.com/assets/js/channels/shiprocketMarketing.js" defer></script>
 <style>
+  .shiprocket-headless,
   .sr-headless-checkout {
-    font-family: inherit;
-    color: #1f1f1f;
-    font-size: 15px;
-    font-weight: 600;
-    border-radius: 10px;
-    height: 60px;
-    letter-spacing: 1px;
-    background-color: #efb530;
-  }
-  .shiprocket-headless[data-type='mini-cart'] .sr-headless-checkout {
-    color: #ffffff;
-    border-radius: 999px;
-    height: 4.75rem !important;
-    min-height: 4.75rem !important;
-    letter-spacing: 1px;
-    background-color: #5e6f36;
-    box-sizing: border-box !important;
-  }
-  .shiprocket-headless[data-type='cart'] .sr-headless-checkout {
-    color: #ffffff;
-    background-color: #5e6f36;
-    font-size: 13px !important;
-    height: 4.75rem !important;
-    min-height: 4.75rem !important;
-    box-sizing: border-box !important;
-  }
-  .shiprocket-headless[data-type='product'] .sr-powered-by,
-  .shiprocket-headless[data-type='product'] .sr-checkout-visible1[alt='right_arrow'] {
-    filter: grayscale(100%) brightness(0%);
-  }
-  .shiprocket-headless .sr-powered-by {
-    right: 12px !important;
-  }
-  .shiprocket-headless {
-    width: 100% !important;
-    height: 100%;
-  }
-  .shiprocket-headless:not(:has(.sr-headless-checkout)) {
     display: none !important;
   }
   .cart-page__actions {
     margin-top: 2rem;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 0.75rem;
     align-items: stretch;
   }
-  .cart-page__update,
-  .cart-page__buy {
+  .cart-page__update {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 4.75rem;
-    min-height: 4.75rem;
-    max-height: 4.75rem;
+    height: 3rem;
+    min-height: 3rem;
     box-sizing: border-box;
-    padding: 0.35rem 0.85rem;
+    padding: 0 1rem;
     background: #5e6f36;
     color: #fff;
     border: none;
-    border-radius: 10px;
+    border-radius: 999px;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     cursor: pointer;
     line-height: 1;
   }
-  .cart-page__buy .pr-buy-now__powered,
-  .cart-page__buy .pr-buy-now__powered-by,
-  .cart-page__buy .pr-buy-now__powered-brand {
-    color: #fff;
-  }
-  .cart-page__buy .pr-buy-now__arrow {
-    color: #fff;
-  }
-  .pr-cart-drawer__checkout .pr-buy-now__powered,
-  .pr-cart-drawer__checkout .pr-buy-now__powered-by,
-  .pr-cart-drawer__checkout .pr-buy-now__powered-brand,
-  .pr-cart-drawer__checkout .pr-buy-now__arrow {
-    color: #fff;
-  }
-  .shiprocket-headless[data-type='mini-cart'] {
-    display: none !important;
-  }
-  body.pr-sr-ready button[name='checkout']:not(.cart-page__buy):not(.pr-cart-drawer__checkout),
-  body.pr-sr-ready .pdp-buy,
-  body.pr-sr-ready .shopify-payment-button__button.shopify-payment-button__button--unbranded {
-    display: none !important;
-  }
-  body.pr-sr-ready .shiprocket-headless:has(.sr-headless-checkout) {
-    display: block !important;
-  }
-  body.pr-sr-ready .cart-page__buy {
-    display: none !important;
-  }
 </style>
-<script>
-  (function () {
-    var india = ['Asia/Kolkata', 'Asia/Calcutta'];
-    var tz = '';
-    try {
-      tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    } catch (e) {}
-    if (india.indexOf(tz) === -1) return;
-
-    function markReady() {
-      if (document.querySelector('.sr-headless-checkout')) {
-        document.body.classList.add('pr-sr-ready');
-        if (window.PuraniRasoi && typeof window.PuraniRasoi.fixShiprocketUpiIcons === 'function') {
-          window.PuraniRasoi.fixShiprocketUpiIcons(document);
-        }
-        return true;
-      }
-      return false;
-    }
-
-    function watch() {
-      if (markReady()) return;
-      if (typeof MutationObserver === 'undefined') return;
-      var mo = new MutationObserver(function () {
-        if (markReady()) mo.disconnect();
-      });
-      mo.observe(document.documentElement, { childList: true, subtree: true });
-      setTimeout(function () {
-        mo.disconnect();
-        markReady();
-      }, 12000);
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', watch);
-    } else {
-      watch();
-    }
-  })();
-</script>

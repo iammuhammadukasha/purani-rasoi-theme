@@ -233,8 +233,7 @@
               {% render 'buy-now-content' %}
             </button>
           </div>
-          <input type="hidden" value="true" id="fastrrCollectionPage">
-          <div class="shiprocket-headless" data-type="product"></div>
+          {% render 'buy-now-payment-badges' %}
         {% endform %}
 
         {%- unless section.settings.show_ship_timeline == false -%}

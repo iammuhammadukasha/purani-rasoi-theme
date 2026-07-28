@@ -2831,11 +2831,15 @@ a {
 }
 
 .pr-buy-now__arrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   flex-shrink: 0;
-  color: inherit;
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.pdp-buy .pr-buy-now__arrow {
+  filter: grayscale(100%) brightness(0%);
 }
 
 .pr-buy-now__powered {

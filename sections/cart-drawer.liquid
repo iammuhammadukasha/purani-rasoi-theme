@@ -187,7 +187,6 @@
         <p class="pr-cart-drawer__tax-note">Inclusive of all taxes</p>
         <a href="{{ routes.cart_url }}" class="pr-cart-drawer__view">View cart</a>
         <form action="{{ routes.cart_url }}" method="post">
-          <div class="shiprocket-headless" data-type="mini-cart"></div>
           <button type="submit" name="checkout" class="pr-cart-drawer__checkout" data-cart-drawer-checkout>
             {% render 'buy-now-content', label: 'PROCEED TO CHECKOUT' %}
           </button>

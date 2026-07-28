@@ -93,9 +93,11 @@
   .pr-cart-drawer__checkout .pr-buy-now__arrow {
     color: #fff;
   }
-  body.pr-sr-ready button[name='checkout']:not(.cart-page__buy),
+  .shiprocket-headless[data-type='mini-cart'] {
+    display: none !important;
+  }
+  body.pr-sr-ready button[name='checkout']:not(.cart-page__buy):not(.pr-cart-drawer__checkout),
   body.pr-sr-ready .pdp-buy,
-  body.pr-sr-ready .pr-cart-drawer__checkout,
   body.pr-sr-ready .shopify-payment-button__button.shopify-payment-button__button--unbranded {
     display: none !important;
   }

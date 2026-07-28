@@ -10,11 +10,13 @@
       height="22"
       aria-hidden="true"
     >
-    <span class="pr-buy-now__arrow" aria-hidden="true">
-      <svg viewBox="0 0 11 17" width="11" height="17" focusable="false" aria-hidden="true">
-        <path d="M1.75 1.75 8.25 8.5 1.75 15.25" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </span>
+    {%- if show_arrow != false -%}
+      <span class="pr-buy-now__arrow" aria-hidden="true">
+        <svg viewBox="0 0 11 17" width="11" height="17" focusable="false" aria-hidden="true">
+          <path d="M1.75 1.75 8.25 8.5 1.75 15.25" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    {%- endif -%}
   </span>
   <span class="pr-buy-now__powered" aria-hidden="true">
     <span class="pr-buy-now__powered-by">Powered By</span>

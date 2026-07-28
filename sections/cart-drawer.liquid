@@ -188,7 +188,7 @@
         <a href="{{ routes.cart_url }}" class="pr-cart-drawer__view">View cart</a>
         <form action="{{ routes.cart_url }}" method="post">
           <button type="submit" name="checkout" class="pr-cart-drawer__checkout" data-cart-drawer-checkout>
-            {% render 'buy-now-content', label: 'PROCEED TO CHECKOUT' %}
+            {% render 'buy-now-content', show_arrow: false %}
           </button>
         </form>
       </footer>

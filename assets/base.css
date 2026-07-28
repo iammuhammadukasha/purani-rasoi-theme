@@ -2772,9 +2772,10 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
   width: 100%;
-  height: 2.95rem;
+  height: 4.75rem;
+  min-height: 4.75rem;
+  padding: 0.35rem 0.85rem;
   border-radius: var(--radius-8);
   border: none;
   background: var(--pr-gold) !important;
@@ -2786,10 +2787,64 @@ a {
   text-transform: uppercase;
   margin-bottom: 0;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .pdp-buy .material-symbols-outlined {
   font-size: 1.1rem;
+}
+
+/* Shared Buy Now layout: label + UPI + arrow + Powered by Shiprocket */
+.pr-buy-now {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  width: 100%;
+  line-height: 1.1;
+}
+
+.pr-buy-now__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.pr-buy-now__label {
+  white-space: nowrap;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.pr-buy-now__upi {
+  width: 56px;
+  height: 22px;
+  max-width: 56px;
+  max-height: 22px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
+.pr-buy-now__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.pr-buy-now__powered {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  opacity: 0.88;
+  white-space: nowrap;
 }
 
 .pdp-buy__upi {
@@ -7251,7 +7306,8 @@ footer.site-footer.mh-footer {
 .pdp-ctas .pdp-add,
 .pdp-ctas .pdp-buy {
   width: 100%;
-  height: 3rem;
+  height: 4.75rem;
+  min-height: 4.75rem;
 }
 
 .pdp-features {
@@ -7849,7 +7905,8 @@ footer.site-footer.mh-footer {
   .pdp-ctas .pdp-buy,
   .pdp-add,
   .pdp-buy {
-    height: 3.4rem;
+    height: 4.75rem;
+    min-height: 4.75rem;
     font-size: 1rem;
   }
 
@@ -7857,9 +7914,11 @@ footer.site-footer.mh-footer {
     font-size: 1.2rem;
   }
 
-  .pdp-buy__upi {
+  .pr-buy-now__upi {
     width: 48px;
     height: 19px;
+    max-width: 48px;
+    max-height: 19px;
   }
 
   .pdp-trust__item {
@@ -8089,7 +8148,8 @@ footer.site-footer.mh-footer {
   .pdp-ctas .pdp-buy,
   .pdp-add,
   .pdp-buy {
-    height: 3.75rem;
+    height: 4.75rem;
+    min-height: 4.75rem;
     font-size: 1.05rem;
     border-radius: 10px;
   }
@@ -8098,9 +8158,11 @@ footer.site-footer.mh-footer {
     font-size: 1.25rem;
   }
 
-  .pdp-buy__upi {
+  .pr-buy-now__upi {
     width: 52px;
     height: 21px;
+    max-width: 52px;
+    max-height: 21px;
   }
 
   .pdp-trust {
